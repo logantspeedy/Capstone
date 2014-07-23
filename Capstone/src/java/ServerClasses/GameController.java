@@ -1,47 +1,45 @@
-package server;
+package serverClasses;
 
 import java.util.ArrayList;
 
 public class GameController {
+	
+	private String currentPlayer;		
+	private ArrayList<String> playerList;	
+	
+	public GameController(String[] players){
+		
+		currentPlayer = null;		
+		playerList = new ArrayList();			
+		
+		for(int i = 0;i < players.length; i++){
+			playerList.add(players[i]);
+		}		
+	}
 
-	/**
-	 * @param args
-	 */
-	private static String currentPlayer=null;
-	public static void main(String[] args) {
-		int numberPlayers = args.length;
-		ArrayList<String> players = new ArrayList();
-		for(int x=0;x<numberPlayers;x++){
-			players.add(args[x]);
-		}
-		
-		//testing stuff ***********
-		System.out.println(currentPlayer);
-		nextPlayer(players);
-		System.out.println(currentPlayer);
-		nextPlayer(players);
-		System.out.println(currentPlayer);
-		nextPlayer(players);
-		System.out.println(currentPlayer);
-		nextPlayer(players);
-		System.out.println(currentPlayer);
-		nextPlayer(players);
-		System.out.println(currentPlayer);
-		// **************
-		
+	public String getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(String currentPlayer) {
+		this.currentPlayer = currentPlayer;
 	}
 	
-	private static void nextPlayer(ArrayList<String> players)
+	/** 
+	 * @param players, ArrayList of players.
+	 * @return Next player in ArrayList, returns 1st player if at end of the ArrayList.
+	 */
+	public String nextPlayer()
 	{
-		int playerPos=0;
+		int playerPos = 0;		
 		if(currentPlayer==null)
 		{
-			String returnPlayer = players.get(playerPos);
-			currentPlayer= returnPlayer;			
+			currentPlayer = playerList.get(playerPos);
+			return currentPlayer;						
 		}
 		
-		playerPos=players.indexOf(currentPlayer);
-		if(playerPos<(players.size()-1))
+		playerPos=playerList.indexOf(currentPlayer);
+		if(playerPos<(playerList.size()-1))
 		{
 			playerPos++;
 		}
@@ -49,8 +47,8 @@ public class GameController {
 		{
 			playerPos=0;
 		}
-		String returnPlayer = players.get(playerPos);
-		currentPlayer= returnPlayer;
-	}
-
+		currentPlayer = playerList.get(playerPos);
+		return currentPlayer;
+		
+	}	
 }

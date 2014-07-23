@@ -28,7 +28,9 @@ public class Attack {
     * step 5 run attacks
     * now loop x from 1-3 and compare attackersDice[x] and deffendersDice[x] 
     * the larger one is left as its dice roll and the smaller is chaged to -2
-    * now loop through each list and for each possitive number
+    * now loop through each list and for each possitive number add 1 to the country troop count
+    * step 6 check defendeing country has more than 0 armies in it
+    * if it doesnt attacking player gains control of it and move all but 1 of attacking countries armies into it
  
     */
     }

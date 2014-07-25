@@ -17,7 +17,7 @@ public class Game {
 	private int turnStage;
 	
 	public Game(String[] players){
-		
+		//Where initial board state will be hardcoded?
 		currentPlayer = null;		
 		playerList = new ArrayList();	
 		for(int i = 0;i < players.length; i++){
@@ -99,19 +99,28 @@ public class Game {
 	 * @return updated board.
 	 */
 	public Board reinforce(String territory, int troops){
-		board.changeTroops(territory, troops);
+		if(board.getControllingPlayer(territory) == currentPlayer){
+			board.changeTroops(territory, troops);
+		}
 		return board;
 	}
 	
 	/**	  
 	 * Moves troops from startTerritory to targetTerritoy
-	 * @param startTerritory/
+	 * @param startTerritory
 	 * @param targetTerritory
 	 * @param troops
 	 * @return updated board.
 	 */
 	public Board fortify(String startTerritory, String targetTerritory, int troops){
-		board.fortify(startTerritory, targetTerritory, troops);
+		//Check to see if player controlls both territories.
+		if(board.getControllingPlayer(startTerritory) == currentPlayer &&
+				board.getControllingPlayer(targetTerritory) == currentPlayer){
+			//Check to see if startTerritory has enough troops to transfer.
+			if(board.getTroops(startTerritory) > troops){
+				board.fortify(startTerritory, targetTerritory, troops);	
+			}
+		}				
 		return board;
 	}	
 	/**
@@ -127,11 +136,11 @@ public class Game {
 		int[] dRolls;
 		
 		//Attack logic.
-		if(board.isAdj(attackingTerritory, defendingTerritory)){
-			//Territories are adjacent.
+		//Territories are adjacent check.
+		if(board.isAdj(attackingTerritory, defendingTerritory)){		
+			//Territories are controlled by different players check.
 			if(board.getControllingPlayer(attackingTerritory) == currentPlayer
-					&& board.getControllingPlayer(defendingTerritory) != currentPlayer){
-				//Territories are controlled by different players.
+					&& board.getControllingPlayer(defendingTerritory) != currentPlayer){				
 				//Work out how large each army is.
 				aArmy = (aArmy > 3)?3:(aArmy - 1);
 				aArmy = (aArmy == 0)?1:aArmy;
@@ -151,7 +160,8 @@ public class Game {
 					else if(aRolls[i] < dRolls[i]){
 						aRolls[i] = -2;
 					}
-					else if(aRolls[i] == dRolls[i]){						
+					else if(aRolls[i] == dRolls[i]){
+						aRolls[i] = -2;
 					}
 				}
 			}
@@ -166,7 +176,7 @@ public class Game {
 	 * @param armySize
 	 * @return a sorted (low to high) array.
 	 */
-	public int[] rollDice(int armySize){		
+	private int[] rollDice(int armySize){		
 		int[] rolls = new int[]{-1, -1, -1};
 		//Creates dice roll data.
 		for(int i  = 0; i < armySize; i++){

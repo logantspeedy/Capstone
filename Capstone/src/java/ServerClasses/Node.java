@@ -1,5 +1,8 @@
-package server;
-
+package serverClasses;
+/**
+ * @author Patrick
+ * Node class to serve as a data structure for the board.
+ */
 public class Node {
 	private String territoy;
 	private String controllingPlayer;

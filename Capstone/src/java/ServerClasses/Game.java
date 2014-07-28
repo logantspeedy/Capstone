@@ -5,9 +5,7 @@ package serverClasses;
  */
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Random;
+import java.util.Arrays;;
 
 public class Game {
 	
@@ -19,12 +17,32 @@ public class Game {
 	public Game(String[] players){
 		//Where initial board state will be hardcoded?
 		currentPlayer = null;		
-		playerList = new ArrayList();	
+		playerList = new ArrayList();
+		createNewBoard();
 		for(int i = 0;i < players.length; i++){
 			playerList.add(players[i]);
 		}		
 	}
-
+	/**
+	 * Creates a new board of standard places. With no troops and no players.
+	 */
+	public void createNewBoard(){
+		ArrayList<Node> nodes = new ArrayList();
+		Node castleBlack = new Node("Castle Black", null, "The North", 0, new String[]{"Winterfell", "Crasters Keep"});
+		Node winterfell = new Node("Winterfell", null, "The North", 0, new String[]{"The Twins", "Crasters Keep"});
+		Node theTwins = new Node("The Twins", null, "Riverlands", 0, new String[]{"Winterfell", "The Eyrie", "Iron Islands"});
+		Node theEyrie = new Node("The Eyrie", null, "The Vale", 0, new String[]{"The Twins", "Kings Landing"});
+		nodes.add(castleBlack);
+		nodes.add(winterfell);
+		nodes.add(theTwins);
+		nodes.add(theEyrie);
+		board.setBoard(nodes);
+	}
+	
+	public void setControllingPlayer(String territory, String player){
+		board.changeController(territory, player);
+	}
+	
 	public Board getBoard() {
 		return board;
 	}

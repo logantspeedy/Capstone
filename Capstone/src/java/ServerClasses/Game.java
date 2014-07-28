@@ -112,6 +112,20 @@ public class Game {
 	
 	//functions that control the core moves of the game
 	//***********************************************************************
+	/**
+	 * Initial stage of the game where players claim territories.
+	 * Changes control of the territory to player and adds one troop. 
+	 * @param territory
+	 * @param player
+	 * @return Updated board.
+	 */
+	public Board claimTerritory(String territory, String player){
+		if(board.getNode(territory).getControllingPlayer() == null){
+			board.changeController(territory, player);
+			board.changeTroops(territory, 1);
+		}
+		return board;
+	}
 	
 	/**
 	 * Adds troops to territory.
@@ -198,7 +212,8 @@ public class Game {
 		//Territories not adjacent, can't attack.
 		else{}	
 		return board;
-	}
+	}	
+	
 	/**Dice roll for calculating attacks. 
 	 * @param armySize
 	 * @return a sorted (low to high) array.

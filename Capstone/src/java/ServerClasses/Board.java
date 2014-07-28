@@ -19,6 +19,9 @@ public class Board {
 		this.nodes = nodes;		
 	}
 	
+	public Board(){			
+	}
+	
 	public ArrayList<Node> getBoard(){
 		return nodes;
 	}

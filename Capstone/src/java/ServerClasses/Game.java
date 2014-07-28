@@ -18,6 +18,7 @@ public class Game {
 		//Where initial board state will be hardcoded?
 		currentPlayer = null;		
 		playerList = new ArrayList();
+		board = new Board();
 		createNewBoard();
 		for(int i = 0;i < players.length; i++){
 			playerList.add(players[i]);

@@ -11,15 +11,15 @@ public class Game {
 	
 	private Board board;	
 	private String currentPlayer;		
-	private ArrayList<String> playerList;	
+	private ArrayList<String> playerList;
+	private int playerPos;
 	private int turnStage;
 	
 	public Game(String[] players){
 		//Where initial board state will be hardcoded?
 		currentPlayer = null;		
 		playerList = new ArrayList();
-		currentPlayer = players[0];
-		turnStage = 1;
+		playerPos = 0;
 		board = new Board();
 		createNewBoard();
 		for(int i = 0;i < players.length; i++){
@@ -58,15 +58,15 @@ public class Game {
 		return currentPlayer;
 	}
 
-	public void setCurrentPlayer(String currentPlayer) {
+	public void setCurrentPlayer(String currentPlayer) {		
 		this.currentPlayer = currentPlayer;
+		playerPos = playerList.indexOf(currentPlayer);
 	}	
 	/** 	 
 	 * @return Next player in ArrayList, returns 1st player if at end of the ArrayList.
 	 */
 	public String nextPlayer()
-	{
-		int playerPos = 0;		
+	{				
 		if(currentPlayer==null)
 		{
 			currentPlayer = playerList.get(playerPos);
@@ -149,24 +149,16 @@ public class Game {
 	 * @param attackingTerritory
 	 * @param defendingTerritory
 	 */
-	public Board attack(String attackingTerritory, String defendingTerritory){		
+	public Board attack(String attackingTerritory, String defendingTerritory, int aArmy, int dArmy){		
 		//Create variables required to calculate an attack.		
-		int aArmy = board.getTroops(attackingTerritory);
-		int dArmy = board.getTroops(defendingTerritory);
 		int[] aRolls;
-		int[] dRolls;
-		
+		int[] dRolls;		
 		//Attack logic.
 		//Territories are adjacent check.
 		if(board.isAdj(attackingTerritory, defendingTerritory)){		
 			//Territories are controlled by different players check.
 			if(board.getControllingPlayer(attackingTerritory) == currentPlayer
 					&& board.getControllingPlayer(defendingTerritory) != currentPlayer){				
-				//Work out how large each army is.
-				aArmy = (aArmy > 3)?3:(aArmy - 1);
-				aArmy = (aArmy == 0)?1:aArmy;
-				dArmy = (dArmy > 3)?3:(dArmy - 1);
-				dArmy = (dArmy == 0)?1:dArmy;
 				//Change troops in each territory.
 				board.changeTroops(attackingTerritory, -aArmy);
 				board.changeTroops(defendingTerritory, -dArmy);
@@ -174,9 +166,10 @@ public class Game {
 				aRolls = rollDice(aArmy);
 				dRolls = rollDice(dArmy);
 				//Compare results.
-				for(int i = 2; i > -1; i--){
+				//2 - dArmy because only need to compare as many dice as the defenders rolled (1 or 2).				
+				for(int i = 2; i > (2 - ((aArmy > dArmy)?dArmy:aArmy)); i--){
 					if(aRolls[i] > dRolls[i]){
-						dRolls[i] = -2;
+						dRolls[i] = -2;						
 					}
 					else if(aRolls[i] < dRolls[i]){
 						aRolls[i] = -2;
@@ -184,6 +177,19 @@ public class Game {
 					else if(aRolls[i] == dRolls[i]){
 						aRolls[i] = -2;
 					}
+				}
+				//Reduce army sizes.
+				for(int i = 0; i < 3; i++){
+					if(aRolls[i] == -2){
+						aArmy--;
+					}
+					else if(dRolls[i] == -2){
+						dArmy--;
+					}
+				}
+				//Check to see if player now controls territory.
+				if(dArmy == 0 && board.getTroops(defendingTerritory) == 0){
+					board.changeController(defendingTerritory, currentPlayer);
 				}
 			}
 			//Territories controlled by same player.

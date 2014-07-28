@@ -6,13 +6,19 @@
 
 package API;
 
+import ServerClasses.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.json.JSONArray;
 
 /**
  *
@@ -73,6 +79,49 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        //board format: ArrayList<Node> nodes
+        //Node(String territory, String player, String continent, int troops, String[] adjacentNodes)
+        
+        response.setContentType("application/json");
+            
+        PrintWriter out = response.getWriter();
+        //possible requests: reinforce, attack, fortify, new board, 
+        
+        //new board: get given command + players. create new board using node and board class, create new session with id and new board, pass back the session id
+        //return: json of new board
+            
+        if(request.getParameter("command")== "newboard"){
+                //create new session
+                HttpSession session = request.getSession();
+                //create a new board class object
+                Board board = new Board();
+        
+                int players = Integer.parseInt(request.getParameter("players"));
+                
+                //create the new board for the correct amount of players
+                board.createNewBoard(players);
+                
+                //store it in the session
+                session.setAttribute("board", board);
+                //might as well store the number of players too for later use
+                session.setAttribute("players", players);
+                
+                //respond with the generated board as a json array
+                JSONArray boardJSON = new JSONArray(board.getBoard());
+                out.println(boardJSON);
+            }
+        
+
+        
+        //reinforce: get given command, the board id, player, area to place troops
+        //return: json of new board
+        
+        //attack: get given command, board id, player attacking, player to attack, territory
+        //return: json of new board
+        
+        //fortify: get given command, board id, player, area to place troops
+        //return: json of new board
         processRequest(request, response);
     }
 
@@ -83,7 +132,7 @@ public class MainServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "API for our risk";
     }// </editor-fold>
 
 }

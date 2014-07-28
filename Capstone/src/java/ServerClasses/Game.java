@@ -19,7 +19,10 @@ public class Game {
 	public Game(String[] players){
 		//Where initial board state will be hardcoded?
 		currentPlayer = null;		
-		playerList = new ArrayList();	
+		playerList = new ArrayList();
+                currentPlayer = players[0];
+                turnStage = 1;
+                        
 		for(int i = 0;i < players.length; i++){
 			playerList.add(players[i]);
 		}		

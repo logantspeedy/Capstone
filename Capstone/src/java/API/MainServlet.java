@@ -6,7 +6,8 @@
 
 package API;
 
-import ServerClasses.*;
+import serverClasses.*;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -86,34 +87,86 @@ public class MainServlet extends HttpServlet {
         response.setContentType("application/json");
             
         PrintWriter out = response.getWriter();
-        //possible requests: reinforce, attack, fortify, new board, 
-        
-        //new board: get given command + players. create new board using node and board class, create new session with id and new board, pass back the session id
-        //return: json of new board
-            
-        if(request.getParameter("command")== "newboard"){
-                //create new session
-                HttpSession session = request.getSession();
-                //create a new board class object
-                Board board = new Board();
-        
-                int players = Integer.parseInt(request.getParameter("players"));
-                
-                //create the new board for the correct amount of players
-                board.createNewBoard(players);
-                
-                //store it in the session
-                session.setAttribute("board", board);
-                //might as well store the number of players too for later use
-                session.setAttribute("players", players);
-                
-                //respond with the generated board as a json array
-                JSONArray boardJSON = new JSONArray(board.getBoard());
-                out.println(boardJSON);
-            }
+        //possible requests: reinforce, attack, fortify, new board, end turn
         
 
         
+        //create new session or get current session
+        HttpSession session = request.getSession();
+        
+        //new board: get given command + players. create new board using node and board class, create new session with id and new board, pass back the session id
+        //return: json of new board       
+        if(request.getParameter("command").equals("newboard")){
+
+                
+                //create a list of players 
+                int playerNumber;
+                
+                if (request.getParameter("players") == null){
+                    playerNumber = 2;
+                }              
+                else{
+                    playerNumber = Integer.parseInt(request.getParameter("players"));
+                }
+                
+                String[] playerArray = new String[6];
+                while(playerNumber !=0){
+                    String player = "Player " + playerNumber;
+                    playerArray[playerNumber -1] = player;
+                    playerNumber -=1;
+                }
+
+                //create the game object
+                Game game = new Game(playerArray);
+
+                Board board = game.getBoard();
+                Gson gson = new Gson();
+                String json = gson.toJson(board);
+                //converting an object that has the attribute which is a list of nodes. nodes are objects with attributes: String territory, String player, String continent, int troops, String[] adjacentNodes
+                //returned should be {nodes: 
+                
+                
+                //store it in the session
+                session.setAttribute("board", json);
+                //might as well store the number of players too for later use
+                session.setAttribute("players", playerNumber);
+                
+                //respond with the generated board as a json array
+                out.println(json);
+            }
+        
+        else if(request.getParameter("command").equals("reinforce")){
+            if(session.getAttribute("board") == null){
+                out.println("Error: No board found in session");
+                return;
+            }
+            Gson gson = new Gson();
+            //gson.fromJson(session.getAttribute("board"), Board.class);
+            out.println(session.getAttribute("board"));
+            out.println("reinforce");
+        }
+
+       else if(request.getParameter("command").equals("attack")){
+            if(session.getAttribute("board") == null){
+                out.println("Error: No board found in session");
+                return;
+            }
+            out.println("attack");
+        }
+        else if(request.getParameter("command").equals("fortify")){
+            if(session.getAttribute("board") == null){
+                out.println("Error: No board found in session");
+                return;
+            }
+            out.println("fortify");
+        }
+        else if(request.getParameter("command").equals("end")){
+            if(session.getAttribute("board") == null){
+                out.println("Error: No board found in session");
+                return;
+            }
+            out.println("end turn");
+        }
         //reinforce: get given command, the board id, player, area to place troops
         //return: json of new board
         
@@ -122,7 +175,7 @@ public class MainServlet extends HttpServlet {
         
         //fortify: get given command, board id, player, area to place troops
         //return: json of new board
-        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     /**

@@ -13,5 +13,17 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        <form action="http://localhost:8080/Capstone/MainServlet" method="POST">
+         Username: <input type="text" name="command">
+        <input type="submit" value="Submit">
+        </form>   
+        
+        
+        <%
+
+           out.write("<br/>hey");
+            
+            
+         %>
     </body>
 </html>

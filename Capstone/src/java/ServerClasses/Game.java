@@ -10,10 +10,11 @@ import java.util.Arrays;;
 public class Game {
 	
 	private Board board;	
-	private String currentPlayer;		
-	private ArrayList<String> playerList;
+	private Player currentPlayer;		
+	private ArrayList<Player> playerList;
 	private int playerPos;
 	private int turnStage;
+	private int[] startingTroops = new int[]{40, 35, 30, 25, 20};
 	
 	public Game(String[] players){
 		//Where initial board state will be hardcoded?
@@ -21,9 +22,11 @@ public class Game {
 		playerList = new ArrayList();
 		playerPos = 0;
 		board = new Board();
+		int troops = startingTroops[players.length - 1];
 		createNewBoard();
 		for(int i = 0;i < players.length; i++){
-			playerList.add(players[i]);
+			Player player = new Player(players[i], troops);
+			playerList.add(player);
 		}		
 	}
 	/**
@@ -55,12 +58,16 @@ public class Game {
 	}
 	
 	public String getCurrentPlayer() {
-		return currentPlayer;
+		return currentPlayer.getName();
+	}
+	
+	public ArrayList<Player> getPlayerList(){
+		return playerList;
 	}
 
-	public void setCurrentPlayer(String currentPlayer) {		
-		this.currentPlayer = currentPlayer;
-		playerPos = playerList.indexOf(currentPlayer);
+	public void setCurrentPlayer(Player player) {		
+		this.currentPlayer = player;		
+		playerPos = playerList.indexOf(player);
 	}	
 	/** 	 
 	 * @return Next player in ArrayList, returns 1st player if at end of the ArrayList.
@@ -70,10 +77,10 @@ public class Game {
 		if(currentPlayer==null)
 		{
 			currentPlayer = playerList.get(playerPos);
-			return currentPlayer;						
+			return currentPlayer.getName();						
 		}
 		
-		playerPos=playerList.indexOf(currentPlayer);
+		playerPos = playerList.indexOf(currentPlayer);
 		if(playerPos<(playerList.size()-1))
 		{
 			playerPos++;
@@ -83,7 +90,7 @@ public class Game {
 			playerPos=0;
 		}
 		currentPlayer = playerList.get(playerPos);
-		return currentPlayer;		
+		return currentPlayer.getName();		
 	}	
 	
 	private void NewTurn()
@@ -134,7 +141,7 @@ public class Game {
 	 * @return updated board.
 	 */
 	public Board reinforce(String territory, int troops){
-		if(board.getControllingPlayer(territory) == currentPlayer){
+		if(board.getControllingPlayer(territory) == currentPlayer.getName()){
 			board.changeTroops(territory, troops);
 		}
 		return board;
@@ -149,8 +156,8 @@ public class Game {
 	 */
 	public Board fortify(String startTerritory, String targetTerritory, int troops){
 		//Check to see if player controlls both territories.
-		if(board.getControllingPlayer(startTerritory) == currentPlayer &&
-				board.getControllingPlayer(targetTerritory) == currentPlayer){
+		if(board.getControllingPlayer(startTerritory) == currentPlayer.getName() &&
+				board.getControllingPlayer(targetTerritory) == currentPlayer.getName()){
 			//Check to see if startTerritory has enough troops to transfer.
 			if(board.getTroops(startTerritory) > troops){
 				board.fortify(startTerritory, targetTerritory, troops);	
@@ -171,8 +178,8 @@ public class Game {
 		//Territories are adjacent check.
 		if(board.isAdj(attackingTerritory, defendingTerritory)){		
 			//Territories are controlled by different players check.
-			if(board.getControllingPlayer(attackingTerritory) == currentPlayer
-					&& board.getControllingPlayer(defendingTerritory) != currentPlayer){				
+			if(board.getControllingPlayer(attackingTerritory) == currentPlayer.getName()
+					&& board.getControllingPlayer(defendingTerritory) != currentPlayer.getName()){				
 				//Change troops in each territory.
 				board.changeTroops(attackingTerritory, -aArmy);
 				board.changeTroops(defendingTerritory, -dArmy);
@@ -203,7 +210,7 @@ public class Game {
 				}
 				//Check to see if player now controls territory.
 				if(dArmy == 0 && board.getTroops(defendingTerritory) == 0){
-					board.changeController(defendingTerritory, currentPlayer);
+					board.changeController(defendingTerritory, currentPlayer.getName());
 				}
 			}
 			//Territories controlled by same player.

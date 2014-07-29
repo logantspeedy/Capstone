@@ -57,7 +57,7 @@ public class Game {
 		this.board = board;
 	}
 	
-	public String getCurrentPlayer() {
+	public String getCurrentPlayer() {		
 		return currentPlayer.getName();
 	}
 	
@@ -65,10 +65,19 @@ public class Game {
 		return playerList;
 	}
 
-	public void setCurrentPlayer(Player player) {		
-		this.currentPlayer = player;		
-		playerPos = playerList.indexOf(player);
+	public void setCurrentPlayer(String player) {				
+		playerPos = playerList.indexOf(getPlayer(player));
+		currentPlayer = playerList.get(playerPos);
 	}	
+	
+	public Player getPlayer(String player){
+		for(Player p : playerList){
+			if(p.getName() == player){
+				return p;
+			}
+		}
+		return null;
+	}
 	/** 	 
 	 * @return Next player in ArrayList, returns 1st player if at end of the ArrayList.
 	 */

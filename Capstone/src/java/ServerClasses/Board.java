@@ -1,8 +1,15 @@
-package ServerClasses;
+package serverClasses;
+
+/**
+ * @author Patrick
+ * Board class serves as a data structure for the game.
+ * Board will change elements of a node with the methods:
+ * changeTroops, changeController.
+ * Board will offer methods for retrieving data from nodes.
+ * Such as getAdjNodes. 
+ */
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Board {
 	
@@ -11,9 +18,10 @@ public class Board {
 	public Board(ArrayList<Node> nodes){
 		this.nodes = nodes;		
 	}
-        public Board() {
-            ArrayList<Node> nodes = null;
-        }	
+	
+	public Board(){			
+	}
+	
 	public ArrayList<Node> getBoard(){
 		return nodes;
 	}
@@ -29,65 +37,47 @@ public class Board {
 			}
 		}
 		return null;
-	}
+	}	
 	
-	public void changeTroops(String territory, int change){
-		Node node = getNode(territory);		
-		node.setTroops(node.getTroops() + change);
-	}
-	
-	public void changeControler(String territory, String newControler){
+	public void changeController(String territory, String newControler){
 		Node node = getNode(territory);	
 		node.setControllingPlayer(newControler);
+	}
+	
+	public void fortify(String startTerritory, String targetTerritory, int troops){
+		Node startNode = getNode(startTerritory);
+		Node targetNode = getNode(targetTerritory);
+		startNode.setTroops(startNode.getTroops() - troops);
+		targetNode.setTroops(targetNode.getTroops() + troops);
 	}
 	
 	public String[] getAdjNodes(String territory){
 		Node node = getNode(territory);
 		return node.getAdjacentNodes();
 	}
-        
-        public void createNewBoard(int players){
-                //FUNCTION FOR GENERATING THE NEW BOARD
-            
-            
-                //this is the default hasbro rules for amount of troops per player, can change this later
-                int troopNumber = 0;
-                if (players == 2){
-                    troopNumber = 25;
-                }
-                else if (players == 3){
-                    troopNumber = 35;
-                }
-                else if (players == 4){
-                    troopNumber = 30;
-                }
-                else if (players == 5){
-                    troopNumber = 25;
-                }
-                else if (players == 6){
-                    troopNumber = 20;
-                }    
-                
-                //this is for each territory
-                //we have a choice of either having a default for territories given to each player or generating it randomly, or it being picked. the difficulty of implementation increasing respectively
-                Node castleBlack = new Node("Castle Black", "Player 1", "North of The Wall", troopNumber, null);
-                //generate the surrounding nodes
-                castleBlack.generateAdjacentNodes();
-               
-                //there will be many more of these to come, but map needs to be finalised
-                
-                //put them all into a list
-                List<Node> nodeList = Arrays.asList(castleBlack);
-                
-                
-                
-                
-                
-                //give the list to the board to create
-                this.setBoard((ArrayList<Node>) nodeList);    
-                
-                //new board generated
-                return; 
-        }
-
+	
+	public String getControllingPlayer(String territory){
+		Node node = getNode(territory);
+		return node.getControllingPlayer();
+	}
+	
+	public int getTroops(String territory){
+		Node node = getNode(territory);
+		return node.getTroops();
+	}
+	
+	public void changeTroops(String territory, int troops){
+		Node node = getNode(territory);		
+		node.setTroops(node.getTroops() + troops);
+	}
+	
+	public boolean isAdj(String territoryA, String territoryB){				
+		String[] adjNodes = getAdjNodes(territoryA);
+		for(int i = 0; i < adjNodes.length; i++){
+			if(adjNodes[i] == territoryB){
+				return true;
+			}
+		}
+		return false;
+	}
 }

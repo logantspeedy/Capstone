@@ -1,5 +1,8 @@
-package ServerClasses;
-
+package serverClasses;
+/**
+ * @author Patrick
+ * Node class to serve as a data structure for the board.
+ */
 public class Node {
 	private String territoy;
 	private String controllingPlayer;
@@ -7,7 +10,7 @@ public class Node {
 	private int troops;
 	private String[] adjacentNodes;
 
-        public Node(String territory, String player, String continent, int troops, String[] adjacentNodes){
+	public Node(String territory, String player, String continent, int troops, String[] adjacentNodes){
 		this.setTerritoy(territory);
 		this.setControllingPlayer(player);
 		this.setContinent(continent);
@@ -53,25 +56,5 @@ public class Node {
 
 	public String getContinent() {
 		return continent;
-	}
-        
-
-        public void generateAdjacentNodes(){  
-                //FUNCTION FOR GENERATING ADJACENT NODES
-            
-                //need a case for every territory
-                if (this.getTerritoy() == "Castle Black"){
-                    //set the adjacent nodes depending on the territory (will need to look at map and finalise later)
-                    String[] adjacentNodes = {"Craster's Keep", "Fist of the First Men"};
-                }
-                else{
-                    String[] adjacentNodes = null;
-                }
-                
-                //set that shit 
-                this.setAdjacentNodes(adjacentNodes);
-                
-                //done generating adjacent nodes
-                return;
-        }
+	}	
 }

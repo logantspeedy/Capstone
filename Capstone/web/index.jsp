@@ -39,13 +39,21 @@ function setValue(i){
     window.alert(i.territory);
     }
     
+function hover(){
+    $('#tooltip').hide();
+    }
+  
+    
  var CastleBlack = {territory:"Castle Black",continent:"The North",troops:10,adjacentNodes:["Winterfell"]};
  var Winterfell = {territory:"Winterfell",continent:"The North",troops:20,adjacentNodes:["Castle Black","Crasters Keep"]};
  var CrastersKeep = {territory:"Crasters Keep",continent:"The North",troops:15,adjacentNodes:["Winterfell"]};
+ 
 </script>
+<div id="tooltip">test text</div>
+
 
 <map name="shape1">
-<area href="" onClick="setValue(CastleBlack)" color="blue" shape="poly" coords="210,40,196,28,171,23,145,24,112,29,106,43,105,54,98,56,58,52,44,54,33,83,29,107,45,144,46,148,165,192,175,205,197,140,206,84,207,36" alt="">
+<area href="" onClick="setValue(CastleBlack)" onmouseover="hover()"color="blue" shape="poly" coords="210,40,196,28,171,23,145,24,112,29,106,43,105,54,98,56,58,52,44,54,33,83,29,107,45,144,46,148,165,192,175,205,197,140,206,84,207,36" alt="">
 <area href="" color="purple" shape="poly" coords="30,162,50,163,153,201,173,219,138,352,129,373,102,377,37,375,28,357,21,307,33,290,56,286,63,284,61,277,30,254,22,231,24,185,31,161" alt="">
 <area href="" color="red" shape="poly" coords="216,97,203,161,188,204,185,233,165,292,159,327,144,372,156,379,191,386,228,385,241,376,232,322,229,278,227,223,223,171,223,132,217,96" alt="">
 <area href="" color="orange" shape="poly" coords="238,213,260,208,282,195,296,188,323,185,360,194,368,203,376,227,376,272,375,286,370,289,358,289,357,294,365,305,368,329,365,357,361,370,351,379,331,383,310,382,251,364,249,344,241,307,239,210" alt="">

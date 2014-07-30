@@ -13,21 +13,31 @@ public class Game {
 	private Player currentPlayer;		
 	private ArrayList<Player> playerList;
 	private int playerPos;
-	private int turnStage;
-	private int[] startingTroops = new int[]{40, 35, 30, 25, 20};
+	private int phaseStage;
+	private int noOfTerritories;
+	private int claimCounter;
+	private int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
+	private String currentStage;
+	private String currentPhase;
+	private String[] possiblePhase = new String[]{"claim", "reinforce", "attack", "fortify"};
 	
 	public Game(String[] players){
 		//Where initial board state will be hardcoded?
+		currentPhase = possiblePhase[0];
+		currentStage = "setup";
 		currentPlayer = null;		
+		claimCounter = 0;
 		playerList = new ArrayList();
 		playerPos = 0;
 		board = new Board();
-		int troops = startingTroops[players.length - 1];
+		int troops = startingTroops[players.length - 2];
 		createNewBoard();
 		for(int i = 0;i < players.length; i++){
 			Player player = new Player(players[i], troops);
 			playerList.add(player);
-		}		
+		}	
+		nextPlayer();
+		noOfTerritories = board.getBoard().size();
 	}
 	/**
 	 * Creates a new board of standard places. With no troops and no players.
@@ -45,6 +55,9 @@ public class Game {
 		board.setBoard(nodes);
 	}
 	
+	//*****************************************************************
+	//********************Getters and setters**************************
+	//*****************************************************************
 	public void setControllingPlayer(String territory, String player){
 		board.changeController(territory, player);
 	}
@@ -78,6 +91,19 @@ public class Game {
 		}
 		return null;
 	}
+	
+	public String getPhase(){
+		return currentPhase;
+	}
+	
+	public String getStage(){
+		return currentStage;
+	}
+	
+	//*********************************************************************************
+	//**************Functions for getting next player/phase/turn***********************
+	//*********************************************************************************
+	
 	/** 	 
 	 * @return Next player in ArrayList, returns 1st player if at end of the ArrayList.
 	 */
@@ -102,31 +128,61 @@ public class Game {
 		return currentPlayer.getName();		
 	}	
 	
-	private void NewTurn()
-	{
+	private void newTurn(){
+		
 		//sets current player to new player
 		//set turn stage to 1
-		//updates each country with auto reinforcements (random reinforcements)
+		//updates each country with auto reinforcements (random reinforcements)..?
 		//decides quantity for reinforce stage of turn
-		
-		int x =0;
+		nextPlayer();
+		//In setup stage of game so need to check if progressing to next stage,
+		//or next phase.
+		if(currentStage == "setup"){
+			//Check for next phase.
+			if(currentPhase == "claim" && claimCounter != noOfTerritories){
+				phaseStage = 0;				
+			}
+			//Else ready to move to next phase: reinforce.
+			else if(claimCounter == noOfTerritories && currentPhase == "claim"){
+				phaseStage = 1;
+				currentPhase = "reinforce";
+			}
+			//Everyone out of armies and ready to move to gameStage.
+			else if(currentPhase == "reinforce" && outOfArmies()){
+				currentStage = "game";
+			}	
+		}	
+		//Moved on to the actual game play stage.
+		if(currentStage == "Game"){
+			//Assign troops for new turn.
+			currentPlayer.setArmy(calcNewArmy(currentPlayer));
+		}
 	}
 	
-	public void NextStage()
+	public void nextPhase()
 	{
 		// takes the game stage and increments it by 1, if stage 3 runs newturn()
 		// possibly sends a return packet telling the client the new game stage
-		if(turnStage==3)
-		{
-			NewTurn();	
+		// A few possibilities, have 2 different stages, setup has 2 phases, game has 3.
+		
+		//In setup stage therefore changes player after every phase.
+		//Only changes phase once which is calculated in nextTurn.
+		if(currentStage == "setup"){
+			newTurn();	
 		}
-		else
-		{
-			turnStage++;	
+		else{
+			if(phaseStage == 3){				
+				newTurn();
+				
+			}
+			else{
+				phaseStage++;	
+				currentPhase = possiblePhase[phaseStage];
+			}
 		}
 	}
-	
-	//functions that control the core moves of the game
+	//***********************************************************************
+	//********functions that control the core moves of the game**************
 	//***********************************************************************
 	/**
 	 * Initial stage of the game where players claim territories.
@@ -136,9 +192,13 @@ public class Game {
 	 * @return Updated board.
 	 */
 	public Board claimTerritory(String territory, String player){
-		if(board.getNode(territory).getControllingPlayer() == null){
-			board.changeController(territory, player);
-			board.changeTroops(territory, 1);
+		if(currentPhase == "claim"){
+			if(board.getNode(territory).getControllingPlayer() == null){
+				board.changeController(territory, player);
+				board.changeTroops(territory, 1);
+				claimCounter++;
+				nextPhase();
+			}
 		}
 		return board;
 	}
@@ -150,8 +210,18 @@ public class Game {
 	 * @return updated board.
 	 */
 	public Board reinforce(String territory, int troops){
-		if(board.getControllingPlayer(territory) == currentPlayer.getName()){
-			board.changeTroops(territory, troops);
+		//Check it's reinforce stage of the game.
+		if(currentPhase == "reinforce"){
+			//Check current player controls territory.
+			if(board.getControllingPlayer(territory) == currentPlayer.getName()){					
+				board.changeTroops(territory, troops);
+				currentPlayer.setArmy(currentPlayer.getArmy() - troops);
+				//Check to see if the player can't place any more troops, then move to next phase.
+				//Or still in setup phase then need to switch to next player.
+				if((currentStage == "game" && currentPlayer.getArmy() == 0) || currentStage == "setup"){
+					nextPhase();
+				}				
+			}			
 		}
 		return board;
 	}
@@ -229,6 +299,9 @@ public class Game {
 		else{}	
 		return board;
 	}	
+	//******************************************************
+	//*************Utility Functions************************
+	//******************************************************
 	
 	/**Dice roll for calculating attacks. 
 	 * @param armySize
@@ -243,5 +316,29 @@ public class Game {
 		//Sorts low to high.
 		Arrays.sort(rolls);			
 		return rolls;
+	}
+	/** Calculates how many troops a player gets at the start of their turn.
+	 *	For MVP just returning how many territories they control.
+	 * @param player Current player who just started a new turn.
+	 * @return int to add to their army.
+	 */
+	private int calcNewArmy(Player player){
+		ArrayList<Node> nodes = board.getBoard();
+		int newArmy = 0;
+		for(Node n : nodes){
+			if(n.getControllingPlayer().equals(player.getName())){
+				newArmy++;
+			}
+		}
+		return newArmy;
+	}
+	
+	private boolean outOfArmies(){
+		for(Player p : playerList){
+			if(p.getArmy() != 0){
+				return false;
+			}
+		}
+		return true;
 	}
 }

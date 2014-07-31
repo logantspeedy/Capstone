@@ -32,10 +32,11 @@ public class Board {
 	
 	public Node getNode(String territory){	
 		for(Node n : nodes){
-			if(n.getTerritoy() == territory){
+			if(n.getTerritoy().equals(territory)){
 				return n;
 			}
 		}
+                
 		return null;
 	}	
 	
@@ -74,7 +75,7 @@ public class Board {
 	public boolean isAdj(String territoryA, String territoryB){				
 		String[] adjNodes = getAdjNodes(territoryA);
 		for(int i = 0; i < adjNodes.length; i++){
-			if(adjNodes[i] == territoryB){
+			if(adjNodes[i].equals(territoryB)){
 				return true;
 			}
 		}

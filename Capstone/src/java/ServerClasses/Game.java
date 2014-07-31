@@ -22,7 +22,7 @@ public class Game {
 	final String[] possiblePhase = new String[]{"claim", "reinforce", "attack", "fortify"};
 	
 	public Game(String[] players){
-		//Where initial board state will be hardcoded?
+		
 		currentPhase = possiblePhase[0];
 		currentStage = "setup";
 		currentPlayer = null;		
@@ -98,6 +98,14 @@ public class Game {
 	
 	public String getStage(){
 		return currentStage;
+	}
+	
+	public void setPhase(String phase){
+		this.currentPhase = phase;
+	}
+	
+	public void setStage(String stage){
+		this.currentStage = stage;
 	}
 	
 	//*********************************************************************************
@@ -189,41 +197,59 @@ public class Game {
 	//***********************************************************************
 	/**
 	 * Initial stage of the game where players claim territories.
-	 * Changes control of the territory to player and adds one troop. 
+	 * Changes control of the territory to player and adds one troop, then hands turn over. 
+	 * 
+	 * Pre-Conditions: currentPhase = claim, territory.getControllingPlayer = "",
+	 * currentPlayer = player.	 
 	 * @param territory
 	 * @param player
 	 * @return Updated board.
 	 */
 	public Board claimTerritory(String territory, String player){
+		//Check to see if in the right phase.
 		if(currentPhase.equals("claim")){
+			//Check to see if node is uncontrolled.
 			if(board.getNode(territory).getControllingPlayer().isEmpty()){
-				board.changeController(territory, player);
-				board.changeTroops(territory, 1);
-				claimCounter++;
-				nextPhase();
+				//Check to see if its the current players turn.
+				if(currentPlayer.getName().equals(player)){
+					board.changeController(territory, player);
+					board.changeTroops(territory, 1);	
+					//Change players army size.
+					currentPlayer.setArmy(currentPlayer.getArmy() - 1);
+					claimCounter++;
+					//Automatically go to next players turn.
+					nextPhase();
+				}
 			}
 		}
 		return board;
 	}
 	
 	/**
-	 * Adds troops to territory.
+	 * Adds troops to territory. Goes to next phase if player has run out of troops
+	 * or game is in setup stage.
+	 * 
+	 * Pre-conditions: currentPhase = reinforce, territory.ControllingPlayer = currentPlayer,
+	 * currentPlayer.army >= troops.
 	 * @param territory
 	 * @param troops
 	 * @return updated board.
 	 */
 	public Board reinforce(String territory, int troops){
-		//Check it's reinforce stage of the game.
+		//Check it's reinforce phase of the game.
 		if(currentPhase.equals("reinforce")){
 			//Check current player controls territory.
-			if(board.getControllingPlayer(territory).equals(currentPlayer.getName())){					
-				board.changeTroops(territory, troops);
-				currentPlayer.setArmy(currentPlayer.getArmy() - troops);
-				//Check to see if the player can't place any more troops, then move to next phase.
-				//Or still in setup phase then need to switch to next player.
-				if((currentStage.equals("game") && currentPlayer.getArmy() == 0) || currentStage.equals("setup")){
-					nextPhase();
-				}				
+			if(board.getControllingPlayer(territory).equals(currentPlayer.getName())){		
+				//Check player has big enough army.
+				if(!(currentPlayer.getArmy() < troops)){
+					board.changeTroops(territory, troops);
+					currentPlayer.setArmy(currentPlayer.getArmy() - troops);
+					//Check to see if the player can't place any more troops, then move to next phase.
+					//Or still in setup phase then need to switch to next player.
+					if((currentStage.equals("game") && currentPlayer.getArmy() == 0) || currentStage.equals("setup")){
+						nextPhase();
+					}	
+				}
 			}			
 		}
 		return board;
@@ -231,6 +257,9 @@ public class Game {
 	
 	/**	  
 	 * Moves troops from startTerritory to targetTerritoy
+	 * 
+	 * Pre-conditions: start/targetTerritoy.controllingPlayer = currentPlayer,
+	 * startTerritory.getTroops > troops.
 	 * @param startTerritory
 	 * @param targetTerritory
 	 * @param troops
@@ -239,16 +268,22 @@ public class Game {
 	public Board fortify(String startTerritory, String targetTerritory, int troops){
 		//Check to see if player controlls both territories.
 		if(board.getControllingPlayer(startTerritory).equals(currentPlayer.getName()) &&
-				board.getControllingPlayer(targetTerritory).equals(currentPlayer.getName())){
+				board.getControllingPlayer(targetTerritory).equals(currentPlayer.getName())
+				&& board.getControllingPlayer(startTerritory).equals(currentPlayer.getName())){
 			//Check to see if startTerritory has enough troops to transfer.
-			if(board.getTroops(startTerritory) > troops){
+			if(board.getTroops(startTerritory) > troops){				
 				board.fortify(startTerritory, targetTerritory, troops);	
 			}
 		}				
 		return board;
 	}	
 	/**
-	 * NOT FINISHED
+	 * Calculates the attack then changes the troops for each territory accordingly
+	 * and changes controller if required.
+	 * 
+	 * Pre-conditions: attackingTerritory/defendingTerritory are adjacent, 
+	 * attackingTerritory.getController = currentPlayer, currentPhase = attack.
+	 * 
 	 * @param attackingTerritory
 	 * @param defendingTerritory
 	 */
@@ -258,48 +293,46 @@ public class Game {
 		int[] dRolls;		
 		//Attack logic.
 		//Territories are adjacent check.
-		if(board.isAdj(attackingTerritory, defendingTerritory)){		
-			//Territories are controlled by different players check.
-			if(board.getControllingPlayer(attackingTerritory).equals(currentPlayer.getName())
-					&& !board.getControllingPlayer(defendingTerritory).equals(currentPlayer.getName())){				
-				//Change troops in each territory.
-				board.changeTroops(attackingTerritory, -aArmy);
-				board.changeTroops(defendingTerritory, -dArmy);
-				//Generate Dice rolls.
-				aRolls = rollDice(aArmy);
-				dRolls = rollDice(dArmy);
-				//Compare results.
-				//2 - dArmy because only need to compare as many dice as the defenders rolled (1 or 2).				
-				for(int i = 2; i > (2 - ((aArmy > dArmy)?dArmy:aArmy)); i--){
-					if(aRolls[i] > dRolls[i]){
-						dRolls[i] = -2;						
+		if(currentPhase.equals("attack")){
+			if(board.isAdj(attackingTerritory, defendingTerritory)){		
+				//Territories are controlled by different players check.
+				if(board.getControllingPlayer(attackingTerritory).equals(currentPlayer.getName())
+						&& !board.getControllingPlayer(defendingTerritory).equals(currentPlayer.getName())){				
+					//Change troops in each territory.
+					board.changeTroops(attackingTerritory, -aArmy);
+					board.changeTroops(defendingTerritory, -dArmy);
+					//Generate Dice rolls.
+					aRolls = rollDice(aArmy);
+					dRolls = rollDice(dArmy);
+					//Compare results.
+					//2 - dArmy because only need to compare as many dice as the defenders rolled (1 or 2).				
+					for(int i = 2; i > (2 - ((aArmy > dArmy)?dArmy:aArmy)); i--){
+						if(aRolls[i] > dRolls[i]){
+							dRolls[i] = -2;						
+						}
+						else if(aRolls[i] < dRolls[i]){
+							aRolls[i] = -2;
+						}
+						else if(aRolls[i] == dRolls[i]){
+							aRolls[i] = -2;
+						}
 					}
-					else if(aRolls[i] < dRolls[i]){
-						aRolls[i] = -2;
+					//Reduce army sizes.
+					for(int i = 0; i < 3; i++){
+						if(aRolls[i] == -2){
+							aArmy--;
+						}
+						else if(dRolls[i] == -2){
+							dArmy--;
+						}
 					}
-					else if(aRolls[i] == dRolls[i]){
-						aRolls[i] = -2;
+					//Check to see if player now controls territory.
+					if(dArmy == 0 && board.getTroops(defendingTerritory) == 0){
+						board.changeController(defendingTerritory, currentPlayer.getName());
 					}
-				}
-				//Reduce army sizes.
-				for(int i = 0; i < 3; i++){
-					if(aRolls[i] == -2){
-						aArmy--;
-					}
-					else if(dRolls[i] == -2){
-						dArmy--;
-					}
-				}
-				//Check to see if player now controls territory.
-				if(dArmy == 0 && board.getTroops(defendingTerritory) == 0){
-					board.changeController(defendingTerritory, currentPlayer.getName());
-				}
-			}
-			//Territories controlled by same player.
-			else{}			
+				}							
+			}				
 		}
-		//Territories not adjacent, can't attack.
-		else{}	
 		return board;
 	}	
 	//******************************************************
@@ -335,7 +368,9 @@ public class Game {
 		}
 		return newArmy;
 	}
-	
+	/** 
+	 * @return true if all players armies == 0.
+	 */
 	private boolean outOfArmies(){
 		for(Player p : playerList){
 			if(p.getArmy() != 0){

@@ -259,22 +259,24 @@ public class Game {
 	 * Moves troops from startTerritory to targetTerritoy
 	 * 
 	 * Pre-conditions: start/targetTerritoy.controllingPlayer = currentPlayer,
-	 * startTerritory.getTroops > troops.
+	 * startTerritory.getTroops > troops, currentPhase = fortify.
 	 * @param startTerritory
 	 * @param targetTerritory
 	 * @param troops
 	 * @return updated board.
 	 */
 	public Board fortify(String startTerritory, String targetTerritory, int troops){
-		//Check to see if player controlls both territories.
-		if(board.getControllingPlayer(startTerritory).equals(currentPlayer.getName()) &&
-				board.getControllingPlayer(targetTerritory).equals(currentPlayer.getName())
-				&& board.getControllingPlayer(startTerritory).equals(currentPlayer.getName())){
-			//Check to see if startTerritory has enough troops to transfer.
-			if(board.getTroops(startTerritory) > troops){				
-				board.fortify(startTerritory, targetTerritory, troops);	
+		if(currentPhase.equals("fortify")){
+			//Check to see if player controlls both territories.
+			if(board.getControllingPlayer(startTerritory).equals(currentPlayer.getName()) &&
+					board.getControllingPlayer(targetTerritory).equals(currentPlayer.getName())
+					&& board.getControllingPlayer(startTerritory).equals(currentPlayer.getName())){
+				//Check to see if startTerritory has enough troops to transfer.
+				if(board.getTroops(startTerritory) > troops){				
+					board.fortify(startTerritory, targetTerritory, troops);	
+				}
 			}
-		}				
+		}
 		return board;
 	}	
 	/**

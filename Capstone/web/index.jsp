@@ -1,15 +1,9 @@
 <html>
 <head>
     
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-
-<script src="jquery.imagemapster.js"></script>
-
-
-
-
-
-
+    <!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src="jquery.imagemapster.js"></script>
 
 </head>
 <body>
@@ -17,30 +11,20 @@
 <img style="width:400px;height:400px;border:0;" id="shape1" src="images/shape1.gif" alt="shape1" usemap="#shape1">
 <input id="make-small" type="button" value="Make it small">
 <input id="make-big" type="button" value="Make it bigger">
-<input onClick="setSectionColours()" type="button" value="colour">
 <script>
 
 $(document).ready(function ()
 {
-	$('#shape1').mapster({
-        singleSelect : true,
-        mapKey: 'color',
-	fill : true,
-	fillOpacity : 1
-        });
+$('#shape1').mapster({
+singleSelect : true,
+render_highlight : { altImage : 'images/shape2.gif' },
+     mapKey: 'color',
+fill : true, altImage : 'images/shape3.gif',
+fillOpacity : 1
+});
 });
 
-function getTeamColour(playerNumber){
-    if (playerNumber === 1){return '528B8B'; }
-    else {return '660000'; }
-}
-
-function setSectionColours(){
-    $('#shape1').mapster({fillColor:getTeamColour(2)});
-
-}
-
- $('#shape1').mapster({ 
+ $('#shape1').mapster({
         mapKey: 'color',
         stroke: true,
         strokeWidth: 2,

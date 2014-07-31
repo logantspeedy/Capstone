@@ -16,10 +16,10 @@ public class Game {
 	private int phaseStage;
 	private int noOfTerritories;
 	private int claimCounter;
-	private int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
+	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
 	private String currentStage;
 	private String currentPhase;
-	private String[] possiblePhase = new String[]{"claim", "reinforce", "attack", "fortify"};
+	final String[] possiblePhase = new String[]{"claim", "reinforce", "attack", "fortify"};
 	
 	public Game(String[] players){
 		//Where initial board state will be hardcoded?
@@ -156,6 +156,7 @@ public class Game {
 		if(currentStage.equals("game")){
 			//Assign troops for new turn.
 			currentPlayer.setArmy(calcNewArmy(currentPlayer));
+			
 		}
 	}
 	
@@ -173,6 +174,8 @@ public class Game {
 		else{
 			if(phaseStage == 3){				
 				newTurn();
+				phaseStage = 1;
+				currentPhase = possiblePhase[phaseStage];
 				
 			}
 			else{

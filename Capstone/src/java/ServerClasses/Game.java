@@ -159,7 +159,8 @@ public class Game {
 			else if(currentPhase.equals("reinforce") && outOfArmies()){
 				currentStage = "game";
 			}
-			//If current player 
+			//If current player army = 0, change to a player still with an 
+			//army.
 			else while(currentPlayer.getArmy() == 0){
 				nextPlayer();
 			}
@@ -359,7 +360,7 @@ public class Game {
 	 * @param armySize
 	 * @return a sorted (low to high) array.
 	 */
-	protected int[] rollDice(int armySize){		
+	public int[] rollDice(int armySize){		
 		int[] rolls = new int[armySize];		
 		//Creates dice roll data.
 		for(int i  = 0; i < armySize; i++){

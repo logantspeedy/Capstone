@@ -158,7 +158,11 @@ public class Game {
 			//Everyone out of armies and ready to move to gameStage.
 			else if(currentPhase.equals("reinforce") && outOfArmies()){
 				currentStage = "game";
-			}	
+			}
+			//If current player 
+			else while(currentPlayer.getArmy() == 0){
+				nextPlayer();
+			}
 		}	
 		//Moved on to the actual game play stage.
 		if(currentStage.equals("game")){
@@ -259,14 +263,16 @@ public class Game {
 	 * Moves troops from startTerritory to targetTerritoy
 	 * 
 	 * Pre-conditions: start/targetTerritoy.controllingPlayer = currentPlayer,
-	 * startTerritory.getTroops > troops, currentPhase = fortify.
+	 * startTerritory.getTroops > troops, currentPhase = fortify, start and target
+	 * territories need to be adjacent.
 	 * @param startTerritory
 	 * @param targetTerritory
 	 * @param troops
 	 * @return updated board.
 	 */
 	public Board fortify(String startTerritory, String targetTerritory, int troops){
-		if(currentPhase.equals("fortify")){
+		//Check in right phase and territories are adjacent.
+		if(currentPhase.equals("fortify") && board.isAdj(startTerritory, targetTerritory)){
 			//Check to see if player controlls both territories.
 			if(board.getControllingPlayer(startTerritory).equals(currentPlayer.getName()) &&
 					board.getControllingPlayer(targetTerritory).equals(currentPlayer.getName())
@@ -277,6 +283,8 @@ public class Game {
 				}
 			}
 		}
+		//Go to next player.
+		nextPlayer();
 		return board;
 	}	
 	/**
@@ -288,24 +296,24 @@ public class Game {
 	 * 
 	 * @param attackingTerritory
 	 * @param defendingTerritory
+	 * @param aRolls
+	 * @param dRolls
 	 */
-	public Board attack(String attackingTerritory, String defendingTerritory, int aArmy, int dArmy){		
-		//Create variables required to calculate an attack.		
-		int[] aRolls;
-		int[] dRolls;		
-		//Attack logic.
+	public Board attack(String attackingTerritory, String defendingTerritory, int[] aRolls, int[] dRolls){				
 		//Territories are adjacent check.
 		if(currentPhase.equals("attack")){
 			if(board.isAdj(attackingTerritory, defendingTerritory)){		
 				//Territories are controlled by different players check.
 				if(board.getControllingPlayer(attackingTerritory).equals(currentPlayer.getName())
-						&& !board.getControllingPlayer(defendingTerritory).equals(currentPlayer.getName())){				
+						&& !board.getControllingPlayer(defendingTerritory).equals(currentPlayer.getName())){	
+					
+					//Work out army sizes from rolls.
+					int aArmy = aRolls.length;
+					int dArmy = dRolls.length;				
+										
 					//Change troops in each territory.
 					board.changeTroops(attackingTerritory, -aArmy);
-					board.changeTroops(defendingTerritory, -dArmy);
-					//Generate Dice rolls.
-					aRolls = rollDice(aArmy);
-					dRolls = rollDice(dArmy);
+					board.changeTroops(defendingTerritory, -dArmy);					
 					//Compare results.
 					//2 - dArmy because only need to compare as many dice as the defenders rolled (1 or 2).				
 					for(int i = 2; i > (2 - ((aArmy > dArmy)?dArmy:aArmy)); i--){
@@ -328,9 +336,15 @@ public class Game {
 							dArmy--;
 						}
 					}
-					//Check to see if player now controls territory.
+					//Check to see if player now controls territory and change accordingly.
 					if(dArmy == 0 && board.getTroops(defendingTerritory) == 0){
 						board.changeController(defendingTerritory, currentPlayer.getName());
+						board.changeTroops(defendingTerritory, aArmy);
+					}
+					//Update territories troops.
+					else{
+						board.changeTroops(attackingTerritory, board.getTroops(attackingTerritory) + aArmy);
+						board.changeTroops(defendingTerritory, board.getTroops(defendingTerritory) + dArmy);
 					}
 				}							
 			}				
@@ -345,8 +359,8 @@ public class Game {
 	 * @param armySize
 	 * @return a sorted (low to high) array.
 	 */
-	private int[] rollDice(int armySize){		
-		int[] rolls = new int[]{-1, -1, -1};
+	protected int[] rollDice(int armySize){		
+		int[] rolls = new int[armySize];		
 		//Creates dice roll data.
 		for(int i  = 0; i < armySize; i++){
 			rolls[i] = (int)(6.0 * Math.random()) + 1;					
@@ -380,5 +394,29 @@ public class Game {
 			}
 		}
 		return true;
+	}
+	/** 
+	 * @return All the important game data.
+	 */
+	public String[] getGameData(){
+		String[] gameData = new String[]{currentPhase, currentStage, currentPlayer.getName()};
+		return gameData;
+	}
+	/**returns the army 
+	 * @param territory
+	 * @param attacking
+	 * @return
+	 */
+	public int calcArmySize(String territory, boolean attacking){
+		int army = board.getTroops(territory);
+		if(attacking){
+			army = (army > 3)?3:(army - 1);
+			army = (army == 0)?1:army;
+		}
+		else{
+			army = (army > 2)?2:(army - 1);
+			army = (army == 0)?1:army;
+		}
+		return army;
 	}
 }

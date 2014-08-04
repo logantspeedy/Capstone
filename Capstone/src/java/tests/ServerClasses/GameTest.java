@@ -14,6 +14,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import serverClasses.Board;
 import serverClasses.Game;
+import serverClasses.Player;
+import serverClasses.Node;
 
 /**
  *
@@ -78,12 +80,11 @@ public class GameTest {
     @Test
     public void testGetCurrentPlayer() {
         System.out.println("getCurrentPlayer");
-        Game instance = null;
-        String expResult = "";
-        String result = instance.getCurrentPlayer();
+        testgame.setCurrentPlayer("Steve");
+        String expResult = "Steve";
+        String result = testgame.getCurrentPlayer();        
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -92,11 +93,11 @@ public class GameTest {
     @Test
     public void testSetCurrentPlayer() {
         System.out.println("setCurrentPlayer");
-        String currentPlayer = "";
-        Game instance = null;
-        instance.setCurrentPlayer(currentPlayer);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String currentPlayer = "John";
+        String expResult = "John";
+        testgame.setCurrentPlayer(currentPlayer);
+        String result = testgame.getCurrentPlayer();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -105,14 +106,11 @@ public class GameTest {
     @Test
     public void testNextPlayer() {        
         System.out.println("nextPlayer"); 
-        String expstartPlayer = "Adam";
-        String startPlayer = testgame.getCurrentPlayer();
+        testgame.setCurrentPlayer("Adam");        
         String expResult = "Steve";
         String result = testgame.nextPlayer();
-        assertEquals(expResult, result);
-        assertEquals(expstartPlayer,startPlayer);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result);       
+        
     }
 
     /**
@@ -132,15 +130,18 @@ public class GameTest {
      */
     @Test
     public void testReinforce() {
+        //board is declared with empty countries so need to add a controling player (who is the current player) to get past checks
+        //then if reniforce for 1 we should get a result of 1 army in the country after the reinforce.
         System.out.println("reinforce");
-        String territory = "";
-        int troops = 0;
-        Game instance = null;
-        Board expResult = null;
-        Board result = instance.reinforce(territory, troops);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String territory = "Castle Black";
+        int troops = 1;        
+        Board expResult = testgame.getBoard();
+        testgame.setControllingPlayer(territory,"Adam");
+        Board resultBoard = testgame.reinforce(territory, troops);
+        int expTroops=1;
+        int resultTroops = resultBoard.getTroops(territory);
+        assertEquals(expTroops, resultTroops);
+        
     }
 
     /**
@@ -148,16 +149,22 @@ public class GameTest {
      */
     @Test
     public void testFortify() {
+        //set up board with 2 armies in start territory and 1 in target territory
+        // set both territories to belong to current player to get around checks
         System.out.println("fortify");
-        String startTerritory = "";
-        String targetTerritory = "";
-        int troops = 0;
-        Game instance = null;
-        Board expResult = null;
-        Board result = instance.fortify(startTerritory, targetTerritory, troops);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String startTerritory = "Castle Black";
+        String targetTerritory = "Winterfell";
+        int troops = 1;
+        Board testBoard = testgame.getBoard();
+        testgame.setControllingPlayer(startTerritory,"Adam");
+        testgame.setControllingPlayer(targetTerritory,"Adam");
+        testBoard.changeTroops(startTerritory,2);
+        testBoard.changeTroops(targetTerritory,1);         
+        Board resultBoard = testgame.fortify(startTerritory, targetTerritory, troops);
+        int expTroops=2;
+        int resultTroops = resultBoard.getTroops(targetTerritory);
+        assertEquals(expTroops, resultTroops);
+        
     }
 
     /**

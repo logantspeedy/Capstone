@@ -65,7 +65,7 @@ public class Game {
 		return playerList;
 	}
 
-	public void setCurrentPlayer(String player) {				
+	public void setCurrentPlayer(String player) {	            
 		playerPos = playerList.indexOf(getPlayer(player));
 		currentPlayer = playerList.get(playerPos);
 	}	
@@ -147,6 +147,7 @@ public class Game {
 	 * Adds troops to territory.
 	 * @param territory
 	 * @param troops
+         * 
 	 * @return updated board.
 	 */
 	public Board reinforce(String territory, int troops){

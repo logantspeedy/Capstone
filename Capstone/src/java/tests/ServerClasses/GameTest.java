@@ -52,27 +52,24 @@ public class GameTest {
      */
     @Test
     public void testGetBoard() {
-        System.out.println("getBoard");
-        Game instance = null;
-        Board expResult = null;
-        Board result = instance.getBoard();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setBoard method, of class Game.
-     */
-    @Test
-    public void testSetBoard() {
-        System.out.println("setBoard");
-        Board board = null;
-        Game instance = null;
-        instance.setBoard(board);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        System.out.println("getBoard");        
+		
+		ArrayList<Node> nodes = new ArrayList();
+		Node castleBlack = new Node("Castle Black", "", "The North", 0, new String[]{"Winterfell", "Crasters Keep"});
+		Node winterfell = new Node("Winterfell", "", "The North", 0, new String[]{"The Twins", "Crasters Keep"});
+		Node theTwins = new Node("The Twins", "", "Riverlands", 0, new String[]{"Winterfell", "The Eyrie", "Iron Islands"});
+		Node theEyrie = new Node("The Eyrie", "", "The Vale", 0, new String[]{"The Twins", "Kings Landing"});
+		nodes.add(castleBlack);
+		nodes.add(winterfell);
+		nodes.add(theTwins);
+		nodes.add(theEyrie);
+		Board expBoard = new(board);
+		expBoard.setBoard(nodes);		
+        
+        Board result = testgame.getBoard();
+        assertEquals(expBoard, result);
+      
+    } 
 
     /**
      * Test of getCurrentPlayer method, of class Game.
@@ -130,8 +127,8 @@ public class GameTest {
      */
     @Test
     public void testReinforce() {
-        //board is declared with empty countries so need to add a controling player (who is the current player) to get past checks
-        //then if reniforce for 1 we should get a result of 1 army in the country after the reinforce.
+        //board is declared with empty countries so need to add a controlling player (who is the current player) to get past checks
+        //then if reinforce for 1 we should get a result of 1 army in the country after the reinforce.
         System.out.println("reinforce");
         String territory = "Castle Black";
         int troops = 1;        

@@ -134,6 +134,7 @@ public class GameTest {
         int troops = 1;        
         Board expResult = testgame.getBoard();
         testgame.setControllingPlayer(territory,"Adam");
+        testgame.setPhase("reinforce");
         Board resultBoard = testgame.reinforce(territory, troops);
         int expTroops=1;
         int resultTroops = resultBoard.getTroops(territory);
@@ -155,6 +156,8 @@ public class GameTest {
         Board testBoard = testgame.getBoard();
         testgame.setControllingPlayer(startTerritory,"Adam");
         testgame.setControllingPlayer(targetTerritory,"Adam");
+        testgame.setPhase("fortify");
+        testgame.setStage("game");
         testBoard.changeTroops(startTerritory,2);
         testBoard.changeTroops(targetTerritory,1);         
         Board resultBoard = testgame.fortify(startTerritory, targetTerritory, troops);

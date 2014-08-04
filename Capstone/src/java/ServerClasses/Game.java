@@ -78,7 +78,7 @@ public class Game {
 		return playerList;
 	}
 
-	public void setCurrentPlayer(String player) {	            
+	public void setCurrentPlayer(String player) {				
 		playerPos = playerList.indexOf(getPlayer(player));
 		currentPlayer = playerList.get(playerPos);
 	}	
@@ -193,6 +193,9 @@ public class Game {
 			}
 			else{
 				phaseStage++;	
+				if(phaseStage == 1){
+					currentPlayer.setArmy(0);
+				}
 				currentPhase = possiblePhase[phaseStage];
 			}
 		}
@@ -238,7 +241,6 @@ public class Game {
 	 * currentPlayer.army >= troops.
 	 * @param territory
 	 * @param troops
-         * 
 	 * @return updated board.
 	 */
 	public Board reinforce(String territory, int troops){
@@ -301,13 +303,15 @@ public class Game {
 	 * @param aRolls
 	 * @param dRolls
 	 */
-	public Board attack(String attackingTerritory, String defendingTerritory, int[] aRolls, int[] dRolls){				
+	public Board attack(String attackingTerritory, String defendingTerritory){				
 		//Territories are adjacent check.
 		if(currentPhase.equals("attack")){
 			if(board.isAdj(attackingTerritory, defendingTerritory)){		
 				//Territories are controlled by different players check.
 				if(board.getControllingPlayer(attackingTerritory).equals(currentPlayer.getName())
 						&& !board.getControllingPlayer(defendingTerritory).equals(currentPlayer.getName())){	
+					int[] aRolls = rollDice(attackingTerritory);
+					int[] dRolls =  rollDice(defendingTerritory);
 					
 					//Work out army sizes from rolls.
 					int aArmy = aRolls.length;
@@ -361,7 +365,12 @@ public class Game {
 	 * @param armySize
 	 * @return a sorted (low to high) array.
 	 */
-	public int[] rollDice(int armySize){		
+	public int[] rollDice(String territory){		
+		boolean attacking = false;
+		if(board.getControllingPlayer(territory).equals(currentPlayer.getName())){
+			attacking = true;
+		}
+		int armySize = calcArmySize(territory, attacking);
 		int[] rolls = new int[armySize];		
 		//Creates dice roll data.
 		for(int i  = 0; i < armySize; i++){
@@ -400,8 +409,12 @@ public class Game {
 	/** 
 	 * @return All the important game data.
 	 */
-	public String[] getGameData(){
-		String[] gameData = new String[]{currentPhase, currentStage, currentPlayer.getName()};
+	public ArrayList getGameData(){
+		ArrayList gameData = new ArrayList();
+		gameData.add(currentPhase);
+		gameData.add(currentStage);
+		gameData.add(currentPlayer.getName());
+		
 		return gameData;
 	}
 	/**returns the army 

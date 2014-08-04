@@ -17,187 +17,203 @@
         
     </head>
     <body class="body">
-        <h1><a href="http://fontmeme.com/game-of-thrones-font/"><img src="http://fontmeme.com/newcreate.php?text=Winter%20is%20Coming&name=Game of Thrones.ttf&size=40&style_color=2B2C38" alt="Game of Thrones Font"></a><p style="padding-left: 15px; font-size: 10px;"></p></h1>
+       
         
-        <div class="controls">
-            <input onClick="setTerritoryOwner()" type="button" value="reset">
+        <div class="header">
+             <h1><a href="http://fontmeme.com/game-of-thrones-font/"><img src="http://fontmeme.com/newcreate.php?text=Winter%20is%20Coming&name=Game of Thrones.ttf&size=40&style_color=2B2C38" alt="Game of Thrones Font"></a><p style="padding-left: 15px; font-size: 10px;"></p></h1>
+        
+            <input onClick="switchPlayer()" type="button" value="switchPlayer">
             <input onClick="zoom(200)" type="button" value="zoom in">
             <input onClick="zoom(-200)" type="button" value="zoom out">
         </div>
-        <div class="commentWindow">
         
+        <div class="mainContainer">
+        <div class="commentWindow">
         </div>
         
         <div class="gameWindow">
-        <img id="gameMap"src="images/GoT/GoTblankSMALL.jpg" alt="" usemap="#Map" />
-        
+            <img id="gameMap"src="images/GoT/GoTblankSMALL.jpg" alt="" usemap="#Map" />
 
-        <map name="Map" id="Map">
-            <area territory="FlintsFinger" href="#" shape="poly" coords="114,230,180,231,179,263,117,263,109,231,180,231,179,263,117,263,180,231,179,263,180,231" />
-            <area territory="TheTwins" href="#" shape="poly" coords="190,242,251,242,250,275,190,275,189,240,251,242,250,275,190,275,251,242,250,275,251,242" />
-            <area territory="TheThreeSisters" href="#" shape="poly" coords="265,255,326,254,326,286,266,287,263,251,326,254,326,286,266,287,326,254,326,286,326,254" />
-            <area territory="Pyke" href="#" shape="poly" coords="100,281,159,283,158,314,100,315,97,278,159,283,158,314,100,315,159,283,158,314,159,283" />
-            <area territory="Riverlands" href="#" shape="poly" coords="218,302,277,302,278,332,218,333,215,301,277,302,278,332,218,333,277,302,278,332,277,302" />
-            <area territory="TheEyrie" href="#" shape="poly" coords="293,314,353,314,353,344,293,344,292,312,353,314,353,344,293,344,353,314,353,344,353,314" />
-        </map>
+
+            <map name="Map" id="Map">
+                <area territory="FlintsFinger" href="#" shape="poly" coords="114,230,180,231,179,263,117,263,109,231,180,231,179,263,117,263,180,231,179,263,180,231" />
+                <area territory="TheTwins" href="#" shape="poly" coords="190,242,251,242,250,275,190,275,189,240,251,242,250,275,190,275,251,242,250,275,251,242" />
+                <area territory="TheThreeSisters" href="#" shape="poly" coords="265,255,326,254,326,286,266,287,263,251,326,254,326,286,266,287,326,254,326,286,326,254" />
+                <area territory="Pyke" href="#" shape="poly" coords="100,281,159,283,158,314,100,315,97,278,159,283,158,314,100,315,159,283,158,314,159,283" />
+                <area territory="Riverlands" href="#" shape="poly" coords="218,302,277,302,278,332,218,333,215,301,277,302,278,332,218,333,277,302,278,332,277,302" />
+                <area territory="TheEyrie" href="#" shape="poly" coords="293,314,353,314,353,344,293,344,292,312,353,314,353,344,293,344,353,314,353,344,353,314" />
+            </map>
         </div>
         
+        <div class="chatBox">
+            Player 1: Hey its your turn hurry up!!! <br>
+            Player 2: Sorry was AFK :0
+        </div>
+        </div>
         
-        <script>
-        //game image size var
-        var z = $(window).width();
+        <div id="footer" >
+Copyright © team4</div>
+
+</div>
         
-        //on page load set game board
-        $(document).ready(function ()
-            {
-            setTerritoryOwner();
-            });
+    <script>
+    //game image size var
+    var z = $(window).width();
+
+    //on page load set game board
+    $(document).ready(function ()
+        {
+        gameLogic();
+        });
 
 
-        //update map to current board
-        function gameLogic(){
-            if (board.currentPhase.phase ==="setup"){
-                setupPhase();
-            }
-            else if (board.currentPhase.phase ==="reinforce"){
-                reinforcePhase();
-            }
+    //update map to current board
+    function gameLogic(){
+        setTerritoryOwner();
+        if (board.currentPhase.phase ==="setup"){
+            setupPhase();
         }
-        
-        function setupPhase(){
-            $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+'</p>');
-            //display current player
-     
+        else if (board.currentPhase.phase ==="reinforce"){
+            reinforcePhase();
         }
-        
-        function reinforcePhase(){
-            $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+': select territory to Reinforce </p>');
-            
-            //display current player
-     
-        }
-        
-        function callClaimTerritory(){
-            $.ajax({
-              type: "POST",
-              url: "/MainServlet",
-              data: { methodToInvoke: "pickTerr" , data: "terrioty, player" }
-            }).done(function( msg ) {
-              alert( "Data Saved: " + msg );
-            });
-        }
-        
-        function callReinforce(){
-            $.ajax({
-              type: "POST",
-              url: "/MainServlet",
-              data: { methodToInvoke: "reinforce" , data: "terrioty, units" }
-            }).done(function( msg ) {
-              alert( "Data Saved: " + msg );
-            });
-        }
-        
-        function callAttack(){   
-            $.ajax({
-              type: "POST",
-              url: "/MainServlet",
-              data: { methodToInvoke: "reinforce" , data: "ur terrioty, their ter, units" }
-            }).done(function( msg ) {
-              alert( "Data Saved: " + msg );
-            });
-        }
-        
-        function callFortify(){
-            $.ajax({
-              type: "POST",
-              url: "/MainServlet",
-              data: { methodToInvoke: "reinforce" , data: "terrioty, units" }
-            }).done(function( msg ) {
-              alert( "Data Saved: " + msg );
-            });
-        }
-        
-        function clickHandler(data) {
-               
-               if(board.currentPhase.phase ==="setup"){
-               // do post to  Claim territory
-               }
-               
-               else if (board.currentPhase.phase ==="reinforce"){
-                   window.alert("Chose to reinforce "+ data.key);
-                   //do post request to reinforce
-                  
-               }
-               else if (board.currentPhase.phase ==="attack"){
-                   //do post to attack
-               }
-               
-               else if (board.currentPhase.phase ==="fortify"){
-                   //do post to attack
-               }
-        }
-        function setTerritoryOwner(){
-               setBackground();
-               gameLogic();
-              $('#gameMap').mapster({
-                onClick: clickHandler,
-                showToolTip: true,
-                mapKey: 'territory',
-                singleSelect : false,
-                selected:true,
-                altImage : 'images/GoT/GoTblankSMALL.jpg',
-                areas:  [
-                    {   key: "FlintsFinger",
-                        selected: true,
-                        toolTip: "Flints Finger, " + "Troops: " +
-                                zones.FlintsFinger.troops + ", Adjacent Territories: " +
-                                zones.FlintsFinger.adjacentNodes,
+        else {}
+    }
+
+    function setupPhase(){
+        $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+'</p>');
+        //display current player
+
+    }
+
+    function reinforcePhase(){
+        $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+': select territory to Reinforce </p>');
+
+        //display current player
+
+    }
+
+    function callClaimTerritory(){
+        $.ajax({
+          type: "POST",
+          url: "/MainServlet",
+          data: { methodToInvoke: "claim" , data: "terrioty, player" }
+        }).done(function( msg ) {
+          alert( "Data Saved: " + msg );
+        });
+    }
+
+    function callReinforce(){
+        $.ajax({
+          type: "POST",
+          url: "/MainServlet",
+          data: { methodToInvoke: "reinforce" , data: "terrioty, units" }
+        }).done(function( msg ) {
+          alert( "Data Saved: " + msg );
+        });
+    }
+
+    function callAttack(){   
+        $.ajax({
+          type: "POST",
+          url: "/MainServlet",
+          data: { methodToInvoke: "reinforce" , data: "ur terrioty, their ter, units" }
+        }).done(function( msg ) {
+          alert( "Data Saved: " + msg );
+        });
+    }
+
+    function callFortify(){
+        $.ajax({
+          type: "POST",
+          url: "/MainServlet",
+          data: { methodToInvoke: "reinforce" , data: "terrioty, units" }
+        }).done(function( msg ) {
+          alert( "Data Saved: " + msg );
+        });
+    }
+
+    function clickHandler(data) {
+
+           if(board.currentPhase.phase ==="setup"){
+           // do post to  Claim territory
+           }
+
+           else if (board.currentPhase.phase ==="reinforce"){
+               window.alert("Chose to reinforce "+ data.key);
+               //do post request to reinforce
+
+           }
+           else if (board.currentPhase.phase ==="attack"){
+               //do post to attack
+           }
+
+           else if (board.currentPhase.phase ==="fortify"){
+               //do post to attack
+           }
+    }
+    
+    function setTerritoryOwner(){
+            setBackground();
+           $('#gameMap').mapster({
+             onClick: clickHandler,
+             showToolTip: true,
+             mapKey: 'territory',
+             singleSelect : false,
+             selected:true,
+             altImage : 'images/GoT/GoTblankSMALL.jpg',
+             areas:  [
+                 {   key: "FlintsFinger",
+                     selected: true,
+                     toolTip: "Flints Finger, " + "Troops: " +
+                             zones.FlintsFinger.troops + ", Adjacent Territories: " +
+                             zones.FlintsFinger.adjacentNodes,
 //         
-                        altImage : picAltImg(zones.FlintsFinger)} ,
-                    
-                    
-                    {   key: "TheTwins",
-                        selected: true,
-                        toolTip: "The Twins, " + "Troops: " +
-                                zones.TheTwins.troops + ", Adjacent Territories: " +
-                                zones.TheTwins.adjacentNodes,
-                        altImage : picAltImg(zones.TheTwins)},
-                    
-                    {   key: "TheThreeSisters",
-                        selected: true,
-                        toolTip: "The Three Sisters, " + "Troops: " +
-                                zones.TheThreeSisters.troops + ", Adjacent Territories: " +
-                                zones.TheThreeSisters.adjacentNodes,
-                        altImage : picAltImg(zones.TheThreeSisters)},
-                    
-                    {   key: "Pyke",
-                        selected: true,
-                        toolTip: "Pyke, " + "Troops: " +
-                                zones.Pyke.troops + ", Adjacent Territories: " +
-                                zones.Pyke.adjacentNodes,
-                        altImage : picAltImg(zones.Pyke)},
-                    
-                    {   key: "Riverlands",
-                        selected: true,
-                        toolTip: "Riverlands, " + "Troops: " +
-                                zones.Riverlands.troops + ", Adjacent Territories: " +
-                                zones.Riverlands.adjacentNodes,
-                        altImage : picAltImg(zones.Riverlands)},
-                    
-                    {   key: "TheEyrie",
-                        selected: true,
-                        toolTip: "The Eyrie, " + "Troops: " +
-                                zones.TheEyrie.troops + ", Adjacent Territories: " +
-                                zones.TheEyrie.adjacentNodes,
-                        altImage : picAltImg(zones.TheEyrie)} ]
-                });
-                $('#gameMap').mapster('resize', z, 0, 1000);
+                     altImage : picAltImg(zones.FlintsFinger)} ,
+
+
+                 {   key: "TheTwins",
+                     selected: true,
+                     toolTip: "The Twins, " + "Troops: " +
+                             zones.TheTwins.troops + ", Adjacent Territories: " +
+                             zones.TheTwins.adjacentNodes,
+                     altImage : picAltImg(zones.TheTwins)},
+
+                 {   key: "TheThreeSisters",
+                     selected: true,
+                     toolTip: "The Three Sisters, " + "Troops: " +
+                             zones.TheThreeSisters.troops + ", Adjacent Territories: " +
+                             zones.TheThreeSisters.adjacentNodes,
+                     altImage : picAltImg(zones.TheThreeSisters)},
+
+                 {   key: "Pyke",
+                     selected: true,
+                     toolTip: "Pyke, " + "Troops: " +
+                             zones.Pyke.troops + ", Adjacent Territories: " +
+                             zones.Pyke.adjacentNodes,
+                     altImage : picAltImg(zones.Pyke)},
+
+                 {   key: "Riverlands",
+                     selected: true,
+                     toolTip: "Riverlands, " + "Troops: " +
+                             zones.Riverlands.troops + ", Adjacent Territories: " +
+                             zones.Riverlands.adjacentNodes,
+                     altImage : picAltImg(zones.Riverlands)},
+
+                 {   key: "TheEyrie",
+                     selected: true,
+                     toolTip: "The Eyrie, " + "Troops: " +
+                             zones.TheEyrie.troops + ", Adjacent Territories: " +
+                             zones.TheEyrie.adjacentNodes,
+                     altImage : picAltImg(zones.TheEyrie)} ]
+             });
+             $('#gameMap').mapster('resize', z, 0, 1000);
      };
      
     function zoom(inOut){
         z = z+inOut;
         setTerritoryOwner();
     }
+    
     function picAltImg(ter){
         if (ter.player === 1){
         var altImg = 'images/GoT/GoTstarkSMALL.jpg';}
@@ -217,13 +233,19 @@
     function getCurrentPlayer(){
         return board.currentPlayer.player;
     }
+    
     function setCurrentPlayer(){
         currentPlayer = board.currentPlayer.player;
+    }
+    function switchPlayer(){
+        if (getCurrentPlayer()===1){currentPlayer =2;}
+        else {currentPlayer =1;}
+        gameLogic();
     }
     
     var currentPlayer = null;
     var board = {
-        "currentPlayer" : {player:1},
+        "currentPlayer" : {player:2},
         "currentPhase" : {phase:"reinforce" }
     };
     var zones ={

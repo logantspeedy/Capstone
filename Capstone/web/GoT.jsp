@@ -18,10 +18,15 @@
     </head>
     <body class="body">
         <h1><a href="http://fontmeme.com/game-of-thrones-font/"><img src="http://fontmeme.com/newcreate.php?text=Winter%20is%20Coming&name=Game of Thrones.ttf&size=40&style_color=2B2C38" alt="Game of Thrones Font"></a><p style="padding-left: 15px; font-size: 10px;"></p></h1>
-        <input onClick="setTerritoryOwner()" type="button" value="reset">
         
-        <input onClick="zoom(200)" type="button" value="zoom in">
-        <input onClick="zoom(-200)" type="button" value="zoom out">
+        <div class="controls">
+            <input onClick="setTerritoryOwner()" type="button" value="reset">
+            <input onClick="zoom(200)" type="button" value="zoom in">
+            <input onClick="zoom(-200)" type="button" value="zoom out">
+        </div>
+        <div class="commentWindow">
+        
+        </div>
         
         <div class="gameWindow">
         <img id="gameMap"src="images/GoT/GoTblankSMALL.jpg" alt="" usemap="#Map" />
@@ -51,12 +56,21 @@
 
         //update map to current board
         function gameLogic(){
+            if (board.currentPhase.phase ==="Setup"){
+                setupPhase();
+            }
+        }
+        
+        function setupPhase(){
+            $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+'</p>');
+            //display current player
+            
             
         }
         
         function setTerritoryOwner(){
                setBackground();
-            
+               gameLogic();
               $('#gameMap').mapster({
                 showToolTip: true,
                 mapKey: 'territory',

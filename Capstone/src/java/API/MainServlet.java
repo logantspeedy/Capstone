@@ -84,60 +84,47 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        //board format: ArrayList<Node> nodes
-        //Node(String territory, String player, String continent, int troops, String[] adjacentNodes)
-        
+       
         response.setContentType("application/json");
        
-        PrintWriter out = response.getWriter();
-        //possible requests: reinforce, attack, fortify, new board, end turn
-        
-
-        
+        PrintWriter out = response.getWriter();     
+      
         //create new session or get current session
         HttpSession session = request.getSession();
-        //new board: get given command + players
-        //return: json of new board
+
         switch (request.getParameter("command")) {
-            case "newboard":
+            case "claimterritory":
                 {
-                    //processRequest(request, response);
-                    String json = newBoard(request, session);
-                    //respond with the generated board as a json array
-                    out.println(json);
+                    String JSON = claimTerritory(request, session);
+                    if (JSON == null){return;}
+                    out.println(JSON);
                     break;
                 }
             case "reinforce":
                 {
-                    String json = reinforce(request, session);
-                    if (json == null){
-                        out.println("Error");
-                        return;
-                    }       out.println(json);
+                    String JSON = reinforce(request, session);
+                    if (JSON == null){return;}       
+                    out.println(JSON);
                     break;
                 }
             case "attack":
                 {
-                    String json = attack(request, session);
-                    if (json == null){
-                        out.println("Error");
-                        return;
-                    }       out.println(json);
+                    String JSON = attack(request, session);
+                    if (JSON == null){return;}
+                    out.println(JSON);
                     break;
                 }
             case "fortify":
                 {
-                    String json = fortify(request, session);
-                    if (json == null){
-                        out.println("Error");
-                        return;
-                    }       out.println(json);
+                    String JSON = fortify(request, session);
+                    if (JSON == null){return;}
+                    out.println(JSON);
                     break;
                 }
-            case "end":
-                end(request, session);    
-                out.println("End Turn");
+            case "nextphase":
+                String JSON = nextPhase(request, session); 
+                if (JSON == null){return;}
+                out.println(JSON);
                 break;
         }
     }
@@ -145,7 +132,7 @@ public class MainServlet extends HttpServlet {
     /**
      * Returns a short description of the servlet.
      *
-     * @return a String containing servlet description
+     * @return API for risk game
      */
     @Override
     public String getServletInfo() {
@@ -153,158 +140,167 @@ public class MainServlet extends HttpServlet {
     }// </editor-fold>
 
 
-    public String newBoard(HttpServletRequest request,HttpSession session){
-                
-        //create a list of players 
-        int playerNumber;
-
-        if (request.getParameter("players") == null){
-            playerNumber = 2;
-        }              
-        else{
-            playerNumber = Integer.parseInt(request.getParameter("players"));
-        }
-
-        String[] playerArray = new String[6];
-        while(playerNumber !=0){
-            String player = "Player " + playerNumber;
-            playerArray[playerNumber -1] = player;
-            playerNumber -=1;
-        }
-
-        //create the game object
-        Game game = new Game(playerArray);
-        game.nextPlayer();
-        Board board = game.getBoard();
-        Gson gson = new Gson();
-        String boardjson = gson.toJson(board);
-        //converting an object that has the attribute which is a list of nodes. nodes are objects with attributes: String territory, String player, String continent, int troops, String[] adjacentNodes
-        //returned should be {nodes: 
-        //create json of game object to store in session
-        String gamejson = gson.toJson(game);
-        //store it in the session
-        session.setAttribute("game", gamejson);
-        session.setAttribute("board", boardjson);
-        //might as well store the number of players too for later use
-        session.setAttribute("players", playerNumber);
-
-        
-        
-        return boardjson;
-    }
-    public String reinforce(HttpServletRequest request,HttpSession session){
-       //check the session exsists
-       if(session.getAttribute("game") == null){
+    public String claimTerritory(HttpServletRequest request,HttpSession session){
+        if (request.getParameter("playername") == null || request.getParameter("territory") == null){
             return null;
-        }
-       //if it does, take it out 
-        String gamejson  = (String) session.getAttribute("game");
-        //get the json string back into an object
-        Gson gson = new Gson();
-        Game game = gson.fromJson(gamejson, Game.class);
-
-
-        //check all parameters are set
-        if(request.getParameter("territory") == null || request.getParameter("troops") == null){
-            return null;
-        }
-        //if they are, get them
+        }  
+        //set variables
+        String playerName = request.getParameter("playername");
         String territory = request.getParameter("territory");
-        int troops = Integer.parseInt(request.getParameter("troops"));
+        Game game;
+        Gson gson = new Gson();
+        //check if this is the first call for the game
+        if (session.getAttribute("game") == null){
+            //create the game object
+            game = new Game(new String[]{"Player 1", "Player 2", "Player 3", "Player 4"});
+        }
+        else{
+            //if it's not the first call, get the game JSON data
+            String gameJSON  = (String) session.getAttribute("game");
+            //get the json string back into an object          
+            game = gson.fromJson(gameJSON, Game.class); 
+        }
+        //claim territory
+        game.claimTerritory(playerName, territory);
         
+        //convert game to JSON
+        String gameJSON = gson.toJson(game);
+        
+        //get the board and convert it to JSON
+        Board board = game.getBoard();
+        String boardJSON = gson.toJson(board);
+
+
+        //store session data
+        session.setAttribute("game", gameJSON);
+        session.setAttribute("currentplayer", game.getCurrentPlayer());
+        session.setAttribute("currentphase", game.getPhase());
+        session.setAttribute("currentstage", game.getStage());
+
+        return boardJSON;
+    }
+    
+    
+    
+    public String reinforce(HttpServletRequest request,HttpSession session){
+       if(session.getAttribute("game") == null || request.getParameter("territory") == null || request.getParameter("troops") == null){
+            return null;
+        }
+       //set variables
+        String territory = request.getParameter("territory");
+        int troops = Integer.parseInt(request.getParameter("troops"));     
+        String gameJSON  = (String) session.getAttribute("game");
+        Gson gson = new Gson();
+        Game game = gson.fromJson(gameJSON, Game.class);       
+ 
         //reinforce the territory
         game.reinforce(territory, troops);
         
         //convert back to json
-        String newgamejson = gson.toJson(game);
-        //reset the session with new game
-        session.setAttribute("game", newgamejson);        
-        //return the  new json string
-        return newgamejson;
+        gameJSON = gson.toJson(game);
+        
+        //get the board and convert it to JSON
+        Board board = game.getBoard();
+        String boardJSON = gson.toJson(board);
+        
+        //store session data
+        session.setAttribute("game", gameJSON);
+        session.setAttribute("currentplayer", game.getCurrentPlayer());
+        session.setAttribute("currentphase", game.getPhase());
+        session.setAttribute("currentstage", game.getStage());    
+        
+        return boardJSON;
 
     }
     
     public String attack(HttpServletRequest request,HttpSession session){
-       //check the session exsists
-       if(session.getAttribute("game") == null){
+       if(session.getAttribute("game") == null || request.getParameter("attackingterritory") == null || request.getParameter("defendingterritory") == null){
             return null;
         }
-       //if it does, take it out 
-        String gamejson  = (String) session.getAttribute("game");
-        //get the json string back into an object
-        Gson gson = new Gson();
-        Game game = gson.fromJson(gamejson, Game.class);
-
-
-        //check all parameters are set
-        if(request.getParameter("attackingterritory") == null || request.getParameter("defendingterritory") == null || request.getParameter("aarmy") == null || request.getParameter("darmy") == null ){
-            return null;
-        }
-        //if they are, get them
+       //set variables
         String attackingTerritory = request.getParameter("attackingterritory");
-        String defendingTerritory = request.getParameter("defendingterritory");
-        int aArmy = Integer.parseInt(request.getParameter("aarmy"));
-        int dArmy = Integer.parseInt(request.getParameter("darmy"));
-        
-        //attack
-        game.attack(attackingTerritory, defendingTerritory,aArmy, dArmy);
+        String defendingTerritory = request.getParameter("defendingterritory");      
+        String gameJSON  = (String) session.getAttribute("game");
+        Gson gson = new Gson();
+        Game game = gson.fromJson(gameJSON, Game.class);       
+ 
+        //attack the territory
+        game.attack(attackingTerritory, defendingTerritory);
         
         //convert back to json
-        String newgamejson = gson.toJson(game);
-        //reset the session with new game
-        session.setAttribute("game", newgamejson);        
-        //return the  new json string
-        return newgamejson;
+        gameJSON = gson.toJson(game);
+        
+        //get the board and convert it to JSON
+        Board board = game.getBoard();
+        String boardJSON = gson.toJson(board);
+        
+        //store session data
+        session.setAttribute("game", gameJSON);
+        session.setAttribute("currentplayer", game.getCurrentPlayer());
+        session.setAttribute("currentphase", game.getPhase());
+        session.setAttribute("currentstage", game.getStage());    
+        
+        return boardJSON;
 
     }
     
     public String fortify(HttpServletRequest request,HttpSession session){
-       //check the session exsists
-       if(session.getAttribute("game") == null){
+       if(session.getAttribute("game") == null || request.getParameter("startterritory") == null || request.getParameter("targetterritory") == null || request.getParameter("troops") == null){
             return null;
         }
-       //if it does, take it out 
-        String gamejson  = (String) session.getAttribute("game");
-        //get the json string back into an object
-        Gson gson = new Gson();
-        Game game = gson.fromJson(gamejson, Game.class);
-
-
-        //check all parameters are set
-        if(request.getParameter("startterritory") == null || request.getParameter("targetterritory") == null || request.getParameter("troops") == null){
-            return null;
-        }
-        //if they are, get them
+       //set variables
         String startTerritory = request.getParameter("startterritory");
         String targetTerritory = request.getParameter("targetterritory");
-        int troops = Integer.parseInt(request.getParameter("troops"));
-        
-        //fortify the territory
+        int troops = Integer.parseInt(request.getParameter("troops"));       
+        String gameJSON  = (String) session.getAttribute("game");
+        Gson gson = new Gson();
+        Game game = gson.fromJson(gameJSON, Game.class);       
+ 
+        //fortify
         game.fortify(startTerritory, targetTerritory, troops);
         
         //convert back to json
-        String newgamejson = gson.toJson(game);
-        //reset the session with new game
-        session.setAttribute("game", newgamejson);        
-        //return the  new json string
-        return newgamejson;
+        gameJSON = gson.toJson(game);
+        
+        //get the board and convert it to JSON
+        Board board = game.getBoard();
+        String boardJSON = gson.toJson(board);
+        
+        //store session data
+        session.setAttribute("game", gameJSON);
+        session.setAttribute("currentplayer", game.getCurrentPlayer());
+        session.setAttribute("currentphase", game.getPhase());
+        session.setAttribute("currentstage", game.getStage());    
+        
+        return boardJSON;
 
     } 
-     public void end(HttpServletRequest request,HttpSession session){
-         //check if game session exsists
-        if(session.getAttribute("board") == null){
-            return;
-        }   
-        //if it does, take it out 
-        String gamejson  = (String) session.getAttribute("game");
-        //get the json string back into an object
+     public String nextPhase(HttpServletRequest request,HttpSession session){
+       if(session.getAttribute("game") == null){
+            return null;
+        }
+       //set variables     
+        String gameJSON  = (String) session.getAttribute("game");
         Gson gson = new Gson();
-        Game game = gson.fromJson(gamejson, Game.class);
-        //go to next player
-        game.nextPlayer();
-        //convert back to json and save in session
-        String newgamejson = gson.toJson(game);
-        session.setAttribute("game", newgamejson);
+        Game game = gson.fromJson(gameJSON, Game.class);       
+ 
+        //go to the next phase in the game
+        game.nextPhase();
+        
+        //convert back to json
+        gameJSON = gson.toJson(game);
+        
+        //get the board and convert it to JSON
+        Board board = game.getBoard();
+        String boardJSON = gson.toJson(board);
+        
+        //store session data
+        session.setAttribute("game", gameJSON);
+        session.setAttribute("currentplayer", game.getCurrentPlayer());
+        session.setAttribute("currentphase", game.getPhase());
+        session.setAttribute("currentstage", game.getStage());    
+        
+        return boardJSON;
      }
     
 }

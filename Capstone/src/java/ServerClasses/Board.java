@@ -36,9 +36,8 @@ public class Board {
 				return n;
 			}
 		}
-                
 		return null;
-	}	
+	}		
 	
 	public void changeController(String territory, String newControler){
 		Node node = getNode(territory);	

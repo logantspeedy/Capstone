@@ -6,6 +6,7 @@
 
 package tests.ServerClasses;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -63,7 +64,7 @@ public class GameTest {
 		nodes.add(winterfell);
 		nodes.add(theTwins);
 		nodes.add(theEyrie);
-		Board expBoard = new(board);
+		Board expBoard = new Board();
 		expBoard.setBoard(nodes);		
         
         Board result = testgame.getBoard();
@@ -117,7 +118,7 @@ public class GameTest {
     public void testNextStage() {
         System.out.println("NextStage");
         Game instance = null;
-        instance.NextStage();
+        //instance.NextPhase();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

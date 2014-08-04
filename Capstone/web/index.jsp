@@ -33,7 +33,10 @@
         <%
 
            out.write("<br/>Enter commands above ^<br/><br/>Currently supported:<ul><li>newboard (command) : returns json of new board</li><li>reinforce (command, terriotory, troops): returns json of new board </li><li>attack (command, attacking territory, defending territory, aarmy, darmy) : returns json of new board </li><li>fortify (start territory, target territory, troops) : returns json of new board </li><li>end : returns nothing (changes the game object state to next turns)</li></ul>");
-            
+           String test = (String) request.getSession().getAttribute("game");
+           
+           
+           out.write(test);
             
          %>
          

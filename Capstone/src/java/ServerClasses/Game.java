@@ -43,15 +43,21 @@ public class Game {
 	 * Creates a new board of standard places. With no troops and no players.
 	 */
 	public void createNewBoard(){
-		ArrayList<Node> nodes = new ArrayList();
-		Node castleBlack = new Node("Castle Black", "", "The North", 0, new String[]{"Winterfell", "Crasters Keep"});
-		Node winterfell = new Node("Winterfell", "", "The North", 0, new String[]{"The Twins", "Crasters Keep"});
-		Node theTwins = new Node("The Twins", "", "Riverlands", 0, new String[]{"Winterfell", "The Eyrie", "Iron Islands"});
-		Node theEyrie = new Node("The Eyrie", "", "The Vale", 0, new String[]{"The Twins", "Kings Landing"});
-		nodes.add(castleBlack);
-		nodes.add(winterfell);
+		ArrayList<Node> nodes = new ArrayList<Node>();
+		Node flintsFinger = new Node("Flints Finger", "", "The North", 0, new String[]{"The Twins", "Pyke"});
+		Node theTwins= new Node("The Twins", "", "The North", 0, new String[]{"Flints Finger", "The Three Sisters", "Riverlands"});
+		Node theThreeSisters = new Node("The Three Sisters", "", "The North", 0, new String[]{"The Twins", "Riverlands", "The Eyrie"});
+		Node pyke = new Node("Pyke", "", "The North", 0, new String[]{"Flints Finger"});		
+		Node riverlands = new Node("Riverlands", "", "The North", 0, new String[]{"The Twins", "The Three Sisters", "The Eyrie"});
+		Node theEyrie = new Node("The Eyrie", "", "The North", 0, new String[]{"Riverlands", "The Three Sisters"});
+		
+		nodes.add(flintsFinger);
 		nodes.add(theTwins);
+		nodes.add(theThreeSisters);
+		nodes.add(pyke);
+		nodes.add(riverlands);
 		nodes.add(theEyrie);
+		
 		board.setBoard(nodes);
 	}
 	

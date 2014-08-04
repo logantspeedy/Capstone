@@ -56,22 +56,91 @@
 
         //update map to current board
         function gameLogic(){
-            if (board.currentPhase.phase ==="Setup"){
+            if (board.currentPhase.phase ==="setup"){
                 setupPhase();
+            }
+            else if (board.currentPhase.phase ==="reinforce"){
+                reinforcePhase();
             }
         }
         
         function setupPhase(){
             $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+'</p>');
             //display current player
-            
-            
+     
         }
         
+        function reinforcePhase(){
+            $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+': select territory to Reinforce </p>');
+            
+            //display current player
+     
+        }
+        
+        function callClaimTerritory(){
+            $.ajax({
+              type: "POST",
+              url: "/MainServlet",
+              data: { methodToInvoke: "pickTerr" , data: "terrioty, player" }
+            }).done(function( msg ) {
+              alert( "Data Saved: " + msg );
+            });
+        }
+        
+        function callReinforce(){
+            $.ajax({
+              type: "POST",
+              url: "/MainServlet",
+              data: { methodToInvoke: "reinforce" , data: "terrioty, units" }
+            }).done(function( msg ) {
+              alert( "Data Saved: " + msg );
+            });
+        }
+        
+        function callAttack(){   
+            $.ajax({
+              type: "POST",
+              url: "/MainServlet",
+              data: { methodToInvoke: "reinforce" , data: "ur terrioty, their ter, units" }
+            }).done(function( msg ) {
+              alert( "Data Saved: " + msg );
+            });
+        }
+        
+        function callFortify(){
+            $.ajax({
+              type: "POST",
+              url: "/MainServlet",
+              data: { methodToInvoke: "reinforce" , data: "terrioty, units" }
+            }).done(function( msg ) {
+              alert( "Data Saved: " + msg );
+            });
+        }
+        
+        function clickHandler(data) {
+               
+               if(board.currentPhase.phase ==="setup"){
+               // do post to  Claim territory
+               }
+               
+               else if (board.currentPhase.phase ==="reinforce"){
+                   window.alert("Chose to reinforce "+ data.key);
+                   //do post request to reinforce
+                  
+               }
+               else if (board.currentPhase.phase ==="attack"){
+                   //do post to attack
+               }
+               
+               else if (board.currentPhase.phase ==="fortify"){
+                   //do post to attack
+               }
+        }
         function setTerritoryOwner(){
                setBackground();
                gameLogic();
               $('#gameMap').mapster({
+                onClick: clickHandler,
                 showToolTip: true,
                 mapKey: 'territory',
                 singleSelect : false,
@@ -155,7 +224,7 @@
     var currentPlayer = null;
     var board = {
         "currentPlayer" : {player:1},
-        "currentPhase" : {phase:"Setup" }
+        "currentPhase" : {phase:"reinforce" }
     };
     var zones ={
     "FlintsFinger" : {territory:"FlintsFinger",player:1,continent:"The North",troops:10,

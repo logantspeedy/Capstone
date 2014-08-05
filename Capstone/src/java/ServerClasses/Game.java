@@ -415,12 +415,12 @@ public class Game {
 	/** 
 	 * @return All the important game data.
 	 */
-	public ArrayList getGameData(){
-		ArrayList gameData = new ArrayList();
+	public ArrayList<String> getGameData(){
+		ArrayList<String> gameData = new ArrayList<String>();
 		gameData.add(currentPhase);
 		gameData.add(currentStage);
 		gameData.add(currentPlayer.getName());
-		
+		gameData.add(Integer.toString(currentPlayer.getArmy()));		
 		return gameData;
 	}
 	/**returns the army 

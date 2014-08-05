@@ -76,11 +76,14 @@ Copyright © team4</div>
         else if (board.currentPhase.phase ==="reinforce"){
             reinforcePhase();
         }
-        else {}
+        else if (board.currentPhase.phase ==="attack"){
+            attackPhase();
+        }
     }
 
     function setupPhase(){
         $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+'</p>');
+        
         //display current player
 
     }
@@ -91,32 +94,51 @@ Copyright © team4</div>
         //display current player
 
     }
+    var attacker = null;
+        var defender = null;
+    function attackPhase(){
+        
+        $("#Map").click(function(){
+            
+           alert("clicked"); 
+            
+            
+        
+        $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+': select territory to atttack with </p>');
+        
+          
+        $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+': select territory to atttack </p>');
+        
+        $('.commentWindow').append('<p>'+attacker+' is attacking '+ defender + '</p>');
+        });
 
-    function callClaimTerritory(){
+    }
+
+    function callClaimTerritory(pla, ter){
         $.ajax({
           type: "POST",
           url: "/MainServlet",
-          data: { methodToInvoke: "claim" , data: "terrioty, player" }
+          data: { command: "claim" , playername:pla, terrioty:ter }
         }).done(function( msg ) {
           alert( "Data Saved: " + msg );
         });
     }
 
-    function callReinforce(){
+    function callReinforce(ter,tro){
         $.ajax({
           type: "POST",
           url: "/MainServlet",
-          data: { methodToInvoke: "reinforce" , data: "terrioty, units" }
+          data: { command: "reinforce" , terrioty:ter, troops:tro }
         }).done(function( msg ) {
           alert( "Data Saved: " + msg );
         });
     }
 
-    function callAttack(){   
+    function callAttack(ter, def, uni){   
         $.ajax({
           type: "POST",
           url: "/MainServlet",
-          data: { methodToInvoke: "reinforce" , data: "ur terrioty, their ter, units" }
+          data: { command: "attack" , terrioty:ter, defender:def, troops:uni }
         }).done(function( msg ) {
           alert( "Data Saved: " + msg );
         });
@@ -135,16 +157,19 @@ Copyright © team4</div>
     function clickHandler(data) {
 
            if(board.currentPhase.phase ==="setup"){
-           // do post to  Claim territory
+            // do post to  Claim territory
+            callClaimTerritory(getCurrentPlayer(),data.key);
+           
            }
 
            else if (board.currentPhase.phase ==="reinforce"){
-               window.alert("Chose to reinforce "+ data.key);
+               callReinforce(data.key,1);
                //do post request to reinforce
 
            }
            else if (board.currentPhase.phase ==="attack"){
-               //do post to attack
+               if (attacker === null){attacker = data.key;}
+               else {defender = data.key;}
            }
 
            else if (board.currentPhase.phase ==="fortify"){
@@ -245,8 +270,8 @@ Copyright © team4</div>
     
     var currentPlayer = null;
     var board = {
-        "currentPlayer" : {player:2},
-        "currentPhase" : {phase:"reinforce" }
+        "currentPlayer" : {player:1},
+        "currentPhase" : {phase:"attack" }
     };
     var zones ={
     "FlintsFinger" : {territory:"FlintsFinger",player:1,continent:"The North",troops:10,

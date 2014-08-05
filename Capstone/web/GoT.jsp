@@ -57,6 +57,16 @@ Copyright © team4</div>
 </div>
         
     <script>
+    <%
+        String gameJSON = (String) request.getSession().getAttribute("game");
+        String currentPlayer = (String) request.getSession().getAttribute("currentplayer");
+        String currentPhase = (String) request.getSession().getAttribute("currentphase");
+        String currentStage = (String) request.getSession().getAttribute("currentstage");
+    %>
+    var board; 
+    $.getJSON('http://localhost:8084/MainServlet', function(jsonAr){
+             board = jsonAr;});
+     
     //game image size var
     var z = $(window).width();
 
@@ -70,55 +80,123 @@ Copyright © team4</div>
     //update map to current board
     function gameLogic(){
         setTerritoryOwner();
-        if (board.currentPhase.phase ==="setup"){
+        if (currentStage ==="setup"){
             setupPhase();
         }
-        else if (board.currentPhase.phase ==="reinforce"){
-            reinforcePhase();
-        }
-        else if (board.currentPhase.phase ==="attack"){
-            attackPhase();
-        }
-    }
+        else if (currentStage === "game"){
+            game();
 
+    }
+    var claim = null;
     function setupPhase(){
-        $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+'</p>');
+        var chosenClaim = false;
+        if (currentPhase === claim){
+            $('.commentWindow').append('<p>Player '+board.currentPlayer.player+': pick avaliable territory</p>');
+
+            $("#Map").click(function(){
+                if (!chosenClaim){
+                    $('.commentWindow').append('<p> Player '+board.currentPlayer.player+' chose '+ claim +' </p>');
+                    chosenClaim = true;
+                    callClaimTerritory(board.currentPlayer.player, claim);}
+            });
+        };
         
-        //display current player
-
+        else (reinforcePhase();)
+    
     }
-
+    
+    function game(){
+        if (currentPhase === 'reinforcePhase'){
+            reinforcePhase();
+        };
+        
+        else if (currentPhase === 'attack'){
+            attackPhase();
+        };
+        
+        else if (currentPhase === 'fortify'){
+            
+        };
+    }
+    
+    var reinforceArea = null;
     function reinforcePhase(){
-        $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+': select territory to Reinforce </p>');
+        var reinforceChosen = false;
+        $('.commentWindow').append('<p> Player '+board.currentPlayer.player+' :select territory to Reinforce </p>');
+        
+        $("#Map").click(function(){
+            if (!reinforceChosen){
+                $('.commentWindow').append('<p> Player '+board.currentPlayer.player+' chose '+ reinforceArea +' </p>');
+                reinforceChosen = true;
+                callReinforce(reinforceArea, 1);}
+        });
 
-        //display current player
+        
 
     }
     var attacker = null;
-        var defender = null;
+    var defender = null;
     function attackPhase(){
-        
-        $("#Map").click(function(){
-            
-           alert("clicked"); 
-            
-            
+        attacker = null;
+        defender = null;
         
         $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+': select territory to atttack with </p>');
         
-          
-        $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+': select territory to atttack </p>');
+        var attackerClicked = false;
+        var defenderClicked = false;
         
-        $('.commentWindow').append('<p>'+attacker+' is attacking '+ defender + '</p>');
+        $("#Map").click(function(){
+            if (!attackerClicked){
+                $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+': select territory to atttack </p>');
+                attackerClicked = true;}
+            
+            $("#Map").click(function(){
+                if (!defenderClicked){
+                    $('.commentWindow').append('<p>'+attacker+' is attacking '+ defender + '</p>');
+                    defenderClicked = true;
+                    callAttack(attacker,defender);}
+                
+            });
+
         });
 
+    }
+    
+    var fortifyFrom = null;
+    var fortifyTo = null;
+    function fortifyPhase(){
+        
+        fortifyFrom = null;
+        fortifyTo = null;
+        
+        $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+': select territory to move units from  </p>');
+        
+        var fromSelected = false;
+        var toSelected = false;
+        
+        $("#Map").click(function(){
+            if (!fromSelected){
+                $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+': select territory to move units to </p>');
+                fromSelected = true;}
+            
+            $("#Map").click(function(){
+                if (!toSelected){
+                    $('.commentWindow').append('<p>'+attacker+' is attacking '+ defender + '</p>');
+                    toSelected = true;
+                    callFortify(fortifyFrom,fortifyTo,1);}
+                
+            });
+
+        });
+        
+        
     }
 
     function callClaimTerritory(pla, ter){
         $.ajax({
           type: "POST",
           url: "/MainServlet",
-          data: { command: "claim" , playername:pla, terrioty:ter }
+          data: { command: "claim" , playername:pla, territory:ter }
         }).done(function( msg ) {
           alert( "Data Saved: " + msg );
         });
@@ -128,27 +206,27 @@ Copyright © team4</div>
         $.ajax({
           type: "POST",
           url: "/MainServlet",
-          data: { command: "reinforce" , terrioty:ter, troops:tro }
+          data: { command: "reinforce" , territory:ter, troops:tro }
         }).done(function( msg ) {
           alert( "Data Saved: " + msg );
         });
     }
 
-    function callAttack(ter, def, uni){   
+    function callAttack(ter, def){   
         $.ajax({
           type: "POST",
           url: "/MainServlet",
-          data: { command: "attack" , terrioty:ter, defender:def, troops:uni }
+          data: { command: "attack" , attackingterritory:ter, defendingterritory:def}
         }).done(function( msg ) {
           alert( "Data Saved: " + msg );
         });
     }
 
-    function callFortify(){
+    function callFortify(st, tt, tro){
         $.ajax({
           type: "POST",
           url: "/MainServlet",
-          data: { methodToInvoke: "reinforce" , data: "terrioty, units" }
+          data: { methodToInvoke: "reinforce" , startterritory:st, targetterritoy:tt, troops:tro }
         }).done(function( msg ) {
           alert( "Data Saved: " + msg );
         });
@@ -156,24 +234,25 @@ Copyright © team4</div>
 
     function clickHandler(data) {
 
-           if(board.currentPhase.phase ==="setup"){
-            // do post to  Claim territory
-            callClaimTerritory(getCurrentPlayer(),data.key);
+           if(currentPhase ==="claim"){
+            // add check that clicked area isn't owned
+//            if (board[data.key] player ===null)
+            claim = data.key;
            
            }
 
-           else if (board.currentPhase.phase ==="reinforce"){
-               callReinforce(data.key,1);
+           else if (currentPhase ==="reinforce"){
+               reinforceArea = data.key;
                //do post request to reinforce
 
            }
-           else if (board.currentPhase.phase ==="attack"){
+           else if (currentPhase ==="attack"){
                if (attacker === null){attacker = data.key;}
                else {defender = data.key;}
            }
 
-           else if (board.currentPhase.phase ==="fortify"){
-               //do post to attack
+           else if (currentPhase ==="fortify"){
+               fortifyArea = data.key;
            }
     }
     
@@ -268,11 +347,14 @@ Copyright © team4</div>
         gameLogic();
     }
     
+    
+         
     var currentPlayer = null;
     var board = {
         "currentPlayer" : {player:1},
-        "currentPhase" : {phase:"attack" }
+        "currentPhase" : {phase:"setup" }
     };
+    
     var zones ={
     "FlintsFinger" : {territory:"FlintsFinger",player:1,continent:"The North",troops:10,
         adjacentNodes:["The Twins","Pyke"]},

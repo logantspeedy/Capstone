@@ -145,7 +145,6 @@ public class MainServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
         return "API for our risk";
     }// </editor-fold>
 

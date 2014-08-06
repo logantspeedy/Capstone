@@ -1,206 +1,71 @@
-<%-- 
-    Document   : index
-    Created on : Jul 23, 2014, 3:15:53 PM
-    Author     : ltspeedy
---%>
-
-
-
-<%@page import="java.util.List"%>
-<%@page import="java.util.Arrays"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    </head>
-    <body>
-        <h1>Welcome to the risk game!</h1>
-        <%
-        List<String> territories = Arrays.asList("Flints Finger", "The Twins", "The Three Sisters", "Pyke", "Riverlands", "The Eyrie");
-        List<String> playerList = Arrays.asList("Player 1", "Player 2", "Player 3", "Player 4");
-        %>
-        <script>  var playerList = ["Player 1", "Player 2", "Player 3", "Player 4"]; </script>
-        
-        <a href="javascript:void(0)" id="start-game">Start game!</a><br/>
-        <div id="body">
-            Current Player: <div id="player-name"><script>document.write(playerList[0]);</script></div><br/>
-        <div id="setup">
-            <h1>SETUP STAGE</h1>
-            <div id="setup-claimterritory"> 
-                <h3>Claim Territory</h3>
-                <strong>Select Territory:</strong><br/>
-                <% 
-                    for (String territory : territories){
-                        out.write(territory + ": <input type='radio' name='territory' class='setup-claimterritory-territory' value='" + territory + "'/><br/>");
-                    }
-                %>
-                <br/><a href="javascript:void(0)" id="setup-claimterritory-link">Claim territory</a>              
-            </div>
-            
-            <div id="setup-reinforce">
-                <h3>Reinforce Territory</h3>
-                 <strong>Select Territory:</strong><br/>
-                <% 
-                    for (String territory : territories){
-                        out.write(territory + ": <input type='radio' name='territory' class='setup-reinforce-territory' value='" + territory + "'/><br/>");
-                    }
-                %>
-                <br/><strong>Troops:</strong> <input type="number" name="troops" class="setup-reinforce-troops"/><br/>
-                <br/><a href="javascript:void(0)" id="setup-reinforce-link">Reinforce</a>               
-            </div>
-            
-        </div>
-
-        <div id="game">
-            <h1>GAME STAGE</h1>
-            <div id="game-reinforce">
-                <h3>Reinforce Territory</h3>
-                 <strong>Select Territory:</strong><br/>
-                <% 
-                    for (String territory : territories){
-                        out.write(territory + ": <input type='radio' name='territory' class='game-reinforce-territory' value='" + territory + "'/><br/>");
-                    }
-                %>
-                <br/><strong>Troops:</strong> <input type="number" name="troops" class="game-reinforce-troops"/><br/>
-                <br/><a href="javascript:void(0)" id="game-reinforce-link">Reinforce</a>   
-             
-            </div>
-
-            <div id="game-attack">
-                <h3>Attack Territory</h3>
-                <strong>Select Attacking Territory:</strong><br/>
-                <% 
-                    for (String territory : territories){
-                        out.write(territory + ": <input type='radio' name='attackingterritory' class='game-attack-attackingterritory' value='" + territory + "'/><br/>");
-                    }
-                %>                 
-
-                <br/><strong>Select Defending Territory:</strong><br/>
-                <% 
-                    for (String territory : territories){
-                        out.write(territory + ": <input type='radio' name='defendingterritory' class='game-attack-defendingterritory' value='" + territory + "'/><br/>");
-                    }
-                %>                
-
-                <br/><a href="javascript:void(0)" id="game-attack-link">Attack!</a>               
-            </div>            
-            
-            <div id="game-fortify">
-                <h3>Fortify Territory</h3>
-                <strong>Select Start Territory:</strong><br/>
-                <% 
-                    for (String territory : territories){
-                        out.write(territory + ": <input type='radio' name='startterritory' class='game-fortify-startterritory' value='" + territory + "'/><br/>");
-                    }
-                %>                 
-
-                <br/><strong>Select Target Territory:</strong><br/>
-                <% 
-                    for (String territory : territories){
-                        out.write(territory + ": <input type='radio' name='targetterritory' class='game-fortify-targetterritory' value='" + territory + "'/><br/>");
-                    }
-                %>                
-                <br/><strong>Troops:</strong> <input type="number" name="troops" class="game-fortify-troops"/><br/>    
-                <br/><a href="javascript:void(0)" id="game-fortify-link">Fortify</a>               
-            </div>            
-            
-            
-        </div>        
-        
-        </div>
-        
-        
- 
-        
-        
-        <%
-
-           //out.write("<br/>Enter commands above ^<br/><br/>Currently supported:<ul><li>newboard (command) : returns json of new board</li><li>reinforce (command, terriotory, troops): returns json of new board </li><li>attack (command, attacking territory, defending territory, aarmy, darmy) : returns json of new board </li><li>fortify (start territory, target territory, troops) : returns json of new board </li><li>end : returns nothing (changes the game object state to next turns)</li></ul>");
-           String test = (String) request.getSession().getAttribute("game");
-           
-           
-           out.write(test);
-            
-         %>
-         
-         
-         <script>
-             
-         var stage = "setup";
-         
-         $("#body").hide();   
-         
-         $("#start-game").click(function(){
-             $("#start-game").hide();
-            $("#body").show();
-            $("#game").hide();
-            $("#setup-reinforce").hide();
-         });
-         
-
-         var playerNumber = 0;
-         
-             //SETUP STAGE
-            $("#setup-claimterritory-link").click(function(){
-                if (stage === "setup"){
-                    $("#setup-claimterritory").hide();
-                    $("#setup-reinforce").show();
-                }
-            });    
-
-            $("#setup-reinforce-link").click(function(){
-                if (stage === "setup"){
-                    playerNumber +=1;
-                    $("#setup-reinforce").hide();
-                    $("#setup-claimterritory").show();
-                    $("#player-name").html(playerList[playerNumber]);
-
-                
-                    if (playerNumber == playerList.length){
-                        //BEGIN MAIN STAGE
-                        stage = "game"
-                        playerNumber = 0;
-                        $("#player-name").html(playerList[playerNumber]);
-                        $("#setup").hide();
-                        $("#game").show();
-                        $("#game-attack").hide();
-                        $("#game-fortify").hide()
-                       }
-                }
-            });     
-            
-
-            $("#game-reinforce-link").click(function(){
-                if (stage === "game"){
-                    $("#game-reinforce").hide();
-                    $("#game-attack").show();
-                }
-            });             
-             
-            $("#game-attack-link").click(function(){
-                if (stage === "game"){
-                    $("#game-attack").hide();
-                    $("#game-fortify").show();
-                }
-            }); 
-            
-            $("#game-fortify-link").click(function(){
-                if (stage === "game"){
-                    playerNumber +=1;
-                    $("#game-reinforce").show();
-                    $("#game-fortify").hide();
-                    if (playerNumber == playerList.length){
-                        playerNumber = 0;
-                    }
-                    $("#player-name").html(playerList[playerNumber]);
-                    
-                    
-                }
-            }); 
+<head>
     
-         </script>
-    </body>
+    <!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src="jquery.imagemapster.js"></script>
+
+</head>
+<body>
+
+<img style="width:400px;height:400px;border:0;" id="shape1" src="images/shape1.gif" alt="shape1" usemap="#shape1">
+<input id="make-small" type="button" value="Make it small">
+<input id="make-big" type="button" value="Make it bigger">
+<script>
+
+$(document).ready(function ()
+{
+$('#shape1').mapster({
+singleSelect : true,
+render_highlight : { altImage : 'images/shape2.gif' },
+     mapKey: 'color',
+fill : true, altImage : 'images/shape3.gif',
+fillOpacity : 1
+});
+});
+
+ $('#shape1').mapster({
+        mapKey: 'color',
+        stroke: true,
+        strokeWidth: 2,
+        strokeColor: 'ff0000'
+         });
+
+    $('#make-small').bind('click',function() {
+        $('#shape1').mapster('resize', 200, 0, 1000);
+    });
+    
+    $('#make-big').bind('click',function() {
+            $('#shape1').mapster('resize', 720, 0, 1000);
+        });
+function setValue(i){
+    window.alert(i.territory);
+    }
+    
+function displayTer(i){
+    $('#tooltip').toggle();
+    $('#tooltip').html("Troops: "+i.troops+ " Adjacent countries: "+i.adjacentNodes);
+    }
+  
+    
+
+ var Winterfell = {territory:"Winterfell",player:"Player 1",continent:"The North",troops:20,adjacentNodes:["Pyke","Kings Landing"]};
+ var Pyke = {territory:"Pyke",player:"Player 1",continent:"The North",troops:10,adjacentNodes:["Winterfell","Kings Landing"]};
+ var KingsLanding = {territory:"Kings Landing",player:"Player 1",continent:"The North",troops:10,adjacentNodes:["Winterfell","Pyke","Pentos","Qarth"]};
+ var Pentos = {territory:"Pentos",player:"Player 2",continent:"The North",troops:5,adjacentNodes:["Qarth","KingsLanding"]};
+ var Qarth = {territory:"Qarth",player:"Player 2",continent:"The North",troops:30,adjacentNodes:["Kings Landing","Pentos"]};
+
+ 
+</script>
+<div id="tooltip" hidden="true"></div>
+
+
+<map name="shape1">
+<area href="" onClick="setValue(Winterfell)" onmouseover="displayTer(Winterfell)" onmouseout="displayTer()" color="blue" shape="poly" coords="210,40,196,28,171,23,145,24,112,29,106,43,105,54,98,56,58,52,44,54,33,83,29,107,45,144,46,148,165,192,175,205,197,140,206,84,207,36" alt="">
+<area href="" onClick="setValue(Pyke)" onmouseover="displayTer(Pyke)" onmouseout="displayTer()" color="purple" shape="poly" coords="30,162,50,163,153,201,173,219,138,352,129,373,102,377,37,375,28,357,21,307,33,290,56,286,63,284,61,277,30,254,22,231,24,185,31,161" alt="">
+<area href="" onClick="setValue(KingsLanding)" onmouseover="displayTer(KingsLanding)" onmouseout="displayTer()" color="red" shape="poly" coords="216,97,203,161,188,204,185,233,165,292,159,327,144,372,156,379,191,386,228,385,241,376,232,322,229,278,227,223,223,171,223,132,217,96" alt="">
+<area href="" onClick="setValue(Qarth)" onmouseover="displayTer(Qarth)" onmouseout="displayTer()"color="orange" shape="poly" coords="238,213,260,208,282,195,296,188,323,185,360,194,368,203,376,227,376,272,375,286,370,289,358,289,357,294,365,305,368,329,365,357,361,370,351,379,331,383,310,382,251,364,249,344,241,307,239,210" alt="">
+<area href="" onClick="setValue(Pentos)" onmouseover="displayTer(Pentos)" onmouseout="displayTer()"color="green" shape="poly" coords="288,176,256,195,239,201,236,135,221,53,221,46,242,32,292,32,297,44,300,59,302,64,342,64,361,73,370,90,370,124,370,124,363,146,351,163,329,172,289,176" alt="">
+</map>
+</body>
 </html>

@@ -3,8 +3,10 @@
     Created on : 31/07/2014, 11:46:19 AM
     Author     : Zeb
 --%>
-
+<%@page import="java.util.List"%>
+<%@page import="java.util.Arrays"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -62,11 +64,16 @@ Copyright © team4</div>
         String currentPlayer = (String) request.getSession().getAttribute("currentplayer");
         String currentPhase = (String) request.getSession().getAttribute("currentphase");
         String currentStage = (String) request.getSession().getAttribute("currentstage");
+        String test = (String) request.getSession().getAttribute("game");
+           
+           
+           out.write(test);
     %>
     var board; 
-    $.getJSON('http://localhost:8084/MainServlet', function(jsonAr){
+    $.getJSON('http://localhost:8082/MainServlet', function(jsonAr){
              board = jsonAr;});
      
+    window.alert(board);
     //game image size var
     var z = $(window).width();
 
@@ -99,24 +106,24 @@ Copyright © team4</div>
                     chosenClaim = true;
                     callClaimTerritory(board.currentPlayer.player, claim);}
             });
-        };
+        }
         
-        else (reinforcePhase();)
+        else {reinforcePhase();}
     
     }
     
     function game(){
         if (currentPhase === 'reinforcePhase'){
             reinforcePhase();
-        };
+        }
         
         else if (currentPhase === 'attack'){
             attackPhase();
-        };
+        }
         
         else if (currentPhase === 'fortify'){
             
-        };
+        }
     }
     
     var reinforceArea = null;
@@ -311,7 +318,7 @@ Copyright © team4</div>
                      altImage : picAltImg(zones.TheEyrie)} ]
              });
              $('#gameMap').mapster('resize', z, 0, 1000);
-     };
+     }
      
     function zoom(inOut){
         z = z+inOut;
@@ -343,32 +350,10 @@ Copyright © team4</div>
     }
     function switchPlayer(){
         if (getCurrentPlayer()===1){currentPlayer =2;}
-        else {currentPlayer =1;}
+        else {currentPlayer=1;}
         gameLogic();
     }
-    
-    
-         
-    var currentPlayer = null;
-    var board = {
-        "currentPlayer" : {player:1},
-        "currentPhase" : {phase:"setup" }
-    };
-    
-    var zones ={
-    "FlintsFinger" : {territory:"FlintsFinger",player:1,continent:"The North",troops:10,
-        adjacentNodes:["The Twins","Pyke"]},
-    "TheTwins" : {territory:"TheTwins",player:1,continent:"The North",troops:10,
-        adjacentNodes:["Flints Finger","The Three Sisters","Riverlands"]},
-    "TheThreeSisters" : {territory:"TheThreeSisters",player:1,continent:"The North",troops:10,
-        adjacentNodes:["The Twins","Riverlands","TheEyrie"]},
-    "Pyke" : {territory:"Pyke",player:2,continent:"The North",troops:10,
-        adjacentNodes:["FlintsFinger"]},
-    "Riverlands" : {territory:"Riverlands",player:2,continent:"The North",troops:10,
-        adjacentNodes:["The Twins","The Three Sisters","TheEyrie"]},
-    "TheEyrie" : {territory:"TheEyrie",player:2,continent:"The North",troops:10,
-        adjacentNodes:["Riverlands","The Three Sisters"]}
-    };
+
         
     </script>
 </body>

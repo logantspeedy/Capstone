@@ -64,16 +64,17 @@ Copyright © team4</div>
         String currentPlayer = (String) request.getSession().getAttribute("currentplayer");
         String currentPhase = (String) request.getSession().getAttribute("currentphase");
         String currentStage = (String) request.getSession().getAttribute("currentstage");
-        String test = (String) request.getSession().getAttribute("game");
-           
-           
-           out.write(test);
+
+        
+        
     %>
-    var board; 
-    $.getJSON('http://localhost:8082/MainServlet', function(jsonAr){
-             board = jsonAr;});
-     
-    window.alert(board);
+        var gameJSON = "<%=gameJSON%>";
+        var currentPlayer = "<%=currentPlayer%>";
+        var currentPhase = "<%=currentPhase%>";
+        var currentStage = "<%=currentStage%>";
+        var board = null;
+        
+
     //game image size var
     var z = $(window).width();
 
@@ -86,14 +87,17 @@ Copyright © team4</div>
 
     //update map to current board
     function gameLogic(){
-        setTerritoryOwner();
-        if (currentStage ==="setup"){
+        alert(gameJSON);
+        if (gameJSON === "null"){alert("no current player");}
+        
+//        setTerritoryOwner();
+        else if (currentStage ==="setup"){
             setupPhase();
         }
         else if (currentStage === "game"){
             game();
 
-    }
+    }}
     var claim = null;
     function setupPhase(){
         var chosenClaim = false;
@@ -333,26 +337,15 @@ Copyright © team4</div>
     }
     
     function setBackground(){
-        setCurrentPlayer();
+        
         var bImg = null;
-        if (currentPlayer ===1){bImg = "images/forest.jpg";}
+        if (currentPlayer === 1){bImg = "images/forest.jpg";}
         else {bImg = "images/KingsLanding.jpg";}
         $('.body').css({'background-image': 'url'+'('+bImg+')'});
         
     }
            
-    function getCurrentPlayer(){
-        return board.currentPlayer.player;
-    }
-    
-    function setCurrentPlayer(){
-        currentPlayer = board.currentPlayer.player;
-    }
-    function switchPlayer(){
-        if (getCurrentPlayer()===1){currentPlayer =2;}
-        else {currentPlayer=1;}
-        gameLogic();
-    }
+
 
         
     </script>

@@ -133,6 +133,14 @@ public class MainServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         switch (request.getParameter("command")) {
+            
+            case "getgamedata":
+                {
+                    String JSON = getGameData(request, session);
+                    if (JSON == null){return;}
+                    out.println(JSON);
+                    break;
+                }        
             case "claimterritory":
                 {
                     String JSON = claimTerritory(request, session);
@@ -166,6 +174,9 @@ public class MainServlet extends HttpServlet {
                 if (JSON == null){return;}
                 out.println(JSON);
                 break;
+                
+                
+                
         }       
 
 
@@ -345,7 +356,28 @@ public class MainServlet extends HttpServlet {
         
         return boardJSON;
      }
-    
+     
+     public String getGameData(HttpServletRequest request,HttpSession session){
+       if(session.getAttribute("game") == null){
+            return null;
+        }
+       //set variables     
+        String gameJSON  = (String) session.getAttribute("game");
+        Gson gson = new Gson();
+        Game game = gson.fromJson(gameJSON, Game.class);       
+ 
+        //go to the next phase in the game
+        String currentPlayer = game.getCurrentPlayer();
+        String currentPhase = game.getPhase();
+        String currentstage = game.getStage();
+        
+        List<String>  gameData = Arrays.asList(currentPlayer, currentPhase, currentstage);
+        
+        //convert back to json
+        String gameDataJSON = gson.toJson(gameData);
+        
+        return gameDataJSON;
+     }    
 }
 
 

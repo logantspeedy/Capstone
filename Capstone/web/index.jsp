@@ -18,15 +18,15 @@
     </head>
     <body>
         <h1 id="title">Welcome to the risk game!</h1>
+        
         <%
         List<String> territories = Arrays.asList("Flints Finger", "The Twins", "The Three Sisters", "Pyke", "Riverlands", "The Eyrie");
-        List<String> playerList = Arrays.asList("Player 1", "Player 2", "Player 3", "Player 4");
         %>
 
         
         <a href="javascript:void(0)" id="start-game">Start game!</a><br/>
         <div id="body">
-            Current Player: <div id="player-name"></div><br/>
+            Current Player: <div id="player-name"></div> Troops:<div id="troop-number"></div> Territories: <div id="player-territories"></div><br/>
         <div id="setup">
             <h1>SETUP STAGE</h1>
             <div id="setup-claimterritory"> 
@@ -118,28 +118,28 @@
         
         <%
 
-           //out.write("<br/>Enter commands above ^<br/><br/>Currently supported:<ul><li>newboard (command) : returns json of new board</li><li>reinforce (command, terriotory, troops): returns json of new board </li><li>attack (command, attacking territory, defending territory, aarmy, darmy) : returns json of new board </li><li>fortify (start territory, target territory, troops) : returns json of new board </li><li>end : returns nothing (changes the game object state to next turns)</li></ul>");
            request.getSession().removeAttribute("game");
            
-           String test = (String) request.getSession().getAttribute("game");
-           out.write(test);
-
          %>
 
                 
          <div id="post-json-msg"></div>  
-         <script>
-var playerList = ["Player 1", "Player 2", "Player 3", "Player 4"];             
-             
-             
-$("#player-name").text(playerList[0]);          
+         
+         
+        <script>
+    
+        //set initial variables for game tracking
+        var playerList = ["Player 1", "Player 2", "Player 3", "Player 4"];             
+        var troopList  = [30,30,30,30];
+        var territoryList = [[],[],[],[]];
+        //set first player     
+        $("#player-name").text(playerList[0]);  
+        $("#troop-number").text(troopList[0]); 
 
-
-//var postParams ={command: "claimterritory", playername: "Player 1", territory:"Pyke"};
-//request(postParams);
-
+        //keep track of stages
          var stage = "setup";
          
+         //show map for first player
          $("#body").hide();   
          
          $("#start-game").click(function(){
@@ -152,21 +152,30 @@ $("#player-name").text(playerList[0]);
 
          var playerNumber = 0;
          var selectNumber = 0;
+         
              //SETUP STAGE
             $("#setup-claimterritory-link").click(function(){
-                
+                //for claim territory
                 if (stage === "setup"){
                     var checkedVal = $("input[type='radio'][name='territory']:checked").val();
                     if (!checkedVal){alert("You did not select a value!"); return;}
                     $("input[type='radio'][name='territory']:checked").hide();
                     selectNumber +=1
+                    troopList[playerNumber] -= 1;
+                    territoryList[playerNumber].push(checkedVal);
                     request({command: "claimterritory", playername: $("#player-name").text(), territory:checkedVal});
-                    alert('<% out.write((String) request.getSession().getAttribute("currentplayer")); out.write((String) request.getSession().getAttribute("currentphase")); out.write((String) request.getSession().getAttribute("currentstage")); %>');
+                    //alert('<% //out.write((String) request.getSession().getAttribute("currentplayer")); out.write((String) request.getSession().getAttribute("currentphase")); out.write((String) request.getSession().getAttribute("currentstage")); %>');
                     playerNumber +=1;
                     if (playerNumber == playerList.length){playerNumber = 0;}
+                    $( "#player-territories" ).html(territoryList[playerNumber].toString());
                     $("#player-name").html(playerList[playerNumber]);
+                    $("#troop-number").html(troopList[playerNumber]);
                     
                     if (selectNumber == 6){
+                        playerNumber = 0;
+                        $( "#player-territories" ).html(territoryList[playerNumber].toString());
+                        $("#player-name").html(playerList[playerNumber]);
+                        $("#troop-number").html(troopList[playerNumber]);
                         selectNumber = 0;
                         $("#setup-claimterritory").hide();
                         $("#setup-reinforce").show();
@@ -175,27 +184,47 @@ $("#player-name").text(playerList[0]);
             });    
 
             $("#setup-reinforce-link").click(function(){
+                //for setup reinforce
                 if (stage === "setup"){
                     var checkedVal = $("input[type='radio'][name='territory']:checked").val();
                     var troopCount = $('.setup-reinforce-troops').val();                  
                     if (!checkedVal || !troopCount){alert("You did not enter all the inputs!"); return;}
                     $('.setup-reinforce-troops').val('');
-                    $("input[type='radio'][name='territory']:checked").hide();
                     
-                    alert('<% out.write((String) request.getSession().getAttribute("currentplayer")); out.write((String) request.getSession().getAttribute("currentphase")); out.write((String) request.getSession().getAttribute("currentstage")); %>');             
-                    selectNumber +=1;            
+                    selectNumber +=1;
+                    if (troopCount > troopList[playerNumber]){alert("You entered too many troops!"); return;}
+                    troopList[playerNumber] -= troopCount;
                     request({command: "reinforce", territory: checkedVal, troops: troopCount});                    
                     playerNumber +=1;
 
                     if (playerNumber == playerList.length){playerNumber = 0;}
-                    $("#player-name").html(playerList[playerNumber]);
+                    
+                    if (troopList[playerNumber] == 0){
+                        playerNumber = 0;
+                        while (troopList[playerNumber] == 0){
+                            
+                            playerNumber +=1;
+                            if (playerNumber == 3){break;}
+                        }
+                    }
 
-                
-                    if (playerNumber == playerList.length){
+                    $( "#player-territories" ).html(territoryList[playerNumber].toString());
+                    $("#player-name").html(playerList[playerNumber]);
+                    $("#troop-number").html(troopList[playerNumber]);    
+                    
+                    var troopsGivenCount = 0;
+                    for (var i = 0; i < troopList.length; i++) {
+                        if (troopList[i] == 0){
+                            troopsGivenCount +=1;
+                        }
+                    }
+                    if (troopsGivenCount == playerList.length){
                         //BEGIN MAIN STAGE
                         stage = "game"
                         playerNumber = 0;
+                        $( "#player-territories" ).html(territoryList[playerNumber].toString());
                         $("#player-name").html(playerList[playerNumber]);
+                        $("#troop-number").html(troopList[playerNumber]);
                         $("#setup").hide();
                         $("#game").show();
                         $("#game-attack").hide();
@@ -206,21 +235,39 @@ $("#player-name").text(playerList[0]);
             
 
             $("#game-reinforce-link").click(function(){
+                //for game reinforce
                 if (stage === "game"){
+                    var checkedVal = $("input[type='radio'][name='territory']:checked").val();
+                    var troopCount = $('.game-reinforce-troops').val();                    
+                    if (!checkedVal || !troopCount){alert("You did not enter all the inputs!"); return;}
+                    $('.game-reinforce-troops').val('');
+                    if (troopCount > troopList[playerNumber]){alert("You entered too many troops!"); return;}
+                    troopList[playerNumber] -= troopCount;
+                    request({command: "reinforce", territory: checkedVal, troops: troopCount}); 
                     $("#game-reinforce").hide();
                     $("#game-attack").show();
                 }
             });             
              
             $("#game-attack-link").click(function(){
+                //for attack
                 if (stage === "game"){
+                    var checkATerritory = $("input[type='radio'][name='attackingterritory']:checked").val();
+                    var checkDTerritory = $("input[type='radio'][name='defendingterritory']:checked").val();
+                    if (!checkATerritory || !checkDTerritory){alert("You did not enter all the inputs!"); return;}
+                    request({command: "attack", attackingterritory: checkATerritory, defendingterritory: checkDTerritory}); 
                     $("#game-attack").hide();
                     $("#game-fortify").show();
                 }
             }); 
             
             $("#game-fortify-link").click(function(){
+                //for fortify
                 if (stage === "game"){
+                    var checkStartTerritory = $("input[type='radio'][name='attackingterritory']:checked").val();
+                    var checkTargetTerritory = $("input[type='radio'][name='defendingterritory']:checked").val();
+                    if (!checkStartTerritory || !checkTargetTerritory){alert("You did not enter all the inputs!"); return;} 
+                    request({command: "fortify", startterritory: checkStartTerritory, targetterritory: checkTargetTerritory});
                     playerNumber +=1;
                     $("#game-reinforce").show();
                     $("#game-fortify").hide();
@@ -238,9 +285,11 @@ $("#player-name").text(playerList[0]);
     //{command: "reinforce", territory: "Pyke", troops: "5"}
     //{command: "attack", attackingterritory: "Pyke", defendingterritory: "Flints Fingers"}
     //{command: "fortify", startterritory: "Pyke", targetterritory: "Flints Fingers", troops: "5"}
-    //{command: "newphase"}
-
-    function request(parameters){    
+    //{command: "nextphase"}
+    //{command: "getgamedata"}
+    
+    function request(parameters){
+        //generic ajax post request to make body of code nicer to read
         $.ajax({
               type: "POST",
               url: "MainServlet",
@@ -254,6 +303,7 @@ $("#player-name").text(playerList[0]);
     }
     
     function displayData (json){
+        //for future displaying of server data (right now just loggig)
         $("#post-json-msg").html(console.log(json));
         
     }

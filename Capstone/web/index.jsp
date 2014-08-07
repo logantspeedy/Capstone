@@ -193,6 +193,7 @@
                     
                     selectNumber +=1;
                     if (troopCount > troopList[playerNumber]){alert("You entered too many troops!"); return;}
+                    if(!isInArray(checkedVal, territoryList[playerNumber])){alert("You do not own that territory!"); return;}
                     troopList[playerNumber] -= troopCount;
                     request({command: "reinforce", territory: checkedVal, troops: troopCount});                    
                     playerNumber +=1;
@@ -242,6 +243,7 @@
                     if (!checkedVal || !troopCount){alert("You did not enter all the inputs!"); return;}
                     $('.game-reinforce-troops').val('');
                     if (troopCount > troopList[playerNumber]){alert("You entered too many troops!"); return;}
+                    if(!isInArray(checkedVal, territoryList[playerNumber])){alert("You do not own that territory!"); return;}
                     troopList[playerNumber] -= troopCount;
                     request({command: "reinforce", territory: checkedVal, troops: troopCount}); 
                     $("#game-reinforce").hide();
@@ -307,6 +309,11 @@
         $("#post-json-msg").html(console.log(json));
         
     }
+    
+    function isInArray(value, array) {
+        return array.indexOf(value) > -1;
+    }    
+    
  
     
     

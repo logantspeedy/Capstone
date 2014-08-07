@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 package API;
 
@@ -32,21 +32,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- *
- * @author Taylor
- */
+*
+* @author Taylor
+*/
 @WebServlet(name = "MainServlet", urlPatterns = {"/MainServlet"})
 public class MainServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+* Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+* methods.
+*
+* @param request servlet request
+* @param response servlet response
+* @throws ServletException if a servlet-specific error occurs
+* @throws IOException if an I/O error occurs
+*/
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -55,7 +55,7 @@ public class MainServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MainServlet</title>");            
+            out.println("<title>Servlet MainServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet MainServlet at " + request.getContextPath() + "</h1>");
@@ -66,13 +66,13 @@ public class MainServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+* Handles the HTTP <code>GET</code> method.
+*
+* @param request servlet request
+* @param response servlet response
+* @throws ServletException if a servlet-specific error occurs
+* @throws IOException if an I/O error occurs
+*/
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -80,13 +80,13 @@ public class MainServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+* Handles the HTTP <code>POST</code> method.
+*
+* @param request servlet request
+* @param response servlet response
+* @throws ServletException if a servlet-specific error occurs
+* @throws IOException if an I/O error occurs
+*/
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -94,7 +94,7 @@ public class MainServlet extends HttpServlet {
        
         response.setContentType("application/json");
        
-        PrintWriter out = response.getWriter();     
+        PrintWriter out = response.getWriter();
       
         //create new session or get current session
         HttpSession session = request.getSession();
@@ -110,7 +110,7 @@ public class MainServlet extends HttpServlet {
             case "reinforce":
                 {
                     String JSON = reinforce(request, session);
-                    if (JSON == null){return;}       
+                    if (JSON == null){return;}
                     out.println(JSON);
                     break;
                 }
@@ -129,7 +129,7 @@ public class MainServlet extends HttpServlet {
                     break;
                 }
             case "nextphase":
-                String JSON = nextPhase(request, session); 
+                String JSON = nextPhase(request, session);
                 if (JSON == null){return;}
                 out.println(JSON);
                 break;
@@ -138,11 +138,11 @@ public class MainServlet extends HttpServlet {
     }
 
     /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     * @return API for risk game
-     */
+* Returns a short description of the servlet.
+*
+* @return a String containing servlet description
+* @return API for risk game
+*/
     @Override
     public String getServletInfo() {
         return "API for our risk";
@@ -152,7 +152,7 @@ public class MainServlet extends HttpServlet {
     public String claimTerritory(HttpServletRequest request,HttpSession session){
         if (request.getParameter("playername") == null || request.getParameter("territory") == null){
             return null;
-        }  
+        }
         //set variables
         String playerName = request.getParameter("playername");
         String territory = request.getParameter("territory");
@@ -161,13 +161,13 @@ public class MainServlet extends HttpServlet {
         //check if this is the first call for the game
         if (session.getAttribute("game") == null){
             //create the game object
-            game = new Game(new String[]{"Player 1", "Player 2", "Player 3", "Player 4"});
+            game = new Game(new String[]{"Player 1", "Player 2"});
         }
         else{
             //if it's not the first call, get the game JSON data
-            String gameJSON  = (String) session.getAttribute("game");
-            //get the json string back into an object          
-            game = gson.fromJson(gameJSON, Game.class); 
+            String gameJSON = (String) session.getAttribute("game");
+            //get the json string back into an object
+            game = gson.fromJson(gameJSON, Game.class);
         }
         //claim territory
         game.claimTerritory(playerName, territory);
@@ -197,10 +197,10 @@ public class MainServlet extends HttpServlet {
         }
        //set variables
         String territory = request.getParameter("territory");
-        int troops = Integer.parseInt(request.getParameter("troops"));     
-        String gameJSON  = (String) session.getAttribute("game");
+        int troops = Integer.parseInt(request.getParameter("troops"));
+        String gameJSON = (String) session.getAttribute("game");
         Gson gson = new Gson();
-        Game game = gson.fromJson(gameJSON, Game.class);       
+        Game game = gson.fromJson(gameJSON, Game.class);
  
         //reinforce the territory
         game.reinforce(territory, troops);
@@ -216,7 +216,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("game", gameJSON);
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
-        session.setAttribute("currentstage", game.getStage());    
+        session.setAttribute("currentstage", game.getStage());
         
         return boardJSON;
 
@@ -228,10 +228,10 @@ public class MainServlet extends HttpServlet {
         }
        //set variables
         String attackingTerritory = request.getParameter("attackingterritory");
-        String defendingTerritory = request.getParameter("defendingterritory");      
-        String gameJSON  = (String) session.getAttribute("game");
+        String defendingTerritory = request.getParameter("defendingterritory");
+        String gameJSON = (String) session.getAttribute("game");
         Gson gson = new Gson();
-        Game game = gson.fromJson(gameJSON, Game.class);       
+        Game game = gson.fromJson(gameJSON, Game.class);
  
         //attack the territory
         game.attack(attackingTerritory, defendingTerritory);
@@ -247,7 +247,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("game", gameJSON);
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
-        session.setAttribute("currentstage", game.getStage());    
+        session.setAttribute("currentstage", game.getStage());
         
         return boardJSON;
 
@@ -260,10 +260,10 @@ public class MainServlet extends HttpServlet {
        //set variables
         String startTerritory = request.getParameter("startterritory");
         String targetTerritory = request.getParameter("targetterritory");
-        int troops = Integer.parseInt(request.getParameter("troops"));       
-        String gameJSON  = (String) session.getAttribute("game");
+        int troops = Integer.parseInt(request.getParameter("troops"));
+        String gameJSON = (String) session.getAttribute("game");
         Gson gson = new Gson();
-        Game game = gson.fromJson(gameJSON, Game.class);       
+        Game game = gson.fromJson(gameJSON, Game.class);
  
         //fortify
         game.fortify(startTerritory, targetTerritory, troops);
@@ -279,19 +279,19 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("game", gameJSON);
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
-        session.setAttribute("currentstage", game.getStage());    
+        session.setAttribute("currentstage", game.getStage());
         
         return boardJSON;
 
-    } 
+    }
      public String nextPhase(HttpServletRequest request,HttpSession session){
        if(session.getAttribute("game") == null){
             return null;
         }
-       //set variables     
-        String gameJSON  = (String) session.getAttribute("game");
+       //set variables
+        String gameJSON = (String) session.getAttribute("game");
         Gson gson = new Gson();
-        Game game = gson.fromJson(gameJSON, Game.class);       
+        Game game = gson.fromJson(gameJSON, Game.class);
  
         //go to the next phase in the game
         game.nextPhase();
@@ -307,13 +307,9 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("game", gameJSON);
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
-        session.setAttribute("currentstage", game.getStage());    
+        session.setAttribute("currentstage", game.getStage());
         
         return boardJSON;
      }
     
 }
-
-
-
-

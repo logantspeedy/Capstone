@@ -64,16 +64,14 @@ Copyright © team4</div>
         String currentPlayer = (String) request.getSession().getAttribute("currentplayer");
         String currentPhase = (String) request.getSession().getAttribute("currentphase");
         String currentStage = (String) request.getSession().getAttribute("currentstage");
-
-        
-        
+ 
     %>
-        var gameJSON = "<%=gameJSON%>";
+        var gameJSON = <%=gameJSON%>;
         var currentPlayer = "<%=currentPlayer%>";
         var currentPhase = "<%=currentPhase%>";
         var currentStage = "<%=currentStage%>";
-        var board = null;
         
+        alert(gameJSON);
 
     //game image size var
     var z = $(window).width();
@@ -87,28 +85,26 @@ Copyright © team4</div>
 
     //update map to current board
     function gameLogic(){
-        alert(gameJSON);
-        if (gameJSON === "null"){alert("no current player");}
         
-//        setTerritoryOwner();
-        else if (currentStage ==="setup"){
+        if (gameJSON === null){
+            currentPlayer="Player 1";
+            currentPhase="claim";
             setupPhase();
+    }
         }
-        else if (currentStage === "game"){
-            game();
-
-    }}
-    var claim = null;
+        
+    var claim = "1";
     function setupPhase(){
         var chosenClaim = false;
-        if (currentPhase === claim){
-            $('.commentWindow').append('<p>Player '+board.currentPlayer.player+': pick avaliable territory</p>');
+        alert(currentPhase);
+        if (currentPhase === "claim"){
+            $('.commentWindow').append('<p>'+currentPlayer+': pick avaliable territory</p>');
 
             $("#Map").click(function(){
                 if (!chosenClaim){
-                    $('.commentWindow').append('<p> Player '+board.currentPlayer.player+' chose '+ claim +' </p>');
+                    $('.commentWindow').append('<p>'+currentPlayer+' chose '+ claim +' </p>');
                     chosenClaim = true;
-                    callClaimTerritory(board.currentPlayer.player, claim);}
+                    callClaimTerritory(currentPlayer, claim);}
             });
         }
         
@@ -133,11 +129,11 @@ Copyright © team4</div>
     var reinforceArea = null;
     function reinforcePhase(){
         var reinforceChosen = false;
-        $('.commentWindow').append('<p> Player '+board.currentPlayer.player+' :select territory to Reinforce </p>');
+        $('.commentWindow').append('<p> Player '+currentPlayer+' :select territory to Reinforce </p>');
         
         $("#Map").click(function(){
             if (!reinforceChosen){
-                $('.commentWindow').append('<p> Player '+board.currentPlayer.player+' chose '+ reinforceArea +' </p>');
+                $('.commentWindow').append('<p> Player '+currentPlayer+' chose '+ reinforceArea +' </p>');
                 reinforceChosen = true;
                 callReinforce(reinforceArea, 1);}
         });
@@ -151,14 +147,14 @@ Copyright © team4</div>
         attacker = null;
         defender = null;
         
-        $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+': select territory to atttack with </p>');
+        $('.commentWindow').append('<p> Current Player: '+currentPlayer+': select territory to atttack with </p>');
         
         var attackerClicked = false;
         var defenderClicked = false;
         
         $("#Map").click(function(){
             if (!attackerClicked){
-                $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+': select territory to atttack </p>');
+                $('.commentWindow').append('<p> Current Player: '+currentPlayer+': select territory to atttack </p>');
                 attackerClicked = true;}
             
             $("#Map").click(function(){
@@ -180,14 +176,14 @@ Copyright © team4</div>
         fortifyFrom = null;
         fortifyTo = null;
         
-        $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+': select territory to move units from  </p>');
+        $('.commentWindow').append('<p> Current Player: '+currentPlayer+': select territory to move units from  </p>');
         
         var fromSelected = false;
         var toSelected = false;
         
         $("#Map").click(function(){
             if (!fromSelected){
-                $('.commentWindow').append('<p> Current Player: '+board.currentPlayer.player+': select territory to move units to </p>');
+                $('.commentWindow').append('<p> Current Player: '+currentPlayer+': select territory to move units to </p>');
                 fromSelected = true;}
             
             $("#Map").click(function(){
@@ -204,14 +200,14 @@ Copyright © team4</div>
     }
 
     function callClaimTerritory(pla, ter){
+        alert("dick");
         $.ajax({
           type: "POST",
-          url: "/MainServlet",
-          data: { command: "claim" , playername:pla, territory:ter }
-        }).done(function( msg ) {
-          alert( "Data Saved: " + msg );
-        });
-    }
+          url: "http://localhost:8082/Capstone/MainServlet",
+          data: { command: "claimterritory" , playername:pla, territory:ter },
+          success : function(data){
+            alert(data);
+           }});}
 
     function callReinforce(ter,tro){
         $.ajax({

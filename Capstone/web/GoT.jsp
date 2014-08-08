@@ -3,6 +3,7 @@
     Created on : 31/07/2014, 11:46:19 AM
     Author     : Zeb
 --%>
+<%@page import="java.util.Enumeration"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -64,8 +65,8 @@ Copyright © team4</div>
         String currentPlayer = (String) request.getSession().getAttribute("currentplayer");
         String currentPhase = (String) request.getSession().getAttribute("currentphase");
         String currentStage = (String) request.getSession().getAttribute("currentstage");
- 
     %>
+        
         var gameJSON = <%=gameJSON%>;
         var currentPlayer = "<%=currentPlayer%>";
         var currentPhase = "<%=currentPhase%>";
@@ -90,21 +91,19 @@ Copyright © team4</div>
        if (gameJSON === null){
             alert("Click ok to start a new game");
             startGame("Player 1", "Player 2");
-//            gameLogic;
+
          }
         
-        else if (gameJSON.toLocaleString() === "[object Object]"){
+        else if (currentStage  === "setup"){
             setTerritoryOwner();
             setupPhase();
-//            gameLogic();
+
     }
         }
         
     var claim = "1";
     function setupPhase(){
         var chosenClaim = false;
-        alert("entered setupPhase");
-        
         if (currentPhase === "claim"){
             
             $('.commentWindow').append('<p>'+currentPlayer+': pick avaliable territory</p>');
@@ -145,7 +144,7 @@ Copyright © team4</div>
             if (!reinforceChosen){
                 $('.commentWindow').append('<p> Player '+currentPlayer+' chose '+ reinforceArea +' </p>');
                 reinforceChosen = true;
-                callReinforce(reinforceArea, 1);}
+                callReinforce(reinforceArea, 10);}
         });
 
         
@@ -181,6 +180,7 @@ Copyright © team4</div>
     
     var fortifyFrom = null;
     var fortifyTo = null;
+    
     function fortifyPhase(){
         
         fortifyFrom = null;
@@ -233,12 +233,13 @@ Copyright © team4</div>
     function callReinforce(ter,tro){
         $.ajax({
           type: "POST",
-          url: "/MainServlet",
+          url: "MainServlet",
+          dataType : 'json',
           data: { command: "reinforce" , territory:ter, troops:tro }
-        }).done(function( msg ) {
-          alert( "Data Saved: " + msg );
-        });
-    }
+        ,
+          success : function(data){
+            window.location.href='GoT.jsp';
+           }});}
 
     function callAttack(ter, def){   
         $.ajax({
@@ -261,7 +262,6 @@ Copyright © team4</div>
     }
 
     function clickHandler(data) {
-           alert("enetered click handler");
            if(currentPhase === "claim"){
             // add check that clicked area isn't owned
 //            if (board[data.key] player ===null)
@@ -368,7 +368,7 @@ Copyright © team4</div>
     function setBackground(){
         
         var bImg = null;
-        if (currentPlayer === 1){bImg = "images/forest.jpg";}
+        if (currentPlayer === "Player 1"){bImg = "images/forest.jpg";}
         else {bImg = "images/KingsLanding.jpg";}
         $('.body').css({'background-image': 'url'+'('+bImg+')'});
         

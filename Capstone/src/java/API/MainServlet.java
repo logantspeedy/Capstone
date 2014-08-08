@@ -224,7 +224,6 @@ public class MainServlet extends HttpServlet {
             game = gson.fromJson(gameJSON, Game.class); 
         }
         //claim territory
-        System.out.println(territory);
         game.claimTerritory(territory, playerName);
         
         //convert game to JSON
@@ -250,15 +249,12 @@ public class MainServlet extends HttpServlet {
         String playerName1 = request.getParameter("playername1");
         String playerName2 = request.getParameter("playername2");
         Game game;
-        System.out.println(playerName1);
+        
         Gson gson = new Gson();
         //check if this is the first call for the game
 
         game = new Game(new String[]{playerName1,playerName2});
 
-
-       
-        System.out.println(game);
         
         //convert game to JSON
         String gameJSON = gson.toJson(game);

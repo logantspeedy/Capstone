@@ -54,7 +54,7 @@ public class GameTest {
     @Test
     public void testGetBoard() {
         System.out.println("getBoard");        
-
+		
 		ArrayList<Node> nodes = new ArrayList();
 		Node castleBlack = new Node("Castle Black", "", "The North", 0, new String[]{"Winterfell", "Crasters Keep"});
 		Node winterfell = new Node("Winterfell", "", "The North", 0, new String[]{"The Twins", "Crasters Keep"});
@@ -118,7 +118,7 @@ public class GameTest {
     public void testNextStage() {
         System.out.println("NextStage");
         Game instance = null;
-        //instance.NextPhase();
+        instance.nextPhase();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

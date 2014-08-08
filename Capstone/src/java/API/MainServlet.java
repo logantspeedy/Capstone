@@ -6,10 +6,14 @@
 
 package API;
 
+
 import serverClasses.*;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+
+
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +24,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+
 import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,18 +49,11 @@ public class MainServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet MainServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet MainServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            out.println("{response:error}");
+
         }
     }
 
@@ -70,24 +69,9 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       
         response.setContentType("application/json");
        
-        PrintWriter out = response.getWriter();     
+        PrintWriter out = response.getWriter();   
       
         //create new session or get current session
         HttpSession session = request.getSession();
@@ -130,8 +114,85 @@ public class MainServlet extends HttpServlet {
     }
 
     /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        //processRequest(request, response);
+        response.setContentType("application/json");
+       
+        PrintWriter out = response.getWriter();   
+      
+        //create new session or get current session
+        HttpSession session = request.getSession();
+
+        switch (request.getParameter("command")) {
+            case "newgame":
+                {
+                    String JSON = newGame(request, session);
+                    if (JSON == null){return;}
+                    out.println(JSON);
+                    break;
+                } 
+            
+            case "getgamedata":
+                {
+                    String JSON = getGameData(request, session);
+                    if (JSON == null){return;}
+                    out.println(JSON);
+                    break;
+                }        
+            case "claimterritory":
+                {
+                    String JSON = claimTerritory(request, session);
+                    if (JSON == null){return;}
+                    out.println(JSON);
+                    break;
+                }
+            case "reinforce":
+                {
+                    String JSON = reinforce(request, session);
+                    if (JSON == null){return;}       
+                    out.println(JSON);
+                    break;
+                }
+            case "attack":
+                {
+                    String JSON = attack(request, session);
+                    if (JSON == null){return;}
+                    out.println(JSON);
+                    break;
+                }
+            case "fortify":
+                {
+                    String JSON = fortify(request, session);
+                    if (JSON == null){return;}
+                    out.println(JSON);
+                    break;
+                }
+            case "nextphase":
+                String JSON = nextPhase(request, session); 
+                if (JSON == null){return;}
+                out.println(JSON);
+                break;
+                
+                
+                
+        }       
+
+
+    }
+
+    /**
      * Returns a short description of the servlet.
      *
+     * @return a String containing servlet description
      * @return API for risk game
      */
     @Override
@@ -139,7 +200,42 @@ public class MainServlet extends HttpServlet {
         return "API for our risk";
     }// </editor-fold>
 
+    public String newGame(HttpServletRequest request,HttpSession session){
+        if (request.getParameter("playerlist") == null){
+            return null;
+        }  
+        //set variables
+        String playerListJSON = request.getParameter("playerlist");
+        
+        Gson gson = new Gson();
+        String[] playerList = gson.fromJson(playerListJSON, String[].class);
+        
+        Game game;
+        if (session.getAttribute("game") != null){
+            session.removeAttribute("game");
+        }   
+        
+        game = new Game(playerList); 
+        
+        
+        //convert game to JSON
+        String gameJSON = gson.toJson(game);
+        
+        //get the board and convert it to JSON
+        Board board = game.getBoard();
+        String boardJSON = gson.toJson(board);
 
+
+        //store session data
+        session.setAttribute("game", gameJSON);
+        session.setAttribute("currentplayer", game.getCurrentPlayer());
+        session.setAttribute("currentphase", game.getPhase());
+        session.setAttribute("currentstage", game.getStage());
+
+        return boardJSON;
+    }
+    
+    
     public String claimTerritory(HttpServletRequest request,HttpSession session){
         if (request.getParameter("playername") == null || request.getParameter("territory") == null){
             return null;
@@ -161,7 +257,7 @@ public class MainServlet extends HttpServlet {
             game = gson.fromJson(gameJSON, Game.class); 
         }
         //claim territory
-        game.claimTerritory(playerName, territory);
+        game.claimTerritory(territory, playerName);
         
         //convert game to JSON
         String gameJSON = gson.toJson(game);
@@ -302,7 +398,29 @@ public class MainServlet extends HttpServlet {
         
         return boardJSON;
      }
-    
+     
+     public String getGameData(HttpServletRequest request,HttpSession session){
+       if(session.getAttribute("game") == null){
+            return null;
+        }
+       //set variables     
+        String gameJSON  = (String) session.getAttribute("game");
+        Gson gson = new Gson();
+        Game game = gson.fromJson(gameJSON, Game.class);       
+ 
+        //go to the next phase in the game
+        String currentPlayer = game.getCurrentPlayer();
+        String playerTroops = Integer.toString(game.getPlayer(currentPlayer).getArmy());
+        String currentPhase = game.getPhase();
+        String currentstage = game.getStage();
+        
+        List<String>  gameData = Arrays.asList(currentPlayer, playerTroops, currentPhase, currentstage);
+        
+        //convert back to json
+        String gameDataJSON = gson.toJson(gameData);
+        
+        return gameDataJSON;
+     }    
 }
 
 

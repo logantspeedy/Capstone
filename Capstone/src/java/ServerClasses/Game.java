@@ -130,11 +130,16 @@ public class Game {
 		}
 		
 		playerPos = playerList.indexOf(currentPlayer);
-		if(playerPos < (playerList.size()-1))
+                
+                if (claimCounter >= (noOfTerritories)){
+                        playerPos=0;
+                }
+                
+                else if(playerPos < (playerList.size()-1))
 		{
 			playerPos++;
 		}
-		else
+                else
 		{
 			playerPos=0;
 		}
@@ -153,11 +158,12 @@ public class Game {
 		//or next phase.
 		if(currentStage.equals("setup")){
 			//Check for next phase.
-			if(currentPhase.equals("claim") && claimCounter != noOfTerritories){
+			if(currentPhase.equals("claim") && claimCounter < noOfTerritories){
 				phaseStage = 0;				
 			}
 			//Else ready to move to next phase: reinforce.
-			else if(claimCounter == noOfTerritories && currentPhase.equals("claim")){
+			else if(claimCounter >= (noOfTerritories) && currentPhase.equals("claim")){
+                                claimCounter = 0;
 				phaseStage = 1;
 				currentPhase = "reinforce";
 			}
@@ -415,12 +421,12 @@ public class Game {
 	/** 
 	 * @return All the important game data.
 	 */
-	public ArrayList getGameData(){
-		ArrayList gameData = new ArrayList();
+	public ArrayList<String> getGameData(){
+		ArrayList<String> gameData = new ArrayList<String>();
 		gameData.add(currentPhase);
 		gameData.add(currentStage);
 		gameData.add(currentPlayer.getName());
-		
+		gameData.add(Integer.toString(currentPlayer.getArmy()));		
 		return gameData;
 	}
 	/**returns the army 

@@ -214,6 +214,7 @@ public class MainServlet extends HttpServlet {
         //check if this is the first call for the game
         if (session.getAttribute("game") == null){
             //create the game object
+            System.out.println("entered new game in claimTer");
             game = new Game(new String[]{"Player 1", "Player 2", "Player 3", "Player 4"});
         }
         else{
@@ -223,6 +224,7 @@ public class MainServlet extends HttpServlet {
             game = gson.fromJson(gameJSON, Game.class); 
         }
         //claim territory
+        System.out.println(territory);
         game.claimTerritory(territory, playerName);
         
         //convert game to JSON

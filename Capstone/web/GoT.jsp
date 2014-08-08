@@ -38,12 +38,12 @@
 
 
             <map name="Map" id="Map">
-                <area territory="FlintsFinger" href="#" shape="poly" coords="114,230,180,231,179,263,117,263,109,231,180,231,179,263,117,263,180,231,179,263,180,231" />
-                <area territory="TheTwins" href="#" shape="poly" coords="190,242,251,242,250,275,190,275,189,240,251,242,250,275,190,275,251,242,250,275,251,242" />
-                <area territory="TheThreeSisters" href="#" shape="poly" coords="265,255,326,254,326,286,266,287,263,251,326,254,326,286,266,287,326,254,326,286,326,254" />
+                <area territory="Flints Finger" href="#" shape="poly" coords="114,230,180,231,179,263,117,263,109,231,180,231,179,263,117,263,180,231,179,263,180,231" />
+                <area territory="The Twins" href="#" shape="poly" coords="190,242,251,242,250,275,190,275,189,240,251,242,250,275,190,275,251,242,250,275,251,242" />
+                <area territory="The Three Sisters" href="#" shape="poly" coords="265,255,326,254,326,286,266,287,263,251,326,254,326,286,266,287,326,254,326,286,326,254" />
                 <area territory="Pyke" href="#" shape="poly" coords="100,281,159,283,158,314,100,315,97,278,159,283,158,314,100,315,159,283,158,314,159,283" />
                 <area territory="Riverlands" href="#" shape="poly" coords="218,302,277,302,278,332,218,333,215,301,277,302,278,332,218,333,277,302,278,332,277,302" />
-                <area territory="TheEyrie" href="#" shape="poly" coords="293,314,353,314,353,344,293,344,292,312,353,314,353,344,293,344,353,314,353,344,353,314" />
+                <area territory="The Eyrie" href="#" shape="poly" coords="293,314,353,314,353,344,293,344,292,312,353,314,353,344,293,344,353,314,353,344,353,314" />
             </map>
         </div>
         
@@ -72,7 +72,7 @@ Copyright © team4</div>
         var currentStage = "<%=currentStage%>";
         
 //        alert(gameJSON.board.nodes[0].territoy.toLocaleString());
-            alert(gameJSON.board.nodes[0].controllingPlayer.toLocaleString());
+//            alert(gameJSON.board.nodes[0].controllingPlayer.toLocaleString());
 
     //game image size var
     var z = $(window).width();
@@ -88,12 +88,15 @@ Copyright © team4</div>
     function gameLogic(){
         
        if (gameJSON === null){
+            alert("Click ok to start a new game");
             startGame("Player 1", "Player 2");
+//            gameLogic;
          }
         
         else if (gameJSON.toLocaleString() === "[object Object]"){
             setTerritoryOwner();
             setupPhase();
+//            gameLogic();
     }
         }
         
@@ -207,14 +210,15 @@ Copyright © team4</div>
     }
 
     function startGame(p1, p2){
-        alert("plaerys");
+        alert("Entered startGame");
         $.ajax({
           type: "POST",
           url: "MainServlet",
           data: { command: "startgame" , playername1:p1, playername2:p2 },
           success : function(data){
-            alert(data);
+            window.location.href='GoT.jsp';
            }});}
+   
     function callClaimTerritory(pla, ter){
 
         $.ajax({
@@ -223,7 +227,7 @@ Copyright © team4</div>
           dataType : 'json',
           data: { command: "claimterritory" , playername:pla, territory:ter },
           success : function(data){
-            alert(data);
+            window.location.href='GoT.jsp';
            }});}
 
     function callReinforce(ter,tro){
@@ -291,53 +295,57 @@ Copyright © team4</div>
              selected:true,
              altImage : 'images/GoT/GoTblankSMALL.jpg',
              areas:  [
-                 {   key: "FlintsFinger",
+                 {   key: "Flints Finger",
                      selected: true,
                      toolTip: "Flints Finger, " + "Troops: " +
                              gameJSON.board.nodes[0].troops + ", Adjacent Territories: " +
                              gameJSON.board.nodes[0].adjacentNodes,
 //         
-                     altImage : picAltImg(gameJSON.board.nodes[0].controllingPlayer)}
-                 ,
+                     altImage : picAltImg(gameJSON.board.nodes[0].controllingPlayer)},
 
 
-//                 {   key: "TheTwins",
-//                     selected: true,
-//                     toolTip: "The Twins, " + "Troops: " +
-//                             zones.TheTwins.troops + ", Adjacent Territories: " +
-//                             zones.TheTwins.adjacentNodes,
-//                     altImage : picAltImg(zones.TheTwins)},
-//
-//                 {   key: "TheThreeSisters",
-//                     selected: true,
-//                     toolTip: "The Three Sisters, " + "Troops: " +
-//                             zones.TheThreeSisters.troops + ", Adjacent Territories: " +
-//                             zones.TheThreeSisters.adjacentNodes,
-//                     altImage : picAltImg(zones.TheThreeSisters)},
-//
-//                 {   key: "Pyke",
-//                     selected: true,
-//                     toolTip: "Pyke, " + "Troops: " +
-//                             zones.Pyke.troops + ", Adjacent Territories: " +
-//                             zones.Pyke.adjacentNodes,
-//                     altImage : picAltImg(zones.Pyke)},
-//
-//                 {   key: "Riverlands",
-//                     selected: true,
-//                     toolTip: "Riverlands, " + "Troops: " +
-//                             zones.Riverlands.troops + ", Adjacent Territories: " +
-//                             zones.Riverlands.adjacentNodes,
-//                     altImage : picAltImg(zones.Riverlands)},
-//
-//                 {   key: "TheEyrie",
-//                     selected: true,
-//                     toolTip: "The Eyrie, " + "Troops: " +
-//                             zones.TheEyrie.troops + ", Adjacent Territories: " +
-//                             zones.TheEyrie.adjacentNodes,
-//                     altImage : picAltImg(zones.TheEyrie)} 
+                 {   key: "The Twins",
+                     selected: true,
+                     toolTip: "Flints Finger, " + "Troops: " +
+                             gameJSON.board.nodes[1].troops + ", Adjacent Territories: " +
+                             gameJSON.board.nodes[1].adjacentNodes,
+//         
+                     altImage : picAltImg(gameJSON.board.nodes[1].controllingPlayer)},
+
+                 {   key: "The Three Sisters",
+                     selected: true,
+                    toolTip: "Flints Finger, " + "Troops: " +
+                             gameJSON.board.nodes[2].troops + ", Adjacent Territories: " +
+                             gameJSON.board.nodes[2].adjacentNodes,
+//         
+                     altImage : picAltImg(gameJSON.board.nodes[2].controllingPlayer)},
+
+                 {   key: "Pyke",
+                     selected: true,
+                     toolTip: "Flints Finger, " + "Troops: " +
+                             gameJSON.board.nodes[3].troops + ", Adjacent Territories: " +
+                             gameJSON.board.nodes[3].adjacentNodes,
+//         
+                     altImage : picAltImg(gameJSON.board.nodes[3].controllingPlayer)},
+
+                 {   key: "Riverlands",
+                     selected: true,
+                     toolTip: "Flints Finger, " + "Troops: " +
+                             gameJSON.board.nodes[4].troops + ", Adjacent Territories: " +
+                             gameJSON.board.nodes[4].adjacentNodes,
+//         
+                     altImage : picAltImg(gameJSON.board.nodes[4].controllingPlayer)},
+
+                 {   key: "The Eyrie",
+                     selected: true,
+                     toolTip: "Flints Finger, " + "Troops: " +
+                             gameJSON.board.nodes[5].troops + ", Adjacent Territories: " +
+                             gameJSON.board.nodes[5].adjacentNodes,
+//         
+                     altImage : picAltImg(gameJSON.board.nodes[5].controllingPlayer)},
              ]
              });
-             $('#gameMap').mapster('resize', z, 0, 1000);
+//             $('#gameMap').mapster('resize', z, 0, 1000);
      }
      
     function zoom(inOut){
@@ -345,10 +353,15 @@ Copyright © team4</div>
         setTerritoryOwner();
     }
     
-    function picAltImg(ter){
-        if (ter.player === 1){
-        var altImg = 'images/GoT/GoTstarkSMALL.jpg';}
-        else {var altImg = 'images/GoT/GoTLanesterSMALL.jpg';}
+    function picAltImg(player){
+       
+        
+        if (player === "Player 1"){
+            var altImg = 'images/GoT/GoTstarkSMALL.jpg';}
+        else if (player === "Player 2"){
+            var altImg = 'images/GoT/GoTLanesterSMALL.jpg';}
+        else {var altImg = 'images/GoT/GoTblankSMALL.jpg';}
+        
         return altImg;
     }
     

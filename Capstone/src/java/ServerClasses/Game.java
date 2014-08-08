@@ -264,10 +264,14 @@ public class Game {
 				//Check player has big enough army.
 				if(!(currentPlayer.getArmy() < troops)){
                                     
-                                    System.out.println(currentPlayer.getArmy());
+                                    System.out.println("After: if(!(currentPlayer.getArmy() < troops)){ ");
+                                    System.out.println(currentPlayer +" :"+currentPlayer.getArmy());
+                                    
                                     board.changeTroops(territory, troops);
                                     currentPlayer.setArmy(currentPlayer.getArmy() - troops);
-                                    System.out.println(currentPlayer.getArmy());
+                                    
+                                    System.out.println("After: currentPlayer.setArmy(currentPlayer.getArmy() - troops); ");
+                                    System.out.println(currentPlayer +" :"+currentPlayer.getArmy());
                                     //Check to see if the player can't place any more troops, then move to next phase.
                                     //Or still in setup phase then need to switch to next player.
                                     if((currentStage.equals("game") && currentPlayer.getArmy() == 0) || currentStage.equals("setup")){

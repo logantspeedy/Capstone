@@ -334,19 +334,19 @@ public class Game {
 			if(board.isAdj(attackingTerritory, defendingTerritory)){		
 				//Territories are controlled by different players check.
 				if(board.getControllingPlayer(attackingTerritory).equals(currentPlayer.getName())
-						&& !board.getControllingPlayer(defendingTerritory).equals(currentPlayer.getName())){	
-					int[] aRolls = rollDice(attackingTerritory);
-					int[] dRolls =  rollDice(defendingTerritory);
-					
+						&& !board.getControllingPlayer(defendingTerritory).equals(currentPlayer.getName())){						
 					//Work out army sizes from rolls.
-					int aArmy = aRolls.length;
-					int dArmy = dRolls.length;				
+					int aArmy = calcArmySize(attackingTerritory, true);
+					int dArmy = calcArmySize(defendingTerritory, false);
+					
+					//Roll dice.
+					int[] aRolls = rollDice(attackingTerritory, aArmy);
+					int[] dRolls =  rollDice(defendingTerritory, dArmy);
 										
 					//Change troops in each territory.
 					board.changeTroops(attackingTerritory, -aArmy);
 					board.changeTroops(defendingTerritory, -dArmy);					
-					//Compare results.
-					//2 - dArmy because only need to compare as many dice as the defenders rolled (1 or 2).				
+					//Compare results.					
 					for(int i = 2; i > (2 - ((aArmy > dArmy)?dArmy:aArmy)); i--){
 						if(aRolls[i] > dRolls[i]){
 							dRolls[i] = -2;						
@@ -374,8 +374,8 @@ public class Game {
 					}
 					//Update territories troops.
 					else{
-						board.changeTroops(attackingTerritory, board.getTroops(attackingTerritory) + aArmy);
-						board.changeTroops(defendingTerritory, board.getTroops(defendingTerritory) + dArmy);
+						board.changeTroops(attackingTerritory, aArmy);
+						board.changeTroops(defendingTerritory, dArmy);
 					}
 				}							
 			}				
@@ -390,13 +390,8 @@ public class Game {
 	 * @param armySize
 	 * @return a sorted (low to high) array.
 	 */
-	public int[] rollDice(String territory){		
-		boolean attacking = false;
-		if(board.getControllingPlayer(territory).equals(currentPlayer.getName())){
-			attacking = true;
-		}
-		int armySize = calcArmySize(territory, attacking);
-		int[] rolls = new int[armySize];		
+	public int[] rollDice(String territory, int armySize){				
+		int[] rolls = new int[]{-1, -1, -1};		
 		//Creates dice roll data.
 		for(int i  = 0; i < armySize; i++){
 			rolls[i] = (int)(6.0 * Math.random()) + 1;					

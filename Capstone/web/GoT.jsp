@@ -25,15 +25,17 @@
         <div class="header">
              <h1><a href="http://fontmeme.com/game-of-thrones-font/"><img src="http://fontmeme.com/newcreate.php?text=Winter%20is%20Coming&name=Game of Thrones.ttf&size=40&style_color=2B2C38" alt="Game of Thrones Font"></a><p style="padding-left: 15px; font-size: 10px;"></p></h1>
         
-            <input onClick="test()" type="button" value="switchPlayer">
+<!--            <input onClick="test()" type="button" value="switchPlayer">
             <input onClick="zoom(200)" type="button" value="zoom in">
-            <input onClick="zoom(-200)" type="button" value="zoom out">
+            <input onClick="zoom(-200)" type="button" value="zoom out">-->
         </div>
+        
+        <div class="navigation"> <a href="http://localhost:8082/Capstone/GoT.jsp"><img src="http://fontmeme.com/newcreate.php?text=start%20new%20game&name=Game of Thrones.ttf&size=11&style_color=2B2C38" alt="Start New Game"></a></div>
         
         <div class="mainContainer">
-        <div class="commentWindow">
-        </div>
         
+            <div class="commentWindow">
+                </div>
         <div class="gameWindow">
             <img id="gameMap"src="images/GoT/GoTblankSMALL.jpg" alt="" usemap="#Map" />
 
@@ -48,14 +50,12 @@
             </map>
         </div>
         
-        <div class="chatBox">
-            Player 1: Hey its your turn hurry up!!! <br>
-            Player 2: Sorry was AFK :0
-        </div>
-        </div>
+
+        <!--</div>-->
         
         <div id="footer" >
-Copyright © team4</div>
+            Copyright © team4   
+        </div>
 
 
         
@@ -82,7 +82,8 @@ Copyright © team4</div>
 //            alert(gameJSON.board.nodes[0].controllingPlayer.toLocaleString());
 
     //game image size var
-    var z = $(window).width();
+    var windowWidth = $(window).width();
+    
 
     //on page load set game board
     $(document).ready(function ()
@@ -164,6 +165,7 @@ Copyright © team4</div>
         
 
     }
+    
     var attacker = null;
     var defender = null;
     function attackPhase(){
@@ -194,7 +196,6 @@ Copyright © team4</div>
     
     var fortifyFrom = null;
     var fortifyTo = null;
-    
     function fortifyPhase(){
         
         fortifyFrom = null;
@@ -302,7 +303,7 @@ Copyright © team4</div>
     }
     
     function setTerritoryOwner(){
-            setBackground();
+//            setBackground();
            $('#gameMap').mapster({
              onClick: clickHandler,
              showToolTip: true,
@@ -362,7 +363,7 @@ Copyright © team4</div>
                      altImage : picAltImg(gameJSON.board.nodes[5].controllingPlayer)},
              ]
              });
-//             $('#gameMap').mapster('resize', z, 0, 1000);
+             $('#gameMap').mapster('resize', (windowWidth*0.7), 0, 0);
      }
      
     function zoom(inOut){

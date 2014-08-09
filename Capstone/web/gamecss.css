@@ -66,7 +66,7 @@ body {
     float: left;
     width:70%;
     height:100%;
-    /*overflow:scroll;*/
+    overflow:auto;
     /*margin: 0 auto;*/  
     /*background-color: red;*/
     opacity: 0.8;
@@ -86,7 +86,7 @@ body {
     color:#2B2C38;
     clear:both;
     text-align:center;
-    height: 10%;
+    height: 5%;
     float:bottom;
     /*opacity: 0.6*/
 }

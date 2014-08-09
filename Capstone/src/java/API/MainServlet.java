@@ -139,7 +139,7 @@ public class MainServlet extends HttpServlet {
       
         //create new session or get current session
         HttpSession session = request.getSession();
-
+        
         switch (request.getParameter("command")) {
             
             case "startgame":
@@ -238,8 +238,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());
-        
-        session.setAttribute("army", game.currentPlayer.getArmy());
+        session.setAttribute("army", Integer.toString(game.currentPlayer.getArmy()));
         
         return boardJSON;
     }
@@ -270,7 +269,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());
-        session.setAttribute("army", game.currentPlayer.getArmy());
+        session.setAttribute("army", Integer.toString(game.currentPlayer.getArmy()));
         return boardJSON;
     }
     
@@ -302,7 +301,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());    
-        session.setAttribute("army", game.currentPlayer.getArmy());
+        session.setAttribute("army", Integer.toString(game.currentPlayer.getArmy()));
         return boardJSON;
 
     }
@@ -333,7 +332,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());    
-        session.setAttribute("army", game.currentPlayer.getArmy());
+        session.setAttribute("army", Integer.toString(game.currentPlayer.getArmy()));
         return boardJSON;
 
     }
@@ -341,12 +340,15 @@ public class MainServlet extends HttpServlet {
     
     
     public String fortify(HttpServletRequest request,HttpSession session){
+       
        if(session.getAttribute("game") == null || request.getParameter("startterritory") == null || request.getParameter("targetterritory") == null || request.getParameter("troops") == null){
             return null;
         }
+        
        //set variables
         String startTerritory = request.getParameter("startterritory");
         String targetTerritory = request.getParameter("targetterritory");
+        
         int troops = Integer.parseInt(request.getParameter("troops"));       
         String gameJSON  = (String) session.getAttribute("game");
         Gson gson = new Gson();
@@ -367,7 +369,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());    
-        session.setAttribute("army", game.currentPlayer.getArmy());
+        session.setAttribute("army", Integer.toString(game.currentPlayer.getArmy()));
         return boardJSON;
 
     } 
@@ -395,7 +397,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());    
-        session.setAttribute("army", game.currentPlayer.getArmy());
+        session.setAttribute("army", Integer.toString(game.currentPlayer.getArmy()));
         return boardJSON;
      }
      

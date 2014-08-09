@@ -52,30 +52,42 @@
         
 
         <!--</div>-->
-        
-        <div id="footer" >
-            Copyright © team4   
+        </div>
+        <div class="footer" >
+            <p>Copyright © team4</p>
         </div>
 
 
         
     <script>
-        function test(){
-            $("#test").append('div').text('Mercury').css( "border", "2px solid red" );
+        function showCurrentPlayersHouse(){
+            var currentPlayersHouse = null;    
+            if (currentPlayer ==="Player 1"){
+                currentPlayersHouse ='images/GoT/stark.jpg';
+                
+            }
+            else if (currentPlayer === "Player 2"){
+                currentPlayersHouse ='images/GoT/lannister.jpg';}
+            else {return null;}
+            
+            return $('.commentWindow').append('<img style="width:100%" src ='+ currentPlayersHouse+'></img>');
+            
         }
+        
+        
     <%
         String gameJSON = (String) request.getSession().getAttribute("game");
         String currentPlayer = (String) request.getSession().getAttribute("currentplayer");
         String currentPhase = (String) request.getSession().getAttribute("currentphase");
         String currentStage = (String) request.getSession().getAttribute("currentstage");
-
-        
+        String armyCount = (String) request.getSession().getAttribute("army");
     %>
         
         var gameJSON = <%=gameJSON%>;
         var currentPlayer = "<%=currentPlayer%>";
         var currentPhase = "<%=currentPhase%>";
         var currentStage = "<%=currentStage%>";
+        var armyCount = "<%=armyCount%>";
 
         
 //        alert(gameJSON.board.nodes[0].territoy.toLocaleString());
@@ -96,28 +108,28 @@
     function gameLogic(){
         
        if (gameJSON === null){
-            alert("Click ok to start a new game");
             startGame("Player 1", "Player 2");
-
          }
         
         else if (currentStage  === "setup"){
+            showCurrentPlayersHouse();
             setTerritoryOwner();
             setupPhase();}
             
         else if (currentStage  === "game"){
+            showCurrentPlayersHouse();
             setTerritoryOwner();
             gamePhase();}
 
     
         }
         
-    var claim = "1";
+    var claim = null;
     function setupPhase(){
         var chosenClaim = false;
         if (currentPhase === "claim"){
             
-            $('.commentWindow').append('<p>'+currentPlayer+': pick avaliable territory</p>');
+            $('.commentWindow').append('<p>'+currentPlayer+': Pick avaliable territory.</p>');
 
             $("#Map").click(function(){
                 if (!chosenClaim){
@@ -133,33 +145,31 @@
     }
     
     function gamePhase(){
-        alert("gamephase");
         if (currentPhase === 'reinforce'){
-            alert('entered reinforce');
             reinforcePhase();
         }
         
         else if (currentPhase === 'attack'){
-            alert('entered attack');
             attackPhase();
         }
         
         else if (currentPhase === 'fortify'){
-            alert('fortify');
-            fortifyPhase()
+            fortifyPhase();
         }
     }
     
     var reinforceArea = null;
+    var armysDeployed = null;
     function reinforcePhase(){
+        alert("Reinforce Phase");
         var reinforceChosen = false;
-        $('.commentWindow').append('<p> Player '+currentPlayer+' :select territory to Reinforce '+ '</p>');
+        $('.commentWindow').append('<p>'+currentPlayer+': Select Territory to Reinforce. You have '+armyCount+' troops left to place.</p>');
+        $('.commentWindow').append('<button onclick="nextPhase()">End Phase</button>');
         
         $("#Map").click(function(){
             if (!reinforceChosen){
-                $('.commentWindow').append('<p> Player '+currentPlayer+' chose '+ reinforceArea +' </p>');
                 reinforceChosen = true;
-                callReinforce(reinforceArea, 1);}
+                callReinforce(reinforceArea, armysDeployed);}
         });
 
         
@@ -169,10 +179,12 @@
     var attacker = null;
     var defender = null;
     function attackPhase(){
+        alert("Attacking Phase!");
         attacker = null;
         defender = null;
         
         $('.commentWindow').append('<p> Current Player: '+currentPlayer+': select territory to atttack with </p>');
+        $('.commentWindow').append('<button onclick="nextPhase()">End Phase</button>');
         
         var attackerClicked = false;
         var defenderClicked = false;
@@ -180,11 +192,11 @@
         $("#Map").click(function(){
             if (!attackerClicked){
                 $('.commentWindow').append('<p> Current Player: '+currentPlayer+': select territory to atttack </p>');
+                $('.commentWindow').append('<button onclick="nextPhase()">End Phase</button>');
                 attackerClicked = true;}
             
             $("#Map").click(function(){
                 if (!defenderClicked){
-                    $('.commentWindow').append('<p>'+attacker+' is attacking '+ defender + '</p>');
                     defenderClicked = true;
                     callAttack(attacker,defender);}
                 
@@ -196,26 +208,27 @@
     
     var fortifyFrom = null;
     var fortifyTo = null;
+    var fortifyAmount = null;
     function fortifyPhase(){
-        
+        alert("Forty Phase");
         fortifyFrom = null;
         fortifyTo = null;
         
         $('.commentWindow').append('<p> Current Player: '+currentPlayer+': select territory to move units from  </p>');
-        
+        $('.commentWindow').append('<button onclick="nextPhase()">End Phase</button>');
         var fromSelected = false;
         var toSelected = false;
         
         $("#Map").click(function(){
             if (!fromSelected){
                 $('.commentWindow').append('<p> Current Player: '+currentPlayer+': select territory to move units to </p>');
+                $('.commentWindow').append('<button onclick="nextPhase()">End Phase</button>');
                 fromSelected = true;}
             
             $("#Map").click(function(){
                 if (!toSelected){
-                    $('.commentWindow').append('<p>'+attacker+' is attacking '+ defender + '</p>');
                     toSelected = true;
-                    callFortify(fortifyFrom,fortifyTo,1);}
+                    callFortify(fortifyFrom,fortifyTo,fortifyAmount);}
                 
             });
 
@@ -223,9 +236,18 @@
         
         
     }
+    
+    function nextPhase(){
+        $.ajax({
+          type: "POST",
+          url: "MainServlet",
+          data: { command: "nextphase"},
+          success : function(data){
+            window.location.href='GoT.jsp';
+           }});}
+    
 
     function startGame(p1, p2){
-        alert("Entered startGame");
         $.ajax({
           type: "POST",
           url: "MainServlet",
@@ -257,7 +279,7 @@
            }});}
 
     function callAttack(ter, def){   
-        alert("entered call for attack");
+        
         $.ajax({
           type: "POST",
           url: "MainServlet",
@@ -271,12 +293,13 @@
     function callFortify(st, tt, tro){
         $.ajax({
           type: "POST",
-          url: "/MainServlet",
-          data: { methodToInvoke: "reinforce" , startterritory:st, targetterritoy:tt, troops:tro }
-        }).done(function( msg ) {
-          alert( "Data Saved: " + msg );
-        });
-    }
+          url: "MainServlet",
+          dataType : 'json',
+          data: { command: "fortify" , startterritory:st, targetterritory:tt, troops:tro }
+        ,
+          success : function(data){
+            window.location.href='GoT.jsp';
+           }});}
 
     function clickHandler(data) {
            if(currentPhase === "claim"){
@@ -289,6 +312,7 @@
 
            else if (currentPhase ==="reinforce"){
                reinforceArea = data.key;
+               armysDeployed=prompt('Enter number of troops','1');
                //do post request to reinforce
 
            }
@@ -298,7 +322,10 @@
            }
 
            else if (currentPhase ==="fortify"){
-               fortifyArea = data.key;
+               if (fortifyFrom === null){fortifyFrom= data.key;}
+               else {fortifyTo=data.key;
+               fortifyAmount=prompt('Enter number of troops to move','1');}
+               
            }
     }
     
@@ -310,13 +337,13 @@
              mapKey: 'territory',
              singleSelect : false,
              selected:true,
-             toolTipContainer: '<div style="width:100px; height:100px; color:#BBBBBB"> </div>',
+             toolTipContainer: '<div style="width:150px; height:100px; color:#BBBBBB"> </div>',
              altImage : 'images/GoT/GoTblankSMALL.jpg',
              areas:  [
                  {   key: "Flints Finger",
                      selected: true,
-                     toolTip: "Flints Finger, " + "Troops: " +
-                             gameJSON.board.nodes[0].troops + ", Adjacent Territories: " +
+                     toolTip: "<h3>Flints Finger</h3>" + "Troops: " +
+                             gameJSON.board.nodes[0].troops + "<p><b>Adjacent Territories:</b></p>" +
                              gameJSON.board.nodes[0].adjacentNodes,
 //         
                      altImage : picAltImg(gameJSON.board.nodes[0].controllingPlayer)},
@@ -324,40 +351,40 @@
 
                  {   key: "The Twins",
                      selected: true,
-                     toolTip: "Flints Finger, " + "Troops: " +
-                             gameJSON.board.nodes[1].troops + ", Adjacent Territories: " +
+                     toolTip: "<h3>The Twins</h3>" + "Troops: " +
+                             gameJSON.board.nodes[1].troops + "<p><b>Adjacent Territories:</b></p>" +
                              gameJSON.board.nodes[1].adjacentNodes,
 //         
                      altImage : picAltImg(gameJSON.board.nodes[1].controllingPlayer)},
 
                  {   key: "The Three Sisters",
                      selected: true,
-                    toolTip: "Flints Finger, " + "Troops: " +
-                             gameJSON.board.nodes[2].troops + ", Adjacent Territories: " +
+                    toolTip: "<h3>The Three Sisters</h3>" + "Troops: " +
+                             gameJSON.board.nodes[2].troops + "<p><b>Adjacent Territories:</b><p>" +
                              gameJSON.board.nodes[2].adjacentNodes,
 //         
                      altImage : picAltImg(gameJSON.board.nodes[2].controllingPlayer)},
 
                  {   key: "Pyke",
                      selected: true,
-                     toolTip: "Flints Finger, " + "Troops: " +
-                             gameJSON.board.nodes[3].troops + ", Adjacent Territories: " +
+                     toolTip: "<h3>Pyke</h3>" + "Troops: " +
+                             gameJSON.board.nodes[3].troops + "<p><b>Adjacent Territories:</b></p>" +
                              gameJSON.board.nodes[3].adjacentNodes,
 //         
                      altImage : picAltImg(gameJSON.board.nodes[3].controllingPlayer)},
 
                  {   key: "Riverlands",
                      selected: true,
-                     toolTip: "Flints Finger, " + "Troops: " +
-                             gameJSON.board.nodes[4].troops + ", Adjacent Territories: " +
+                     toolTip: "<h3>Riverlands</h3>" + "Troops: " +
+                             gameJSON.board.nodes[4].troops + "<p><b>Adjacent Territories:</b></p>" +
                              gameJSON.board.nodes[4].adjacentNodes,
 //         
                      altImage : picAltImg(gameJSON.board.nodes[4].controllingPlayer)},
 
                  {   key: "The Eyrie",
                      selected: true,
-                     toolTip: "Flints Finger, " + "Troops: " +
-                             gameJSON.board.nodes[5].troops + ", Adjacent Territories: " +
+                     toolTip: "<h3>The Eyrie</h3>" + "Troops: " +
+                             gameJSON.board.nodes[5].troops + "<p><b>Adjacent Territories:</b></p>" +
                              gameJSON.board.nodes[5].adjacentNodes,
 //         
                      altImage : picAltImg(gameJSON.board.nodes[5].controllingPlayer)},

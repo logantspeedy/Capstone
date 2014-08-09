@@ -232,10 +232,15 @@ public class Game {
 			if(board.getNode(territory).getControllingPlayer().isEmpty()){
 				//Check to see if its the current players turn.
 				if(currentPlayer.getName().equals(player)){
+                                        currentPlayer = playerList.get(playerList.indexOf(currentPlayer));
+                                        System.out.println("Before: Claim ");
+                                        System.out.println(currentPlayer.getName() +" :"+currentPlayer.getArmy());
 					board.changeController(territory, player);
 					board.changeTroops(territory, 1);	
 					//Change players army size.
 					currentPlayer.setArmy(currentPlayer.getArmy() - 1);
+                                        System.out.println("After: Claim ");
+                                        System.out.println(currentPlayer.getName() +" :"+currentPlayer.getArmy());
 					claimCounter++;
 					//Automatically go to next players turn.
 					nextPhase();
@@ -263,15 +268,15 @@ public class Game {
 			if(board.getControllingPlayer(territory).equals(currentPlayer.getName())){		
 				//Check player has big enough army.
 				if(!(currentPlayer.getArmy() < troops)){
-                                    
+                                    currentPlayer = playerList.get(playerList.indexOf(currentPlayer));
                                     System.out.println("After: if(!(currentPlayer.getArmy() < troops)){ ");
-                                    System.out.println(currentPlayer +" :"+currentPlayer.getArmy());
+                                    System.out.println(currentPlayer.getName() +" :"+currentPlayer.getArmy() +" :" + troops);
                                     
                                     board.changeTroops(territory, troops);
                                     currentPlayer.setArmy(currentPlayer.getArmy() - troops);
                                     
                                     System.out.println("After: currentPlayer.setArmy(currentPlayer.getArmy() - troops); ");
-                                    System.out.println(currentPlayer +" :"+currentPlayer.getArmy());
+                                    System.out.println(currentPlayer.getName() +" :"+currentPlayer.getArmy());
                                     //Check to see if the player can't place any more troops, then move to next phase.
                                     //Or still in setup phase then need to switch to next player.
                                     if((currentStage.equals("game") && currentPlayer.getArmy() == 0) || currentStage.equals("setup")){

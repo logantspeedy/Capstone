@@ -220,12 +220,11 @@ public class MainServlet extends HttpServlet {
         else{
             //if it's not the first call, get the game JSON data
             String gameJSON  = (String) session.getAttribute("game");
-            //get the json string back into an object          
+            //get the json string back into an object              
             game = gson.fromJson(gameJSON, Game.class); 
         }
         //claim territory
-        game.claimTerritory(territory, playerName);
-        
+        game.claimTerritory(territory, playerName);        
         //convert game to JSON
         String gameJSON = gson.toJson(game);
         
@@ -247,7 +246,7 @@ public class MainServlet extends HttpServlet {
         System.out.println("entered starting a new game!!!!!!!!!!");
         //set variables
         String playerName1 = request.getParameter("playername1");
-        String playerName2 = request.getParameter("playername2");
+        String playerName2 = request.getParameter("playername2");        
         Game game;
         
         Gson gson = new Gson();

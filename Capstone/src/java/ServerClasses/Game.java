@@ -36,7 +36,7 @@ public class Game {
 			Player player = new Player(players[i], troops);
 			playerList.add(player);
 		}	
-		nextPlayer();
+		setCurrentPlayer(randomPlayer(players.length).getName());
 		noOfTerritories = board.getBoard().size();
 	}
 	/**
@@ -454,4 +454,9 @@ public class Game {
 		}
 		return army;
 	}
+        
+        public Player randomPlayer(int noOfPlayers){
+            Player random = playerList.get((int)(noOfPlayers * Math.random()));            
+            return random;
+        }
 }

@@ -10,7 +10,7 @@ import java.util.Arrays;;
 public class Game {
 	
 	private Board board;	
-	private Player currentPlayer;		
+	public Player currentPlayer;		
 	private ArrayList<Player> playerList;
 	private int playerPos;
 	private int phaseStage;

@@ -238,7 +238,9 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());
-
+        
+        session.setAttribute("army", game.currentPlayer.getArmy());
+        
         return boardJSON;
     }
     
@@ -268,7 +270,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());
-
+        session.setAttribute("army", game.currentPlayer.getArmy());
         return boardJSON;
     }
     
@@ -300,7 +302,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());    
-        
+        session.setAttribute("army", game.currentPlayer.getArmy());
         return boardJSON;
 
     }
@@ -331,7 +333,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());    
-        
+        session.setAttribute("army", game.currentPlayer.getArmy());
         return boardJSON;
 
     }
@@ -365,7 +367,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());    
-        
+        session.setAttribute("army", game.currentPlayer.getArmy());
         return boardJSON;
 
     } 
@@ -393,7 +395,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());    
-        
+        session.setAttribute("army", game.currentPlayer.getArmy());
         return boardJSON;
      }
      

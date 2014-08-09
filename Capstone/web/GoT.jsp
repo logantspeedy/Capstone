@@ -25,7 +25,7 @@
         <div class="header">
              <h1><a href="http://fontmeme.com/game-of-thrones-font/"><img src="http://fontmeme.com/newcreate.php?text=Winter%20is%20Coming&name=Game of Thrones.ttf&size=40&style_color=2B2C38" alt="Game of Thrones Font"></a><p style="padding-left: 15px; font-size: 10px;"></p></h1>
         
-            <input onClick="switchPlayer()" type="button" value="switchPlayer">
+            <input onClick="test()" type="button" value="switchPlayer">
             <input onClick="zoom(200)" type="button" value="zoom in">
             <input onClick="zoom(-200)" type="button" value="zoom out">
         </div>
@@ -39,7 +39,7 @@
 
 
             <map name="Map" id="Map">
-                <area territory="Flints Finger" href="#" shape="poly" coords="114,230,180,231,179,263,117,263,109,231,180,231,179,263,117,263,180,231,179,263,180,231" />
+                <area id ="test" territory="Flints Finger" href="#" shape="poly" coords="114,230,180,231,179,263,117,263,109,231,180,231,179,263,117,263,180,231,179,263,180,231"/>
                 <area territory="The Twins" href="#" shape="poly" coords="190,242,251,242,250,275,190,275,189,240,251,242,250,275,190,275,251,242,250,275,251,242" />
                 <area territory="The Three Sisters" href="#" shape="poly" coords="265,255,326,254,326,286,266,287,263,251,326,254,326,286,266,287,326,254,326,286,326,254" />
                 <area territory="Pyke" href="#" shape="poly" coords="100,281,159,283,158,314,100,315,97,278,159,283,158,314,100,315,159,283,158,314,159,283" />
@@ -57,20 +57,26 @@
         <div id="footer" >
 Copyright © team4</div>
 
-</div>
+
         
     <script>
+        function test(){
+            $("#test").append('div').text('Mercury').css( "border", "2px solid red" );
+        }
     <%
         String gameJSON = (String) request.getSession().getAttribute("game");
         String currentPlayer = (String) request.getSession().getAttribute("currentplayer");
         String currentPhase = (String) request.getSession().getAttribute("currentphase");
         String currentStage = (String) request.getSession().getAttribute("currentstage");
+
+        
     %>
         
         var gameJSON = <%=gameJSON%>;
         var currentPlayer = "<%=currentPlayer%>";
         var currentPhase = "<%=currentPhase%>";
         var currentStage = "<%=currentStage%>";
+
         
 //        alert(gameJSON.board.nodes[0].territoy.toLocaleString());
 //            alert(gameJSON.board.nodes[0].controllingPlayer.toLocaleString());
@@ -96,9 +102,13 @@ Copyright © team4</div>
         
         else if (currentStage  === "setup"){
             setTerritoryOwner();
-            setupPhase();
+            setupPhase();}
+            
+        else if (currentStage  === "game"){
+            setTerritoryOwner();
+            gamePhase();}
 
-    }
+    
         }
         
     var claim = "1";
@@ -121,30 +131,34 @@ Copyright © team4</div>
     
     }
     
-    function game(){
-        if (currentPhase === 'reinforcePhase'){
+    function gamePhase(){
+        alert("gamephase");
+        if (currentPhase === 'reinforce'){
+            alert('entered reinforce');
             reinforcePhase();
         }
         
         else if (currentPhase === 'attack'){
+            alert('entered attack');
             attackPhase();
         }
         
         else if (currentPhase === 'fortify'){
-            
+            alert('fortify');
+            fortifyPhase()
         }
     }
     
     var reinforceArea = null;
     function reinforcePhase(){
         var reinforceChosen = false;
-        $('.commentWindow').append('<p> Player '+currentPlayer+' :select territory to Reinforce </p>');
+        $('.commentWindow').append('<p> Player '+currentPlayer+' :select territory to Reinforce '+ '</p>');
         
         $("#Map").click(function(){
             if (!reinforceChosen){
                 $('.commentWindow').append('<p> Player '+currentPlayer+' chose '+ reinforceArea +' </p>');
                 reinforceChosen = true;
-                callReinforce(reinforceArea, 10);}
+                callReinforce(reinforceArea, 1);}
         });
 
         
@@ -242,14 +256,16 @@ Copyright © team4</div>
            }});}
 
     function callAttack(ter, def){   
+        alert("entered call for attack");
         $.ajax({
           type: "POST",
-          url: "/MainServlet",
+          url: "MainServlet",
+          dataType : 'json',
           data: { command: "attack" , attackingterritory:ter, defendingterritory:def}
-        }).done(function( msg ) {
-          alert( "Data Saved: " + msg );
-        });
-    }
+        ,
+          success : function(data){
+            window.location.href='GoT.jsp';
+           }});}
 
     function callFortify(st, tt, tro){
         $.ajax({
@@ -293,6 +309,7 @@ Copyright © team4</div>
              mapKey: 'territory',
              singleSelect : false,
              selected:true,
+             toolTipContainer: '<div style="width:100px; height:100px; color:#BBBBBB"> </div>',
              altImage : 'images/GoT/GoTblankSMALL.jpg',
              areas:  [
                  {   key: "Flints Finger",

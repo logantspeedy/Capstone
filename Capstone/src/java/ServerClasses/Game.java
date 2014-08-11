@@ -16,6 +16,7 @@ public class Game {
 	private int phaseStage;
 	private int noOfTerritories;
 	private int claimCounter;
+        private String startingPlayer;
 	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
 	private String currentStage;
 	private String currentPhase;
@@ -27,6 +28,7 @@ public class Game {
 		currentStage = "setup";
 		currentPlayer = null;		
 		claimCounter = 0;
+                
 		playerList = new ArrayList();
 		playerPos = 0;
 		board = new Board();
@@ -35,8 +37,9 @@ public class Game {
 		for(int i = 0;i < players.length; i++){
 			Player player = new Player(players[i], troops);
 			playerList.add(player);
-		}	
-		setCurrentPlayer(randomPlayer(players.length).getName());
+		}
+                startingPlayer = randomPlayer(players.length).getName();
+		setCurrentPlayer(startingPlayer);
 		noOfTerritories = board.getBoard().size();
 	}
 	/**
@@ -170,19 +173,15 @@ public class Game {
 			//Everyone out of armies and ready to move to gameStage.
 			else if(currentPhase.equals("reinforce") && outOfArmies()){
 				currentStage = "game";
+                                currentPlayer = getPlayer(startingPlayer);
+                                currentPlayer.setArmy(calcNewArmy(currentPlayer));
 			}
 			//If current player army = 0, change to a player still with an 
 			//army.
 			else while(currentPlayer.getArmy() == 0){
 				nextPlayer();
 			}
-		}	
-		//Moved on to the actual game play stage.
-		if(currentStage.equals("game")){
-			//Assign troops for new turn.
-			currentPlayer.setArmy(calcNewArmy(currentPlayer));
-			
-		}
+		}    	               
 	}
 	
 	public void nextPhase()
@@ -199,15 +198,12 @@ public class Game {
 		else{
 			if(phaseStage == 3){				
 				newTurn();
-				phaseStage = 1;
-				currentPhase = possiblePhase[phaseStage];
-				
+                                phaseStage = 1;
+				currentPhase = "reinforce";
+                                currentPlayer.setArmy(calcNewArmy(currentPlayer));
 			}
 			else{
-				phaseStage++;	
-				if(phaseStage == 1){
-					currentPlayer.setArmy(0);
-				}
+				phaseStage++;				
 				currentPhase = possiblePhase[phaseStage];
 			}
 		}
@@ -308,12 +304,12 @@ public class Game {
 					&& board.getControllingPlayer(startTerritory).equals(currentPlayer.getName())){
 				//Check to see if startTerritory has enough troops to transfer.
 				if(board.getTroops(startTerritory) > troops){				
-					board.fortify(startTerritory, targetTerritory, troops);	
+					board.fortify(startTerritory, targetTerritory, troops);
+                                        nextPhase();
 				}
 			}
 		}
-		//Go to next player.
-		nextPlayer();
+		//Go to next player.		
 		return board;
 	}	
 	/**

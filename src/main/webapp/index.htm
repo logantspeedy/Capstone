@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Login Spike</title>
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	</head>
+	<body>
+		<script>
+			var loginContainer = $( '<p/>' ); //Element to store information
+			loginContainer.appendTo( 'body' ); //appends element to the body
+
+			$.get( "getUser", function( data ) { //request user 
+
+				var link = $('<a/>')	//creates hyperlink
+					.appendTo( loginContainer ); //appends hyperlink to the container
+
+				if ( "" === data ) {	//if user not logged in
+
+					link.text( 'Click here to login' ) //display Click here to login
+						.attr( 'href', 'login' ); //links to the login servlet
+
+				} else { //otherwise logged in
+
+					link.text( data ) //display the users data
+						.attr( 'href', 'logout' ); //link to logout
+				}
+
+			});
+
+		</script>
+	</body>
+</html>

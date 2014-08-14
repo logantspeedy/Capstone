@@ -10,3 +10,7 @@ http://host:port/appName/logout?url=somePage.htm -> Logs out and returns to spec
 Get user
 --------
 http://host:port/appName/getUser -> Returns the users email or nothing if the user is not logged in
+
+Hard coded URL
+--------------
+Line 43 of Login.java may need to be changed to work with the correct URL

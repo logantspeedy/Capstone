@@ -7,6 +7,7 @@
 package API;
 
 
+import listener.MainServletListener;
 import serverClasses.*;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -49,12 +51,149 @@ public class MainServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json");
+        response.setContentType("text/html;charset=UTF-8");
+        MainServletListener listener = new MainServletListener(); 
+        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("{response:error}");
+            
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet MainServlet</title>");  
+            out.println("<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script>");
+            out.println("</head>");
+            out.println("<body>");
+            
+            if(request.getParameter("submitcreate") != null){
+                HttpSession session = request.getSession();
+                if(request.getParameter("gamename") != null){
+                    session.setAttribute("name", request.getParameter("gamename"));
+                }
+                if(request.getParameter("username") != null){
+                    session.setAttribute("username", request.getParameter("username"));
+                    ArrayList<String> players = new ArrayList<String>();
+                    players.add(request.getParameter("username"));
+                    session.setAttribute("players", players);
+                    session.setAttribute("lobby", true);
+                }
+                out.println("Session created");
+                out.println(listener.find(session.getId()).toString());
+            }
+            
+            if (request.getParameter("submitjoin") != null){
+                HttpSession session = listener.find(request.getParameter("join"));
+                ArrayList<String> players = (ArrayList<String>) session.getAttribute("players");
+                players.add(request.getParameter("username"));
+                session.setAttribute("players", players);
+            }
+            
+            
+            
+            //show current game (game name)
+            
+            out.println("<h1>Lobby</h1>");
+            
+             
+            
+ 
+ 
+            Set<String> listenerSessions = listener.getSessions();
 
+            if (listenerSessions.size() > 0 && listener.find(listenerSessions.iterator().next()).getAttribute("name") != null){
+                out.println("<h3>JOIN</h3>");
+                out.println("Current number of games in lobby: " + listenerSessions.size());    
+                out.println("<form action='MainServlet' method='POST'>");
+                out.println("username: <input type='text' name='username'/><br/>");    
+                for (String listenerSessionid : listenerSessions){
+                    HttpSession listenerSession = listener.find(listenerSessionid);
+                    String gameName = listenerSession.getId();
+                    if (listenerSession.getAttribute("name") != null){
+                        gameName = (String) listenerSession.getAttribute("name");
+                    }
+
+                    out.println("<div id='" + listenerSession.getId() + "' ><strong>" + gameName + "</strong>" + ": <input type='radio' name='join' value='" + listenerSession.getId() + "'/>");
+
+                    out.println("Current Players Joined: " + listenerSession.getAttribute("players").toString() );
+                    //out.println("<a href='javascript:void(0)' class='join-game'>Join</a></div>" );
+                    if (request.getSession(false) != null){
+                        if (listenerSessionid.equals(request.getSession(false).getId())){
+                            out.println(" <a href='javascript:void(0)'> Start Game </a>");
+                        }
+                    }
+                    
+                    out.println("</div>");
+                }
+                out.println("<input type='submit' name='submitjoin' value='Join'/>");
+                out.println("</form>");
+            }
+            
+            //create a new game
+            out.println("<h3>CREATE</h3>");
+            out.println("<form action='MainServlet' method='POST'>");
+            out.println("username: <input type='text' name='username'/><br/>");
+            out.println("game name: <input type='text' name='gamename'/><br/>");
+            out.println("<input type='submit' name='submitcreate' value='Create'/>");
+            out.println("</form>");
+            //HttpSession listenerSessionObject  = listener.find(listenerSession.toString());
+            //out.println(listenerSessionObject.getAttribute("game"));
+            out.println("</body>");
+            out.println("</html>");            
+            
+            
+            /*
+            MainServletListener listener = new MainServletListener();  
+            
+            if(request.getParameter("join") != null){
+                session.setAttribute("join", request.getParameter("join"));
+            }
+            
+            
+            if (session.getAttribute("join") != null){
+                out.println("from session");
+                String sessionId = (String) session.getAttribute("join");
+                out.println("You are in the session: " + sessionId + "<br/>");
+                session = listener.find(sessionId);
+                if(request.getParameter("game") != null ){
+                    session.setAttribute("game", request.getParameter("game"));
+                }
+                out.println("Currently stored in session: " + session.getAttribute("game") + "<br/>");
+                out.println("<form action='MainServlet' method='POST'>");
+                out.println("Tamper with data: <input type='text' name='game' value='" + session.getAttribute("game") + "'/><br/>");
+                out.println("<input type='submit' name='Submit' value='Submit'/>");
+                out.println("<a href='javascript:location.reload();'>Refresh</a>");
+                
+                return;
+            }
+            
+
+            
+            
+            out.println("Join one of the following open sessions:<br/>");
+            
+            out.println("<form action='MainServlet' method='POST'>");
+            
+ 
+            Set listenerSessions = listener.getSessions();
+            
+            for (Object listenerSession : listenerSessions){
+                
+                out.println(listenerSession.toString() + ": <input type='radio' name='join' value='" + listenerSession.toString() + "'/>");
+                
+                if (listenerSession.toString().equals(session.getId())){
+                    out.println("(yours)");
+                }
+                
+                out.println("<br/>");
+            }
+            out.println("<input type='submit' name='Submit'/>");
+            //HttpSession listenerSessionObject  = listener.find(listenerSession.toString());
+            //out.println(listenerSessionObject.getAttribute("game"));
+            out.println("</body>");
+            out.println("</html>");
+            */
         }
+            
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -69,48 +208,8 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json");
-       
-        PrintWriter out = response.getWriter();   
-      
-        //create new session or get current session
-        HttpSession session = request.getSession();
-
-        switch (request.getParameter("command")) {
-            case "claimterritory":
-                {
-                    String JSON = claimTerritory(request, session);
-                    if (JSON == null){return;}
-                    out.println(JSON);
-                    break;
-                }
-            case "reinforce":
-                {
-                    String JSON = reinforce(request, session);
-                    if (JSON == null){return;}       
-                    out.println(JSON);
-                    break;
-                }
-            case "attack":
-                {
-                    String JSON = attack(request, session);
-                    if (JSON == null){return;}
-                    out.println(JSON);
-                    break;
-                }
-            case "fortify":
-                {
-                    String JSON = fortify(request, session);
-                    if (JSON == null){return;}
-                    out.println(JSON);
-                    break;
-                }
-            case "nextphase":
-                String JSON = nextPhase(request, session); 
-                if (JSON == null){return;}
-                out.println(JSON);
-                break;
-        }
+        processRequest(request, response);
+ 
     }
 
     /**
@@ -124,26 +223,26 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        processRequest(request, response);
+        
         response.setContentType("application/json");
        
         PrintWriter out = response.getWriter();   
       
         //create new session or get current session
         HttpSession session = request.getSession();
+        
 
+        if (request.getParameter("command").isEmpty() || request.getParameter("command") == null){
+            processRequest(request, response);
+            return;
+        }
+        
         switch (request.getParameter("command")) {
-            case "newgame":
-                {
-                    String JSON = newGame(request, session);
-                    if (JSON == null){return;}
-                    out.println(JSON);
-                    break;
-                } 
             
-            case "getgamedata":
+            case "startgame":
                 {
-                    String JSON = getGameData(request, session);
+                    String JSON = startGame(request, session);
                     if (JSON == null){return;}
                     out.println(JSON);
                     break;
@@ -200,42 +299,7 @@ public class MainServlet extends HttpServlet {
         return "API for our risk";
     }// </editor-fold>
 
-    public String newGame(HttpServletRequest request,HttpSession session){
-        if (request.getParameter("playerlist") == null){
-            return null;
-        }  
-        //set variables
-        String playerListJSON = request.getParameter("playerlist");
-        
-        Gson gson = new Gson();
-        String[] playerList = gson.fromJson(playerListJSON, String[].class);
-        
-        Game game;
-        if (session.getAttribute("game") != null){
-            session.removeAttribute("game");
-        }   
-        
-        game = new Game(playerList); 
-        
-        
-        //convert game to JSON
-        String gameJSON = gson.toJson(game);
-        
-        //get the board and convert it to JSON
-        Board board = game.getBoard();
-        String boardJSON = gson.toJson(board);
 
-
-        //store session data
-        session.setAttribute("game", gameJSON);
-        session.setAttribute("currentplayer", game.getCurrentPlayer());
-        session.setAttribute("currentphase", game.getPhase());
-        session.setAttribute("currentstage", game.getStage());
-
-        return boardJSON;
-    }
-    
-    
     public String claimTerritory(HttpServletRequest request,HttpSession session){
         if (request.getParameter("playername") == null || request.getParameter("territory") == null){
             return null;
@@ -248,16 +312,47 @@ public class MainServlet extends HttpServlet {
         //check if this is the first call for the game
         if (session.getAttribute("game") == null){
             //create the game object
+            System.out.println("entered new game in claimTer");
             game = new Game(new String[]{"Player 1", "Player 2", "Player 3", "Player 4"});
         }
         else{
             //if it's not the first call, get the game JSON data
             String gameJSON  = (String) session.getAttribute("game");
-            //get the json string back into an object          
+            //get the json string back into an object              
             game = gson.fromJson(gameJSON, Game.class); 
         }
         //claim territory
-        game.claimTerritory(territory, playerName);
+        game.claimTerritory(territory, playerName);        
+        //convert game to JSON
+        String gameJSON = gson.toJson(game);
+        
+        //get the board and convert it to JSON
+        Board board = game.getBoard();
+        String boardJSON = gson.toJson(board);
+
+
+        //store session data
+        session.setAttribute("game", gameJSON);
+        session.setAttribute("currentplayer", game.getCurrentPlayer());
+        session.setAttribute("currentphase", game.getPhase());
+        session.setAttribute("currentstage", game.getStage());
+        session.setAttribute("army", Integer.toString(game.currentPlayer.getArmy()));
+        
+        return boardJSON;
+    }
+    
+    public String startGame(HttpServletRequest request,HttpSession session){
+        System.out.println("entered starting a new game!!!!!!!!!!");
+        //set variables
+        String playerName1 = request.getParameter("playername1");
+        String playerName2 = request.getParameter("playername2");        
+        Game game;
+        
+        Gson gson = new Gson();
+        //check if this is the first call for the game
+
+        game = new Game(new String[]{playerName1,playerName2});
+
         
         //convert game to JSON
         String gameJSON = gson.toJson(game);
@@ -272,7 +367,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());
-
+        session.setAttribute("army", Integer.toString(game.currentPlayer.getArmy()));
         return boardJSON;
     }
     
@@ -304,7 +399,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());    
-        
+        session.setAttribute("army", Integer.toString(game.currentPlayer.getArmy()));
         return boardJSON;
 
     }
@@ -335,18 +430,23 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());    
-        
+        session.setAttribute("army", Integer.toString(game.currentPlayer.getArmy()));
         return boardJSON;
 
     }
     
+    
+    
     public String fortify(HttpServletRequest request,HttpSession session){
+       
        if(session.getAttribute("game") == null || request.getParameter("startterritory") == null || request.getParameter("targetterritory") == null || request.getParameter("troops") == null){
             return null;
         }
+        
        //set variables
         String startTerritory = request.getParameter("startterritory");
         String targetTerritory = request.getParameter("targetterritory");
+        
         int troops = Integer.parseInt(request.getParameter("troops"));       
         String gameJSON  = (String) session.getAttribute("game");
         Gson gson = new Gson();
@@ -367,7 +467,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());    
-        
+        session.setAttribute("army", Integer.toString(game.currentPlayer.getArmy()));
         return boardJSON;
 
     } 
@@ -395,7 +495,7 @@ public class MainServlet extends HttpServlet {
         session.setAttribute("currentplayer", game.getCurrentPlayer());
         session.setAttribute("currentphase", game.getPhase());
         session.setAttribute("currentstage", game.getStage());    
-        
+        session.setAttribute("army", Integer.toString(game.currentPlayer.getArmy()));
         return boardJSON;
      }
      
@@ -410,11 +510,10 @@ public class MainServlet extends HttpServlet {
  
         //go to the next phase in the game
         String currentPlayer = game.getCurrentPlayer();
-        String playerTroops = Integer.toString(game.getPlayer(currentPlayer).getArmy());
         String currentPhase = game.getPhase();
         String currentstage = game.getStage();
         
-        List<String>  gameData = Arrays.asList(currentPlayer, playerTroops, currentPhase, currentstage);
+        List<String>  gameData = Arrays.asList(currentPlayer, currentPhase, currentstage);
         
         //convert back to json
         String gameDataJSON = gson.toJson(gameData);

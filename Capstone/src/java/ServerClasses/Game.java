@@ -16,8 +16,12 @@ public class Game {
 	private int phaseStage;
 	final int noOfTerritories;
 	private int claimCounter;
+
     private String startingPlayer;  
     private int captureCounter;
+
+        private String startingPlayer;
+
 	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
 	private String currentStage;
 	private String currentPhase;
@@ -28,8 +32,14 @@ public class Game {
 		currentPhase = possiblePhase[0];
 		currentStage = "setup";
 		currentPlayer = null;		
+
 		claimCounter = 0;   
 		captureCounter = 1;
+
+		claimCounter = 0;
+                
+		playerList = new ArrayList();
+
 		playerPos = 0;
 		noOfTerritories = 42;
 		playerList = new ArrayList<Player>();		
@@ -40,8 +50,14 @@ public class Game {
 			Player player = new Player(players[i], troops);
 			playerList.add(player);
 		}
+
         startingPlayer = randomPlayer(players.length).getName();
 		setCurrentPlayer(startingPlayer);		
+
+                startingPlayer = randomPlayer(players.length).getName();
+		setCurrentPlayer(startingPlayer);
+		noOfTerritories = board.getBoard().size();
+
 	}
 	
 	/**
@@ -163,8 +179,13 @@ public class Game {
 			//Everyone out of armies and ready to move to gameStage.
 			else if(currentPhase.equals("reinforce") && outOfArmies()){
 				currentStage = "game";
+
                 currentPlayer = getPlayer(startingPlayer);
                 currentPlayer.setArmy(calcNewArmy(currentPlayer));
+
+                                currentPlayer = getPlayer(startingPlayer);
+                                currentPlayer.setArmy(calcNewArmy(currentPlayer));
+
 			}
 			//If current player army = 0, change to a player still with an 
 			//army.
@@ -188,11 +209,17 @@ public class Game {
 		else{
 			if(phaseStage == 3){				
 				newTurn();
+
                 phaseStage = 1;
 				currentPhase = "reinforce";
 				captureCounter = 1;
                 currentPlayer.setArmy(calcNewArmy(currentPlayer));
                 board.resetCanAttack();
+
+                                phaseStage = 1;
+				currentPhase = "reinforce";
+                                currentPlayer.setArmy(calcNewArmy(currentPlayer));
+
 			}
 			else{
 				phaseStage++;				
@@ -284,11 +311,18 @@ public class Game {
 			if(board.getControllingPlayer(startTerritory).equals(currentPlayer.getName()) &&
 					board.getControllingPlayer(targetTerritory).equals(currentPlayer.getName())
 					&& board.getControllingPlayer(startTerritory).equals(currentPlayer.getName())){
+
 				//Check to see if startTerritory has enough troops to transfer.				
 				if(board.getTroops(startTerritory) > troops && captureCounter > 0){				
 					board.fortify(startTerritory, targetTerritory, troops);
 					captureCounter--;
                     nextPhase();
+
+				//Check to see if startTerritory has enough troops to transfer.
+				if(board.getTroops(startTerritory) > troops){				
+					board.fortify(startTerritory, targetTerritory, troops);
+                                        nextPhase();
+
 				}
 			}
 		}

@@ -80,4 +80,10 @@ public class Board {
 		}
 		return false;
 	}
+	
+	public void resetCanAttack(){
+		for(Node n : nodes){
+			n.setAttack(true);
+		}
+	}
 }

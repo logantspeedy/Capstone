@@ -20,7 +20,7 @@ public class CreateGameBoard {
 				{"The lands of Always Winter","Castle Black","The Rills","Castle Black"},{"Castle Black","Wolfswood","Karhold","Barrowlands","Widow’s Watch"},
 				{"Bay of Seals","Castle Black","Winterfell"},{"Wolfswood","Barrowlands"},{"Winterfell","The Rills","Widow’s Watch","The Twins"},
 				{"Winterfell","Barrowlands","The Eyrie"},{"Barrowlands","Pyke","The Eyrie"},{"Dragon Stone","Widow’s Watch","The Twins","Westerlands","Harrenhal"},
-				{"The Twins","Westerlands"},{"The Eyrie","Harrenhal","Kingslanding","The Flatlands"},{"Pyke","Harrenhal","Westerlands","The Reach",},
+				{"The Twins","Westerlands"},{"The Eyrie","Harrenhal","Kingslanding","Braavosian Coastlands"},{"Pyke","Harrenhal","Westerlands","The Reach",},
 				{"The Eyrie","Dragon Stone","Westerlands","Kingslanding","The Reach"},{"Harrenhal","The Reach","Ashford","Stormlands"},
 				{"Westerlands","Harrenhal","Kingslanding","Ashford","Brightwater Keep"},{"The Reach","Kingslanding","Stormlands","Brightwater keep","Skyreach"},
 				{"Ashford","The Reach","Skyreach"},	{"Brightwater Keep","Ashford","The Reach","Dorne"},	{"Ashford","Kingslanding"},

@@ -5,7 +5,7 @@
         <servlet-class>API.MainServlet</servlet-class>
     </servlet>
     <listener>
-        <description>HttpSessionListener</description>
+        <description>HttpSessionListener, HttpSessionAttributeListener</description>
         <listener-class>listener.MainServletListener</listener-class>
     </listener>
     <servlet-mapping>

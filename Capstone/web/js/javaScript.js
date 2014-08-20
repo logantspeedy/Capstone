@@ -28,8 +28,10 @@
 
         else {return null;}       
     }
+    
 
     function gameLogic(){
+       var gameJSON = post({command:"getgamedata"});
         
        if (gameJSON === null){
             startGame("Player 1", "Player 2");
@@ -157,6 +159,7 @@
     }
         
     function post(postData){
+        alert(postData);
         $.ajax({
           type: "POST",
           url: "MainServlet",

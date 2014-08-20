@@ -37,7 +37,7 @@
         </div>
             
         <div class="gameWindow">
-            <button onclick="startGame()">Click me</button> 
+            <button onclick="gameLogic()">Click me</button> 
         </div>
         
 
@@ -53,7 +53,8 @@
         
     $(document).ready(function ()
         {
-        gameLogic();
+        
+//        gameLogic();
         });
 
     </script>

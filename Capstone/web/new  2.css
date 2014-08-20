@@ -1,0 +1,18 @@
+path, g path {
+	fill-opacity:0;
+stroke:green;
+stroke-width:.5;
+}
+path:hover, g:hover path{
+	fill:orange;
+fill-opacity:.4;
+}
+img{
+width:1100;
+ height:716.6;
+}
+svg{
+position:absolute;
+    top:8px;
+    left:8px;
+}

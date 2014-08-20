@@ -65,6 +65,9 @@ public class MainServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             
+
+            
+            
             if(request.getParameter("submitcreate") != null){
                 HttpSession session = request.getSession();
                 if(request.getParameter("gamename") != null){
@@ -223,7 +226,7 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
         
         response.setContentType("application/json");
        

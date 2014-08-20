@@ -17,10 +17,10 @@ public class Game {
 	final int noOfTerritories;
 	private int claimCounter;
 
-    private String startingPlayer;  
-    private int captureCounter;
+        private String startingPlayer;  
+        private int captureCounter;
 
-        private String startingPlayer;
+        
 
 	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
 	private String currentStage;
@@ -56,7 +56,7 @@ public class Game {
 
                 startingPlayer = randomPlayer(players.length).getName();
 		setCurrentPlayer(startingPlayer);
-		noOfTerritories = board.getBoard().size();
+//		noOfTerritories = board.getBoard().size();
 
 	}
 	
@@ -325,7 +325,7 @@ public class Game {
 
 				}
 			}
-		}
+		}}
 		//Go to next player.		
 		return board;
 	}	
@@ -338,10 +338,9 @@ public class Game {
 	 * 
 	 * @param attackingTerritory
 	 * @param defendingTerritory
-	 * @param aRolls
-	 * @param dRolls
+         * @return board
 	 */
-	public Board attack(String attackingTerritory, String defendingTerritory){				
+    public Board attack(String attackingTerritory, String defendingTerritory){				
 		//Territories are adjacent check.
 		if(currentPhase.equals("attack")){
 			if(board.isAdj(attackingTerritory, defendingTerritory)){		

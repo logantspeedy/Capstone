@@ -20,7 +20,7 @@
     <body>
         <div class="header">
             <div class="banner">
-            <img src="images/GoT/gameBanner.png" alt="Game Of Thrones"  style="width: 100%" >
+            <img src="images/houseFlags/gameBanner.png" alt="Game Of Thrones"  style="width: 100%" >
             </div>
         </div>
         

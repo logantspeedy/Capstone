@@ -8,92 +8,85 @@ and open the template in the editor.
     Author     : Zeb
 */
 body {
-    margin: 0;
-    padding: 0;
-    /*height:30%;*/
-    text-align: center;
-    /*background-image: url("images/forest.jpg");*/
-    background-size: 100%;
-    height:100%;
-    width: 100%; 
+    width: 100vw; 
+    height: 56.25vw; /* 100/56.25 = 1.778 */
    
-    background-image: url("images/blackpattern3.jpg");
-    /*background-repeat: repeat;*/
+    max-height: 100vh;
+    max-width: 177.78vh; /* 16/9 = 1.778 */
+    min-height: 384px;
+    min-width: 683px ;
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top:0;bottom:0; /* vertical center */
+    left:0;right:0; /* horizontal center */
+
+    text-align: center;
     
-    /*background-repeat: no-repeat;*/
+    background-image: url("images/background/blackpattern3.jpg");
+    background-size: 100%;
     background-position: left top;   
     position:absolute 
 }
 .header{
-    padding-bottom:100px;
     width: 100%;
-    height:12%;
-    /*position:absolute;*/
+    height:20%;
     float: top;
-/*    opacity: 0.8;*/
+    /*background-color: green;*/
   
 }
 .banner{
     padding-bottom:100px; 
-    height: 100%;
+    /*height: 100%;*/
     width:100%;
     
 }
 .navigation{
+/*    background-color: yellow;*/
+/*    background-image: url("images/banners/spear.png");
+    background-size: 100%;*/
+    position: relative;
     width: 100%;
-    height:8%;
-    /*position:absolute;*/
+    
+    height:5%;
     float: top;
     opacity: 1;
+    text-align:center ;
        
 }
 .mainContainer{
     width:100%;
-    height:70%;
-    margin: 0 auto;
-    
+    height:65%;
+    float: top;
+
 }
 
 .commentWindow {
     float: left;
     width:15%;
     height:100%;
-    /*position:absolute;*/
-    
-    /*padding-left: 50px;*/
-    /*height:500px;*/
     overflow:auto;
-    margin: 0 auto;
-    background-color: white;
-    opacity: 0.6
+    /*background-color: blue;*/
 }
 
 .gameWindow {
-    margin-left: 10px;
     float: left;
     width:70%;
     height:100%;
     overflow:auto;
-    /*margin: 0 auto;*/  
-    background-color: red;
-    opacity: 0.8;
+    /*background-color: red;*/
 }
 
 .chatBox{
-    margin-left: 10px;
-    width: 75%;
-    height: 20%;
-    background-color: white;
-    opacity: 0.6;
-    float:left;
-    text-align:left;
+
 }
 
 .footer{
-    color:#2B2C38;
-    clear:both;
+    color:#d2caa0;
+    font-family:Cordia New;
+    font-size: 1.475em;
     text-align:center;
-    height: 5%;
-    float:bottom;
-    /*opacity: 0.6*/
+    height: 4%;
+    float:top;
+    /*background-color: blueviolet;*/
 }

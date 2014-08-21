@@ -21,31 +21,58 @@
         
         
     </head>
-    <body class="body">
-       
-        
+        <body>
         <div class="header">
-             <h1><a href="http://fontmeme.com/game-of-thrones-font/"><img src="http://fontmeme.com/newcreate.php?text=Winter%20is%20Coming&name=Game of Thrones.ttf&size=40&style_color=2B2C38" alt="Game of Thrones Font"></a><p style="padding-left: 15px; font-size: 10px;"></p></h1>
-        
+           <img src="images/banners/gameBanner.png" alt="Game Of Thrones"  style="height: 112%; width:80%; z-index: 2" >
         </div>
         
-        <div class="navigation"> <a href="http://localhost:8082/Capstone/GoT.jsp"><img src="http://fontmeme.com/newcreate.php?text=start%20new%20game&name=Game of Thrones.ttf&size=11&style_color=2B2C38" alt="Start New Game"></a></div>
-        
-        <div class="mainContainer">
-        
-        <div class="commentWindow">
-        </div>
+        <div class="navigation"> 
+            <div style="width:100%; position: absolute;">
+                <img src="images/banners/spear.png" alt="Game Of Thrones"  style="width:100%; height:100%">
+            </div>
             
-        <div class="gameWindow">
-            <button onclick="gameLogic()">Click me</button> 
+            <div style="width:100%; height: 85%; position: absolute; z-index: 1;  ">
+                <table style="margin-left: auto; margin-right: auto">
+                <tr>
+                  <th style="padding-bottom: 10px" ><a href="home">home</a></th>
+                  <th></th><th></th>
+                  <th style="padding-bottom: 10px"  ><a href="about">about</a></th>
+                  <th></th><th></th>
+                  <th style="padding-bottom: 10px" ><a href="contact">contact</a></th>
+                  <th></th><th></th><th></th><th></th>
+                  <th style="padding-top:5px"><a href="http://localhost:8082/Capstone/GoT.jsp"> <img src="http://fontmeme.com/newcreate.php?text=Players%20Housemoto&name=Game of Thrones.ttf&size=11&style_color=221a16"  alt="Start New Game"></a></th>
+                  <th></th><th></th><th></th>
+                  <th style="padding-bottom: 10px" ><a href="">leave game</a></th>
+                  <th></th><th></th>
+                  <th style="padding-bottom: 10px" ><a href="test">signout</a></th>
+                </tr>
+              </table> 
+            </div>
+            
         </div>
         
-
-        <!--</div>-->
-        </div>
+        <div class ="mainContainer">
+            <div style="opacity: 0.5 "class="commentWindow">
+                <img style="width: 100%; height:99%" src="images/banners/starkLeft.png" >
+            </div>
+            
+            <div class="gameWindow" style="overflow:auto">
+                <img style="width: 100%; height:99%" src="images/gameboard/GOT.jpg" >
+           
+            </div>
+            
+            <div style="opacity: 0.5 "class="commentWindow">
+                <img style="width: 100%; height:99%" src="images/banners/starkRight.png" >
+            </div>
+        </div> 
+        
         <div class="footer" >
-            <p>Copyright © team4</p>
+            
+            <p><hr style="color: #d2caa0">a Team4 Production 2014 Massey capstone@massey.zc.nz ©</p>
         </div>
+    
+        
+    
 
 
         

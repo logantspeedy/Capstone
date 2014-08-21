@@ -19,7 +19,7 @@
     </head>
     <body>
         <div class="header">
-           <img src="images/banners/gameBanner.png" alt="Game Of Thrones"  style="height: 400%; width:80%; z-index: 2" >
+           <img src="images/banners/gameBanner.png" alt="Game Of Thrones"  style="height: 112%; width:80%;" >
         </div>
         
         <div class="navigation"> 

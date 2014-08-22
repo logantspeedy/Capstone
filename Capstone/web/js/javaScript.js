@@ -4,6 +4,33 @@
  * and open the template in the editor.
  */
 
+    function insertFooter(){
+        $('.footer').append('<p><hr style="color: #d2caa0">a Team4 Production 2014 Massey capstone@massey.zc.nz ©</p>');
+    }
+    
+    function insertHeader(){
+        $('.header').append('<img src="images/banners/gameBanner.png" alt="Game Of Thrones"  style="height: 112%; width:80%; z-index: 2" >');
+    }
+    
+    function insertNav(){
+        $('#nav').append(   
+            '<table style="margin-left: auto; margin-right: auto">'+
+               ' <tr>'+
+                  '<th style="padding-bottom: 10px" ><a href="home">home</a></th>'+
+                  '<th></th><th></th>'+
+                  '<th style="padding-bottom: 10px"  ><a href="about">about</a></th>'+
+                  '<th></th><th></th>'+
+                  '<th style="padding-bottom: 10px" ><a href="contact">contact</a></th>'+
+                  '<th></th><th></th><th></th><th></th>'+
+                  '<th style="padding-top:5px"><a href="http://localhost:8082/Capstone/GoT.jsp"> <img src="http://fontmeme.com/newcreate.php?text=Players%20Housemoto&name=Game of Thrones.ttf&size=11&style_color=221a16"  alt="Start New Game"></a></th>'+
+                  '<th></th><th></th><th></th>'+
+                  '<th style="padding-bottom: 10px" ><a href="">leave game</a></th>'+
+                  '<th></th><th></th>'+
+                  '<th style="padding-bottom: 10px" ><a href="test">signout</a></th>'+
+                '</tr>'+
+              '</table>');
+    }
+    
     function getPlayerFlag(player){
         var PlayersHouse = player.house(); 
         var returnFlag = null;

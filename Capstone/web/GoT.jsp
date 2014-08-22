@@ -13,7 +13,7 @@
     <head>
         <link rel="stylesheet" type="text/css" href="gamecss.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>GoT Page</title>
+        <title>Game of Thrones</title>
         
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
         <script type="text/javascript" 
@@ -22,31 +22,14 @@
         
     </head>
         <body>
-        <div class="header">
-           <img src="images/banners/gameBanner.png" alt="Game Of Thrones"  style="height: 112%; width:80%; z-index: 2" >
-        </div>
+        <div class="header"></div>
         
         <div class="navigation"> 
             <div style="width:100%; position: absolute;">
                 <img src="images/banners/spear.png" alt="Game Of Thrones"  style="width:100%; height:100%">
             </div>
             
-            <div style="width:100%; height: 85%; position: absolute; z-index: 1;  ">
-                <table style="margin-left: auto; margin-right: auto">
-                <tr>
-                  <th style="padding-bottom: 10px" ><a href="home">home</a></th>
-                  <th></th><th></th>
-                  <th style="padding-bottom: 10px"  ><a href="about">about</a></th>
-                  <th></th><th></th>
-                  <th style="padding-bottom: 10px" ><a href="contact">contact</a></th>
-                  <th></th><th></th><th></th><th></th>
-                  <th style="padding-top:5px"><a href="http://localhost:8082/Capstone/GoT.jsp"> <img src="http://fontmeme.com/newcreate.php?text=Players%20Housemoto&name=Game of Thrones.ttf&size=11&style_color=221a16"  alt="Start New Game"></a></th>
-                  <th></th><th></th><th></th>
-                  <th style="padding-bottom: 10px" ><a href="">leave game</a></th>
-                  <th></th><th></th>
-                  <th style="padding-bottom: 10px" ><a href="test">signout</a></th>
-                </tr>
-              </table> 
+            <div id="nav" style="width:100%; height: 85%; position: absolute; z-index: 1;  ">                
             </div>
             
         </div>
@@ -66,26 +49,27 @@
             </div>
         </div> 
         
-        <div class="footer" >
-            
-            <p><hr style="color: #d2caa0">a Team4 Production 2014 Massey capstone@massey.zc.nz ©</p>
-        </div>
+        <div class="footer" ></div>
     
         
     
 
 
         
-    <script>
+    
+</body>
+
+<script>
         
     $(document).ready(function ()
         {
-        
+            insertHeader();
+            insertNav();
+            insertFooter();
 //        gameLogic();
         });
 
-    </script>
-</body>
-    
+</script>
 
 </html>
+

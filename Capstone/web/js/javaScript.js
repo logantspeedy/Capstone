@@ -3,6 +3,51 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+    function displayPlayersHouse(){
+        //make so get playersHouse
+        var playersHouse='stark';
+        $('#left').append('<img style="width: 100%; height:99%" src="images/banners/'+playersHouse+'Left.png" >');
+        $('#right').append('<img style="width: 100%; height:99%" src="images/banners/'+playersHouse+'Right.png" >');
+    }
+    
+    function displayPlayersMoto(){
+        //make so get playersHouse moto
+        $('#moto').append('<img src="http://fontmeme.com/newcreate.php?text=Players%20Housemoto&name=Game of Thrones.ttf&size=11&style_color=221a16"  alt="Start New Game">');
+        
+    }
+    function insertFlag(idName) {
+                var bbox = $("#" + idName)[0].getBBox();
+                var xAxis = bbox.x;
+                var yAxis = bbox.y;
+                var width = bbox.width;
+                var height = bbox.height;
+                var fWidth = 65;
+                var fHeight = 70;
+                var divWidth = $("#GoTimg").width();
+                var divHeight = $("#GoTimg").height();
+                var viewBoxHeight =   1334;
+                var viewBoxWidth = 2048;
+                var ratioWidth = divWidth/viewBoxWidth;
+                var ratioHeight = divHeight/viewBoxHeight;
+                var setX = (xAxis + (width / 2) - (fWidth / 2))*ratioWidth;
+                var setY = (yAxis + (height / 2) - (fHeight / 2))*ratioHeight;
+            
+               
+                //var foreignObjectTag = document.createElement('foreignObject');
+//                var foreignObjectTag = $('<foreignObject/>');
+                // var divTag = document.createElement('div');
+//                var divTag = $('<div/>');
+                //var imgTag = document.createElement('img');
+                var imgTag = $('<img/>');
+                imgTag.css("left", setX)
+                        .css("top", setY)
+                        .css("position", "relative")
+                        .css("z-index", 2)
+                        .attr("src", "images/houseFlags/Stark.png")
+                        .attr("height", fHeight*ratioHeight)
+                        .attr("width", fWidth*ratioWidth)
+                        .attr("id", "img" + idName);
+                imgTag.prependTo("#gameWindow");}
 
     function insertFooter(){
         $('.footer').append('<p><hr style="color: #d2caa0">a Team4 Production 2014 Massey capstone@massey.zc.nz ©</p>');
@@ -22,7 +67,7 @@
                   '<th></th><th></th>'+
                   '<th style="padding-bottom: 10px" ><a href="contact">contact</a></th>'+
                   '<th></th><th></th><th></th><th></th>'+
-                  '<th style="padding-top:5px"><a href="http://localhost:8082/Capstone/GoT.jsp"> <img src="http://fontmeme.com/newcreate.php?text=Players%20Housemoto&name=Game of Thrones.ttf&size=11&style_color=221a16"  alt="Start New Game"></a></th>'+
+                  '<th id="moto" style="padding-top:5px"> </th>'+
                   '<th></th><th></th><th></th>'+
                   '<th style="padding-bottom: 10px" ><a href="">leave game</a></th>'+
                   '<th></th><th></th>'+

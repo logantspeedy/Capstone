@@ -295,9 +295,28 @@ public class MainServlet extends HttpServlet {
                     //create sesssion with username, playerlist, gamename
                     
                 }
+            
+            case "leavegame":
+                {                    
+                    if (session.getAttribute("joinedgame") != null){
+                        session.removeAttribute("joinedgame");
+                    }
+                    else if (session.getAttribute("gamename") != null){
+                        String username = (String) session.getAttribute("username");
+                        session.invalidate();
+                        session = request.getSession();
+                        session.setAttribute("username", username);                       
+                    }
+                    
+                    out.println("done leaving game");
+                    break;
+
+                    
+                }
+            
             case "getgames":
                 {
-                   Set gamesIDSet = listener.getGameSessions();
+                   ArrayList<ArrayList<String>> gamesIDSet = listener.getGameSessions();
                    
         
                     Gson gson = new Gson();
@@ -586,21 +605,9 @@ public class MainServlet extends HttpServlet {
         }
        //set variables     
         String gameJSON  = (String) session.getAttribute("game");
-        Gson gson = new Gson();
-        Game game = gson.fromJson(gameJSON, Game.class);       
- 
-        //go to the next phase in the game
-        String currentPlayer = game.getCurrentPlayer();
-        String playerTroops = Integer.toString(game.getPlayer(currentPlayer).getArmy());
-        String currentPhase = game.getPhase();
-        String currentstage = game.getStage();
+
         
-        List<String>  gameData = Arrays.asList(currentPlayer, playerTroops, currentPhase, currentstage);
-        
-        //convert back to json
-        String gameDataJSON = gson.toJson(gameData);
-        
-        return gameDataJSON;
+        return gameJSON;
      }    
 }
 

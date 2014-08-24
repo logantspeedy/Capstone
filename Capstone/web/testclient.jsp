@@ -13,49 +13,170 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     </head>
     <body>
-        <h1>Hello World!</h1>
-        Games:<br/>
-        <div id="gamelist"></div>
+        <h1>Lobby</h1>
+        <strong>Username<a href='javascript:showUsernameInput()' id='change-user'> (Change username)</a>:</strong> <input type="text" id="username" name="username"/> 
+        <span id="current-data">
+            
+            
+            
+        </span><br/>
+        Current games:<br/>  
+        <table border="1" width="100%">
+            <thead>
+                <th>Select</th>
+                <th>Game Name</th>
+                <th>Created by</th>
+                <th>Currently players joined</th>
+            </thead>
+            <tbody id="gamelist"></tbody>
+        </table>
+        <a href='javascript:joinGame()' id='join'>Join game</a><br/>
+        <a href='javascript:generateCreateForm()' id='gen-create'>Create game</a><br/>
+        <a href='javascript:leaveGame()' id='leave'>Leave Game</a><br/>
         
+        <div id="create-form">
+            Game name: <input type="text" id="gamename" name="gamename"/><br/>
+            <a href='javascript:createGame()' id='create'>Create</a><br/>
+        </div>
         
         <script>
-        function updateGameList(){
-        $.ajax({
-              type: "POST",
-              url: "MainServlet",
-              dataType : 'json',
-              data: {command: "getgames"}
-              }).done(function( data ) {
-                    var x;
-                    for(x in data){
-                        console.log(data[x]);
-                        $( "#gamelist" ).append( data[x] + "<br/>" );
-                        //alert(x);
-                    }
-   
-              });   
-          }
-          updateGameList();
-        </script>
-        <form action="MainServlet" method="POST">
-            command: <input type="text" name="command"/><br/>
-            <input type="submit" name="submit" value="Get Games"/>
-        </form>
+        $("#leave").hide();
+        $("#create-form").hide();
+        $("#change-user").hide();
+        <%
+        if (session.getAttribute("username") != null) {
+            String username = (String) session.getAttribute("username");
+            out.write("$('#username').hide(); $('#change-user').show();");
+          
+            if (session.getAttribute("gamename") != null) {
+                String gamename = (String) session.getAttribute("gamename");
+                out.write("$('#join').hide(); $('#gen-create').hide(); $('#leave').show(); $('#current-data').html('" + username + "<br/>Game name: " + gamename + "');");
+            }
+            else if (session.getAttribute("joinedgame") != null){
+                String gameId = (String) session.getAttribute("joinedgame");
+                out.write("$('#join').hide(); $('#gen-create').hide(); $('#leave').show(); $('#current-data').html('" + username + "<br/>Game name:' + $('#gamename-" + gameId + "').text());");
+            }
+            else{
+                out.write("$('#current-data').html('" + username + "'); $('#username').val('" + username + "');");
+            }
+        }
+        
 
-        <form action="MainServlet" method="POST">
-            command: <input type="text" name="command"/><br/>
-            username: <input type="text" name="username"/><br/>
-            game id: <input type="text" name="gameid"/><br/>
-            <input type="submit" name="submit" value="Join Game"/>
-        </form>
+        %>   
         
-        <form action="MainServlet" method="POST">
-            command: <input type="text" name="command"/><br/>
-            username: <input type="text" name="username"/><br/>
-            game name: <input type="text" name="gamename"/><br/>
-            <input type="submit" name="submit" value="Create Game"/>
-        </form>        
-        
+        function updateGameList(){
+            console.log('update game list');
+            $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "getgames"}
+                  }).done(function( data ) {
+                        $( "#gamelist" ).html("");
+                        var x;
+                        for(x in data){
+                            console.log(data);
+                            $( "#gamelist" ).append( "<tr><td><input type ='radio' class='join-select' name = 'join-select' value='" + data[x][0] + "'/></td><td id='gamename-" + data[x][0] + "'>" + data[x][1] + "</td><td> " + data[x][2] + "</td><td>" + data[x][3] + "</td></tr>" );
+                            //alert(x);
+                        }
+
+                  });   
+          }
+          
+        function joinGame(){
+            var checkedGameId = $("input[type='radio'][name='join-select']:checked").val();
+            console.log('join game');
+            console.log(checkedGameId);
+            console.log($('#username').val());
+            $("#current-data").html($('#username').val() + "<br/>Game name: " + $('#gamename-' + checkedGameId).text());
+            $("#username").hide();
+            $("#join").hide();
+            $("#gen-create").hide();
+            $("#leave").show();
+            $("#change-user").show();
+            $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "joingame", username: $('#username').val(), gameid: checkedGameId}
+                  }).done(function( data ) {
+
+                            updateGameList();
+
+
+                  });  
+             updateGameList();
+          }
+          
+          function generateCreateForm(){
+            if ($("#create-form").css('display') == 'none'){
+                $("#create-form").show();
+            }
+            else{
+            $("#create-form").hide();
+            }
+          }
+          
+          function showUsernameInput(){
+            if ($("#username").css('display') == 'none'){
+                $("#username").show();
+            }
+            else{
+            $("#username").hide();
+            }
+          }          
+
+          function createGame(){
+            console.log('create game');
+            console.log($('#username').val());
+            console.log($('#gamename').val());
+            $("#current-data").html($('#username').val() + "<br/>Game name: " + $('#gamename').val());
+            $("#username").hide();
+            $("#join").hide();
+            $("#gen-create").hide();
+            $("#create-form").hide();
+            $("#leave").show();
+            $("#change-user").show();
+            $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "creategame", username: $('#username').val(), gamename: $('#gamename').val()}
+                  }).done(function( data ) {
+
+                            updateGameList();
+
+
+                  }); 
+             updateGameList();
+          }    
+    
+        function leaveGame(){
+            console.log('leave game');
+            console.log($('#username').val());
+
+            $("#current-data").html($('#username').val());
+            $("#username").hide();
+            $("#join").show();
+            $("#gen-create").show();
+            $("#leave").hide();
+            $("#change-user").show();
+            $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "leavegame"}
+                  }).done(function( data ) {
+
+                            updateGameList();
+
+
+                  }); 
+             updateGameList();
+        }
+        updateGameList();
+        </script>
+
         
     </body>
 </html>

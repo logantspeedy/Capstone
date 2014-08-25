@@ -10,6 +10,7 @@ import java.util.Objects;
 public class Player {
 	
 	private String name;
+	private String house;
 	private int army;
 	
 	public Player(String name, int troops){
@@ -54,6 +55,14 @@ public class Player {
         }
         return true;
     }
+
+	public String getHouse() {
+		return house;
+	}
+
+	public void setHouse(String house) {
+		this.house = house;
+	}
         
 
 

@@ -14,7 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import serverClasses.Board;
-import serverClasses.Game;
+import ServerClasses.Game;
 import serverClasses.Player;
 import serverClasses.Node;
 

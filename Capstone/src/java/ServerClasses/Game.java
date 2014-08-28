@@ -1,11 +1,14 @@
-package serverClasses;
+package ServerClasses;
 
 /** 
  * Class to control game logic.
  */
 
+
+
 import java.util.ArrayList;
-import java.util.Arrays;;
+import java.util.Arrays;
+
 
 public class Game {
 	
@@ -16,8 +19,8 @@ public class Game {
 	private int phaseStage;
 	final int noOfTerritories;
 	private int claimCounter;
-    private String startingPlayer;  
-    private int captureCounter;
+        private String startingPlayer;  
+        private int captureCounter;
 	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
 	private String currentStage;
 	private String currentPhase;

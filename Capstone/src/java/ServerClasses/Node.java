@@ -1,4 +1,4 @@
-package serverClasses;
+package ServerClasses;
 /**
  * @author Patrick
  * Node class to serve as a data structure for the board.

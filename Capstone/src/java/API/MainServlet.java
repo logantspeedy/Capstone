@@ -7,8 +7,8 @@
 package API;
 
 
-import listener.MainServletListener;
 import ServerClasses.*;
+import listener.MainServletListener;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -453,8 +453,7 @@ public class MainServlet extends HttpServlet {
 //        Game game;
         
         Gson gson = new Gson();
-        //check if this is the first call for the game
-
+        //check if this is the first call for the game       
         Game game = new Game(new String[]{playerName1,playerName2});
 
         

@@ -1,4 +1,4 @@
-package serverClasses;
+package ServerClasses;
 
 import java.util.Objects;
 
@@ -16,6 +16,7 @@ public class Player {
 	public Player(String name, int troops){
 		this.setName(name);
 		this.setArmy(troops);
+                this.setHouse("");
 	}
 
 	public int getArmy() {

@@ -1,4 +1,4 @@
-package serverClasses;
+package ServerClasses;
 
 import java.util.ArrayList;
 

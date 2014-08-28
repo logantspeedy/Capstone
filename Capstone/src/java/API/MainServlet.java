@@ -460,12 +460,13 @@ public class MainServlet extends HttpServlet {
         
         //convert game to JSON
         String gameJSON = gson.toJson(game);
-        
+        System.out.println("game JSON: ");
+        System.out.println(gameJSON);
         //get the board and convert it to JSON
         Board board = game.getBoard();
         String boardJSON = gson.toJson(board);
-
-
+        System.out.println("board JSON");
+        System.out.println(boardJSON);
         //store session data
         session.setAttribute("game", gameJSON);
         session.setAttribute("currentplayer", game.getCurrentPlayer());
@@ -604,9 +605,11 @@ public class MainServlet extends HttpServlet {
      }
      
      public String getGameData(HttpServletRequest request,HttpSession session){
-       if(session.getAttribute("game") == null){
+         
+         if(session.getAttribute("game") == null){
             return null;
         }
+         System.out.println("in getgamedata");
        //set variables     
         String gameJSON  = (String) session.getAttribute("game");
 

@@ -23,12 +23,13 @@
 
     </head>
     <body>
+        <button onclick="test()">Start Game</button>
         <div class="header" style="z-index: 2"></div>
-        
         
         <div class="navigation" id="nav" ></div>
         
         <div class ="mainContainer">
+            
             <div class="infoTable" id="info" style="z-index: 3"></div>
             
                 <div id="backGround" style='z-index: 1; height:100% '>
@@ -240,6 +241,7 @@
                 insertNav();
 //                displayPlayersMoto();
                 insertFooter();
+                
                 //        gameLogic();
 
             });

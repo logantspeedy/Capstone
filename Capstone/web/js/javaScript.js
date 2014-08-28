@@ -3,6 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+    function test(){
+        var gameJSON = post({command:"getgamedata"});
+        console.log(gameJSON);
+    }
     function displayPlayersHouse(){
         //make so get playersHouse
         var playersHouse='stark';
@@ -81,7 +85,7 @@
             '<table class="infoCss" >'+
                ' <tr class="infoCss">'+
                   '<th class="infoCss" style="padding-bottom: 10px" >'+
-                  '<img style="height:35%" src="images/banners/starkLeft.png" ></th>'+
+                  '<img style="width:40%" src="images/banners/starkLeft.png" ></th>'+
                   '<th></th><th></th>'+
                   '<th class="infoCss" style="padding-bottom: 10px"  >Current Game Phase</th>'+
                   '<th></th><th></th>'+
@@ -247,17 +251,20 @@
     }
         
     function post(postData){
-        alert(postData);
+        var returnData=null;
+//        alert(postData);
         $.ajax({
           type: "POST",
           url: "MainServlet",
           dataType : 'json',
-          data: postData 
+          data: postData,
+          async: false 
         ,
           success : function(data){
-            window.location.href='GoT.jsp';
+//            window.location.href='GoT.jsp';
+            returnData= data;
            }});
-        
+        return returnData;
     }
     
     function nextPhase(){

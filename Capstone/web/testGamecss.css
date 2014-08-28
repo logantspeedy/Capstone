@@ -72,7 +72,7 @@ body {
 }
 
 table.infoCss, th.infoCss, td.infoCss {
-   /*border: 1px solid white;*/
+   border: 1px solid white;
 }
 a:link {
     color: #d2caa0;

@@ -35,7 +35,7 @@ public class CreateGameBoard {
 				{"Ghisear","Village of Lhazareen","Bayasabhad","Qarth Island"},{"The Red Waste","Bayasabhad"}};
 		nodes = new ArrayList<Node>();
 		for(int i = 0; i < 42; i++){			
-			nodes.add(new Node(territories[i], " ", " ", 0, adjTerritories[i]));
+			nodes.add(new Node(territories[i], " ", adjTerritories[i]));
 		}
 	}
 	
@@ -44,42 +44,44 @@ public class CreateGameBoard {
 	}
 	
 	public Board setStartingHouses(Board board, ArrayList<Player> playerList){
+		String name;
 		for(Player p : playerList){			
-			switch (p.getHouse()){
+			name = p.getName();
+			switch (p.getHouse()){			
 				case "Stark":{
-					board.changeController("Winterfell", p.getName());
-					board.changeController("Barrowlands", p.getName());
-					board.changeController("Widow’s Watch", p.getName());
+					board.changeController("Winterfell", name);
+					board.changeController("Barrowlands", name);
+					board.changeController("Widow’s Watch", name);
 					break;
 				}
 				case "Lannister":{
-					board.changeController("Kings Landing", p.getName());
-					board.changeController("The Reach", p.getName());
-					board.changeController("Harrenhal", p.getName());
+					board.changeController("Kings Landing", name);
+					board.changeController("The Reach", name);
+					board.changeController("Harrenhal", name);
 					break;
 				}
 				case "Greyjoy":{
-					board.changeController("The Twins", p.getName());
-					board.changeController("Pyke", p.getName());
-					board.changeController("Westerlands", p.getName());
+					board.changeController("The Twins", name);
+					board.changeController("Pyke", name);
+					board.changeController("Westerlands", name);
 					break;
 				}
 				case "Baratheon":{
-					board.changeController("Dragon Stone", p.getName());
-					board.changeController("Ashford", p.getName());
-					board.changeController("Stormlands", p.getName());
+					board.changeController("Dragon Stone", name);
+					board.changeController("Ashford", name);
+					board.changeController("Stormlands", name);
 					break;
 				}
 				case "Targaryen":{
-					board.changeController("Ghisear", p.getName());
-					board.changeController("The Red Waste", p.getName());
-					board.changeController("Qarth Island", p.getName());
+					board.changeController("Ghisear", name);
+					board.changeController("Bayasabhad", name);
+					board.changeController("Qarth Island", name);
 					break;
 				}
 				case "Dothraki":{
-					board.changeController("Northern Dathraki Sea", p.getName());
-					board.changeController("Bhonash", p.getName());
-					board.changeController("Village of Lhazareen", p.getName());
+					board.changeController("Northern Dathraki Sea", name);
+					board.changeController("Bhonash", name);
+					board.changeController("Village of Lhazareen", name);
 					break;
 				}
 			}

@@ -16,8 +16,8 @@ public class Game {
 	private int phaseStage;
 	final int noOfTerritories;
 	private int claimCounter;
-    private String startingPlayer;  
-    private int captureCounter;
+        private String startingPlayer;  
+        private int captureCounter;
 	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
 	private String currentStage;
 	private String currentPhase;
@@ -415,7 +415,8 @@ public class Game {
 		int army = board.getTroops(territory);
 		if(attacking){
 			army = (army > 3)?3:(army - 1);
-			army = (army == 0)?1:army;
+			//Only have 1 troop in territory, therefore can't attack.
+			army = (army == 0)?0:army;
 		}
 		else{
 			army = (army > 2)?2:(army - 1);
@@ -424,8 +425,8 @@ public class Game {
 		return army;
 	}
         
-        public Player randomPlayer(int noOfPlayers){
-            Player random = playerList.get((int)(noOfPlayers * Math.random()));            
-            return random;
+    public Player randomPlayer(int noOfPlayers){    	
+        Player random = playerList.get((int)(noOfPlayers * Math.random()));            
+        return random;
         }
 }

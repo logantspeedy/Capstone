@@ -11,11 +11,11 @@ public class Node {
 	private String[] adjacentNodes;
 	private boolean canAttack;
 
-	public Node(String territory, String player, String continent, int troops, String[] adjacentNodes){
+	public Node(String territory, String continent, String[] adjacentNodes){
 		this.setTerritoy(territory);
-		this.setControllingPlayer(player);
+		this.setControllingPlayer("");
 		this.setContinent(continent);
-		this.setTroops(troops);
+		this.setTroops(0);
 		this.setAdjacentNodes(adjacentNodes);
 		this.setAttack(true);
 	}

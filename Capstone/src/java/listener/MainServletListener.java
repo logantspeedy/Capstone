@@ -6,10 +6,14 @@
 
 package listener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionAttributeListener;
+import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
@@ -18,28 +22,111 @@ import javax.servlet.http.HttpSessionListener;
  *
  * @author Taylor
  */
-public class MainServletListener implements HttpSessionListener {
-    private static final Map<String, HttpSession> sessions = new HashMap<String, HttpSession>();
+public class MainServletListener implements HttpSessionListener, HttpSessionAttributeListener {
+    private static final Map<String, HttpSession> playerSessions = new HashMap<String, HttpSession>();
+    private static final Map<String, HttpSession> gameSessions = new HashMap<String, HttpSession>();
 
     @Override
     public void sessionCreated(HttpSessionEvent event) {
         HttpSession session = event.getSession();
-        sessions.put(session.getId(), session);
+        playerSessions.put(session.getId(), session);
     }
 
 
     @Override
     public void sessionDestroyed(HttpSessionEvent event) {
-        sessions.remove(event.getSession().getId());
+        HttpSession session = event.getSession();
+        playerSessions.remove(session.getId());
+        if (gameSessions.containsKey(session.getId())){
+            gameSessions.remove(session.getId());
+        }
+        if (session.getAttribute("joinedgame") != null){
+            HttpSession gameSession = findGame((String) session.getAttribute("joinedgame"));
+            ArrayList<String> players = (ArrayList<String>) gameSession.getAttribute("players");
+            players.remove((String) session.getAttribute("username")); 
+            gameSession.setAttribute("players", players);
+        }
+        checkPlayers();
     }
 
-    public HttpSession find(String sessionId) {
-        return sessions.get(sessionId);
+    @Override
+    public void attributeAdded(HttpSessionBindingEvent event) {
+        HttpSession session = event.getSession();
+        if (event.getName().equals("gamename")){
+            gameSessions.put(session.getId(), session);          
+        }
+        if (event.getName().equals("joinedgame")){
+            HttpSession gameSession = findGame((String) event.getValue());
+            ArrayList<String> players = (ArrayList<String>) gameSession.getAttribute("players");
+            players.add((String) session.getAttribute("username"));
+            gameSession.setAttribute("players", players);
+        }
     }
     
-    public Set getSessions(){
-        return sessions.keySet();
+    @Override
+    public void attributeRemoved(HttpSessionBindingEvent event) {
+        if (event.getName().equals("gamename")){
+            gameSessions.remove(event.getSession().getId());         
+        }
+        checkPlayers();
     }
-    
 
+    @Override
+    public void attributeReplaced(HttpSessionBindingEvent event) {
+        checkPlayers();
+    }
+    
+    private void checkPlayers(){
+        Set <String> playerSessions = getPlayerSessions();
+        for (String sessionId : playerSessions){
+            HttpSession playerSession = findPlayer(sessionId);
+            if (playerSession.getAttribute("joinedgame") != null){
+                String gameSessionId = (String) playerSession.getAttribute("joinedgame");
+                if (findGame(gameSessionId) == null){
+                    playerSession.removeAttribute("joinedgame");
+                }
+            }
+        }
+    }
+
+    public HttpSession findPlayer(String sessionId) {
+        return playerSessions.get(sessionId);
+    }
+    
+    public Set getPlayerSessions(){
+        return playerSessions.keySet();
+    }
+    
+    public HttpSession findGame(String sessionId) {
+        return gameSessions.get(sessionId);
+    }
+    
+    public ArrayList<ArrayList<String>> getGameSessions(){
+        ArrayList<ArrayList<String>> gamesSessionData = new ArrayList<>();
+        for (String sessionId : gameSessions.keySet()){
+            HttpSession gameSession = findGame(sessionId);
+            ArrayList<String> singleSessionData = new ArrayList<String>();
+            singleSessionData.add(gameSession.getId());
+            singleSessionData.add((String) gameSession.getAttribute("gamename"));
+            singleSessionData.add((String) gameSession.getAttribute("username"));
+            String playersString = "";
+            ArrayList<String> players = (ArrayList<String>) gameSession.getAttribute("players");
+            ListIterator<String> iterator = players.listIterator();
+            while(iterator.hasNext()){
+                playersString = playersString + iterator.next();
+                if(!iterator.hasNext()){
+//                    playersString = playersString + ".";
+                }
+                else{
+                    playersString = playersString + ", ";
+                }
+            }   
+                             
+            singleSessionData.add(playersString);
+            gamesSessionData.add(singleSessionData);
+        }
+
+        return gamesSessionData;
+    }
+    
 }

@@ -12,7 +12,7 @@
     
     function displayPlayersMoto(){
         //make so get playersHouse moto
-        $('#moto').append('<img src="http://fontmeme.com/newcreate.php?text=Players%20Housemoto&name=Game of Thrones.ttf&size=11&style_color=221a16"  alt="Start New Game">');
+        $('#moto').append('<img style="width 10px" src="http://fontmeme.com/newcreate.php?text=Players%20Housemoto&name=Game of Thrones.ttf&size=11&style_color=221a16"  alt="Start New Game">');
         
     }
     function insertFlag(idName) {
@@ -59,19 +59,35 @@
     
     function insertNav(){
         $('#nav').append(   
-            '<table style="margin-left: auto; margin-right: auto">'+
+            '<table >'+
                ' <tr>'+
-                  '<th style="padding-bottom: 10px" ><a href="home">home</a></th>'+
+                  '<th style="padding-top: 6%" ><a href="home">home</a></th>'+
                   '<th></th><th></th>'+
-                  '<th style="padding-bottom: 10px"  ><a href="about">about</a></th>'+
+                  '<th style="padding-top: 6%"  ><a href="about">about</a></th>'+
                   '<th></th><th></th>'+
-                  '<th style="padding-bottom: 10px" ><a href="contact">contact</a></th>'+
-                  '<th></th><th></th><th></th><th></th>'+
-                  '<th id="moto" style="padding-top:5px"> </th>'+
-                  '<th></th><th></th><th></th>'+
-                  '<th style="padding-bottom: 10px" ><a href="">leave game</a></th>'+
+                  '<th style="padding-top: 6%" ><a href="contact">contact</a></th>'+
                   '<th></th><th></th>'+
-                  '<th style="padding-bottom: 10px" ><a href="test">signout</a></th>'+
+                  '<th style="padding-top: 6%" >House Moto Here</th>'+
+                  '<th></th><th></th>'+
+                  '<th style="padding-top: 6%" ><a href="">leave game</a></th>'+
+                  '<th></th><th></th>'+
+                  '<th style="padding-top: 6%" ><a href="test">signout</a></th>'+
+                '</tr>'+
+              '</table>');
+    }
+    
+    function insertInfoTable(){
+        $('#info').append(   
+            '<table class="infoCss" >'+
+               ' <tr class="infoCss">'+
+                  '<th class="infoCss" style="padding-bottom: 10px" >'+
+                  '<img style="height:35%" src="images/banners/starkLeft.png" ></th>'+
+                  '<th></th><th></th>'+
+                  '<th class="infoCss" style="padding-bottom: 10px"  >Current Game Phase</th>'+
+                  '<th></th><th></th>'+
+                  '<th class="infoCss" style="padding-bottom: 10px" >Current Player</th>'+
+                  '<th></th><th></th>'+
+                  '<th class="infoCss" style="padding-bottom: 10px" >Player Bonuses</th>'+
                 '</tr>'+
               '</table>');
     }

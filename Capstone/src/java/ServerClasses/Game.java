@@ -16,59 +16,38 @@ public class Game {
 	private int phaseStage;
 	final int noOfTerritories;
 	private int claimCounter;
-
-        private String startingPlayer;  
-        private int captureCounter;
-
-        
-
+    private String startingPlayer;  
+    private int captureCounter;
 	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
 	private String currentStage;
 	private String currentPhase;
-	final String[] possiblePhase = new String[]{"claim", "reinforce", "attack", "fortify"};
+	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify"};
 	
-	public Game(String[] players){
-		
-		currentPhase = possiblePhase[0];
+	public Game(String[] players){		
+		currentPhase = "claim";
 		currentStage = "setup";
 		currentPlayer = null;		
-
 		claimCounter = 0;   
 		captureCounter = 1;
-
-		claimCounter = 0;
-                
-		playerList = new ArrayList();
-
 		playerPos = 0;
 		noOfTerritories = 42;
 		playerList = new ArrayList<Player>();		
 		board = new Board();
-		createNewBoard();
-		int troops = startingTroops[players.length - 2];		
+		int troops = startingTroops[players.length - 2];
+		
+		CreateGameBoard gameBoard = new CreateGameBoard();			
+		board.setBoard(gameBoard.getNodes());	
+				
 		for(int i = 0;i < players.length; i++){
 			Player player = new Player(players[i], troops);
 			playerList.add(player);
 		}
-
+		
+		board = gameBoard.setStartingHouses(board, playerList);
+		
         startingPlayer = randomPlayer(players.length).getName();
 		setCurrentPlayer(startingPlayer);		
-
-                startingPlayer = randomPlayer(players.length).getName();
-		setCurrentPlayer(startingPlayer);
-//		noOfTerritories = board.getBoard().size();
-
-	}
-	
-	/**
-	 * Creates a new board of standard places. With no troops and no players.
-	 */
-	public void createNewBoard(){
-		ArrayList<Node> nodes = new ArrayList<Node>();
-		CreateGameBoard gameBoard = new CreateGameBoard();
-		nodes = gameBoard.getNodes();	
-		board.setBoard(nodes);		
-	}
+	}	
 	
 	//*****************************************************************
 	//********************Getters and setters**************************
@@ -132,24 +111,19 @@ public class Game {
 	 */
 	public String nextPlayer()
 	{				
-		if(currentPlayer == null)
-		{
+		if(currentPlayer == null){
 			currentPlayer = playerList.get(playerPos);
 			return currentPlayer.getName();						
-		}
-		
+		}		
 		playerPos = playerList.indexOf(currentPlayer);
                 
-                if (claimCounter >= (noOfTerritories)){
-                        playerPos=0;
-                }
-                
-                else if(playerPos < (playerList.size()-1))
-		{
+        if (claimCounter >= (noOfTerritories)){        	
+        	playerPos=0;
+        }        
+        else if(playerPos < (playerList.size()-1)){
 			playerPos++;
 		}
-                else
-		{
+        else{
 			playerPos=0;
 		}
 		currentPlayer = playerList.get(playerPos);
@@ -166,26 +140,16 @@ public class Game {
 		//In setup stage of game so need to check if progressing to next stage,
 		//or next phase.
 		if(currentStage.equals("setup")){
-			//Check for next phase.
-			if(currentPhase.equals("claim") && claimCounter < noOfTerritories){
-				phaseStage = 0;				
-			}
-			//Else ready to move to next phase: reinforce.
-			else if(claimCounter >= (noOfTerritories) && currentPhase.equals("claim")){
-                                claimCounter = 0;
-				phaseStage = 1;
+			if(claimCounter >= noOfTerritories && currentPhase.equals("claim")){
+                claimCounter = 0;
+				phaseStage = 0;
 				currentPhase = "reinforce";
 			}
 			//Everyone out of armies and ready to move to gameStage.
 			else if(currentPhase.equals("reinforce") && outOfArmies()){
 				currentStage = "game";
-
                 currentPlayer = getPlayer(startingPlayer);
                 currentPlayer.setArmy(calcNewArmy(currentPlayer));
-
-                                currentPlayer = getPlayer(startingPlayer);
-                                currentPlayer.setArmy(calcNewArmy(currentPlayer));
-
 			}
 			//If current player army = 0, change to a player still with an 
 			//army.
@@ -207,19 +171,13 @@ public class Game {
 			newTurn();	
 		}
 		else{
-			if(phaseStage == 3){				
+			if(phaseStage == 2){				
 				newTurn();
-
-                phaseStage = 1;
+                phaseStage = 0;
 				currentPhase = "reinforce";
 				captureCounter = 1;
                 currentPlayer.setArmy(calcNewArmy(currentPlayer));
                 board.resetCanAttack();
-
-                                phaseStage = 1;
-				currentPhase = "reinforce";
-                                currentPlayer.setArmy(calcNewArmy(currentPlayer));
-
 			}
 			else{
 				phaseStage++;				
@@ -311,21 +269,14 @@ public class Game {
 			if(board.getControllingPlayer(startTerritory).equals(currentPlayer.getName()) &&
 					board.getControllingPlayer(targetTerritory).equals(currentPlayer.getName())
 					&& board.getControllingPlayer(startTerritory).equals(currentPlayer.getName())){
-
 				//Check to see if startTerritory has enough troops to transfer.				
 				if(board.getTroops(startTerritory) > troops && captureCounter > 0){				
 					board.fortify(startTerritory, targetTerritory, troops);
 					captureCounter--;
                     nextPhase();
-
-				//Check to see if startTerritory has enough troops to transfer.
-				if(board.getTroops(startTerritory) > troops){				
-					board.fortify(startTerritory, targetTerritory, troops);
-                                        nextPhase();
-
 				}
 			}
-		}}
+		}
 		//Go to next player.		
 		return board;
 	}	
@@ -338,9 +289,10 @@ public class Game {
 	 * 
 	 * @param attackingTerritory
 	 * @param defendingTerritory
-         * @return board
+	 * @param aRolls
+	 * @param dRolls
 	 */
-    public Board attack(String attackingTerritory, String defendingTerritory){				
+	public Board attack(String attackingTerritory, String defendingTerritory){				
 		//Territories are adjacent check.
 		if(currentPhase.equals("attack")){
 			if(board.isAdj(attackingTerritory, defendingTerritory)){		

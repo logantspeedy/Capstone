@@ -149,7 +149,7 @@ a:active {
 path, g path {
     fill-opacity:0;
     stroke:#221a16;
-    stroke-width:0;
+    stroke-width:2;
 }
 path:hover, g:hover path{
     fill:orange;

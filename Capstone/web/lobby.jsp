@@ -20,7 +20,10 @@
         <script type="text/javascript" 
         src="${pageContext.request.contextPath}/js/javaScript.js"></script>
 
-
+        <style>
+        body a:link {color: #573d1c;}
+        
+        </style>
     </head>
     <body>
         <!--<button onclick="getCurrentPhase()">getGameData</button>-->
@@ -35,16 +38,16 @@
                 </div>
             
             <div class="lobby" style="z-index: 2;width: 95%; height: 90%;  margin: auto;
-            position: absolute;  top: 0; left: 0; bottom: 0; right: 0; background-color: white; opacity: 0.6;">
+            position: absolute;  top: 0; left: 0; bottom: 0; right: 0; background: rgba(255, 255, 255, 0.7);">
             
             <h1>Lobby</h1>
         <strong>Username<a href='javascript:showUsernameInput()' id='change-user'> (Change username)</a>:</strong> <input type="text" id="username" name="username"/> 
-        <span id="current-data">
-            
-            
-            
-        </span><br/>
-        Current games:<br/>  
+        <span id="current-data"></span>
+        
+        <button onclick="startGame()">Start Game</button>
+        <br/>
+        <br/>
+        <h2>Current games:</h2>
         <table border="1" width="100%">
             <thead>
                 <th>Select</th>
@@ -54,7 +57,9 @@
             </thead>
             <tbody id="gamelist"></tbody>
         </table>
-        <button onclick="startGame()">Start Game</button>
+        
+        
+        
         <a href='javascript:joinGame()' id='join'>Join game</a><br/>
         <a href='javascript:generateCreateForm()' id='gen-create'>Create game</a><br/>
         <a href='javascript:leaveGame()' id='leave'>Leave Game</a><br/>
@@ -163,14 +168,10 @@
 //var playerList = getGames("1212312dfsdfds23");
           function startGame(){
             var checkedGameId = $("input[type='radio'][name='join-select']:checked").val();
-            
             var players = getGames(checkedGameId.toString());
             
-           
-            
-            
             players.push("filler");
-            alert(players);
+//            alert(players);
             
             $.ajax({
                   type: "POST",
@@ -179,7 +180,7 @@
                   data: {command: "startgame", playername1: players[0], playername2: players[1]}
                   }).done(function( data ) {
 
-                            
+                            window.location.href='GoT.jsp';
 
 
                   });  

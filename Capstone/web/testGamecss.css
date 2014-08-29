@@ -41,16 +41,26 @@ body {
   
 }
 .infoTable{
-    width: 40%;
-    height:12%;
-    z-index: 10;
+    width: 30%;
+    height:28%;
+    z-index: 3;
     position:absolute;
     margin-top: 4%;
-    margin-left: 38%;
+    margin-left: 45%;
     font-size: 1vw;
+    /*background: blue;*/
     /*float: top;*/
     /*background-color: green;*/
   
+}
+
+table.infoCss, th.infoCss, td.infoCss {
+   /*border: 1px solid white;*/
+   font-family:Cordia New;
+   color: #d2caa0;
+   vertical-align: top;
+   font-size: 1vw;
+
 }
 .banner{
     padding-bottom:100px; 
@@ -71,9 +81,7 @@ body {
     /*background-color: blueviolet;*/   
 }
 
-table.infoCss, th.infoCss, td.infoCss {
-   border: 1px solid white;
-}
+
 a:link {
     color: #d2caa0;
     text-decoration: none;

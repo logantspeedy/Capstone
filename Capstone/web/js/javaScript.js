@@ -3,10 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-    function test(){
-        var gameJSON = post({command:"getgamedata"});
-        console.log(gameJSON);
+    var gameJSON = null;
+    var currentPhase = null;
+    var currentPlayer = null;
+    function getGameJSON(){
+        gameJSON = post({command:"getgamedata"});
+        currentPhase = gameJSON.currentPhase.toString();
+        currentPlayer = gameJSON.currentPlayer.name.toString();
     }
+
     function displayPlayersHouse(){
         //make so get playersHouse
         var playersHouse='stark';
@@ -81,19 +86,8 @@
     }
     
     function insertInfoTable(){
-        $('#info').append(   
-            '<table class="infoCss" >'+
-               ' <tr class="infoCss">'+
-                  '<th class="infoCss" style="padding-bottom: 10px" >'+
-                  '<img style="width:40%" src="images/banners/starkLeft.png" ></th>'+
-                  '<th></th><th></th>'+
-                  '<th class="infoCss" style="padding-bottom: 10px"  >Current Game Phase</th>'+
-                  '<th></th><th></th>'+
-                  '<th class="infoCss" style="padding-bottom: 10px" >Current Player</th>'+
-                  '<th></th><th></th>'+
-                  '<th class="infoCss" style="padding-bottom: 10px" >Player Bonuses</th>'+
-                '</tr>'+
-              '</table>');
+        $('#phase').append(currentPhase);
+        $('#currentPlayer').append(currentPlayer);
     }
     
     function getPlayerFlag(player){

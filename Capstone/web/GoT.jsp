@@ -23,14 +23,26 @@
 
     </head>
     <body>
-        <button onclick="test()">Start Game</button>
+        <!--<button onclick="getCurrentPhase()">getGameData</button>-->
         <div class="header" style="z-index: 2"></div>
         
         <div class="navigation" id="nav" ></div>
         
         <div class ="mainContainer">
             
-            <div class="infoTable" id="info" style="z-index: 3"></div>
+            <div class="infoTable" id="info">
+                <img style="height: 120%; float: left " src="images/banners/starkLeft.png" >
+                <table class="infoCss" >
+                    <tr class="infoCss">
+                      <th></th><th></th>
+                      <th class="infoCss" id="phase" style="padding-bottom: 10px"><h3>PHASE</h3></th>
+                      <th></th><th></th>
+                      <th class="infoCss" id="currentPlayer" style="padding-bottom: 10px" ><h3>CURRENT PLAYER</h3></th>
+                      <th></th><th></th>
+                      <th class="infoCss" id="bonuses" style="padding-bottom: 10px" ><h3>BONUSES</h3></th>
+                    </tr>
+                </table>
+            </div>
             
                 <div id="backGround" style='z-index: 1; height:100% '>
                     <img id="GoTimg" style="width: 100%; height:100%" src="images/gameboard/GoT.jpg" >
@@ -235,6 +247,7 @@
 
             $(document).ready(function()
             {
+                getGameJSON();
                 displayPlayersHouse();
                 insertHeader();
                 insertInfoTable();

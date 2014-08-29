@@ -11,8 +11,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script type="text/javascript" 
+        src="${pageContext.request.contextPath}/js/javaScript.js"></script>
     </head>
     <body>
+        <button onclick="test()">getGameData</button>
         <h1>Lobby</h1>
         <strong>Username<a href='javascript:showUsernameInput()' id='change-user'> (Change username)</a>:</strong> <input type="text" id="username" name="username"/> 
         <span id="current-data">

@@ -604,11 +604,11 @@ public class MainServlet extends HttpServlet {
      }
      
      public String getGameData(HttpServletRequest request,HttpSession session){
-         
+         System.out.println("in getgamedata 1");
          if(session.getAttribute("game") == null){
             return null;
         }
-         System.out.println("in getgamedata");
+         System.out.println("in getgamedata 2");
        //set variables     
         String gameJSON  = (String) session.getAttribute("game");
 

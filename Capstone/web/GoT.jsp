@@ -23,7 +23,8 @@
 
     </head>
     <body>
-        <!--<button onclick="getCurrentPhase()">getGameData</button>-->
+        <button onclick='getGameJSON()'>getGameData</button>
+        <button onclick='post({command:"sethouse" ,house:"Stark"})'>setStark</button>
         <div class="header" style="z-index: 12"></div>
         
         <div class="navigation" id="nav" ></div>
@@ -49,28 +50,13 @@
                 </div> 
             
             <!--if player doesn't have a house -->
-            <div class="lobby" style="z-index: 11;width: 60%; height: 90%;  margin: auto;
-                position: absolute;  top: 0; left: 0; bottom: 0; right: 0; ">
-                <table>
-                    <tr>
-                        <td style="width: 33.3% ;"></td>
-                        <td style="width: 33.3%; color: #573d1c;"><h3 >Please Choose a House</h3></td>
-                        <td style="width: 33.3%"></td>
-                    </tr>
-                    <tr>
-                        <td style="width: 33.3%; background: rgba(20, 20, 20, 0.7);"><img style="width: 45%;   " src="images/banners/starkBanner.png" ></td>
-                        <td style="width: 33.3%; background: rgba(20, 20, 20, 0.7);"><img style="width: 45%;  " src="images/banners/greyjoyBanner.png" ></td>
-                        <td style="width: 33.3%; background: rgba(20, 20, 20, 0.7);"><img style="width: 45%;  " src="images/banners/lannisterBanner.png" ></td>
-                    </tr>
-                    <tr>
-                        <td style="width: 33.3%; background: rgba(20, 20, 20, 0.7);"><img style="width: 45%;  " src="images/banners/baratheonBanner.png" ></td>
-                        <td style="width: 33.3%; background: rgba(20, 20, 20, 0.7);"><img style="width: 45%;  " src="images/banners/dothrakiBanner.png" ></td>
-                        <td style="width: 33.3%; background: rgba(20, 20, 20, 0.7);"><img style="width: 45%;  " src="images/banners/tagaryenBanner.png" ></td>
-                    </tr>
-                    
-                </table>   
-            </div>
             
+                           
+ 
+            <div class="lobby" id="chooseHouse"style="z-index: 11;width: 60%; height: 90%;  margin: auto;
+                position: absolute;  top: 0; left: 0; bottom: 0; right: 0; ">
+            </div>
+
 <!--                <div class= "flags" id="flags">
                     <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 19.4%;top: 62.9%;'    id='imgAshford'     src='images/houseFlags/Stark.png' /> 
                     <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 14.4%; top: 56.6%;'   id='imgThe Reach'   src='images/houseFlags/Stark.png' /> 
@@ -278,6 +264,7 @@
                 insertNav();
 //                displayPlayersMoto();
                 insertFooter();
+                displayPickHouse();
                 
                 //        gameLogic();
 

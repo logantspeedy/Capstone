@@ -3,13 +3,34 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+    function displayPickHouse(){
+        var html="<table>"+
+                    "<tr>"+
+                        "<td style='width: 33.3% ;'></td>"+
+                        "<td style='width: 33.3%; color: #573d1c;'><h3 >Please Choose a House</h3></td>"+
+                        "<td style='width: 33.3%'></td>"+
+                    "</tr>"+
+                    "<tr>"+
+                        "<td style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;   ' src='images/banners/starkBanner.png' ></td>"+
+                        "<td style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/greyjoyBanner.png' ></td>"+
+                        "<td style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/lannisterBanner.png' ></td>"+
+                    "</tr>"+
+                    "<tr>"+
+                        "<td style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/baratheonBanner.png' ></td>"+
+                        "<td style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/dothrakiBanner.png' ></td>"+
+                        "<td style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/tagaryenBanner.png' ></td>"+
+                    "</tr>"+
+                "</table>";
+        document.getElementById('chooseHouse').innerHTML += html;
+    }
     var gameJSON = null;
     var currentPhase = null;
     var currentPlayer = null;
     function getGameJSON(){
         gameJSON = post({command:"getgamedata"});
         currentPhase = gameJSON.currentPhase.toString();
-        currentPlayer = gameJSON.currentPlayer.name.toString();
+        currentPlayer = gameJSON.currentPlayer;
+        console.log(currentPlayer);
     }
 
     function displayPlayersHouse(){

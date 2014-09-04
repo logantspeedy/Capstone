@@ -70,7 +70,11 @@ public class Game {
 	public String getCurrentPlayer() {		
 		return currentPlayer.getName();
 	}
-	
+        //added by jack
+        public void setCurrentPlayersHouse(String house){
+            currentPlayer.setHouse(house);
+        }
+	//
 	public ArrayList<Player> getPlayerList(){
 		return playerList;
 	}

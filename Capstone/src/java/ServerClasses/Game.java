@@ -435,4 +435,48 @@ public class Game {
             Player random = playerList.get((int)(noOfPlayers * Math.random()));            
             return random;
         }
+        public void setStartingHouses(){
+		for(Player p : this.playerList){			
+			switch (p.getHouse()){
+				case "Stark":{
+					this.board.changeController("Winterfell", p.getName());
+					this.board.changeController("Barrowlands", p.getName());
+					this.board.changeController("Widows Watch", p.getName());
+					break;
+				}
+				case "Lannister":{
+					this.board.changeController("Kings Landing", p.getName());
+					this.board.changeController("The Reach", p.getName());
+					this.board.changeController("Harrenhal", p.getName());
+					break;
+				}
+				case "Greyjoy":{
+					this.board.changeController("The Twins", p.getName());
+					this.board.changeController("Pyke", p.getName());
+					this.board.changeController("Westerlands", p.getName());
+					break;
+				}
+				case "Baratheon":{
+					this.board.changeController("Dragon Stone", p.getName());
+					this.board.changeController("Ashford", p.getName());
+					this.board.changeController("Stormlands", p.getName());
+					break;
+				}
+				case "Targaryen":{
+					this.board.changeController("Ghisear", p.getName());
+					this.board.changeController("The Red Waste", p.getName());
+					this.board.changeController("Qarth Island", p.getName());
+					break;
+				}
+				case "Dothraki":{
+					this.board.changeController("Northern Dathraki Sea", p.getName());
+					this.board.changeController("Bhonash", p.getName());
+					this.board.changeController("Village of Lhazareen", p.getName());
+					break;
+				}
+			}
+		
+		}
+//		return board;	
+	}
 }

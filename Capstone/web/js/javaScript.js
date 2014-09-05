@@ -3,13 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-    var test;
-    function setTest(value){
-        test=value;
+    function setFlags(){
+        for (i = 0; i < nodes.length; i++) {
+            var ter = nodes[i].territoy.toString();
+            console.log(ter);
+            var controller = nodes[i].controllingPlayer.toString();
+        $('#img'+ter.replace(" ","")).attr("src","images/houseFlags/"+getPlayersHouse(controller)+".png");
     }
-    function getTest(value){
-        alert(test);
+}
+    function sesId(){
+        post({command:"getsessionid"});
     }
+    function getPlayersHouse(play){
+        var r = post({command:"getplayershouse", player:play});
+        return r;
+    }
+    
     function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -20,13 +29,15 @@
 //    console.log("in get cookie");
     var name = cname + "=";
     var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) {
-        var c = ca[i];
-        alert(c);
-        while (c.charAt(0)===' ') c = c.substring(1);
-        if (c.indexOf(name) !== -1) return c.substring(name.length,c.length);
-    }
-    return "";
+    
+    var test = ca[0].split("=");
+//    alert(test[1]);
+//    for(var i=0; i<ca.length; i++) {
+//        var c = ca[i];
+//        while (c.charAt(0)===' ') c = c.substring(1);
+//            if (c.indexOf(name) !== -1) return c.substring(name.length,c.length);
+//    }
+    return test[1];
 }
     function displayPickHouse(){
         //code for when mosue over make images bigger
@@ -58,22 +69,22 @@
 //        element1.addEventListener("click", post({command:"sethouse" ,house:"Stark"}), false);
         
         $("#starkBanner").click(function() {
-        post({command:"sethouse" ,house:"Stark"});
+        post({command:"sethouse" , player:getCookie(),house:"Stark"});
         window.location="GoT.jsp";});
         $("#greyjoyBanner").click(function() {
-        post({command:"sethouse" ,house:"Greyjoy"});
+        post({command:"sethouse" ,player:getCookie(),house:"Greyjoy"});
         window.location="GoT.jsp";});
         $("#lannisterBanner").click(function() {
-        post({command:"sethouse" ,house:"Lannister"});
+        post({command:"sethouse" ,player:getCookie(),house:"Lannister"});
         window.location="GoT.jsp";});
         $("#baratheonBanner").click(function() {
-        post({command:"sethouse" ,house:"Baratheon"});
+        post({command:"sethouse" ,player:getCookie(),house:"Baratheon"});
         window.location="GoT.jsp";});
         $("#dothrakiBanner").click(function() {
-        post({command:"sethouse" ,house:"Dothraki"});
+        post({command:"sethouse" ,player:getCookie(),house:"Dothraki"});
         window.location="GoT.jsp";});
         $("#tagaryenBanner").click(function() {
-        post({command:"sethouse" ,house:"Tagaryen"});
+        post({command:"sethouse" ,player:getCookie(),house:"Tagaryen"});
         window.location="GoT.jsp";});
     }
     
@@ -82,20 +93,18 @@
     var currentPlayer = null;
     var currentPlayerHouse = null;
     var currentPlayerTroops = null;
+    var nodes = null
     function getGameJSON(){
         gameJSON = post({command:"getgamedata"});
         currentPhase = gameJSON.currentPhase.toString();
         currentPlayer = gameJSON.currentPlayer.name.toString();
         currentPlayerHouse = gameJSON.currentPlayer.house.toString();
+        nodes = gameJSON.board.nodes;
+        console.log(nodes);
 //        currentPlayerTroops = gameJSON.currentPlayer.troops.toString();
     }
 
-    function displayPlayersHouse(){
-        //make so get playersHouse
-        var playersHouse='stark';
-        $('#left').append('<img style="width: 100%; height:99%" src="images/banners/'+playersHouse+'Left.png" >');
-        $('#right').append('<img style="width: 100%; height:99%" src="images/banners/'+playersHouse+'Right.png" >');
-    }
+
     
     function displayPlayersMoto(){
         //make so get playersHouse moto
@@ -164,8 +173,8 @@
     }
     
     function insertInfoTable(){
-        var playersHouse
-        $('#playersBanner').attr("src","images/banners/starkBanner.png");
+        var house = post({command:"getplayershouse", player:getCookie()}).toLowerCase();
+        $('#playersBanner').attr("src","images/banners/"+house+"Banner.png");
         $('#phase').append(currentPhase);
         $('#currentPlayer').append(currentPlayer);
     }

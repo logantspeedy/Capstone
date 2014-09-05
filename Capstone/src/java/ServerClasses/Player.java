@@ -34,6 +34,15 @@ public class Player {
 	public void setName(String name) {
 		this.name = name;
 	}
+        
+        public String getHouse() {
+		return house;
+	}
+
+	public void setHouse(String house) {
+//                System.out.println("in set house player");
+		this.house = house;
+	}
 
     @Override
     public int hashCode() {
@@ -57,14 +66,7 @@ public class Player {
         return true;
     }
 
-	public String getHouse() {
-		return house;
-	}
 
-	public void setHouse(String house) {
-                System.out.println("in set house player");
-		this.house = house;
-	}
         
 
 

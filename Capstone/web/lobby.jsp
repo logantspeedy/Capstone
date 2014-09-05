@@ -45,6 +45,7 @@
         <span id="current-data"></span>
         
         <button onclick="startGame()">Start Game</button>
+        <button onclick="sesId()">session Id</button>
         <br/>
         <br/>
         <h2>Current games:</h2>
@@ -206,7 +207,6 @@
                   dataType : 'json',
                   data: {command: "joingame", username: $('#username').val(), gameid: checkedGameId}
                   }).done(function( data ) {
-                            setCookie("username", $("#current-data").html($('#username').val()), 10);
                             updateGameList();
 
 
@@ -237,7 +237,7 @@
             console.log($('#username').val());
             console.log($('#gamename').val());
             setCookie("username", $('#username').val(),20);
-            getCookie("username");
+//            getCookie("username");
 //            setTest($('#username').val());
 //            getTest();
             $("#current-data").html($('#username').val() + "<br/>Game name: " + $('#gamename').val());
@@ -254,8 +254,6 @@
                   data: {command: "creategame", username: $('#username').val(), gamename: $('#gamename').val()}
                   }).done(function( data ) {
                             console.log("in create game");
-//                            setCookie("username", $("#current-data").html($('#username').val()), 10);
-//                            setCookie("username", "Jack",20);
                             updateGameList();
 
 

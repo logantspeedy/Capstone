@@ -72,7 +72,7 @@ public class Game {
 	}
         //added by jack
         public void setCurrentPlayersHouse(String house){
-            currentPlayer.setHouse(house);
+            this.currentPlayer.setHouse(house);
         }
 	//
 	public ArrayList<Player> getPlayerList(){

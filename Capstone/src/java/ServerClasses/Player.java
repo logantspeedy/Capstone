@@ -62,6 +62,7 @@ public class Player {
 	}
 
 	public void setHouse(String house) {
+                System.out.println("in set house player");
 		this.house = house;
 	}
         

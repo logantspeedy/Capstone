@@ -11,18 +11,40 @@
                         "<td style='width: 33.3%'></td>"+
                     "</tr>"+
                     "<tr>"+
-                        "<td style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;   ' src='images/banners/starkBanner.png' ></td>"+
-                        "<td style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/greyjoyBanner.png' ></td>"+
-                        "<td style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/lannisterBanner.png' ></td>"+
+                        "<td id='starkBanner' style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;   ' src='images/banners/starkBanner.png' ></td>"+
+                        "<td id='greyjoyBanner' style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/greyjoyBanner.png' ></td>"+
+                        "<td id='lannisterBanner'style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/lannisterBanner.png' ></td>"+
                     "</tr>"+
                     "<tr>"+
-                        "<td style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/baratheonBanner.png' ></td>"+
-                        "<td style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/dothrakiBanner.png' ></td>"+
-                        "<td style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/tagaryenBanner.png' ></td>"+
+                        "<td id='baratheonBanner' style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/baratheonBanner.png' ></td>"+
+                        "<td id='dothrakiBanner' style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/dothrakiBanner.png' ></td>"+
+                        "<td id='tagaryenBanner' style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/tagaryenBanner.png' ></td>"+
                     "</tr>"+
                 "</table>";
         document.getElementById('chooseHouse').innerHTML += html;
+//        element1 = document.getElementById("starkBanner");
+//        element1.addEventListener("click", post({command:"sethouse" ,house:"Stark"}), false);
+        
+        $("#starkBanner").click(function() {
+        post({command:"sethouse" ,house:"Stark"});
+        window.location="GoT.jsp";});
+        $("#greyjoyBanner").click(function() {
+        post({command:"sethouse" ,house:"Greyjoy"});
+        window.location="GoT.jsp";});
+        $("#lannisterBanner").click(function() {
+        post({command:"sethouse" ,house:"Lannister"});
+        window.location="GoT.jsp";});
+        $("#baratheonBanner").click(function() {
+        post({command:"sethouse" ,house:"Baratheon"});
+        window.location="GoT.jsp";});
+        $("#dothrakiBanner").click(function() {
+        post({command:"sethouse" ,house:"Dothraki"});
+        window.location="GoT.jsp";});
+        $("#tagaryenBanner").click(function() {
+        post({command:"sethouse" ,house:"Tagaryen"});
+        window.location="GoT.jsp";});
     }
+    
     var gameJSON = null;
     var currentPhase = null;
     var currentPlayer = null;
@@ -30,7 +52,8 @@
         gameJSON = post({command:"getgamedata"});
         currentPhase = gameJSON.currentPhase.toString();
         currentPlayer = gameJSON.currentPlayer;
-        console.log(currentPlayer);
+        console.log(currentPlayer
+                );
     }
 
     function displayPlayersHouse(){

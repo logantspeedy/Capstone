@@ -592,7 +592,8 @@ public class MainServlet extends HttpServlet {
         String gameJSON  = (String) session.getAttribute("game");
         Gson gson = new Gson();
         Game game = gson.fromJson(gameJSON, Game.class);       
- 
+        
+        System.out.println("in next phase");
         //go to the next phase in the game
         game.nextPhase();
         
@@ -605,10 +606,6 @@ public class MainServlet extends HttpServlet {
         
         //store session data
         session.setAttribute("game", gameJSON);
-        session.setAttribute("currentplayer", game.getCurrentPlayer());
-        session.setAttribute("currentphase", game.getPhase());
-        session.setAttribute("currentstage", game.getStage());    
-        session.setAttribute("army", Integer.toString(game.currentPlayer.getArmy()));
         return boardJSON;
      }
     //set house added by jack
@@ -628,8 +625,9 @@ public class MainServlet extends HttpServlet {
         Game game = gson.fromJson(gameJSON, Game.class);       
  
         //setHouse
+        System.out.println(game.currentPlayer.getHouse());
         game.setCurrentPlayersHouse(house);
-        
+        System.out.println(game.currentPlayer.getHouse());
         //convert back to json
         gameJSON = gson.toJson(game);
         
@@ -637,8 +635,8 @@ public class MainServlet extends HttpServlet {
         Board board = game.getBoard();
         String boardJSON = gson.toJson(board);
         
-        
-        return boardJSON;
+        session.setAttribute("game", gameJSON);
+        return gameJSON;
 
     } 
      

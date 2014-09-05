@@ -180,7 +180,7 @@
                   data: {command: "startgame", playername1: players[0], playername2: players[1]}
                   }).done(function( data ) {
 
-                            window.location.href='GoT.jsp';
+                            window.location.href='chooseHouse.jsp';
 
 
                   });  

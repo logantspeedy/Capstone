@@ -62,48 +62,48 @@
             </div>-->
 
                 <div class= "flags" id="flags">
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 19.4%;top: 62.9%;'    id='imgAshford'     src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 14.4%; top: 56.6%;'   id='imgTheReach'   src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 15%;   top: 46.6%;'   id='imgWesterlands' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 20.5%;top: 49.0%;'   id='imgHarrenhal'   src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 24.6%;top: 41.6%;'   id='imgTheEyrie'   src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 24.2%; top: 52.9%;'   id='imgKingslanding'src='' />
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 25.9%; top: 61.8%;'    id='imgStormlands'  src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 26.2%;top: 73.9%;'    id='imgDorne'       src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 17.9%; top: 33.0%;'   id='imgTheTwins'   src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:17.9%;  top:25.4%;'     id='imgBarrowlands' src='' /> 
-                    <img The Twinsth='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 21.46%;top: 16.0%;'    id='imgWinterfell' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 25.0%; top: 22.7%;'    id='imgWidowsWatch' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 28.6%; top:13%;'       id='imgKarhold' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:22.4%;  top:7%;'        id='imgCastleBlack' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:21%;    top:1.1%;'      id='imgTheHauntedForest' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:12.7%;  top:24%;'       id='imgTheRills' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:14.8%;  top:17.3%;'    id='imgWolfswood' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:13.5%;  top:68.9%;'     id='imgBrightwater Keep' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:13.2%; top:1.1%;' id='imgTheLandsofAlwaysWinter' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:19.2%; top:72.2%;' id='imgSkyreach' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:42%; top:71%;' id='imgTheDisputedLands' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:43.8%; top:63%;' id='imgTheGoldenFields' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:40.5%; top:55.5%;' id='imgTheFlatlands' src='' />
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:38.3%; top:46.5%;' id='imgBraavosianCoastlands' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:42.4%; top:46.1%;' id='imgBraavos' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:47.4%; top:47.3%;' id='imgHillsofNorvos' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:55%; top:46%;' id='imgForestofLohor' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:53.3%; top:62.8%;' id='imgVolantis' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:63.8%; top:62%;' id='imgBhonash' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:73.4%; top:79%;' id='imgGhisear' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:82%; top:77.5%;' id='imgTheRedWaste' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:87.8%; top:66.7%;' id='imgBayasabhad' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:94.4%; top:91%;' id='imgQarthIsland' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:96.1%; top:40.3%;' id='imgEasternDathrakiSea' src='' />
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:84.1%; top:40.2%;' id='imgVaesDorthrak' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:67%; top:46%;' id='imgNorthernDathrakiSea' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:84.6%; top:18.7%;' id='imgPaltofIllen' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:77.6%; top:55.9%;' id='imgVillageofLhazareen  ' src='' /> 
-                    <img width='auto' height='4.5%' style='position:absolute; z-index:2; display:inline; left:57.7%; top:90.6%;' id='imgValyria ' src='' />
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 19.4%;top: 62.9%;'    id='imgAshford'     src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 14.4%; top: 56.6%;'   id='imgTheReach'   src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 15%;   top: 46.6%;'   id='imgWesterlands' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 20.5%;top: 49.0%;'   id='imgHarrenhal'   src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 24.6%;top: 41.6%;'   id='imgTheEyrie'   src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 24.2%; top: 52.9%;'   id='imgKingslanding'src='images/houseFlags/blank.png' />
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 25.9%; top: 61.8%;'    id='imgStormlands'  src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 26.2%;top: 73.9%;'    id='imgDorne'       src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 17.9%; top: 33.0%;'   id='imgTheTwins'   src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:17.9%;  top:25.4%;'     id='imgBarrowlands' src='images/houseFlags/blank.png' /> 
+                    <img The Twinsth='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 21.46%;top: 16.0%;'    id='imgWinterfell' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 25.0%; top: 22.7%;'    id='imgWidowsWatch' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 28.6%; top:13%;'       id='imgKarhold' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:22.4%;  top:7%;'        id='imgCastleBlack' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:21%;    top:1.1%;'      id='imgTheHauntedForest' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:12.7%;  top:24%;'       id='imgTheRills' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:14.8%;  top:17.3%;'    id='imgWolfswood' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:13.5%;  top:68.9%;'     id='imgBrightwaterKeep' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:13.2%; top:1.1%;' id='imgTheLandsofAlwaysWinter' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:19.2%; top:72.2%;' id='imgSkyreach' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:42%; top:71%;' id='imgTheDisputedLands' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:43.8%; top:63%;' id='imgTheGoldenFields' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:40.5%; top:55.5%;' id='imgTheFlatlands' src='images/houseFlags/blank.png' />
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:38.3%; top:46.5%;' id='imgBraavosianCoastlands' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:42.4%; top:46.1%;' id='imgBraavos' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:47.4%; top:47.3%;' id='imgHillsofNorvos' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:55%; top:46%;' id='imgForestofLohor' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:53.3%; top:62.8%;' id='imgVolantis' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:63.8%; top:62%;' id='imgBhonash' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:73.4%; top:79%;' id='imgGhisear' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:82%; top:77.5%;' id='imgTheRedWaste' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:87.8%; top:66.7%;' id='imgBayasabhad' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:94.4%; top:91%;' id='imgQarthIsland' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:96.1%; top:40.3%;' id='imgEasternDathrakiSea' src='images/houseFlags/blank.png' />
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:84.1%; top:40.2%;' id='imgVaesDorthrak' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:67%; top:46%;' id='imgNorthernDathrakiSea' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:84.6%; top:18.7%;' id='imgPaltofIllen' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:77.6%; top:55.9%;' id='imgVillageofLhazareen' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='4.5%' style='position:absolute; z-index:2; display:inline; left:57.7%; top:90.6%;' id='imgValyria' src='images/houseFlags/blank.png' />
                     <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:8.7%; top:40.8%;' id='imgPyke' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:32.4%; top:49.8%;' id='imgDragonStone' src='' /> 
-                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:33.3%; top:4.7%;' id='imgBayofSeals' src='' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:32.4%; top:49.8%;' id='imgDragonStone' src='images/houseFlags/blank.png' /> 
+                    <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:33.3%; top:4.7%;' id='imgBayofSeals' src='images/houseFlags/blank.png' /> 
                 </div>
 
                 <div id="svgImg" style='z-index: 20; '>

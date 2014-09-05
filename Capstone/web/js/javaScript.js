@@ -6,9 +6,15 @@
     function setFlags(){
         for (i = 0; i < nodes.length; i++) {
             var ter = nodes[i].territoy.toString();
-            console.log(ter);
+
             var controller = nodes[i].controllingPlayer.toString();
-        $('#img'+ter.replace(" ","")).attr("src","images/houseFlags/"+getPlayersHouse(controller)+".png");
+            if (controller.replace(/ /g,'') === ""){
+//            $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/blank.png");
+            }
+            else{
+            
+                
+            $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/"+getPlayersHouse(controller)+".png");}
     }
 }
     function sesId(){

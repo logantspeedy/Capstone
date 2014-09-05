@@ -8,15 +8,12 @@ package API;
 
 
 import ServerClasses.*;
-import listener.MainServletListener;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -26,9 +23,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-
 import javax.servlet.http.HttpSession;
+import listener.MainServletListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -338,6 +334,13 @@ public class MainServlet extends HttpServlet {
                     out.println(JSON);
                     break;
                 }  
+            case "getusername":
+                {
+                    String JSON = getUsername(request, session);
+                    if (JSON == null){return;}
+                    out.println(JSON);
+                    break;
+                } 
             
             case "startgame":
                 {
@@ -440,11 +443,7 @@ public class MainServlet extends HttpServlet {
 
         //store session data
         session.setAttribute("game", gameJSON);
-        session.setAttribute("currentplayer", game.getCurrentPlayer());
-        session.setAttribute("currentphase", game.getPhase());
-        session.setAttribute("currentstage", game.getStage());
-        session.setAttribute("army", Integer.toString(game.currentPlayer.getArmy()));
-        
+          
         return boardJSON;
     }
     
@@ -652,6 +651,23 @@ public class MainServlet extends HttpServlet {
         System.out.println(gameJSON);
         return gameJSON;
      }    
+     public String getUsername(HttpServletRequest request,HttpSession session){
+        
+         if(session.getAttribute("game") == null){
+            return null;
+        }
+         
+       //set variables     
+        String username  = (String) request.getParameter("username");
+        Enumeration e = session.getAttributeNames();
+        while (e.hasMoreElements()) {
+        String name = (String)e.nextElement();
+        String value = session.getAttribute(name).toString();
+//        System.out.println("name is: " + name + " value is: " + value);
+}
+        System.out.println(request.getServletContext());
+        return username;
+     }  
 }
 
 

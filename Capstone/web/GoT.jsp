@@ -25,15 +25,17 @@
     <body>
         <button onclick='getGameJSON()'>getGameData</button>
         <button onclick='nextPhase()'>nextphase</button>
-        <button onclick='post({command:"sethouse" ,house:"Stark"})'>setStark</button>
+        <!--<button onclick='post({command:"getusername"})'>getUsername</button>-->
+        <button onclick='getCookie()'>username</button>
+        
         <div class="header" style="z-index: 12"></div>
         
         <div class="navigation" id="nav" ></div>
         
         <div class ="mainContainer">
             
-<!--            <div class="infoTable" id="info">
-                <img style="height: 120%; float: left " src="images/banners/starkLeft.png" >
+            <div class="infoTable" id="info">
+                <img id ="playersBanner" style="height: 120%; float: left " src="" >
                 <table class="infoCss" >
                     <tr class="infoCss">
                       <th></th><th></th>
@@ -44,7 +46,7 @@
                       <th class="infoCss" id="bonuses" style="padding-bottom: 10px" ><h3>BONUSES</h3></th>
                     </tr>
                 </table>
-            </div>-->
+            </div>
             
                 <div id="backGround" style='z-index: 1; height:100% '>
                     <img id="GoTimg" style="width: 100%; height:100%" src="images/gameboard/GoT.jpg" >

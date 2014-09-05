@@ -78,7 +78,7 @@
 
         <div class="footer" ></div>
         <script>
-
+            
             $(document).ready(function()
             {
                 
@@ -188,7 +188,9 @@
           }
           
         function joinGame(){
+            
             var checkedGameId = $("input[type='radio'][name='join-select']:checked").val();
+            setCookie("username", $('#username').val(),20);
             console.log('join game');
             console.log(checkedGameId);
             console.log($('#username').val());
@@ -204,7 +206,7 @@
                   dataType : 'json',
                   data: {command: "joingame", username: $('#username').val(), gameid: checkedGameId}
                   }).done(function( data ) {
-
+                            setCookie("username", $("#current-data").html($('#username').val()), 10);
                             updateGameList();
 
 
@@ -234,6 +236,10 @@
             console.log('create game');
             console.log($('#username').val());
             console.log($('#gamename').val());
+            setCookie("username", $('#username').val(),20);
+            getCookie("username");
+//            setTest($('#username').val());
+//            getTest();
             $("#current-data").html($('#username').val() + "<br/>Game name: " + $('#gamename').val());
             $("#username").hide();
             $("#join").hide();
@@ -247,7 +253,9 @@
                   dataType : 'json',
                   data: {command: "creategame", username: $('#username').val(), gamename: $('#gamename').val()}
                   }).done(function( data ) {
-
+                            console.log("in create game");
+//                            setCookie("username", $("#current-data").html($('#username').val()), 10);
+//                            setCookie("username", "Jack",20);
                             updateGameList();
 
 

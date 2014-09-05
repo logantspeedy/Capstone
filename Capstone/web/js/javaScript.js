@@ -3,7 +3,39 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+    var test;
+    function setTest(value){
+        test=value;
+    }
+    function getTest(value){
+        alert(test);
+    }
+    function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+} 
+    function getCookie(cname) {
+//    console.log("in get cookie");
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        alert(c);
+        while (c.charAt(0)===' ') c = c.substring(1);
+        if (c.indexOf(name) !== -1) return c.substring(name.length,c.length);
+    }
+    return "";
+}
     function displayPickHouse(){
+        //code for when mosue over make images bigger
+    //        /* Teaser image swap function */
+    //    $('img.swap').hover(function () {
+    //        this.src = '/images/signup_big_hover.png';
+    //    }, function () {
+    //        this.src = '/images/signup_big.png';
+    //    });
         var html="<table>"+
                     "<tr>"+
                         "<td style='width: 33.3% ;'></td>"+
@@ -48,12 +80,14 @@
     var gameJSON = null;
     var currentPhase = null;
     var currentPlayer = null;
+    var currentPlayerHouse = null;
+    var currentPlayerTroops = null;
     function getGameJSON(){
         gameJSON = post({command:"getgamedata"});
         currentPhase = gameJSON.currentPhase.toString();
-        currentPlayer = gameJSON.currentPlayer;
-        console.log(currentPlayer
-                );
+        currentPlayer = gameJSON.currentPlayer.name.toString();
+        currentPlayerHouse = gameJSON.currentPlayer.house.toString();
+//        currentPlayerTroops = gameJSON.currentPlayer.troops.toString();
     }
 
     function displayPlayersHouse(){
@@ -130,6 +164,8 @@
     }
     
     function insertInfoTable(){
+        var playersHouse
+        $('#playersBanner').attr("src","images/banners/starkBanner.png");
         $('#phase').append(currentPhase);
         $('#currentPlayer').append(currentPlayer);
     }

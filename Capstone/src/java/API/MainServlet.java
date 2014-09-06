@@ -512,7 +512,7 @@ public class MainServlet extends HttpServlet {
         String gameJSON  = (String) session.getAttribute("game");
         Gson gson = new Gson();
         Game game = gson.fromJson(gameJSON, Game.class);       
- 
+       
         //reinforce the territory
         game.reinforce(territory, troops);
         
@@ -543,7 +543,7 @@ public class MainServlet extends HttpServlet {
         String gameJSON  = (String) session.getAttribute("game");
         Gson gson = new Gson();
         Game game = gson.fromJson(gameJSON, Game.class);       
- 
+        
         //attack the territory
         game.attack(attackingTerritory, defendingTerritory);
         

@@ -13,7 +13,7 @@ function test(i){alert(i);}
     var currentPlayerTroops = null;
     var nodes = null;
     var player = getCookie();
-    var house = post({command:"getplayershouse", player:player}).toLowerCase();
+    var house = post({command:"getplayershouse", player:player}).toLowerCase();    
     
     function getGameJSON(){
         gameJSON = post({command:"getgamedata"});
@@ -199,7 +199,19 @@ function test(i){alert(i);}
     }
     function setSVGClickEvents(i){
         var input = i.id;
-        if (currentPhase === "claim"){post({command:"claimterritory", playername:player, territory:input });}
+        switch(currentPhase){            
+            case "claim":{
+                    post({command:"claimterritory", playername:player, territory:input});                
+                    break;
+            }
+                
+            case "reinforce":{
+                    var t = parseInt(prompt("How many troops", "0"));                       
+                    post({command:"reinforce", territory:input, troops:t});
+                    break;
+            }          
+        }
+        
         updateDisplay();
     }
     function gameLogic(){

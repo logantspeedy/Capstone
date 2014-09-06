@@ -33,7 +33,9 @@ public class Game {
 		claimCounter = 0;   
 		captureCounter = 1;
 		playerPos = 0;
-		noOfTerritories = 42;
+                //*********Change back to 42 for full game************
+		noOfTerritories =10;
+                //****************************************************
 		playerList = new ArrayList<Player>();		
 		board = new Board();
 		int troops = startingTroops[players.length - 2];
@@ -124,10 +126,8 @@ public class Game {
 		}		
 		playerPos = playerList.indexOf(currentPlayer);
                 
-        if (claimCounter >= (noOfTerritories)){        	
-        	playerPos=0;
-        }        
-        else if(playerPos < (playerList.size()-1)){
+                
+        if(playerPos < (playerList.size()-1)){
 			playerPos++;
 		}
         else{
@@ -143,6 +143,7 @@ public class Game {
 		//set turn stage to 1
 		//updates each country with auto reinforcements (random reinforcements)..?
 		//decides quantity for reinforce stage of turn
+            
 		nextPlayer();
 		//In setup stage of game so need to check if progressing to next stage,
 		//or next phase.
@@ -173,7 +174,7 @@ public class Game {
 		
 		//In setup stage therefore changes player after every phase.
 		//Only changes phase once which is calculated in nextTurn.
-		if(currentStage.equals("setup")){
+		if(currentStage.equals("setup")){                    
 			newTurn();	
 		}
 		else{
@@ -249,6 +250,7 @@ public class Game {
                                     //Check to see if the player can't place any more troops, then move to next phase.
                                     //Or still in setup phase then need to switch to next player.
                                     if((currentStage.equals("game") && currentPlayer.getArmy() == 0) || currentStage.equals("setup")){
+                                        System.out.println("next player");
                                             nextPhase();
 					}	
 				}

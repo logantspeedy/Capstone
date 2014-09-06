@@ -665,8 +665,15 @@ public class MainServlet extends HttpServlet {
         for (Player p : players){
             System.out.println(p);
         }
-        
-        game.setStartingHouses();
+        Boolean allHousesSet = true;
+        for(Player p : players){
+            if(p.getHouse().equals("")){
+                allHousesSet = false;
+            }
+        }
+        if(allHousesSet){
+            game.setStartingHouses();
+        }
         //convert back to json
         gameJSON = gson.toJson(game);
         

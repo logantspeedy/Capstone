@@ -147,16 +147,15 @@ public class Game {
 		//In setup stage of game so need to check if progressing to next stage,
 		//or next phase.
 		if(currentStage.equals("setup")){
-			if(claimCounter >= noOfTerritories && currentPhase.equals("claim")){
-                claimCounter = 0;
+			if(claimCounter >= noOfTerritories && currentPhase.equals("claim")){                
 				phaseStage = 0;
 				currentPhase = "reinforce";
 			}
 			//Everyone out of armies and ready to move to gameStage.
 			else if(currentPhase.equals("reinforce") && outOfArmies()){
 				currentStage = "game";
-                currentPlayer = getPlayer(startingPlayer);
-                currentPlayer.setArmy(calcNewArmy(currentPlayer));
+                                currentPlayer = getPlayer(startingPlayer);
+                                currentPlayer.setArmy(calcNewArmy(currentPlayer));
 			}
 			//If current player army = 0, change to a player still with an 
 			//army.
@@ -179,16 +178,16 @@ public class Game {
 		}
 		else{
 			if(phaseStage == 2){				
-				newTurn();
-                phaseStage = 0;
-				currentPhase = "reinforce";
-				captureCounter = 1;
-                currentPlayer.setArmy(calcNewArmy(currentPlayer));
-                board.resetCanAttack();
+                            newTurn();
+                            phaseStage = 0;
+                            currentPhase = "reinforce";
+                            captureCounter = 1;
+                            currentPlayer.setArmy(calcNewArmy(currentPlayer));
+                            board.resetCanAttack();
 			}
 			else{
-				phaseStage++;				
-				currentPhase = possiblePhase[phaseStage];
+                            phaseStage++;				
+                            currentPhase = possiblePhase[phaseStage];
 			}
 		}
 	}
@@ -215,8 +214,7 @@ public class Game {
 				if(currentPlayer.getName().equals(player)){
                     currentPlayer = playerList.get(playerList.indexOf(currentPlayer));                                        
 					board.changeController(territory, player);
-					board.changeTroops(territory, 1);	
-					//Change players army size.
+					board.changeTroops(territory, 1);						
 					currentPlayer.setArmy(currentPlayer.getArmy() - 1);                                       
 					claimCounter++;
 					//Automatically go to next players turn.
@@ -441,39 +439,45 @@ public class Game {
 			switch (p.getHouse()){
                             
 				case "Stark":{
-					this.board.changeController("Winterfell", p.getName());
+					this.board.changeController("Winterfell", p.getName());                                        
 					this.board.changeController("Barrowlands", p.getName());
 					this.board.changeController("Widows Watch", p.getName());
+                                        this.claimCounter += 3;
 					break;
 				}
 				case "Lannister":{
 					this.board.changeController("Kings Landing", p.getName());
 					this.board.changeController("The Reach", p.getName());
 					this.board.changeController("Harrenhal", p.getName());
+                                        this.claimCounter += 3;
 					break;
 				}
 				case "Greyjoy":{
 					this.board.changeController("The Twins", p.getName());
 					this.board.changeController("Pyke", p.getName());
 					this.board.changeController("Westerlands", p.getName());
+                                        this.claimCounter += 3;
 					break;
 				}
 				case "Baratheon":{
 					this.board.changeController("Dragon Stone", p.getName());
 					this.board.changeController("Ashford", p.getName());
 					this.board.changeController("Stormlands", p.getName());
+                                        this.claimCounter += 3;
 					break;
 				}
 				case "Targaryen":{
 					this.board.changeController("Ghisear", p.getName());
 					this.board.changeController("The Red Waste", p.getName());
 					this.board.changeController("Qarth Island", p.getName());
+                                        this.claimCounter += 3;
 					break;
 				}
 				case "Dothraki":{
 					this.board.changeController("Northern Dathraki Sea", p.getName());
 					this.board.changeController("Bhonash", p.getName());
 					this.board.changeController("Village of Lhazareen", p.getName());
+                                        this.claimCounter += 3;
 					break;
 				}
 			}

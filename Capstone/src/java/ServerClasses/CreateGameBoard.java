@@ -53,7 +53,7 @@ public class CreateGameBoard {
 					break;
 				}
 				case "Lannister":{
-					board.changeController("Kings Landing", p.getName());
+					board.changeController("Kingslanding", p.getName());
 					board.changeController("The Reach", p.getName());
 					board.changeController("Harrenhal", p.getName());
 					break;

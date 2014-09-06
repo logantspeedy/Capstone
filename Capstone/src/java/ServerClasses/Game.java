@@ -447,7 +447,7 @@ public class Game {
 				}
 				case "Lannister":{
                                         System.out.println("In set starting house:"+ p.getName());
-					this.board.changeController("Kings Landing", p.getName());
+					this.board.changeController("Kingslanding", p.getName());
 					this.board.changeController("The Reach", p.getName());
 					this.board.changeController("Harrenhal", p.getName());
 					break;

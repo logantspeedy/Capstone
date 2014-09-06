@@ -42,7 +42,7 @@ public class Board {
 	public void changeController(String territory, String newControler){
 		Node node = getNode(territory);	
                 System.out.println("in changing controler:"+ newControler);
-		node.setControllingPlayer("jack");
+		node.setControllingPlayer(newControler);
 	}
 	
 	public void fortify(String startTerritory, String targetTerritory, int troops){

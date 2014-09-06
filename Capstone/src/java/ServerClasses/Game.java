@@ -210,7 +210,7 @@ public class Game {
 		//Check to see if in the right phase.
 		if(currentPhase.equals("claim")){
 			//Check to see if node is uncontrolled.
-			if(board.getNode(territory).getControllingPlayer().isEmpty()){
+			if(board.getNode(territory).getControllingPlayer().equals(" ")){
 				//Check to see if its the current players turn.
 				if(currentPlayer.getName().equals(player)){
                     currentPlayer = playerList.get(playerList.indexOf(currentPlayer));                                        

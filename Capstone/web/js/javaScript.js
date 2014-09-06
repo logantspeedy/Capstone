@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+function test(i){alert(i);}
+
     // Variables
     var gameJSON = null;
     var currentPhase = null;
@@ -10,6 +12,8 @@
     var currentPlayerHouse = null;
     var currentPlayerTroops = null;
     var nodes = null;
+    var player = getCookie();
+    var house = post({command:"getplayershouse", player:player}).toLowerCase();
     
     function getGameJSON(){
         gameJSON = post({command:"getgamedata"});
@@ -82,10 +86,10 @@
     }
     
     function insertInfoTable(){
-        var house = post({command:"getplayershouse", player:getCookie()}).toLowerCase();
+        
         $('#playersBanner').attr("src","images/banners/"+house+"Banner.png");
-        $('#phase').append(currentPhase);
-        $('#currentPlayer').append(currentPlayer);
+        $('#phase').empty().append("<h3>PHASE</h3>"+currentPhase);
+        $('#currentPlayer').empty().append("<h3>CURRENT PLAYER</h3>"+currentPlayer);
     }
 
     function setFlags(){
@@ -186,25 +190,13 @@
     
     function updateDisplay(){
         getGameJSON();
-        insertInfoTable();
         setFlags();
+        insertInfoTable();
     }
-    function setSVGClickEvents(){
-        for (i = 0; i < nodes.length; i++) {
-            var ter = nodes[i].territoy.toString();
-            var selector = 'svg path[id='+ter.replace(/ /g,'')+']';
-            
-            $(selector).attr('fill', 'blue');
-            $(selector).click(function() {
-            post({command:"claimterritory" , playername:getCookie(),territory:ter});
-            updateDisplay();});
-            
-            var selector = 'svg path[class='+ter.replace(/ /g,'')+']';
-            $(selector).attr('fill', 'blue');
-            $(selector).click(function() {
-                post({command:"claimterritory" , playername:getCookie(),territory:ter});
-                updateDisplay();});
-        }
+    function setSVGClickEvents(i){
+        var input = i.id;
+        if (currentPhase === "claim"){post({command:"claimterritory", playername:player, territory:input });}
+        updateDisplay();
     }
     function gameLogic(){
        var gameJSON = post({command:"getgamedata"});

@@ -438,6 +438,7 @@ public class Game {
         public void setStartingHouses(){
 		for(Player p : this.playerList){			
 			switch (p.getHouse()){
+                            
 				case "Stark":{
 					this.board.changeController("Winterfell", p.getName());
 					this.board.changeController("Barrowlands", p.getName());
@@ -445,6 +446,7 @@ public class Game {
 					break;
 				}
 				case "Lannister":{
+                                        System.out.println("In set starting house:"+ p.getName());
 					this.board.changeController("Kings Landing", p.getName());
 					this.board.changeController("The Reach", p.getName());
 					this.board.changeController("Harrenhal", p.getName());

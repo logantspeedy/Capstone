@@ -628,35 +628,45 @@ public class MainServlet extends HttpServlet {
     //set house added by jack
      public String setHouse(HttpServletRequest request,HttpSession session){
        
-       if(session.getAttribute("game") == null ||request.getParameter("house") == null 
+       if(session.getAttribute("game") == null || request.getParameter("house") == null
                ||request.getParameter("player") == null){
             return null;
         }
        
        //set variables
-        
         String house = request.getParameter("house");
         String player = request.getParameter("player");
-           
+         
+        //display variables
+        System.out.println(" ");
+        System.out.println("********************IN SET HOUSE***************");
+        System.out.println("target house:"+ house);
+        System.out.println("target player:"+ player);
+        System.out.println(" ");
+        
+        //get game
         String gameJSON  = (String) session.getAttribute("game");
         Gson gson = new Gson();
         Game game = gson.fromJson(gameJSON, Game.class);       
         
-        //setHouse
+        //Get Players
         ArrayList<Player> players = game.getPlayerList();
-        System.out.println("+++In Set PlayersHouse+++");
-        System.out.println("Target Player:"+player);
-        System.out.println("Target House:"+house);
         
+        System.out.println("Displayer Players before Changes:");
         for (Player p : players){
-            System.out.println(p.getName());
-            if ((p.getName().trim()).equals(player.trim())){
-                System.out.println(house);
-                p.setHouse(house);
-            }
-            else{
-            System.out.println("No Name match");}
+            System.out.println(p);
         }
+          
+        for (Player p : players){
+            if ((p.getName().trim()).equals(player.trim())){
+                p.setHouse(house);}
+        }
+        
+        System.out.println("Displayer Players after Changes:");
+        for (Player p : players){
+            System.out.println(p);
+        }
+        
         game.setStartingHouses();
         //convert back to json
         gameJSON = gson.toJson(game);
@@ -704,31 +714,40 @@ public class MainServlet extends HttpServlet {
          if(session.getAttribute("game") == null || request.getParameter("player") == null){
             return null;
         }
+        
         String player = request.getParameter("player");
-         
+        
+        //display in player house info
+        System.out.println(" ");
+        System.out.println("*******************In Get PlayersHouse***********************");
+        System.out.println("Player: "+player);
+        System.out.println(" ");
+       
         String gameJSON  = (String) session.getAttribute("game");
+        
         Gson gson = new Gson();
         Game game = gson.fromJson(gameJSON, Game.class);     
         ArrayList<Player> players = game.getPlayerList();
-//        System.out.println("in get player house");
-        System.out.println("+++In Get PlayersHouse+++");
-        System.out.println(player);
-        String re = "test";
+
+
+        
+        String house = null;
+        System.out.println("Return Value BEFORE setting:" + house);
         
         for (Player p : players){
-            System.out.println(p.getName());
-            System.out.println(p.getHouse());
             if ((p.getName().trim()).equals(player.trim())){
-                System.out.println(p.getHouse().toLowerCase());
-                re = p.getHouse();}
+                house = p.getHouse();}
        }
         
-        String house = gson.toJson(re);
-//        System.out.println(house);
-        return house;
+        
+        String houseJson = gson.toJson(house);
+        
+        System.out.println("Return Value AFTER setting:" + houseJson);
+        
+        return houseJson;
      }
     
-        public String getSessionId(HttpServletRequest request,HttpSession session){
+    public String getSessionId(HttpServletRequest request,HttpSession session){
         
         System.out.println("Session id is"+ session.getId());
         

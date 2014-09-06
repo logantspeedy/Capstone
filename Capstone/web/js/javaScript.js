@@ -9,12 +9,13 @@
 
             var controller = nodes[i].controllingPlayer.toString();
             if (controller.replace(/ /g,'') === ""){
+                console.log(controller);
 //            $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/blank.png");
             }
             else{
-            
-                
-            $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/"+getPlayersHouse(controller)+".png");}
+            console.log(controller);
+            console.log(getPlayersHouse(controller));
+            $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/"+(getPlayersHouse(controller)).replace(/ /g,'')+".png");}
     }
 }
     function sesId(){
@@ -67,7 +68,7 @@
                     "<tr>"+
                         "<td id='baratheonBanner' style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/baratheonBanner.png' ></td>"+
                         "<td id='dothrakiBanner' style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/dothrakiBanner.png' ></td>"+
-                        "<td id='tagaryenBanner' style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/tagaryenBanner.png' ></td>"+
+                        "<td id='targaryenBanner' style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/targaryenBanner.png' ></td>"+
                     "</tr>"+
                 "</table>";
         document.getElementById('chooseHouse').innerHTML += html;
@@ -80,8 +81,10 @@
         $("#greyjoyBanner").click(function() {
         post({command:"sethouse" ,player:getCookie(),house:"Greyjoy"});
         window.location="GoT.jsp";});
-        $("#lannisterBanner").click(function() {
+    
+        $("#lannisterBanner").click(function() {        
         post({command:"sethouse" ,player:getCookie(),house:"Lannister"});
+        
         window.location="GoT.jsp";});
         $("#baratheonBanner").click(function() {
         post({command:"sethouse" ,player:getCookie(),house:"Baratheon"});
@@ -89,8 +92,8 @@
         $("#dothrakiBanner").click(function() {
         post({command:"sethouse" ,player:getCookie(),house:"Dothraki"});
         window.location="GoT.jsp";});
-        $("#tagaryenBanner").click(function() {
-        post({command:"sethouse" ,player:getCookie(),house:"Tagaryen"});
+        $("#targaryenBanner").click(function() {
+        post({command:"sethouse" ,player:getCookie(),house:"Targaryen"});
         window.location="GoT.jsp";});
     }
     

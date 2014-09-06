@@ -261,7 +261,7 @@
                 getGameJSON();
 
                 insertHeader();
-                insertInfoTable();
+                
                 insertNav();
 //                displayPlayersMoto();
                 insertFooter();

@@ -32,7 +32,7 @@ public class Player {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+                this.name = name;
 	}
         
         public String getHouse() {
@@ -40,8 +40,9 @@ public class Player {
 	}
 
 	public void setHouse(String house) {
-//                System.out.println("in set house player");
+                System.out.println("In set name: "+house);
 		this.house = house;
+                System.out.println(this.house);
 	}
 
     @Override
@@ -49,6 +50,11 @@ public class Player {
         int hash = 5;
         hash = 23 * hash + Objects.hashCode(this.name);
         return hash;
+        
+    }@Override
+    public String toString() {
+        String p = "name: " + this.name + " house: " + this.house + " army: " +  this.army;
+        return p;
     }
 
     @Override

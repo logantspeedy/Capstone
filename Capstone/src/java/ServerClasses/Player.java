@@ -40,9 +40,8 @@ public class Player {
 	}
 
 	public void setHouse(String house) {
-                System.out.println("In set name: "+house);
+                System.out.println("In Player:" +this.name+" set House, Target house to set:"+house);
 		this.house = house;
-                System.out.println(this.house);
 	}
 
     @Override

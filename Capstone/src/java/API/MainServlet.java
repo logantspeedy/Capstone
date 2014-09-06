@@ -334,9 +334,9 @@ public class MainServlet extends HttpServlet {
                     out.println(JSON);
                     break;
                 }  
-            case "getusername":
+            case "getgameowner":
                 {
-                    String JSON = getUsername(request, session);
+                    String JSON = getGameOwner(request, session);
                     if (JSON == null){return;}
                     out.println(JSON);
                     break;
@@ -485,19 +485,16 @@ public class MainServlet extends HttpServlet {
         
         //convert game to JSON
         String gameJSON = gson.toJson(game);
+        
         System.out.println("game JSON: ");
-        System.out.println(gameJSON);
+//        System.out.println(gameJSON);
+        
         //get the board and convert it to JSON
         Board board = game.getBoard();
         String boardJSON = gson.toJson(board);
-        System.out.println("board JSON");
-        System.out.println(boardJSON);
+
         //store session data
         session.setAttribute("game", gameJSON);
-        session.setAttribute("currentplayer", game.getCurrentPlayer());
-        session.setAttribute("currentphase", game.getPhase());
-        session.setAttribute("currentstage", game.getStage());
-        session.setAttribute("army", Integer.toString(game.currentPlayer.getArmy()));
         return boardJSON;
     }
     
@@ -689,25 +686,25 @@ public class MainServlet extends HttpServlet {
        //set variables     
         String gameJSON  = (String) session.getAttribute("game");
         
+        System.out.println(" ");
+        System.out.println("********************In Get Game Data********************************");
         System.out.println(gameJSON);
+        System.out.println(" ");
         return gameJSON;
      }    
-     public String getUsername(HttpServletRequest request,HttpSession session){
+     public String getGameOwner(HttpServletRequest request,HttpSession session){
         
          if(session.getAttribute("game") == null){
             return null;
         }
-         
        //set variables     
         String username  = (String) request.getParameter("username");
-        Enumeration e = session.getAttributeNames();
-        while (e.hasMoreElements()) {
-        String name = (String)e.nextElement();
-        String value = session.getAttribute(name).toString();
-//        System.out.println("name is: " + name + " value is: " + value);
-}
-        System.out.println(request.getServletContext());
-        return username;
+        
+        //NOT TESTED RETURNING JSON
+        Gson gson = new Gson();
+        String usernameJson = gson.toJson(username);
+        return usernameJson;
+        
      }  
     public String getPlayersHouse(HttpServletRequest request,HttpSession session){
         

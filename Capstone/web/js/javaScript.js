@@ -9,8 +9,6 @@
 
             var controller = nodes[i].controllingPlayer.toString();
             if (controller.replace(/ /g,'') === ""){
-                console.log(controller);
-//            $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/blank.png");
             }
             else{
             console.log(controller);

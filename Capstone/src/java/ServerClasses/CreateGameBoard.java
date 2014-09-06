@@ -11,7 +11,7 @@ public class CreateGameBoard {
 	public CreateGameBoard(){
 		territories = new String[]{"The Lands of Always Winter","The Haunted Forest","Bay of Seals","Castle Black","Wolfswood","Winterfell",
 				"Karhold","The Rills","Barrowlands","Widows Watch","The Twins","The Eyrie","Pyke","Dragon Stone","Westerlands","Harrenhal",
-				"Kingslanding","The Reach","Ashford","Brightwater Keep","Skyreach","Stormlands","Dorne","Braavos","Braavosian Coastlands",
+				"Kings Landing","The Reach","Ashford","Brightwater Keep","Skyreach","Stormlands","Dorne","Braavos","Braavosian Coastlands",
 				"The Flatlands","The Golden Fields","The Disputed Lands","Hills of Norvos","Forest of Lohor","Volantis","Northern Dathraki Sea",
 				"Bhonash","Valyria","Vaes Dorthrak","Village of Lhazareen","Ghisear","Palt of Illen","Eastern Dathraki Sea","Bayasabhad",
 				"The Red Waste","Qarth Island"};

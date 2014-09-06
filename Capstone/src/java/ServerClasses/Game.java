@@ -206,6 +206,7 @@ public class Game {
 	 * @return Updated board.
 	 */
 	public Board claimTerritory(String territory, String player){
+                System.out.println("In game.claimTer: "+territory+" "+player);
 		//Check to see if in the right phase.
 		if(currentPhase.equals("claim")){
 			//Check to see if node is uncontrolled.

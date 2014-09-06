@@ -437,6 +437,13 @@ public class MainServlet extends HttpServlet {
         String territory = request.getParameter("territory");
         Game game;
         Gson gson = new Gson();
+        
+        System.out.println(" ");
+        System.out.println("**********************In Claim Territory*********************");
+        System.out.println("Target Player:" +playerName);
+        System.out.println("Target territory:" +territory);
+        System.out.println(" ");
+        
         //check if this is the first call for the game
         if (session.getAttribute("game") == null){
             //create the game object
@@ -450,19 +457,14 @@ public class MainServlet extends HttpServlet {
             game = gson.fromJson(gameJSON, Game.class); 
         }
         //claim territory
-        game.claimTerritory(territory, playerName);        
+        game.claimTerritory(territory, playerName.trim());        
+        
         //convert game to JSON
         String gameJSON = gson.toJson(game);
         
-        //get the board and convert it to JSON
-        Board board = game.getBoard();
-        String boardJSON = gson.toJson(board);
-
-
         //store session data
         session.setAttribute("game", gameJSON);
-          
-        return boardJSON;
+        return gameJSON;
     }
     
     public String startGame(HttpServletRequest request,HttpSession session){
@@ -715,10 +717,10 @@ public class MainServlet extends HttpServlet {
         String player = request.getParameter("player");
         
         //display in player house info
-        System.out.println(" ");
-        System.out.println("*******************In Get PlayersHouse***********************");
-        System.out.println("Player: "+player);
-        System.out.println(" ");
+//        System.out.println(" ");
+//        System.out.println("*******************In Get PlayersHouse***********************");
+//        System.out.println("Player: "+player);
+//        System.out.println(" ");
        
         String gameJSON  = (String) session.getAttribute("game");
         
@@ -729,7 +731,7 @@ public class MainServlet extends HttpServlet {
 
         
         String house = null;
-        System.out.println("Return Value BEFORE setting:" + house);
+//        System.out.println("Return Value BEFORE setting:" + house);
         
         for (Player p : players){
             if ((p.getName().trim()).equals(player.trim())){
@@ -738,9 +740,7 @@ public class MainServlet extends HttpServlet {
         
         
         String houseJson = gson.toJson(house);
-        
-        System.out.println("Return Value AFTER setting:" + houseJson);
-        
+        //        System.out.println("Return Value AFTER setting:" + houseJson);
         return houseJson;
      }
     

@@ -147,7 +147,7 @@ a:active {
 }
 
 path, g path {
-    fill-opacity:0;
+    fill-opacity:1;
     stroke:#221a16;
     stroke-width:2;
 }
@@ -165,5 +165,5 @@ path:hover, g:hover path{
     top:0px;
     left:0px;
 /*position:relative;*/
-    z-index: 5;
+    /*z-index: ;*/
 }

@@ -91,11 +91,15 @@ function test(i){alert(i);}
         $('#phase').empty().append("<h3>PHASE</h3>"+currentPhase);
         $('#currentPlayer').empty().append("<h3>CURRENT PLAYER</h3>"+currentPlayer);
     }
+    
+
+    
+
+
 
     function setFlags(){
         for (i = 0; i < nodes.length; i++) {
             var ter = nodes[i].territoy.toString();
-
             var controller = nodes[i].controllingPlayer.toString();
             if (controller.replace(/ /g,'') === ""){
             }

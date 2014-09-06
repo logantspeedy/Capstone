@@ -255,7 +255,8 @@
                 insertHeader();
                 insertFooter();
                 insertNav();
-                updateDisplay();
+                window.setInterval(updateDisplay, 2000);
+//                updateDisplay();
                 setSVGClickEvents();
             });
 

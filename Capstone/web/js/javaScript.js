@@ -20,8 +20,9 @@ function test(i){alert(i);}
         currentPhase = gameJSON.currentPhase.toString();
         currentPlayer = gameJSON.currentPlayer.name.toString();
         currentPlayerHouse = gameJSON.currentPlayer.house.toString();
+        currentPlayerTroops = gameJSON.currentPlayer.army.toString();
         nodes = gameJSON.board.nodes;
-        console.log(nodes);
+//        console.log(nodes);
 //      currentPlayerTroops = gameJSON.currentPlayer.troops.toString();
     }
     function insertFlag(idName) {
@@ -88,8 +89,9 @@ function test(i){alert(i);}
     function insertInfoTable(){
         
         $('#playersBanner').attr("src","images/banners/"+house+"Banner.png");
-        $('#phase').empty().append("<h3>PHASE</h3>"+currentPhase);
-        $('#currentPlayer').empty().append("<h3>CURRENT PLAYER</h3>"+currentPlayer);
+        $('#phase').empty().append("<h3>PHASE</h3>"+"<hr>"+currentPhase);
+        $('#currentPlayer').empty().append("<h3>CURRENT PLAYER</h3>"+"<hr>"+currentPlayer);
+        $('#bonuses').empty().append("<h3>Bonuses</h3>"+"<hr>"+currentPlayerHouse+"</br>"+" Free Troops:" +currentPlayerTroops);
     }
     
 
@@ -104,8 +106,8 @@ function test(i){alert(i);}
             if (controller.replace(/ /g,'') === ""){
             }
             else{
-            console.log(controller);
-            console.log(getPlayersHouse(controller));
+//            console.log(controller);
+//            console.log(getPlayersHouse(controller));
             $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/"+(getPlayersHouse(controller)).replace(/ /g,'')+".png");}
     }
 }
@@ -197,6 +199,8 @@ function test(i){alert(i);}
         setFlags();
         insertInfoTable();
     }
+    var first = null;
+    var second = null;
     function setSVGClickEvents(i){
         var input = i.id;
         switch(currentPhase){            
@@ -206,14 +210,43 @@ function test(i){alert(i);}
             }
                 
             case "reinforce":{
+//                    openWindow();
                     var t = parseInt(prompt("How many troops", "0"));                       
                     post({command:"reinforce", territory:input, troops:t});
                     break;
-            }          
+            }      
+            case "attack":{
+                    
+                    if (first === null){first = input;
+                    console.log(first + second);}
+                    else{ 
+                        second = input;
+                        console.log(first + second);
+                        post({command: "attack" , attackingterritory:first, defendingterritory:second});
+                        first = null;
+                        second = null;
+                    }
         }
-        
+        }
         updateDisplay();
     }
+    function openWindow() {
+        newWindow = window.open("", null, "height=200,width=400,status=yes,toolbar=no,menubar=no,location=no");  
+       
+        var form = '<form><input type="text" id="formValueId"/><input type="button" id="button-id"/></form>';
+        newWindow.document.write(form);
+        
+            $(document).ready(function() {
+            $('#button-id').click(function() {
+              foo($('#formValueId').val());
+            });
+            });
+    }
+
+    function setValue(value) {
+        document.getElementById('value').value = value;
+    }
+    
     function gameLogic(){
        var gameJSON = post({command:"getgamedata"});
         
@@ -453,6 +486,6 @@ function test(i){alert(i);}
                
            }
     }
-     
+   
 
 

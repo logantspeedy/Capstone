@@ -544,6 +544,9 @@ public class MainServlet extends HttpServlet {
         Gson gson = new Gson();
         Game game = gson.fromJson(gameJSON, Game.class);       
         
+        System.out.println("*********In attack**********");
+        System.out.println(attackingTerritory);
+        System.out.println(defendingTerritory);
         //attack the territory
         game.attack(attackingTerritory, defendingTerritory);
         
@@ -556,10 +559,6 @@ public class MainServlet extends HttpServlet {
         
         //store session data
         session.setAttribute("game", gameJSON);
-        session.setAttribute("currentplayer", game.getCurrentPlayer());
-        session.setAttribute("currentphase", game.getPhase());
-        session.setAttribute("currentstage", game.getStage());    
-        session.setAttribute("army", Integer.toString(game.currentPlayer.getArmy()));
         return boardJSON;
 
     }
@@ -695,10 +694,10 @@ public class MainServlet extends HttpServlet {
        //set variables     
         String gameJSON  = (String) session.getAttribute("game");
         
-        System.out.println(" ");
-        System.out.println("********************In Get Game Data********************************");
-        System.out.println(gameJSON);
-        System.out.println(" ");
+//        System.out.println(" ");
+//        System.out.println("********************In Get Game Data********************************");
+//        System.out.println(gameJSON);
+//        System.out.println(" ");
         return gameJSON;
      }    
      public String getGameOwner(HttpServletRequest request,HttpSession session){

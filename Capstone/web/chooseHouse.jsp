@@ -23,9 +23,9 @@
 
     </head>
     <body>
-        <button onclick='getGameJSON()'>getGameData</button>
+<!--        <button onclick='getGameJSON()'>getGameData</button>
         <button onclick='nextPhase()'>nextphase</button>
-        <button onclick="sesId()">session Id</button>
+        <button onclick="sesId()">session Id</button>-->
         <div class="header" style="z-index: 12"></div>
         
         <div class="navigation" id="nav" ></div>

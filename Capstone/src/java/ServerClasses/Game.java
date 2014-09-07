@@ -300,10 +300,14 @@ public class Game {
 	 * @param aRolls
 	 * @param dRolls
 	 */
-	public Board attack(String attackingTerritory, String defendingTerritory){				
+	public Board attack(String attackingTerritory, String defendingTerritory){
+                System.out.print("IN GAME ATTACK");
+                System.out.println("controller of attacker is"+board.getControllingPlayer(attackingTerritory));
+                System.out.println("controller of defender is"+board.getControllingPlayer(defendingTerritory));
 		//Territories are adjacent check.
 		if(currentPhase.equals("attack")){
-			if(board.isAdj(attackingTerritory, defendingTerritory)){		
+			if(board.isAdj(attackingTerritory, defendingTerritory)){	
+                                System.out.println("ARE ADJ");
 				//Territories are controlled by different players check.
 				if(board.getControllingPlayer(attackingTerritory).equals(currentPlayer.getName())
 						&& !board.getControllingPlayer(defendingTerritory).equals(currentPlayer.getName())){
@@ -357,6 +361,9 @@ public class Game {
 				}							
 			}				
 		}
+                System.out.print("end of attack");
+                System.out.println("controller of attacker is"+board.getControllingPlayer(attackingTerritory));
+                System.out.println("controller of defender is"+board.getControllingPlayer(defendingTerritory));
 		return board;
 	}	
 	//******************************************************

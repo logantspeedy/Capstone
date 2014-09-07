@@ -23,11 +23,11 @@
 
     </head>
     <body>
-        <button onclick='getGameJSON()'>getGameData</button>
-        <button onclick='nextPhase()'>nextphase</button>
+        <!--<button onclick='getGameJSON()'>getGameData</button>-->
+        <!--<button onclick='nextPhase()'>nextphase</button>-->
         <!--<button onclick='post({command:"getusername"})'>getUsername</button>-->
         <!--<button onclick='getCookie()'>username</button>-->
-        <button onclick="sesId()">session Id</button>
+        <!--<button onclick="sesId()">session Id</button>-->
         
         <div class="header" style="z-index: 1"></div>
         
@@ -45,6 +45,8 @@
                       <th class="infoCss" id="currentPlayer" style="padding-bottom: 10px" ></th>
                       <th></th><th></th>
                       <th class="infoCss" id="bonuses" style="padding-bottom: 10px" ><h3>BONUSES</h3></th>
+                      <th></th><th></th>
+                      <th class="infoCss" id="history" style="padding-bottom: 10px" ><h3>History</h3></th>
                     </tr>
                 </table>
             </div>

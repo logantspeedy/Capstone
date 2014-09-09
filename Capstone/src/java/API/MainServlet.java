@@ -472,17 +472,20 @@ public class MainServlet extends HttpServlet {
         
         //temp
         System.out.println("*****************in startgame********************************");
-        String playerName1 = request.getParameter("playername1");
-        String playerName2 = request.getParameter("playername2");
+        ArrayList<String> players = (ArrayList<String>) session.getAttribute("players");
+        String[] stringArrayPlayers = new String[players.size()];
+        stringArrayPlayers = players.toArray(stringArrayPlayers);       
+        
         System.out.println("player names: ");
-        System.out.println(playerName1);
-        System.out.println(playerName2);
+        for(String player : stringArrayPlayers){
+            System.out.println(player);
+        }
         
 //        Game game;
         
         Gson gson = new Gson();
         //check if this is the first call for the game       
-        Game game = new Game(new String[]{playerName1,playerName2});
+        Game game = new Game(stringArrayPlayers);
 
         
         //convert game to JSON

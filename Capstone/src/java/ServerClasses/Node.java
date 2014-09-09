@@ -1,4 +1,4 @@
-package serverClasses;
+package ServerClasses;
 /**
  * @author Patrick
  * Node class to serve as a data structure for the board.
@@ -9,6 +9,7 @@ public class Node {
 	private String continent;
 	private int troops;
 	private String[] adjacentNodes;
+	private boolean canAttack;
 
 	public Node(String territory, String player, String continent, int troops, String[] adjacentNodes){
 		this.setTerritoy(territory);
@@ -16,6 +17,7 @@ public class Node {
 		this.setContinent(continent);
 		this.setTroops(troops);
 		this.setAdjacentNodes(adjacentNodes);
+		this.setAttack(true);
 	}
 
 	public String getControllingPlayer() {
@@ -56,5 +58,13 @@ public class Node {
 
 	public String getContinent() {
 		return continent;
+	}
+
+	public boolean canAttack() {
+		return canAttack;
+	}
+
+	public void setAttack(boolean attackable) {
+		this.canAttack = attackable;
 	}	
 }

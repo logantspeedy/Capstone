@@ -1,4 +1,4 @@
-package serverClasses;
+package ServerClasses;
 
 /**
  * @author Patrick
@@ -41,6 +41,7 @@ public class Board {
 	
 	public void changeController(String territory, String newControler){
 		Node node = getNode(territory);	
+                System.out.println("in changing controler for:" +territory+", new targer controller:"+ newControler);
 		node.setControllingPlayer(newControler);
 	}
 	
@@ -79,5 +80,55 @@ public class Board {
 			}
 		}
 		return false;
+	}
+	
+	public void resetCanAttack(){
+		for(Node n : nodes){
+			n.setAttack(true);
+		}
+	}
+        public Board setStartingHouses(Board board, ArrayList<Player> playerList){
+		for(Player p : playerList){			
+			switch (p.getHouse()){
+				case "Stark":{
+					board.changeController("Winterfell", p.getName());
+					board.changeController("Barrowlands", p.getName());
+					board.changeController("Widows Watch", p.getName());
+					break;
+				}
+				case "Lannister":{
+					board.changeController("Kings Landing", p.getName());
+					board.changeController("The Reach", p.getName());
+					board.changeController("Harrenhal", p.getName());
+					break;
+				}
+				case "Greyjoy":{
+					board.changeController("The Twins", p.getName());
+					board.changeController("Pyke", p.getName());
+					board.changeController("Westerlands", p.getName());
+					break;
+				}
+				case "Baratheon":{
+					board.changeController("Dragon Stone", p.getName());
+					board.changeController("Ashford", p.getName());
+					board.changeController("Stormlands", p.getName());
+					break;
+				}
+				case "Targaryen":{
+					board.changeController("Ghisear", p.getName());
+					board.changeController("The Red Waste", p.getName());
+					board.changeController("Qarth Island", p.getName());
+					break;
+				}
+				case "Dothraki":{
+					board.changeController("Northern Dathraki Sea", p.getName());
+					board.changeController("Bhonash", p.getName());
+					board.changeController("Village of Lhazareen", p.getName());
+					break;
+				}
+			}
+		
+		}
+		return board;	
 	}
 }

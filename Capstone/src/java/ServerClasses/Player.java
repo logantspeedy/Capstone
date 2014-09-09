@@ -1,4 +1,4 @@
-package serverClasses;
+package ServerClasses;
 
 import java.util.Objects;
 
@@ -10,11 +10,13 @@ import java.util.Objects;
 public class Player {
 	
 	private String name;
+	private String house;
 	private int army;
 	
 	public Player(String name, int troops){
 		this.setName(name);
 		this.setArmy(troops);
+                this.setHouse("");
 	}
 
 	public int getArmy() {
@@ -30,7 +32,16 @@ public class Player {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+                this.name = name.trim();
+	}
+        
+        public String getHouse() {
+		return house;
+	}
+
+	public void setHouse(String house) {
+                System.out.println("In Player:" +this.name+" set House, Target house to set:"+house);
+		this.house = house;
 	}
 
     @Override
@@ -38,6 +49,11 @@ public class Player {
         int hash = 5;
         hash = 23 * hash + Objects.hashCode(this.name);
         return hash;
+        
+    }@Override
+    public String toString() {
+        String p = "name: " + this.name + " house: " + this.house + " army: " +  this.army;
+        return p;
     }
 
     @Override
@@ -54,6 +70,8 @@ public class Player {
         }
         return true;
     }
+
+
         
 
 

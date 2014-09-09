@@ -1,0 +1,169 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 3/08/2014, 4:04:27 PM
+    Author     : Zeb
+*/
+body {
+    
+    width: 100vw; 
+    height: 56.25vw; /* 100/56.25 = 1.778 */
+   
+    max-height: 100vh;
+    max-width: 177.78vh; /* 16/9 = 1.778 */
+    min-height: 461px;
+    min-width: 820px ;
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top:0;bottom:0; /* vertical center */
+    left:0;right:0; /* horizontal center */
+
+    text-align: center;
+    
+    background-image: url("images/background/blackpattern3.jpg");
+    background-size: 100%;
+    background-position: left top;   
+    position:absolute 
+}
+.header{
+    width: 75%;
+    height:12%;
+    z-index: 10;
+    position:absolute;
+    padding-left: 25%;
+    
+    /*float: top;*/
+    /*background-color: green;*/
+  
+}
+.infoTable{
+    width: 30%;
+    height:28%;
+    z-index: 3;
+    position:absolute;
+    margin-top: 4%;
+    margin-left: 40%;
+    font-size: 1vw;
+    /*background: blue;*/
+    /*float: top;*/
+    /*background-color: green;*/
+  
+}
+
+table.infoCss, th.infoCss, td.infoCss {
+   /*border: 1px solid white;*/
+   font-family:Cordia New;
+   color: #d2caa0;
+   vertical-align: top;
+   font-size: 1vw;
+
+}
+.banner{
+    padding-bottom:100px; 
+    /*height: 100%;*/
+    width:100%;
+    
+}
+.navigation{
+    color:#d2caa0;
+    font-family:Cordia New;
+    /*font-size: 150%;*/
+    text-align:left;
+    height: 3%;
+    font-size: 1vw;
+    padding: 4px;
+    width:100%;
+    /*float:top;*/
+    /*background-color: blueviolet;*/   
+}
+
+
+a:link {
+    color: #d2caa0;
+    text-decoration: none;
+    /*font-size: 0.8vw;*/
+}
+
+a:visited {
+    color: #d2caa0;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+.mainContainer{
+    margin-top: 1%;
+    border-width: 4px;
+    border-color: white;
+    border-style: solid;
+    width:100%;
+    height:88%;
+    float: top;
+    position: relative;
+
+}
+
+.commentWindow {
+    float: left;
+    width:15%;
+    height:100%;
+    overflow:auto;
+    /*background-color: blue;*/
+}
+
+.gameWindow {
+    float: left;
+    width:100%;
+    height:100%;
+    overflow:auto;
+    /*background-color: red;*/
+}
+
+.chatBox{
+
+}
+
+.footer{
+    color:#d2caa0;
+    font-family:Cordia New;
+    /*font-size: 150%;*/
+/*    text-align:center;*/
+    height: 1%;
+    font-size: 0.8vw;
+    padding: 4px;
+    
+    width:100%;
+    /*float:top;*/
+    /*background-color: blueviolet;*/
+}
+
+path, g path {
+    fill-opacity:0;
+    stroke:#221a16;
+    stroke-width:2;
+}
+path:hover, g:hover path{
+    fill:orange;
+    fill-opacity:.4;
+}
+
+#svg{
+    width:100%;
+    height:100%;
+/*    width:1100px;
+    height:716.6px;*/
+    position:absolute;
+    top:0px;
+    left:0px;
+/*position:relative;*/
+    /*z-index: ;*/
+}

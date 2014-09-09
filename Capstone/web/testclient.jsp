@@ -11,8 +11,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script type="text/javascript" 
+        src="${pageContext.request.contextPath}/js/javaScript.js"></script>
     </head>
     <body>
+        <button onclick="test()">getGameData</button>
         <h1>Lobby</h1>
         <strong>Username<a href='javascript:showUsernameInput()' id='change-user'> (Change username)</a>:</strong> <input type="text" id="username" name="username"/> 
         <span id="current-data">
@@ -30,6 +33,7 @@
             </thead>
             <tbody id="gamelist"></tbody>
         </table>
+        <button onclick="startGame()">Start Game</button>
         <a href='javascript:joinGame()' id='join'>Join game</a><br/>
         <a href='javascript:generateCreateForm()' id='gen-create'>Create game</a><br/>
         <a href='javascript:leaveGame()' id='leave'>Leave Game</a><br/>
@@ -81,6 +85,59 @@
                         }
 
                   });   
+          }
+          function getGames(sessionId){
+            
+            var playerListReturn=null;
+            $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "getgames"},async: false
+                  }).done(function( data ) {
+                        var x;
+                        for(x in data){ 	 
+                            if (data[x][0] === sessionId){
+                                
+                                var playerList = data[x][3].split(",");
+//                                var lastItem = playerList.pop();
+//                                var removedFullStop = lastItem.split(".");
+//                                playerList.push(removedFullStop);
+                                
+//                                                                alert(playerList)
+                                playerListReturn = playerList;
+                            }
+                        }
+
+                  });
+                  
+                  return playerListReturn;
+              }
+
+//var playerList = getGames("1212312dfsdfds23");
+          function startGame(){
+            var checkedGameId = $("input[type='radio'][name='join-select']:checked").val();
+            
+            var players = getGames(checkedGameId.toString());
+            
+           
+            
+            
+            players.push("filler");
+            alert(players);
+            
+            $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "startgame", playername1: players[0], playername2: players[1]}
+                  }).done(function( data ) {
+
+                            
+
+
+                  });  
+             
           }
           
         function joinGame(){

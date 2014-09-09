@@ -115,7 +115,7 @@ public class MainServletListener implements HttpSessionListener, HttpSessionAttr
             while(iterator.hasNext()){
                 playersString = playersString + iterator.next();
                 if(!iterator.hasNext()){
-                    playersString = playersString + ".";
+//                    playersString = playersString + ".";
                 }
                 else{
                     playersString = playersString + ", ";

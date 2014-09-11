@@ -211,22 +211,41 @@ function test(i){alert(i);}
                 
             case "reinforce":{
 //                    openWindow();
-                    var t = parseInt(prompt("How many troops", "0"));                       
+                    var t = parseInt(prompt("How many troops to reinforce", "0"));                       
                     post({command:"reinforce", territory:input, troops:t});
                     break;
             }      
             case "attack":{
                     
-                    if (first === null){first = input;
-                    console.log(first + second);}
+                    if (first === null){
+                        first = input;
+                    console.log("first attack" + first + second);
+                    break;
+                }
                     else{ 
                         second = input;
                         console.log(first + second);
                         post({command: "attack" , attackingterritory:first, defendingterritory:second});
                         first = null;
                         second = null;
-                    }
-        }
+                        break;
+                    }                    
+            }
+            case "fortify":{
+                if(first == null){
+                    first = input;
+                    console.log("fortify: " + first + second);
+                }
+                else{
+                    second = input;                    
+                    var t = parseInt(prompt("How many troops to fortify", "0"));
+                    console.log(first + " " + second + " " + t);
+                    post({command: "fortify", startTerritory:first, targetTerritory:second, troops:t});
+                    first = null;
+                    second = null;
+                    break;
+                }
+            }
         }
         updateDisplay();
     }

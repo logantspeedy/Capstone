@@ -25,6 +25,11 @@ public class Game {
 	private String currentStage;
 	private String currentPhase;
 	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify"};
+        final String[][] startingHouses = new String[][]{{"Winterfell", "Barrowlands","Widows Watch"},{"Kings Landing", "The Reach", "Harrenhal"},
+            {"The Twins","Pyke", "Westerlands"}, {"Dragon Stone","Ashford","Stormlands"}, {"Ghisear", "The Red Waste","Qarth Island"},
+            {"Northern Dathraki Sea", "Bhonash", "Village of Lhazareen"}};
+                
+        
 	
 	public Game(String[] players){		
 		currentPhase = "claim";
@@ -34,7 +39,7 @@ public class Game {
 		captureCounter = 1;
 		playerPos = 0;
                 //*********Change back to 42 for full game************
-		noOfTerritories =10;
+		noOfTerritories =42;
                 //****************************************************
 		playerList = new ArrayList<Player>();		
 		board = new Board();
@@ -278,9 +283,13 @@ public class Game {
 					board.getControllingPlayer(targetTerritory).equals(currentPlayer.getName())
 					&& board.getControllingPlayer(startTerritory).equals(currentPlayer.getName())){
 				//Check to see if startTerritory has enough troops to transfer.				
-				if(board.getTroops(startTerritory) > troops && captureCounter > 0){				
+				if(board.getTroops(startTerritory) > troops && captureCounter > 0){
+                                    System.out.println("******In fortify*********");
+                                    System.out.println("Before: " + board.getTroops(startTerritory) + " " + board.getTroops(targetTerritory));
+                                            
 					board.fortify(startTerritory, targetTerritory, troops);
 					captureCounter--;
+                                        System.out.println("After: " + board.getTroops(startTerritory) + " " + board.getTroops(targetTerritory));
                     nextPhase();
 				}
 			}
@@ -300,10 +309,7 @@ public class Game {
 	 * @param aRolls
 	 * @param dRolls
 	 */
-	public Board attack(String attackingTerritory, String defendingTerritory){
-                System.out.print("IN GAME ATTACK");
-                System.out.println("controller of attacker is"+board.getControllingPlayer(attackingTerritory));
-                System.out.println("controller of defender is"+board.getControllingPlayer(defendingTerritory));
+	public Board attack(String attackingTerritory, String defendingTerritory){              
 		//Territories are adjacent check.
 		if(currentPhase.equals("attack")){
 			if(board.isAdj(attackingTerritory, defendingTerritory)){	
@@ -357,13 +363,14 @@ public class Game {
 							board.changeTroops(attackingTerritory, aArmy);
 							board.changeTroops(defendingTerritory, dArmy);
 						}
+                                                //******Remove to allow for more than 1 attack*****
+                                                nextPhase();
+                                                //*************************************************
 					}
 				}							
 			}				
 		}
-                System.out.print("end of attack");
-                System.out.println("controller of attacker is"+board.getControllingPlayer(attackingTerritory));
-                System.out.println("controller of defender is"+board.getControllingPlayer(defendingTerritory));
+                
 		return board;
 	}	
 	//******************************************************
@@ -444,54 +451,42 @@ public class Game {
             return random;
         }
         public void setStartingHouses(){
-		for(Player p : this.playerList){			
-			switch (p.getHouse()){
-                            
+		for(Player p : this.playerList){                    
+			switch (p.getHouse()){                            
 				case "Stark":{
-					this.board.changeController("Winterfell", p.getName());                                        
-					this.board.changeController("Barrowlands", p.getName());
-					this.board.changeController("Widows Watch", p.getName());
-                                        this.claimCounter += 3;
+					setControllingHouses(p, 0);
 					break;
 				}
 				case "Lannister":{
-					this.board.changeController("Kings Landing", p.getName());
-					this.board.changeController("The Reach", p.getName());
-					this.board.changeController("Harrenhal", p.getName());
-                                        this.claimCounter += 3;
+					setControllingHouses(p, 1);
 					break;
 				}
 				case "Greyjoy":{
-					this.board.changeController("The Twins", p.getName());
-					this.board.changeController("Pyke", p.getName());
-					this.board.changeController("Westerlands", p.getName());
-                                        this.claimCounter += 3;
+					setControllingHouses(p, 2);
 					break;
 				}
 				case "Baratheon":{
-					this.board.changeController("Dragon Stone", p.getName());
-					this.board.changeController("Ashford", p.getName());
-					this.board.changeController("Stormlands", p.getName());
-                                        this.claimCounter += 3;
+					setControllingHouses(p, 3);                                        
 					break;
 				}
 				case "Targaryen":{
-					this.board.changeController("Ghisear", p.getName());
-					this.board.changeController("The Red Waste", p.getName());
-					this.board.changeController("Qarth Island", p.getName());
-                                        this.claimCounter += 3;
+					setControllingHouses(p, 4);
 					break;
 				}
 				case "Dothraki":{
-					this.board.changeController("Northern Dathraki Sea", p.getName());
-					this.board.changeController("Bhonash", p.getName());
-					this.board.changeController("Village of Lhazareen", p.getName());
-                                        this.claimCounter += 3;
+					setControllingHouses(p, 5);
 					break;
 				}
-			}
-		
+			}		
 		}
-//		return board;	
+                setCurrentPlayer(startingPlayer);
 	}
+        
+        private void setControllingHouses(Player p, int housePos){
+            String name = p.getName();            
+            for(int i = 0; i < 3; i++){  
+                currentPlayer = p;
+                this.claimTerritory(startingHouses[housePos][i], name);
+            }
+        }
 }

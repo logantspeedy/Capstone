@@ -25,9 +25,7 @@ public class Game {
 	private String currentStage;
 	private String currentPhase;
 	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify"};
-        final String[][] startingHouses = new String[][]{{"Winterfell", "Barrowlands","Widows Watch"},{"Kings Landing", "The Reach", "Harrenhal"},
-            {"The Twins","Pyke", "Westerlands"}, {"Dragon Stone","Ashford","Stormlands"}, {"Ghisear", "The Red Waste","Qarth Island"},
-            {"Northern Dathraki Sea", "Bhonash", "Village of Lhazareen"}};
+        
                 
         
 	
@@ -483,6 +481,9 @@ public class Game {
 	}
         
         private void setControllingHouses(Player p, int housePos){
+            String[][] startingHouses = new String[][]{{"Winterfell", "Barrowlands","Widows Watch"},{"Kings Landing", "The Reach", "Harrenhal"},
+            {"The Twins","Pyke", "Westerlands"}, {"Dragon Stone","Ashford","Stormlands"}, {"Ghisear", "The Red Waste","Qarth Island"},
+            {"Northern Dathraki Sea", "Bhonash", "Village of Lhazareen"}};
             String name = p.getName();            
             for(int i = 0; i < 3; i++){  
                 currentPlayer = p;

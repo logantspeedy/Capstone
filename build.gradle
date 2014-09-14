@@ -8,5 +8,10 @@ repositories {
 
 dependencies {
 	compile 'org.openid4java:openid4java:0.9.8'
-    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+	providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
 }
+
+task stage( dependsOn: [ 'clean', 'build' ] )
+
+if ( project.hasProperty( "httpPort" ) ) [ jettyRun, jettyRunWar ]*.httpPort = "$httpPort".toInteger()
+if ( project.hasProperty( "contextPath" ) ) [ jettyRun, jettyRunWar ]*.contextPath = "$contextPath"

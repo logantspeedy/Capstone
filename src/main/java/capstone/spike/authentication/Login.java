@@ -1,19 +1,18 @@
 package capstone.spike.authentication;
 
-import java.io.IOException;
-import java.util.List;
+import org.openid4java.OpenIDException;
+import org.openid4java.consumer.ConsumerManager;
+import org.openid4java.discovery.DiscoveryInformation;
+import org.openid4java.message.AuthRequest;
+import org.openid4java.message.ax.FetchRequest;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.openid4java.OpenIDException;
-import org.openid4java.consumer.ConsumerManager;
-import org.openid4java.discovery.DiscoveryInformation;
-import org.openid4java.message.AuthRequest;
-import org.openid4java.message.ax.FetchRequest;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Servlet implementation class Login
@@ -40,7 +39,7 @@ public class Login extends HttpServlet {
 			request.getSession().setAttribute( "openid", discovered );
 
 			// obtain a AuthRequest message to be sent to the OpenID provider
-            AuthRequest authReq = manager.authenticate( discovered, "http://localhost:8080/AuthenticationSpike/openid" ); // TODO: Hard coded url
+            AuthRequest authReq = manager.authenticate( discovered, getURL( request ) + "/openid" );
 
             // What information do we want?
             FetchRequest fetch = FetchRequest.createFetchRequest();
@@ -58,5 +57,13 @@ public class Login extends HttpServlet {
 		} catch ( OpenIDException e ) {
 			// Do some error handling here
 		}
+	}
+
+	private static String getURL( final HttpServletRequest request ) {
+
+		final StringBuffer url = request.getRequestURL();
+		final String uri = request.getRequestURI();
+
+		return url.toString().replaceAll( uri, request.getContextPath() );
 	}
 }

@@ -209,10 +209,8 @@ function test(i){alert(i);}
                     break;
             }
                 
-            case "reinforce":{
-//                    openWindow();
-                    var t = parseInt(prompt("How many troops to reinforce", "0"));                       
-                    post({command:"reinforce", territory:input, troops:t});
+            case "reinforce":{                                       
+                    post({command:"reinforce", territory:input, troops:1});
                     break;
             }      
             case "attack":{

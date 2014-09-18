@@ -14,6 +14,7 @@ public class Player {
 	private int army;
         protected int territoriesControlled;
         protected boolean active;
+        protected String homeTerritory;
 	
 	public Player(String name, int troops){
 		this.setName(name);

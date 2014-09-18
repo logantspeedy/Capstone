@@ -24,7 +24,7 @@ public class Game {
 	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
 	private String currentStage;
 	private String currentPhase;
-	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify", "Game Won"};
+	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify"};
         
                 
         
@@ -316,12 +316,13 @@ public class Game {
 	 */
 	public Board attack(String attackingTerritory, String defendingTerritory){              
 		//Territories are adjacent check.
+                String attacker = board.getControllingPlayer(attackingTerritory);
+                String defender = board.getControllingPlayer(defendingTerritory);
 		if(currentPhase.equals("attack")){
-			if(board.isAdj(attackingTerritory, defendingTerritory)){	
-                                System.out.println("ARE ADJ");
+			if(board.isAdj(attackingTerritory, defendingTerritory)){                                
 				//Territories are controlled by different players check.
-				if(board.getControllingPlayer(attackingTerritory).equals(currentPlayer.getName())
-						&& !board.getControllingPlayer(defendingTerritory).equals(currentPlayer.getName())){
+				if(attacker.equals(currentPlayer.getName())
+						&& !defender.equals(currentPlayer.getName())){
 					if(board.getNode(attackingTerritory).canAttack()){
 						
 						//Work out army sizes from rolls.
@@ -331,7 +332,10 @@ public class Game {
 						//Roll dice.
 						int[] aRolls = rollDice(attackingTerritory, aArmy);
 						int[] dRolls =  rollDice(defendingTerritory, dArmy);
-											
+						
+                                                
+                                                
+                                                
 						//Change troops in each territory.
 						board.changeTroops(attackingTerritory, -aArmy);
 						board.changeTroops(defendingTerritory, -dArmy);					
@@ -358,7 +362,7 @@ public class Game {
 						}
 						//Check to see if player now controls territory and change accordingly.
 						if(dArmy == 0 && board.getTroops(defendingTerritory) == 0){
-                                                    Player defendingPlayer = getPlayer(board.getControllingPlayer(defendingTerritory));
+                                                    Player defendingPlayer = getPlayer(defender);
                                                     defendingPlayer.territoriesControlled--;
                                                     if(defendingPlayer.territoriesControlled == 0){
                                                         defendingPlayer.active = false;
@@ -431,31 +435,23 @@ public class Game {
 		}
 		return true;
 	}
-	/** 
-	 * @return All the important game data.
-	 */
-	public ArrayList<String> getGameData(){
-		ArrayList<String> gameData = new ArrayList<String>();
-		gameData.add(currentPhase);
-		gameData.add(currentStage);
-		gameData.add(currentPlayer.getName());
-		gameData.add(Integer.toString(currentPlayer.getArmy()));		
-		return gameData;
-	}
-	/**returns the army 
+	
+	/**returns the army to attack/defend with.
 	 * @param territory
 	 * @param attacking
 	 * @return
 	 */
 	public int calcArmySize(String territory, boolean attacking){
 		int army = board.getTroops(territory);
-		if(attacking){
-			army = (army > 3)?3:(army - 1);
-			army = (army == 0)?1:army;
+		if(attacking){                        
+			army = (army > 3)?3:(army - 1);			
 		}
 		else{
-			army = (army > 2)?2:(army - 1);
-			army = (army == 0)?1:army;
+			army = (army > 2)?2:(army);
+                        //Defense bonus: Defender gets another roll for home territory.
+                        if(getPlayer(board.getControllingPlayer(territory)).homeTerritory.equals(territory)){
+                            army++;
+                        }
 		}
 		return army;
 	}
@@ -498,12 +494,13 @@ public class Game {
         
         private void setControllingHouses(Player p, int housePos){
             String[][] startingHouses = new String[][]{{"Winterfell", "Barrowlands","Widows Watch"},{"Kings Landing", "The Reach", "Harrenhal"},
-            {"The Twins","Pyke", "Westerlands"}, {"Dragon Stone","Ashford","Stormlands"}, {"Ghisear", "The Red Waste","Qarth Island"},
+            {"Pyke","The Twins", "Westerlands"}, {"Dragon Stone","Ashford","Stormlands"}, {"Bayasabhad", "Ghisear", "Qarth Island"},
             {"Northern Dathraki Sea", "Bhonash", "Village of Lhazareen"}};
-            String name = p.getName();            
+            String name = p.getName(); 
+            p.homeTerritory = startingHouses[housePos][0];
             for(int i = 0; i < 3; i++){  
                 currentPlayer = p;
                 this.claimTerritory(startingHouses[housePos][i], name);
             }
-        }
+        }       
 }

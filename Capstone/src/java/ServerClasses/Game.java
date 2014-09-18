@@ -24,7 +24,7 @@ public class Game {
 	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
 	private String currentStage;
 	private String currentPhase;
-	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify"};
+	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify", "Game Won"};
         
                 
         
@@ -130,10 +130,10 @@ public class Game {
 		playerPos = playerList.indexOf(currentPlayer);
                 
                 
-        if(playerPos < (playerList.size()-1)){
+                if(playerPos < (playerList.size()-1)){
 			playerPos++;
-		}
-        else{
+                    }   
+                 else{
 			playerPos=0;
 		}
 		currentPlayer = playerList.get(playerPos);
@@ -146,6 +146,7 @@ public class Game {
 		//set turn stage to 1
 		//updates each country with auto reinforcements (random reinforcements)..?
 		//decides quantity for reinforce stage of turn
+                
             
 		nextPlayer();
 		//In setup stage of game so need to check if progressing to next stage,
@@ -166,7 +167,10 @@ public class Game {
 			else while(currentPlayer.getArmy() == 0){
 				nextPlayer();
 			}
-		}    	               
+		}
+                while(!currentPlayer.active){
+                    nextPlayer();
+                }
 	}
 	
 	public void nextPhase()
@@ -181,7 +185,9 @@ public class Game {
 			newTurn();	
 		}
 		else{
-			if(phaseStage == 2){				
+                    if(currentStage.equals("Game Won")){                        
+                    }
+                    else if(phaseStage == 2){				
                             newTurn();
                             phaseStage = 0;
                             currentPhase = "reinforce";
@@ -219,7 +225,8 @@ public class Game {
                     currentPlayer = playerList.get(playerList.indexOf(currentPlayer));                                        
 					board.changeController(territory, player);
 					board.changeTroops(territory, 1);						
-					currentPlayer.setArmy(currentPlayer.getArmy() - 1);                                       
+					currentPlayer.setArmy(currentPlayer.getArmy() - 1);   
+                                        currentPlayer.territoriesControlled++;
 					claimCounter++;
 					//Automatically go to next players turn.
 					nextPhase();
@@ -351,10 +358,19 @@ public class Game {
 						}
 						//Check to see if player now controls territory and change accordingly.
 						if(dArmy == 0 && board.getTroops(defendingTerritory) == 0){
-							board.changeController(defendingTerritory, currentPlayer.getName());
-							board.changeTroops(defendingTerritory, aArmy);
-							board.getNode(defendingTerritory).setAttack(false);
-							captureCounter++;
+                                                    Player defendingPlayer = getPlayer(board.getControllingPlayer(defendingTerritory));
+                                                    defendingPlayer.territoriesControlled--;
+                                                    if(defendingPlayer.territoriesControlled == 0){
+                                                        defendingPlayer.active = false;
+                                                    }
+                                                    board.changeController(defendingTerritory, currentPlayer.getName());
+                                                    board.changeTroops(defendingTerritory, aArmy);
+                                                    board.getNode(defendingTerritory).setAttack(false);
+                                                    currentPlayer.territoriesControlled++;
+                                                    if(currentPlayer.territoriesControlled == 42){
+                                                        currentStage = "Game Won";
+                                                    }
+                                                    captureCounter++;
 						}
 						//Update territories troops.
 						else{

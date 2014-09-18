@@ -12,11 +12,15 @@ public class Player {
 	private String name;
 	private String house;
 	private int army;
+        protected int territoriesControlled;
+        protected boolean active;
 	
 	public Player(String name, int troops){
 		this.setName(name);
 		this.setArmy(troops);
                 this.setHouse("");
+                this.territoriesControlled = 0;
+                this.active = true;
 	}
 
 	public int getArmy() {

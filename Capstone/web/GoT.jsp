@@ -35,6 +35,11 @@
         
         <div class ="mainContainer">
             
+            <div id = "follower" style='z-index: 15; '>
+                    <div id = "hoverTerritory"></div>
+                    <div id = "hoverUnits"></div>
+            </div>
+                
             <div class="infoTable" id="info" style="z-index: 1">
                 <img id ="playersBanner" style="height: 120%; float: left " src="" >
                 <table class="infoCss" >
@@ -56,7 +61,7 @@
             </div> 
          
 
-            <div class= "flags" id="flags" style='z-index:11'>
+            <div class= "flags" id="flags" style='z-index:9'>
                 <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 19.4%;top: 62.9%;'    id='imgAshford'     src='images/houseFlags/blank.png' /> 
                 <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 14.4%; top: 56.6%;'   id='imgTheReach'   src='images/houseFlags/blank.png' /> 
                 <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 15%;   top: 46.6%;'   id='imgWesterlands' src='images/houseFlags/blank.png' /> 
@@ -67,7 +72,7 @@
                 <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 26.2%;top: 73.9%;'    id='imgDorne'       src='images/houseFlags/blank.png' /> 
                 <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 17.9%; top: 33.0%;'   id='imgTheTwins'   src='images/houseFlags/blank.png' /> 
                 <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:17.9%;  top:25.4%;'     id='imgBarrowlands' src='images/houseFlags/blank.png' /> 
-                <img The Twinsth='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 21.46%;top: 16.0%;'    id='imgWinterfell' src='images/houseFlags/blank.png' /> 
+                <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 21.46%;top: 16.0%;'    id='imgWinterfell' src='images/houseFlags/blank.png' /> 
                 <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 25.0%; top: 22.7%;'    id='imgWidowsWatch' src='images/houseFlags/blank.png' /> 
                 <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 28.6%; top:13%;'       id='imgKarhold' src='images/houseFlags/blank.png' /> 
                 <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left:22.4%;  top:7%;'        id='imgCastleBlack' src='images/houseFlags/blank.png' /> 
@@ -250,9 +255,13 @@
         <div class="footer" ></div>
         
         <script>
-
+            $(document).mousemove(function(e){
+//				$("#follower").css({"left":e.offsetX-60, "top":e.offsetY-90});
+                                $("#follower").css({"left":e.pageX, "top":e.pageY});
+			});
             $(document).ready(function()
             {
+                follow();
                 getGameJSON();
                 insertHeader();
                 insertFooter();
@@ -260,6 +269,7 @@
                 window.setInterval(updateDisplay, 2000);
 //                updateDisplay();
                 setSVGClickEvents();
+                
             });
 
         </script>

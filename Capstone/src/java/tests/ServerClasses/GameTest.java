@@ -13,7 +13,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ServerClasses.*;
+import serverClasses.Board;
+import ServerClasses.Game;
+import serverClasses.Player;
+import serverClasses.Node;
 
 /**
  *

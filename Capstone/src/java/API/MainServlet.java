@@ -472,20 +472,17 @@ public class MainServlet extends HttpServlet {
         
         //temp
         System.out.println("*****************in startgame********************************");
-        ArrayList<String> players = (ArrayList<String>) session.getAttribute("players");
-        String[] stringArrayPlayers = new String[players.size()];
-        stringArrayPlayers = players.toArray(stringArrayPlayers);       
-        
+        String playerName1 = request.getParameter("playername1");
+        String playerName2 = request.getParameter("playername2");
         System.out.println("player names: ");
-        for(String player : stringArrayPlayers){
-            System.out.println(player);
-        }
+        System.out.println(playerName1);
+        System.out.println(playerName2);
         
 //        Game game;
         
         Gson gson = new Gson();
         //check if this is the first call for the game       
-        Game game = new Game(stringArrayPlayers);
+        Game game = new Game(new String[]{playerName1,playerName2});
 
         
         //convert game to JSON
@@ -570,13 +567,13 @@ public class MainServlet extends HttpServlet {
     
     public String fortify(HttpServletRequest request,HttpSession session){
        
-       if(session.getAttribute("game") == null || request.getParameter("startTerritory") == null || request.getParameter("targetTerritory") == null || request.getParameter("troops") == null){
+       if(session.getAttribute("game") == null || request.getParameter("startterritory") == null || request.getParameter("targetterritory") == null || request.getParameter("troops") == null){
             return null;
         }
         
        //set variables
-        String startTerritory = request.getParameter("startTerritory");
-        String targetTerritory = request.getParameter("targetTerritory");
+        String startTerritory = request.getParameter("startterritory");
+        String targetTerritory = request.getParameter("targetterritory");
         
         int troops = Integer.parseInt(request.getParameter("troops"));       
         String gameJSON  = (String) session.getAttribute("game");

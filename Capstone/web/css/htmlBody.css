@@ -1,0 +1,69 @@
+html { 
+    background: url("../images/background/blackpattern3.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    
+}
+
+body {
+    overflow:scroll;
+    overflow-x: auto; 
+}
+
+#view{
+/*    border-style: solid;
+    border-width: 1px;
+    border-color:red;*/
+    min-height: 461px;
+    min-width: 820px ;
+}
+
+.mainContainer{
+    width: 100vw; 
+    height: 56.25vw; /* 100/56.25 = 1.778 */
+   
+    max-height: 100vh;
+    max-width: 177.78vh; /* 16/9 = 1.778 */
+    min-height: 461px;
+    min-width: 820px ;
+    
+    margin: auto;
+    position: absolute;
+    top:0;bottom:0; /* vertical center */
+    left:0;right:0; /* horizontal center */
+
+    text-align: center;
+    float:top;
+    position:absolute 
+}
+
+hr{
+    margin: 0px; 
+    color: #d2caa0;
+}
+
+h1{
+    font-size: 4vmin;
+    color: #d2caa0;
+    
+}
+
+h3{
+    font-size: 2vmin;
+    color: #d2caa0;
+    
+}
+h3 {
+    display: inline;
+}
+a{
+    text-decoration: none;
+}
+
+p{  
+    color:#d2caa0;
+    font-family:Cordia New;
+    font-size: 2vmin; 
+}

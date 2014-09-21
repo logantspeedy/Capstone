@@ -15,6 +15,9 @@ public class Game {
 	private Board board;	
 	public Player currentPlayer;		
 	private ArrayList<Player> playerList;
+        private String currentStage;
+	private String currentPhase;
+        
 	private int playerPos;
 	private int phaseStage;
 	final int noOfTerritories;
@@ -22,8 +25,7 @@ public class Game {
         private String startingPlayer;  
         private int captureCounter;
 	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
-	private String currentStage;
-	private String currentPhase;
+	
 	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify"};
         
                 
@@ -53,7 +55,7 @@ public class Game {
 		
 		board = gameBoard.setStartingHouses(board, playerList);
 		
-        startingPlayer = randomPlayer(players.length).getName();
+                startingPlayer = randomPlayer(players.length).getName();
 		setCurrentPlayer(startingPlayer);		
 	}	
 	
@@ -325,7 +327,7 @@ public class Game {
 						&& !defender.equals(currentPlayer.getName())){
 					if(board.getNode(attackingTerritory).canAttack()){
 						
-						//Work out army sizes from rolls.
+						//Work out army sizes.
 						int aArmy = calcArmySize(attackingTerritory, true);
 						int dArmy = calcArmySize(defendingTerritory, false);
 						
@@ -333,7 +335,10 @@ public class Game {
 						int[] aRolls = rollDice(attackingTerritory, aArmy);
 						int[] dRolls =  rollDice(defendingTerritory, dArmy);
 						
-                                                
+                                                //See if defender has defending bonus and change army size back.
+                                                if(getPlayer(defender).homeTerritory.equals((defendingTerritory))){
+                                            dArmy--;
+                                        }
                                                 
                                                 
 						//Change troops in each territory.
@@ -387,8 +392,7 @@ public class Game {
 					}
 				}							
 			}				
-		}
-                
+		}                
 		return board;
 	}	
 	//******************************************************
@@ -502,5 +506,10 @@ public class Game {
                 currentPlayer = p;
                 this.claimTerritory(startingHouses[housePos][i], name);
             }
-        }       
+        }
+        //Used for when a player leaves the game before they have lost all territories.
+        public void removePlayer(String player){
+            Player inactive = getPlayer(player);
+            inactive.active = false;
+        }
 }

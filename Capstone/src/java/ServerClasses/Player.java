@@ -15,6 +15,7 @@ public class Player {
         protected int territoriesControlled;
         protected boolean active;
         protected String homeTerritory;
+        protected int attackBonus;
 	
 	public Player(String name, int troops){
 		this.setName(name);
@@ -22,6 +23,7 @@ public class Player {
                 this.setHouse("");
                 this.territoriesControlled = 0;
                 this.active = true;
+                this.attackBonus = 0;
 	}
 
 	public int getArmy() {

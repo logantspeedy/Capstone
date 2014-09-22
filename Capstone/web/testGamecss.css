@@ -167,3 +167,10 @@ path:hover, g:hover path{
 /*position:relative;*/
     /*z-index: ;*/
 }
+
+.login-container{
+     display: table-cell;
+     height: 300px;
+     vertical-align: middle;
+     text-align: center;  
+}

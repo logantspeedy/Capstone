@@ -41,6 +41,7 @@
             position: absolute;  top: 0; left: 0; bottom: 0; right: 0; background: rgba(255, 255, 255, 0.7);">
             
             <h1>Lobby</h1>
+            
         <strong>Username<a href='javascript:showUsernameInput()' id='change-user'> (Change username)</a>:</strong> <input type="text" id="username" name="username"/> 
         <span id="current-data"></span>
         

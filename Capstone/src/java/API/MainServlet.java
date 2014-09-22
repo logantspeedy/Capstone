@@ -232,10 +232,13 @@ public class MainServlet extends HttpServlet {
         //create new session or get current session
         
         HttpSession session = request.getSession();
-        
+        Boolean joined = false;
+        HttpSession oldSession = null;
         if (session.getAttribute("joinedgame") != null){
             String sessionId = (String) session.getAttribute("joinedgame");
-            session = listener.findGame(sessionId);           
+            oldSession = session;
+            session = listener.findGame(sessionId); 
+            joined = true;
         }
         
         //join game, game name, player name
@@ -251,6 +254,35 @@ public class MainServlet extends HttpServlet {
 
         
         switch (request.getParameter("command")) {
+            case "login":
+                {
+                    if (request.getParameter("username") == null){
+                        break;
+                    }  
+                    //set variables
+                    String username = request.getParameter("username");
+                    
+                    session.setAttribute("username", username);
+                    out.println("done logging in");
+                    break;
+                    //given username, game session id
+                    //set username in session, set joined attribute as the game session id
+                    //update the game session with added user
+                }            
+            case "logout":
+                {
+                    if (joined == true){
+                        oldSession.invalidate();
+                    }
+                    else{
+                        session.invalidate();
+                    }
+                    out.println("done logging out");
+                    break;
+                    //given username, game session id
+                    //set username in session, set joined attribute as the game session id
+                    //update the game session with added user
+                }              
             case "joingame":
                 {
                     if (request.getParameter("username") == null || request.getParameter("gameid") == null){

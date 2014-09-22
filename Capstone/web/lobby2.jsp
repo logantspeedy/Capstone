@@ -68,7 +68,13 @@
             %>  
                 <div class="panel panel-default">
                 <div class="panel-heading">Online Users</div>
-                <div class="list-group" id="online-users">test</div>
+                <div class="list-group" id="online-users">
+                    
+                    <li id="test" class="list-group-item">test</li>
+                    <li id="test" class="list-group-item">test2</li>
+                    <li id="test" class="list-group-item">test3</li>
+                
+                </div>
                 </div>
             </div>
             

@@ -24,12 +24,6 @@
 
     </head>
     <body>
-        <!--<button onclick='getGameJSON()'>getGameData</button>-->
-        <!--<button onclick='nextPhase()'>nextphase</button>-->
-        <!--<button onclick='post({command:"getusername"})'>getUsername</button>-->
-        <!--<button onclick='getCookie()'>username</button>-->
-        <!--<button onclick="getSessionId()">Start Test Game</button>-->
-        
         <div id = "follower" style='z-index: 15; '>
             <div id = "hoverTerritory"></div>
             <div id = "hoverUnits"></div>
@@ -58,40 +52,30 @@
                 </table>
             </div>-->
 
-            <div class="flags2">
-                <table class="playersFlag2" >
-                    
-                    <tr class="flagStark2">
-                         <img width='auto' height='5%' style='position:absolute; z-index:2; 
-                         display:inline; left: 19.4%;top: 62.9%;' src='images/banners/starkBanner.png' />
-                    </tr>
-                    
-                    <tr class="flagLannister2">
-                        <img width='auto' height='5%' style='position:absolute; z-index:2; 
-                         display:inline; left: 19.4%;top: 62.9%;' src='images/banners/lannisterBanner.png' />
-                    </tr>
-                    
-                    <tr class="flagGreyjoy2">
-                        <img width='auto' height='5%' style='position:absolute; z-index:2; 
-                         display:inline; left: 19.4%;top: 62.9%;' src='images/banners/greyjoyBanner.png' />
-                    </tr>
-                    
-                    <tr class="flagBaratheon2">
-                        <img width='auto' height='5%' style='position:absolute; z-index:2; 
-                         display:inline; left: 19.4%;top: 62.9%;' src='images/banners/baratheonBanner.png' />
-                    </tr>
-                    
-                    <tr class="flagDothrak2i">
-                        <img width='auto' height='5%' style='position:absolute; z-index:2; 
-                         display:inline; left: 19.4%;top: 62.9%;' src='images/banners/dothrakiBanner.png' />
-                    </tr>
-                    
-                    <tr class="flagTargaryen2">
-                        <img width='auto' height='5%' style='position:absolute; z-index:2; 
-                         display:inline; left: 19.4%;top: 62.9%;' src='images/banners/targaryenBanner.png' />
-                    </tr>
-                </table>
-            
+            <div class="playerBanners">
+                <div style="width:39%">
+                <img width='100%' height='auto' src='images/banners/starkBanner.png'/>
+                </div>
+                
+                <div style="width:39%">
+                <img width='100%' height='auto' src='images/banners/lannisterBanner.png' />
+                </div>
+                
+                <div style="width:39%">
+                <img width='100%' height='auto'  src='images/banners/greyjoyBanner.png' />
+                </div>
+                
+                <div style="width:39%">
+                <img width='100%' height='auto' src='images/banners/baratheonBanner.png' />
+                </div>
+                
+                <div style="width:39%">
+                <img width='100%' height='auto'  src='images/banners/dothrakiBanner.png' />
+                </div>
+                
+                <div style="width:39%">
+                <img width='100%' height='auto'  src='images/banners/targaryenBanner.png' />
+                </div>
             </div>
 
             <div id="backGround" style='z-index: 1; height:100% '>

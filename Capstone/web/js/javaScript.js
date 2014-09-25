@@ -14,7 +14,7 @@ function testGame(){
         var gameId=getSessionId();
         
         for (i = 0; i < 18; i++){
-            if (i<15){post({command: "joingame", username:"player2", gameid:getSessionId() });
+            if (i<5){post({command: "joingame", username:"player2", gameid:gameId });
 
                 }
 

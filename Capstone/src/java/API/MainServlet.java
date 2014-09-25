@@ -253,10 +253,19 @@ public class MainServlet extends HttpServlet {
         
 
         
-        switch (request.getParameter("command")) {
+        switch (request.getParameter("command")) {   
+            case "flagstagecomplete":
+                {
+                    //checking if all players have picked their flag
+                }               
+            case "gamestart":
+                {
+                    //checking if the game has been started by the game owner
+                }               
+            
             case "login":
                 {
-                    if (request.getParameter("username") == null){
+                    if (request.getParameter("username") == null || request.getParameter("username").equals("")){
                         break;
                     }  
                     //set variables
@@ -358,7 +367,17 @@ public class MainServlet extends HttpServlet {
                     break;
                     //return a set list
                 }
-            
+            case "getusers":
+                {
+                    ArrayList<String> playerNames = listener.getPlayerNames();    
+                    Gson gson = new Gson();
+     
+                    //convert game to JSON
+                    String playerNamesJSON = gson.toJson(playerNames);                   
+
+                    out.println(playerNamesJSON);
+                    break;
+                }            
             case "getgamedata":
                 {
                     String JSON = getGameData(request, session);

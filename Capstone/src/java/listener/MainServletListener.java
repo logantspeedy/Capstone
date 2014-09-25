@@ -97,6 +97,18 @@ public class MainServletListener implements HttpSessionListener, HttpSessionAttr
         return playerSessions.keySet();
     }
     
+    public ArrayList<String> getPlayerNames(){
+        ArrayList<String> playerNames = new ArrayList<>();
+        for (String session : playerSessions.keySet()){
+            HttpSession playerSession = playerSessions.get(session);
+            if (playerSession.getAttribute("username") != null){
+                String username = (String) playerSession.getAttribute("username");
+                playerNames.add(username);
+            }    
+        }
+        return playerNames;
+    }
+    
     public HttpSession findGame(String sessionId) {
         return gameSessions.get(sessionId);
     }

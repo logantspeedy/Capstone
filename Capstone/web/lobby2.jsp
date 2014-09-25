@@ -17,8 +17,7 @@
         <title>Game of Thrones</title>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-        <script type="text/javascript" 
-        src="${pageContext.request.contextPath}/js/javaScript.js"></script>
+
 
         <style>
         body a:link {color: #573d1c;}
@@ -62,39 +61,49 @@
                 <div class="row">
                 <div class="col-md-6">
                 <%
-                out.write("<div class='alert alert-info'>Welcome <strong id='whoami'>" + (String) session.getAttribute("username") + "</strong>! <button type='submit' class='btn btn-default'><a href='javascript:logout()'>Logout</a></button></div>");
+                out.write("<div class='alert alert-info'>Welcome <strong id='whoami'>" + (String) session.getAttribute("username") + "</strong>! <button type='submit' class='btn btn-default' onclick='logout()'>Logout</button></div>");
             
             
             %>  
-                <div class="panel panel-default">
-                <div class="panel-heading">Online Users</div>
-                <div class="list-group" id="online-users">
-                    
-                    <li id="test" class="list-group-item">test</li>
-                    <li id="test" class="list-group-item">test2</li>
-                    <li id="test" class="list-group-item">test3</li>
-                
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Online Users</div>
+                        <div class="list-group" id="online-users"></div>
+                    </div>
                 </div>
-                </div>
-            </div>
             
-            <div class="col-md-6">
-            <div class="panel panel-default">
-        <div class="panel-heading">Live Chat</div>
-        <ul class="list-group" id="chat-output"></ul>
-        <div class="panel-body">
-          <form id="chat">
-            <div class="input-group">
-              <input type="text" class="form-control" id="chat-input" />
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-default">Send Message</button>
-              </span>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    </div>
+                <div class="col-md-6">
+                
+
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Avaliable Games</div>
+                        <div class="list-group" id="avaliable-games" style="text-align:left">
+                            <li id="test" class="list-group-item" >test game<span class="input-group-btn" style="text-align:right;display: inline;"><button type="submit" class="btn btn-default">Create</button><button type="submit" class="btn btn-default">Create</button></span></li>
+                            <li id="test" class="list-group-item">test game2</li>
+                        </div>
+                    </div>
+                            
+                            
+                            
+
+                    
+                   
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Create Game</div>
+                        <ul class="list-group" id="chat-output"></ul>
+                        <div class="panel-body">
+                            <form id="chat">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="chat-input" />
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-default">Create</button>
+                                </span>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </div>
                 </div>
             <%                
             }
@@ -121,6 +130,9 @@
         <div class="footer" ></div>
         
         <script>
+            updatePlayerList();
+            setInterval(function(){updatePlayerList()}, 5000);
+ 
             function logout(){
                 $.ajax({
                   type: "POST",
@@ -134,6 +146,39 @@
                   }); 
                 setTimeout(function () { window.location.href = 'login.jsp';}, 2000);
               }
+            function updatePlayerList(){
+                $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "getusers"}
+                  }).done(function( data ) { 
+                      var html = ""
+                      for (var playerIndex in data){
+                          html = html.concat('<li id="' + data[playerIndex] +'" class="list-group-item">' + data[playerIndex] + '</li>');
+                      }
+                      if (html != $("#online-users").html()){
+                          $( "#online-users" ).html(html);
+                      }
+                  }); 
+              }              
+            function updateGameList(){
+                $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "getusers"}
+                  }).done(function( data ) { 
+                      var html = ""
+                      for (var playerIndex in data){
+                          html = html.concat('<li id="' + data[playerIndex] +'" class="list-group-item">' + data[playerIndex] + '</li>');
+                      }
+                      if (html != $("#online-users").html()){
+                          $( "#online-users" ).html(html);
+                      }
+                  }); 
+              }              
+              
         </script>
 
     </body>

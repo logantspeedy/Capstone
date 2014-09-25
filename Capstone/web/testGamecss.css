@@ -169,7 +169,6 @@ path:hover, g:hover path{
 }
 
 .login-container{
-     display: table-cell;
      height: 300px;
      vertical-align: middle;
      text-align: center;  

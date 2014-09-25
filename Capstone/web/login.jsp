@@ -17,8 +17,7 @@
         <title>Game of Thrones</title>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-        <script type="text/javascript" 
-        src="${pageContext.request.contextPath}/js/javaScript.js"></script>
+
 
         <style>
         body a:link {color: #573d1c;}
@@ -70,7 +69,7 @@
                 <div class="input-group">
                     <input type="text" class="form-control" id='username' name='username'/>
                     <span class="input-group-btn">
-                        <button type="submit" class="btn btn-default"><a href='javascript:login()' id='loginlink'>Login</a></button>
+                        <button type="submit" class="btn btn-default" onclick="login()">Login</button>
                     </span>
                 </div>
             
@@ -94,6 +93,9 @@
         
         <script>
             function login(){
+                if ($('#username').val() == ""){
+                    return;
+                }
                 $.ajax({
                   type: "POST",
                   url: "MainServlet",

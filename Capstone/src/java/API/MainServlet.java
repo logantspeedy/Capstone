@@ -232,10 +232,13 @@ public class MainServlet extends HttpServlet {
         //create new session or get current session
         
         HttpSession session = request.getSession();
-        
+        Boolean joined = false;
+        HttpSession oldSession = null;
         if (session.getAttribute("joinedgame") != null){
             String sessionId = (String) session.getAttribute("joinedgame");
-            session = listener.findGame(sessionId);           
+            oldSession = session;
+            session = listener.findGame(sessionId); 
+            joined = true;
         }
         
         //join game, game name, player name
@@ -251,6 +254,35 @@ public class MainServlet extends HttpServlet {
 
         
         switch (request.getParameter("command")) {
+            case "login":
+                {
+                    if (request.getParameter("username") == null){
+                        break;
+                    }  
+                    //set variables
+                    String username = request.getParameter("username");
+                    
+                    session.setAttribute("username", username);
+                    out.println("done logging in");
+                    break;
+                    //given username, game session id
+                    //set username in session, set joined attribute as the game session id
+                    //update the game session with added user
+                }            
+            case "logout":
+                {
+                    if (joined == true){
+                        oldSession.invalidate();
+                    }
+                    else{
+                        session.invalidate();
+                    }
+                    out.println("done logging out");
+                    break;
+                    //given username, game session id
+                    //set username in session, set joined attribute as the game session id
+                    //update the game session with added user
+                }              
             case "joingame":
                 {
                     if (request.getParameter("username") == null || request.getParameter("gameid") == null){
@@ -448,7 +480,10 @@ public class MainServlet extends HttpServlet {
         if (session.getAttribute("game") == null){
             //create the game object
             System.out.println("entered new game in claimTer");
-            game = new Game(new String[]{"Player 1", "Player 2", "Player 3", "Player 4"});
+            ArrayList<String> players = (ArrayList<String>) session.getAttribute("players");
+            String[] stringArrayPlayers = new String[players.size()];
+            stringArrayPlayers = players.toArray(stringArrayPlayers);   
+            game = new Game(stringArrayPlayers);
         }
         else{
             //if it's not the first call, get the game JSON data
@@ -472,6 +507,9 @@ public class MainServlet extends HttpServlet {
         
         //temp
         System.out.println("*****************in startgame********************************");
+        
+        System.out.println(session.getAttribute("players"));
+        
         ArrayList<String> players = (ArrayList<String>) session.getAttribute("players");
         String[] stringArrayPlayers = new String[players.size()];
         stringArrayPlayers = players.toArray(stringArrayPlayers);       
@@ -570,13 +608,13 @@ public class MainServlet extends HttpServlet {
     
     public String fortify(HttpServletRequest request,HttpSession session){
        
-       if(session.getAttribute("game") == null || request.getParameter("startTerritory") == null || request.getParameter("targetTerritory") == null || request.getParameter("troops") == null){
+       if(session.getAttribute("game") == null || request.getParameter("startterritory") == null || request.getParameter("targetterritory") == null || request.getParameter("troops") == null){
             return null;
         }
         
        //set variables
-        String startTerritory = request.getParameter("startTerritory");
-        String targetTerritory = request.getParameter("targetTerritory");
+        String startTerritory = request.getParameter("startterritory");
+        String targetTerritory = request.getParameter("targetterritory");
         
         int troops = Integer.parseInt(request.getParameter("troops"));       
         String gameJSON  = (String) session.getAttribute("game");
@@ -755,16 +793,18 @@ public class MainServlet extends HttpServlet {
     
     public String getSessionId(HttpServletRequest request,HttpSession session){
         
-        System.out.println("Session id is"+ session.getId());
+        System.out.println("Session id is: "+ session.getId());
         
-        Enumeration e = session.getAttributeNames();
-            while (e.hasMoreElements()) {
-            String name = (String)e.nextElement();
-    //        System.out.println(name);
-            String value = session.getAttribute(name).toString();
-    //        System.out.println(value);
-        }
-        return null;} 
+//        Enumeration e = session.getAttributeNames();
+//            while (e.hasMoreElements()) {
+//            String name = (String)e.nextElement();
+//    //        System.out.println(name);
+//            String value = session.getAttribute(name).toString();
+//    //        System.out.println(value);
+//        }
+        String id = session.getId();
+        System.out.println(id);
+        return id;} 
 }
 
 

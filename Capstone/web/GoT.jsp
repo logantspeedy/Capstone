@@ -16,7 +16,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Game of Thrones</title>
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>-->
+        <script src='//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js' type='text/javascript'></script>
         <script type="text/javascript" 
         src="${pageContext.request.contextPath}/js/javaScript.js"></script>
 
@@ -27,7 +28,8 @@
         <!--<button onclick='nextPhase()'>nextphase</button>-->
         <!--<button onclick='post({command:"getusername"})'>getUsername</button>-->
         <!--<button onclick='getCookie()'>username</button>-->
-        <!--<button onclick="sesId()">session Id</button>-->
+        <!--<button onclick="getSessionId()">Start Test Game</button>-->
+        
         <div id = "follower" style='z-index: 15; '>
             <div id = "hoverTerritory"></div>
             <div id = "hoverUnits"></div>
@@ -40,7 +42,7 @@
 
 
 
-            <div class="infoTable" id="info" style="z-index: 1">
+<!--            <div class="infoTable" id="info" style="z-index: 1">
                 <img id ="playersBanner" style="height: 120%; float: left " src="" >
                 <table class="infoCss" >
                     <tr class="infoCss">
@@ -54,6 +56,42 @@
                     <th class="infoCss" id="history" style="padding-bottom: 10px" ><h3>History</h3></th>
                     </tr>
                 </table>
+            </div>-->
+
+            <div class="flags2">
+                <table class="playersFlag2" >
+                    
+                    <tr class="flagStark2">
+                         <img width='auto' height='5%' style='position:absolute; z-index:2; 
+                         display:inline; left: 19.4%;top: 62.9%;' src='images/banners/starkBanner.png' />
+                    </tr>
+                    
+                    <tr class="flagLannister2">
+                        <img width='auto' height='5%' style='position:absolute; z-index:2; 
+                         display:inline; left: 19.4%;top: 62.9%;' src='images/banners/lannisterBanner.png' />
+                    </tr>
+                    
+                    <tr class="flagGreyjoy2">
+                        <img width='auto' height='5%' style='position:absolute; z-index:2; 
+                         display:inline; left: 19.4%;top: 62.9%;' src='images/banners/greyjoyBanner.png' />
+                    </tr>
+                    
+                    <tr class="flagBaratheon2">
+                        <img width='auto' height='5%' style='position:absolute; z-index:2; 
+                         display:inline; left: 19.4%;top: 62.9%;' src='images/banners/baratheonBanner.png' />
+                    </tr>
+                    
+                    <tr class="flagDothrak2i">
+                        <img width='auto' height='5%' style='position:absolute; z-index:2; 
+                         display:inline; left: 19.4%;top: 62.9%;' src='images/banners/dothrakiBanner.png' />
+                    </tr>
+                    
+                    <tr class="flagTargaryen2">
+                        <img width='auto' height='5%' style='position:absolute; z-index:2; 
+                         display:inline; left: 19.4%;top: 62.9%;' src='images/banners/targaryenBanner.png' />
+                    </tr>
+                </table>
+            
             </div>
 
             <div id="backGround" style='z-index: 1; height:100% '>
@@ -303,14 +341,19 @@
             });
             $(document).ready(function()
             {
-                follow();
-                getGameJSON();
-                insertHeader();
-                insertFooter();
-                insertNav();
-                window.setInterval(updateDisplay(), 2000);
-//                updateDisplay();
-                setSVGClickEvents();
+                checkGame = post({command:"getgamedata"});
+                console.log("checkGame: "+ checkGame);
+                if (checkGame !== null){
+                    console.log("In GoT.jsp Loop")
+                    follow();
+                    
+                    insertHeader();
+                    insertFooter();
+                    insertNav();
+                    window.setInterval(updateDisplay(), 2000);
+    //                updateDisplay();
+                    setSVGClickEvents();    
+                }
 
             });
 

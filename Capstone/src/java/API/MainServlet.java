@@ -272,6 +272,7 @@ public class MainServlet extends HttpServlet {
                     String username = request.getParameter("username");
                     
                     session.setAttribute("username", username);
+
                     out.println("done logging in");
                     break;
                     //given username, game session id
@@ -313,7 +314,7 @@ public class MainServlet extends HttpServlet {
             
             case "creategame":
                 {
-                    if (request.getParameter("username") == null || request.getParameter("gamename") == null){
+                    if (request.getParameter("username") == null || request.getParameter("gamename") == null || request.getParameter("username").equals("") || request.getParameter("gamename").equals("")){
                         break;
                     } 
                     
@@ -351,7 +352,24 @@ public class MainServlet extends HttpServlet {
 
                     
                 }
-            
+            case "getsessionidlobby":
+                {
+                    String sessionId;
+                    if (joined == true){
+                        sessionId = oldSession.getId();
+                    }
+                    else{
+                        sessionId = session.getId();
+                    }
+
+                    Gson gson = new Gson();     
+
+                    String sessionIdJSON = gson.toJson(sessionId);                   
+
+                    out.println(sessionIdJSON);
+                    break;
+
+                }            
             case "getgames":
                 {
                    ArrayList<ArrayList<String>> gamesIDSet = listener.getGameSessions();
@@ -367,6 +385,41 @@ public class MainServlet extends HttpServlet {
                     break;
                     //return a set list
                 }
+            
+            case "usercheck":
+                {
+                    
+                    Boolean inGame = false;
+                    if (request.getParameter("gamesessionid") == null || request.getParameter("gamesessionid").equals("")){
+                        break;
+                    }   
+                    
+                    //checks if user is in a specified game
+                    String gameSessionId = request.getParameter("gamesessionid");                     
+                    
+                   if (joined == true){
+                       if (oldSession.getAttribute("joined").equals(gameSessionId)){
+                           inGame = true;
+                       }
+                   }
+                   else if (session.getAttribute("gamename") != null){
+                       if (session.getId().equals(gameSessionId)){
+                          inGame = true;
+                       }
+                   }
+                   
+        
+                    Gson gson = new Gson();
+
+        
+                    //convert game to JSON
+                    String inGameJSON = gson.toJson(inGame);                   
+
+                    out.println(inGameJSON);
+                    break;
+                    //return a set list
+                }            
+            
             case "getusers":
                 {
                     ArrayList<String> playerNames = listener.getPlayerNames();    

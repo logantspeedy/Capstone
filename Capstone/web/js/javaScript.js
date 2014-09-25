@@ -4,7 +4,60 @@
  * and open the template in the editor.
  */
 function test(i){alert(i);}
+// =============
+function follow(){
+    console.log("in follow");
+    $("#follower").hide();
+//    $("path").mouseover(mouseoverHandler);
+//    $("path").mouseout(mouseoutHandler);
+}
+function mouseoverHandler(i) {
+    var input = i.id;
+//    if (!$(e).attr('class')) {
+//        pathMouseover = e.id;
+//        console.log(e.id);
+//    }
+//    else {
+//        pathMouseover = e.className.baseVal;
+//        console.log(e.className.baseVal);
+//    }
+    console.log(input);
+    $("#follower").css({"position":"absolute",
+                      
+		      "width":"100px",
+		      "height":"40px",
+		      "line-height":"10px",
+		      "padding":"10px",
+		      "font-size":"14px",
+		      "text-align":"center",
+		      "background":"#d2caa0",
+		      "border":"2px solid #424242",
+                      "font-family":"Cordia New",
+                      "color": "#black",
+		      "border-radius":"5px",
+		      "text-shadow":"rgba(0, 0, 0, 0.0980392) 1px 1px 1px",
+		      "box-shadow":"rgba(0, 0, 0, 0.0980392) 1px 1px 2px 0px"});
+    $("#hoverTerritory").empty().append("<strong>"+input+"</strong></br>");
 
+    $("#hoverUnits").empty().append("Units : "+ getTerritotyTroopCount(input));
+//     + nodes[pathMouseover].troops
+    $("#follower").stop(true, true);
+    console.log("over");
+    $("#follower").fadeIn("fast");
+}
+function getTerritotyTroopCount(id){
+        var unitCount = null;
+        for (i = 0; i < nodes.length; i++){
+        if (nodes[i].territoy === id){
+            unitCount=nodes[i].troops;
+            return unitCount;
+        }
+        
+    }
+}
+function mouseoutHandler(){
+    $("#follower").fadeOut("fast");
+}    
     // Variables
     var gameJSON = null;
     var currentPhase = null;
@@ -94,11 +147,6 @@ function test(i){alert(i);}
         $('#bonuses').empty().append("<h3>Bonuses</h3>"+"<hr>"+currentPlayerHouse+"</br>"+" Free Troops:" +currentPlayerTroops);
     }
     
-
-    
-
-
-
     function setFlags(){
         for (i = 0; i < nodes.length; i++) {
             var ter = nodes[i].territoy.toString();
@@ -106,8 +154,6 @@ function test(i){alert(i);}
             if (controller.replace(/ /g,'') === ""){
             }
             else{
-//            console.log(controller);
-//            console.log(getPlayersHouse(controller));
             $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/"+(getPlayersHouse(controller)).replace(/ /g,'')+".png");}
     }
 }
@@ -209,24 +255,41 @@ function test(i){alert(i);}
                     break;
             }
                 
-            case "reinforce":{
-//                    openWindow();
-                    var t = parseInt(prompt("How many troops", "0"));                       
-                    post({command:"reinforce", territory:input, troops:t});
+            case "reinforce":{                                       
+                    post({command:"reinforce", territory:input, troops:1});
                     break;
             }      
             case "attack":{
                     
-                    if (first === null){first = input;
-                    console.log(first + second);}
+                    if (first === null){
+                        first = input;
+                    console.log("first attack" + first + second);
+                    break;
+                }
                     else{ 
                         second = input;
                         console.log(first + second);
                         post({command: "attack" , attackingterritory:first, defendingterritory:second});
                         first = null;
                         second = null;
-                    }
-        }
+                        break;
+                    }                    
+            }
+            case "fortify":{
+                if(first == null){
+                    first = input;
+                    console.log("fortify: " + first + second);
+                }
+                else{
+                    second = input;                    
+                    var t = parseInt(prompt("How many troops to fortify", "0"));
+                    console.log(first + " " + second + " " + t);
+                    post({command: "fortify", startTerritory:first, targetTerritory:second, troops:t});
+                    first = null;
+                    second = null;
+                    break;
+                }
+            }
         }
         updateDisplay();
     }
@@ -390,102 +453,4 @@ function test(i){alert(i);}
             returnData= data;
            }});
         return returnData;
-    }
-    
-    function postWithUpdate(postData){
-        $.ajax({
-          type: "POST",
-          url: "MainServlet",
-          dataType : 'json',
-          data: postData,
-          async: false 
-        ,
-          success : function(data){
-            updateDisplay();
-           }});
-    }
-    
-    function nextPhase(){
-    $.ajax({
-      type: "POST",
-      url: "MainServlet",
-      data: { command: "nextphase"},
-      success : function(data){
-        window.location.href='GoT.jsp';
-       }});}
-       
-    function callClaimTerritory(pla, ter){
-
-        $.ajax({
-          type: "POST",
-          url: "MainServlet",
-          dataType : 'json',
-          data: { command: "claimterritory" , playername:pla, territory:ter },
-          success : function(data){
-            window.location.href='GoT.jsp';
-           }});}
-
-    function callReinforce(ter,tro){
-        $.ajax({
-          type: "POST",
-          url: "MainServlet",
-          dataType : 'json',
-          data: { command: "reinforce" , territory:ter, troops:tro }
-        ,
-          success : function(data){
-            window.location.href='GoT.jsp';
-           }});}
-
-    function callAttack(ter, def){   
-        
-        $.ajax({
-          type: "POST",
-          url: "MainServlet",
-          dataType : 'json',
-          data: { command: "attack" , attackingterritory:ter, defendingterritory:def}
-        ,
-          success : function(data){
-            window.location.href='GoT.jsp';
-           }});}
-
-    function callFortify(st, tt, tro){
-        $.ajax({
-          type: "POST",
-          url: "MainServlet",
-          dataType : 'json',
-          data: { command: "fortify" , startterritory:st, targetterritory:tt, troops:tro }
-        ,
-          success : function(data){
-            window.location.href='GoT.jsp';
-           }});}
-
-    function clickHandler(data) {
-           if(currentPhase === "claim"){
-            // add check that clicked area isn't owned
-//            if (board[data.key] player ===null)
-            
-            claim = data.key;
-           
-           }
-
-           else if (currentPhase ==="reinforce"){
-               reinforceArea = data.key;
-               armysDeployed=prompt('Enter number of troops','1');
-               //do post request to reinforce
-
-           }
-           else if (currentPhase ==="attack"){
-               if (attacker === null){attacker = data.key;}
-               else {defender = data.key;}
-           }
-
-           else if (currentPhase ==="fortify"){
-               if (fortifyFrom === null){fortifyFrom= data.key;}
-               else {fortifyTo=data.key;
-               fortifyAmount=prompt('Enter number of troops to move','1');}
-               
-           }
-    }
-   
-
-
+    } 

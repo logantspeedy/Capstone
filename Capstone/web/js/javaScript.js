@@ -492,3 +492,6 @@ function mouseoutHandler(){
            }});
         return returnData;
     }   
+    function endPhase(){
+        post({command:"nextphase"});
+    }

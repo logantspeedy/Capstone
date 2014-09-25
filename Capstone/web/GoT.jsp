@@ -53,29 +53,45 @@
             </div>-->
 
             <div class="playerBanners">
-                <div style="width:39%">
+                <div class="banners">
                 <img width='100%' height='auto' src='images/banners/starkBanner.png'/>
                 </div>
+                <div class="controls"><button onClick="endPhase()">End Phase</button></div>
                 
-                <div style="width:39%">
+                <div class="bannerSpacer"></div>
+                
+                <div class="banners">
                 <img width='100%' height='auto' src='images/banners/lannisterBanner.png' />
                 </div>
+                <div class="controls"><button onClick="endPhase()">End Phase</button></div>
                 
-                <div style="width:39%">
+                <div class="bannerSpacer"></div>
+                
+                <div class="banners">
                 <img width='100%' height='auto'  src='images/banners/greyjoyBanner.png' />
                 </div>
+                <div class="controls"><button onClick="endPhase()">End Phase</button></div>
                 
-                <div style="width:39%">
+                <div class="bannerSpacer"></div>
+                
+                <div class="banners">
                 <img width='100%' height='auto' src='images/banners/baratheonBanner.png' />
                 </div>
+                <div class="controls"><button onClick="endPhase()">End Phase</button></div>
                 
-                <div style="width:39%">
+                <div class="bannerSpacer"></div>
+                
+                <div class="banners">
                 <img width='100%' height='auto'  src='images/banners/dothrakiBanner.png' />
                 </div>
+                <div class="controls"><button onClick="endPhase()">End Phase</button></div>
                 
-                <div style="width:39%">
+                <div class="bannerSpacer"></div>
+                
+                <div class="banners">
                 <img width='100%' height='auto'  src='images/banners/targaryenBanner.png' />
                 </div>
+                <div class="controls"><button onClick="endPhase()">End Phase</button></div>
             </div>
 
             <div id="backGround" style='z-index: 1; height:100% '>

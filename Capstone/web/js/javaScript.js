@@ -8,22 +8,22 @@ function test(i){alert(i);}
 function follow(){
     console.log("in follow");
     $("#follower").hide();
-    $("path").mouseover(mouseoverHandler);
-    $("path").mouseout(mouseoutHandler);
+//    $("path").mouseover(mouseoverHandler);
+//    $("path").mouseout(mouseoutHandler);
 }
-function mouseoverHandler() {
-    var pathMouseover = null;
-    if (!$(this).attr('class')) {
-        pathMouseover = this.id;
-        console.log(this.id);
-    }
-    else {
-        pathMouseover = this.className.baseVal;
-        console.log(this.className.baseVal);
-    }
-    console.log(pathMouseover);
+function mouseoverHandler(i) {
+    var input = i.id;
+//    if (!$(e).attr('class')) {
+//        pathMouseover = e.id;
+//        console.log(e.id);
+//    }
+//    else {
+//        pathMouseover = e.className.baseVal;
+//        console.log(e.className.baseVal);
+//    }
+    console.log(input);
     $("#follower").css({"position":"absolute",
-                      "margin-left":"-100px",
+                      
 		      "width":"100px",
 		      "height":"40px",
 		      "line-height":"10px",
@@ -37,9 +37,9 @@ function mouseoverHandler() {
 		      "border-radius":"5px",
 		      "text-shadow":"rgba(0, 0, 0, 0.0980392) 1px 1px 1px",
 		      "box-shadow":"rgba(0, 0, 0, 0.0980392) 1px 1px 2px 0px"});
-    $("#hoverTerritory").empty().append("<strong>"+pathMouseover+"</strong></br>");
+    $("#hoverTerritory").empty().append("<strong>"+input+"</strong></br>");
 
-    $("#hoverUnits").empty().append("Units : "+ getTerritotyTroopCount(pathMouseover));
+    $("#hoverUnits").empty().append("Units : "+ getTerritotyTroopCount(input));
 //     + nodes[pathMouseover].troops
     $("#follower").stop(true, true);
     console.log("over");
@@ -147,11 +147,6 @@ function mouseoutHandler(){
         $('#bonuses').empty().append("<h3>Bonuses</h3>"+"<hr>"+currentPlayerHouse+"</br>"+" Free Troops:" +currentPlayerTroops);
     }
     
-
-    
-
-
-
     function setFlags(){
         for (i = 0; i < nodes.length; i++) {
             var ter = nodes[i].territoy.toString();

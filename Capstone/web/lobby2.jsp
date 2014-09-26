@@ -22,7 +22,7 @@
         
 
         <!--style sheet and meta data-->
-        
+        <link type="text/css" rel="stylesheet" href="js/hover/jquery.qtip.css" />
         <link rel="stylesheet" type="text/css" href="css/htmlBody.css">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -32,6 +32,10 @@
          
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
         <script src="//cdn.pubnub.com/pubnub.min.js"></script>  
+        
+        <script type="text/javascript" src="js/hover/jquery.qtip.js"></script>
+        
+        
         <title>Game of Thrones - login</title>
         
     </head>
@@ -52,12 +56,11 @@
             <div class="login" style="padding:30px;height:10%;font-size: 2em;color:rgba(210, 202, 160, 1);font-family: CharleMagne;">
 
                     Lobby
-
             </div>
 
             <hr/><br/>
 
-            <div class="video" style="background:rgba(210, 202, 160, 0.7);-moz-border-radius: 15px;border-radius: 15px;padding:20px;display:table;text-align:center;height:100%;">
+            <div class="video" style="background:rgba(210, 202, 160, 0.7);-moz-border-radius: 15px;border-radius: 15px;padding:20px;display:table;text-align:center;">
             <%
             if ((session.getAttribute("username") == null)){
                 out.write("Please login first!");
@@ -122,7 +125,7 @@
                
             </div>
             
-
+            <div id="ingame">false</div>
             <div class="footer" ><hr/><p>a Team4 Production 2014 Massey capstone@massey.ac.nz ©</div>
             
         </div>
@@ -132,21 +135,91 @@
 </body>
         
 <script>
+            
+            updatePlayerList();updateGameList();checkStartGame();applyToolTip();
+            setInterval(function(){updatePlayerList();updateGameList();checkStartGame();}, 5000);
+            function applyToolTip(){
+            $('.list-group-item').qtip({
+                style: { classes: 'qtip-bootstrap' },
+                content: {
+                    title: {
+                        text: 'Game Information',
+                        button: true
+                        },
 
-            updatePlayerList();updateGameList();
-            setInterval(function(){updatePlayerList();updateGameList();}, 5000);
-            var joinedGame = false;
+                    attr: 'title' // Tell qTip2 to look inside this attr for its content
+                    },
+                position: {
+
+                    at: 'left bottom', // at the bottom right of...
+
+
+                }    
+                
+            });
+            }
+            function checkStartGame(){
+                $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "gamestart"}
+                  }).done(function( data ) {
+                      if (data === true){
+                            window.location.href = 'chooseHouse.jsp';
+                        }
+
+                  });                   
+            }
+           
+          function getPlayerList(sessionId){
+            
+            var playerListReturn=null;
+            $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "getgames"},async: false
+                  }).done(function( data ) {
+                        var x;
+                        for(x in data){ 	 
+                            if (data[x][0] === sessionId){                              
+                                var playerList = data[x][3].split(",");
+                                playerListReturn = playerList;
+                            }
+                        }
+                  });
+                  
+                  return playerListReturn;
+              }            
+            
+            
+          function startGame(sessionId){
+            var playerList = getPlayerList(sessionId);
+            if (playerList.length < 2){
+                console.log("error, not enough players");
+                return;
+            }
+            console.log(playerList);
+            $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "startgame", players: playerList},
+                  success: checkStartGame()
+                  })
+             
+          }            
+            
+            
+            
             function logout(){
                 $.ajax({
                   type: "POST",
                   url: "MainServlet",
                   dataType : 'json',
                   data: {command: "logout"}
-                  }).done(function( data ) {
-                            alert("done");
-
-
-                  }); 
+                  })
                 setTimeout(function () { window.location.href = 'login.jsp';}, 2000);
               }
             function updatePlayerList(){
@@ -176,75 +249,60 @@
                   });
             }              
               
-              
+            function printGameData(x,data,sessionId){
+                          
+                          var gameSessionId = data[x][0]; var gameName = data[x][1]; var createdBy = data[x][2]; var players = data[x][3];
+                          
+                          $.ajax({
+                            type: "POST",
+                            url: "MainServlet",
+                            dataType : 'json',
+                            data: {command: "usercheck",gamesessionid: gameSessionId},
+                            async:false,
+                            success: function(inGame) {
+                                //console.log(data[x]);
+                            //console.log("for game " + gameName + " the answer is " + inGame);
+                            
+                            if (inGame === true){
+                            if (sessionId === gameSessionId){
+                                $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary start" onclick="startGame(\'' + gameSessionId + '\')">Start</button>&nbsp;<button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');
+                            }
+                            else{
+                                $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');                                
+                            }
+                            $(".join").hide();
+                            $("#create-game").hide();
+                            $("#ingame").html("true");
+
+                            }
+                            else{  
+                              $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary join" onclick="joinGame(\'' + gameSessionId + '\')">Join</button></div></li>');
+                              
+                            if ($("#ingame").html() === "true"){
+                                  $(".join").hide();
+                              }
+                              
+                              
+                            }
+                            applyToolTip();
+                          
+                            }
+                      });                
+            }
               
             function doUpdateGameList(sessionId){
                 $.ajax({
                   type: "POST",
                   url: "MainServlet",
                   dataType : 'json',
-                  data: {command: "getgames"}
+                  async:false,
+                  data: {command: "getgames"},
                   }).done(function( data ) { 
-                      var html = ""
-                      var inGame = true;
-                      var gameSessionId; var gameName; var createdBy; var players;
+                      //console.log(data);
+                      $("#avaliable-games").html("");
                       for(var x in data){
-                          gameSessionId = data[x][0]; gameName = data[x][1]; createdBy = data[x][2]; players = data[x][3];
-                          
-
-                          
-                          if (sessionId === gameSessionId){
-                              html = html.concat('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary start" onclick="startGame()">Start</button>&nbsp;<button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');
-                              //inGame = true;
-                              //concat game creator list item
-                              //set inGame = true
-                          }
-                          else{
-                              
-                              
-                              html = html.concat('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary join" onclick="joinGame(\'' + gameSessionId + '\')">Join</button></div></li>');
-                              //do a normal join list item
-                          }
-                          //html = html.concat('<li id="' + data[playerIndex] +'" class="list-group-item">' + data[playerIndex] + '</li>');
-                      }
-                      //check if ingame
-                      
-                                                $.ajax({
-                            type: "POST",
-                            url: "MainServlet",
-                            dataType : 'json',
-                            data: {command: "usercheck",gamesessionid: gameSessionId},
-                            success: function(data) {
-                                if (data === true){
-                                    //console.log("true");
-                                    $(".join").hide();
-                          $("#create-game").hide();
-                                    inGame = true;
-                            }
-                                else{
-                                    //console.log("false");
-                                    $(".join").show();
-                          $("#create-game").show();
-                                    inGame = false;
-                            } 
-                            //console.log(inGame);  
-                                
-
-                      if (inGame === true){
-                          $(".join").hide();
-                          $("#create-game").hide();
-                      }
-                      else{
-                          $(".join").show();
-                          $("#create-game").show();
-                      }
-                            }
-                            
-                            });                      
-                      //check if html has changed. if not then it's not worth updating
-                      if (html != $("#avaliable-games").html()){
-                          $( "#avaliable-games" ).html(html);
-                      }
+                          printGameData(x,data,sessionId);
+                    }
                   }); 
               }
               
@@ -262,12 +320,7 @@
                   dataType : 'json',
                   data: {command: "creategame", username: username, gamename: gamename},
                   success: updateGameList()
-                  }).done(function( data ) {
-                      console.log(data);
-                    //updateGameList();
-                    
-
-                  }); 
+                  });
           }
           
         function leaveGame(){
@@ -277,9 +330,17 @@
                   url: "MainServlet",
                   dataType : 'json',
                   data: {command: "leavegame"},
-                  success: updateGameList()
-                  })
-            }          
+                  success: leaveGameSuccess()
+                  });
+               
+            }
+        function leaveGameSuccess(){
+            $(".join").show();
+            $("#ingame").html("false");
+            $("#create-game").show();
+            updateGameList();
+        }    
+            
         function joinGame(sessionId){
             console.log("joining game");
             var username = $('#username').text();

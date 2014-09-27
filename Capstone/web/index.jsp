@@ -7,7 +7,7 @@
 <%@page import="java.util.Arrays"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html> 
     <head>
         <!--load scripts-->
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/layouts.js"></script>

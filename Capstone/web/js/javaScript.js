@@ -194,7 +194,7 @@ function mouseoutHandler(){
         for (i = 0; i < nodes.length; i++) {
             var ter = nodes[i].territoy.toString();
             var controller = nodes[i].controllingPlayer.toString();
-            if (controller.replace(/ /g,'') === ""){
+            if ((controller.replace(/ /g,'') === "") || controller === "Nomad" ){
             }
             else{
             $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/"+(getPlayersHouse(controller)).replace(/ /g,'')+".png");}

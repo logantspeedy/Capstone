@@ -29,8 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- *
+/** 
  * @author Taylor
  */
 @WebServlet(name = "MainServlet", urlPatterns = {"/MainServlet"})
@@ -787,7 +786,7 @@ public class MainServlet extends HttpServlet {
         
         
         String houseJson = gson.toJson(house);
-        //        System.out.println("Return Value AFTER setting:" + houseJson);
+        System.out.println("Return Value AFTER setting:" + houseJson);
         return houseJson;
      }
     

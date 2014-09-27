@@ -38,7 +38,7 @@ public class CreateGameBoard {
                     if(i < 5 || i == 6){
                         nodes.add(new Node(territories[i], "Nomad", " ", 5, adjTerritories[i]));
                     }
-                    //else if()
+                    
                     nodes.add(new Node(territories[i], " ", " ", 0, adjTerritories[i]));
 		}
 	}

@@ -511,5 +511,11 @@ public class Game {
         public void removePlayer(String player){
             Player inactive = getPlayer(player);
             inactive.active = false;
+            if(inactive.equals(currentPlayer)){
+                while(!currentPlayer.active){
+                    nextPhase();
+                }
+            }
+           
         }
 }

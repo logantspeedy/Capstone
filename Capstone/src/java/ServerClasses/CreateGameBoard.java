@@ -34,8 +34,12 @@ public class CreateGameBoard {
 				{"Vaes Dorthrak"}, {"Vaes Dorthrak"},{"Vaes Dorthrak","Village of Lhazareen","The Red Waste","Qarth Island"},
 				{"Ghisear","Village of Lhazareen","Bayasabhad","Qarth Island"},{"The Red Waste","Bayasabhad"}};
 		nodes = new ArrayList<Node>();
-		for(int i = 0; i < 42; i++){			
-			nodes.add(new Node(territories[i], " ", " ", 0, adjTerritories[i]));
+		for(int i = 0; i < 42; i++){	
+                    if(i < 5 || i == 6){
+                        nodes.add(new Node(territories[i], "Nomad", " ", 5, adjTerritories[i]));
+                    }
+                    //else if()
+                    nodes.add(new Node(territories[i], " ", " ", 0, adjTerritories[i]));
 		}
 	}
 	

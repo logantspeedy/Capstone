@@ -36,7 +36,7 @@
 
 
 
-<!--            <div class="infoTable" id="info" style="z-index: 1">
+            <div class="infoTable" id="info" style="z-index: 1">
                 <img id ="playersBanner" style="height: 120%; float: left " src="" >
                 <table class="infoCss" >
                     <tr class="infoCss">
@@ -50,7 +50,7 @@
                     <th class="infoCss" id="history" style="padding-bottom: 10px" ><h3>History</h3></th>
                     </tr>
                 </table>
-            </div>-->
+            </div>
 
             <div class="playerBanners">
                 <div class="banners">
@@ -100,48 +100,48 @@
 
 
             <div class= "flags" id="flags" style='z-index:9;'>
-<!--<p width='5%'  style='position:absolute; z-index:2; display:inline; left: 19.4%;top: 67.9%;'    id='numAshford'      >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left: 14.4%; top: 61.6%;'   id='numTheReach'    >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left: 15%;   top: 51.6%;'   id='numWesterlands'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left: 20.5%;top: 54.0%;'   id='numHarrenhal'    >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left: 24.6%;top: 46.6%;'   id='numTheEyrie'    >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left: 24.2%; top: 57.9%;'   id='numKingsLanding' >0</p>
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left: 25.9%; top: 66.8%;'    id='numStormlands'   >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left: 26.2%;top: 78.9%;'    id='numDorne'        >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left: 17.9%; top: 38.0%;'   id='numTheTwins'    >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:17.9%;  top:30.4%;'     id='numBarrowlands'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left: 21.46%;top: 21.0%;'    id='numWinterfell'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left: 25.0%; top: 27.7%;'    id='numWidowsWatch'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left: 28.6%; top:18%;'       id='numKarhold'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:22.4%;  top:12%;'        id='numCastleBlack'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:21%;    top:6.1%;'      id='numTheHauntedForest'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:12.7%;  top:29%;'       id='numTheRills'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:14.8%;  top:22.3%;'    id='numWolfswood'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:13.5%;  top:73.9%;'     id='numBrightwaterKeep'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:13.2%; top:6.1%;' id='numTheLandsofAlwaysWinter'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:19.2%; top:77.2%;' id='numSkyreach'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:42%; top:76%;' id='numTheDisputedLands'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:43.8%; top:68%;' id='numTheGoldenFields'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:40.5%; top:60.5%;' id='numTheFlatlands'  >0</p>
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:38.3%; top:51.5%;' id='numBraavosianCoastlands'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:42.4%; top:55.1%;' id='numBraavos'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:47.4%; top:52.3%;' id='numHillsofNorvos'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:55%; top:51%;' id='numForestofLohor'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:53.3%; top:67.8%;' id='numVolantis'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:63.8%; top:67%;' id='numBhonash'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:73.4%; top:84%;' id='numGhisear'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:82%; top:82.5%;' id='numTheRedWaste'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:87.8%; top:71.7%;' id='numBayasabhad'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:94.4%; top:96%;' id='numQarthIsland'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:96.1%; top:45.3%;' id='numEasternDathrakiSea'  >0</p>
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:84.1%; top:45.2%;' id='numVaesDorthrak'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:67%; top:51%;' id='numNorthernDathrakiSea'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:84.6%; top:23.7%;' id='numPaltofIllen'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:77.6%; top:60.9%;' id='numVillageofLhazareen'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:57.7%; top:95.6%;' id='numValyria'  >0</p>
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:8.7%; top:45.8%;' id='numPyke'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:32.4%; top:54.8%;' id='numDragonStone'  >0</p> 
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left:33.3%; top:9.7%;' id='numBayofSeals' >0</p> -->
+<p width='5%'  style='position:absolute; z-index:2; display:inline; left: 20.2%;top: 64.9%;'    id='numAshford'      ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left: 15.2%; top: 58.6%;'   id='numTheReach'    ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left: 15.8%;   top: 48.6%;'   id='numWesterlands'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left: 21.3%;top: 51.0%;'   id='numHarrenhal'    ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left: 25.4%;top: 43.6%;'   id='numTheEyrie'    ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left: 25%; top: 54.9%;'   id='numKingsLanding' ></p>
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left: 26.7%; top: 63.8%;'    id='numStormlands'   ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left: 27%;top: 75.9%;'    id='numDorne'        ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left: 18.7%; top: 35.0%;'   id='numTheTwins'    ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:18.7%;  top:27.4%;'     id='numBarrowlands'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left: 22.3%;top: 18.0%;'    id='numWinterfell'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left: 25.8%; top: 24.7%;'    id='numWidowsWatch'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left: 29.4%; top:15%;'       id='numKarhold'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:23.2%;  top:9%;'        id='numCastleBlack'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:21.8%;    top:3.1%;'      id='numTheHauntedForest'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:13.5%;  top:26%;'       id='numTheRills'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:15.6%;  top:19.3%;'    id='numWolfswood'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:14.3%;  top:70.9%;'     id='numBrightwaterKeep'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:14%; top:3.1%;' id='numTheLandsofAlwaysWinter'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:20%; top:74.2%;' id='numSkyreach'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:42.8%; top:73%;' id='numTheDisputedLands'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:44.6%; top:65%;' id='numTheGoldenFields'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:41.3%; top:57.5%;' id='numTheFlatlands'  ></p>
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:39.1%; top:48.5%;' id='numBraavosianCoastlands'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:43.2%; top:52.1%;' id='numBraavos'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:48.2%; top:49.3%;' id='numHillsofNorvos'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:55.8%; top:48%;' id='numForestofLohor'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:54.1%; top:64.8%;' id='numVolantis'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:64.6%; top:64%;' id='numBhonash'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:74.2%; top:81%;' id='numGhisear'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:82.8%; top:79.5%;' id='numTheRedWaste'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:88.6%; top:68.7%;' id='numBayasabhad'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:95.2%; top:93%;' id='numQarthIsland'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:96.9%; top:42.3%;' id='numEasternDathrakiSea'  ></p>
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:84.9%; top:42.2%;' id='numVaesDorthrak'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:67.8%; top:48%;' id='numNorthernDathrakiSea'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:85.4%; top:20.7%;' id='numPaltofIllen'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:78.4%; top:57.9%;' id='numVillageofLhazareen'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:58.5%; top:92.6%;' id='numValyria'  ></p>
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:9.5%; top:42.8%;' id='numPyke'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:33.2%; top:51.8%;' id='numDragonStone'  ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left:34.1%; top:6.7%;' id='numBayofSeals' ></p> 
                 <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 19.4%;top: 62.9%;'    id='imgAshford'     src='images/houseFlags/blank.png' /> 
                 <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 14.4%; top: 56.6%;'   id='imgTheReach'   src='images/houseFlags/blank.png' /> 
                 <img width='auto' height='5%' style='position:absolute; z-index:2; display:inline; left: 15%;   top: 46.6%;'   id='imgWesterlands' src='images/houseFlags/blank.png' /> 
@@ -352,7 +352,7 @@
                     insertNav();
                     window.setInterval(updateDisplay(), 2000);
     //                updateDisplay();
-                    setSVGClickEvents();    
+ 
                 }
 
             });

@@ -282,6 +282,7 @@ function mouseoutHandler(){
         getGameJSON();
         setFlags();
         insertInfoTable();
+        setTerTroop();
     }
     var first = null;
     var second = null;
@@ -495,3 +496,18 @@ function mouseoutHandler(){
     function endPhase(){
         post({command:"nextphase"});
     }
+    
+    function setTerTroop(){
+        for (i = 0; i < nodes.length; i++) {
+            var ter = nodes[i].territoy.toString();
+            var controller = nodes[i].controllingPlayer.toString();
+            var number = getTerritotyTroopCount(ter);
+            if (controller.replace(/ /g,'') === ""){
+            }
+            else{
+                if(number !== 0){
+                    $('#num'+ter.replace(/ /g,'')).empty().append("<strong>"+getTerritotyTroopCount(ter)+"</strong>");
+			}
+                    }
+    }
+}

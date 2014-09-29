@@ -147,7 +147,7 @@
                         button: true
                         },
 
-                    attr: 'title' // Tell qTip2 to look inside this attr for its content
+                    attr: 'titlee' // Tell qTip2 to look inside this attr for its content
                     },
                 position: {
 

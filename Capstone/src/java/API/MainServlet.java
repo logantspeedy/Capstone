@@ -231,10 +231,10 @@ public class MainServlet extends HttpServlet {
         MainServletListener listener = new MainServletListener(); 
         //create new session or get current session
         
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         Boolean joined = false;
         HttpSession oldSession = null;
-        if (session.getAttribute("joinedgame") != null){
+        if (session != null && session.getAttribute("joinedgame") != null){
             String sessionId = (String) session.getAttribute("joinedgame");
             oldSession = session;
             session = listener.findGame(sessionId); 
@@ -317,7 +317,6 @@ public class MainServlet extends HttpServlet {
                     
                     session.setAttribute("username", username);
                     session.setAttribute("joinedgame", gameID);
-                    session.setAttribute("joinedgame", gameID);
                     out.println("done joining game");
                     break;
                     //given username, game session id
@@ -371,12 +370,14 @@ public class MainServlet extends HttpServlet {
                 }
             case "getsessionidlobby":
                 {
-                    String sessionId;
+                    String sessionId = "0";
                     if (joined == true){
                         sessionId = oldSession.getId();
                     }
                     else{
-                        sessionId = session.getId();
+                        if (session!=null){
+                            sessionId = session.getId();
+                        }
                     }
 
                     Gson gson = new Gson();     

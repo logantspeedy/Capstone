@@ -7,6 +7,9 @@
 	<display-name>Authentication Spike</display-name>
 	<listener>
 		<listener-class>capstone.spike.authentication.AuthenticationListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>capstone.spike.authentication.StateServlet</listener-class>
 	</listener>
 	<servlet>
 		<description>
@@ -43,7 +46,15 @@
 		<servlet-name>Login</servlet-name>
 		<servlet-class>capstone.spike.authentication.Login</servlet-class>
 	</servlet>
-	<servlet-mapping>
+    <servlet>
+        <servlet-name>StateServlet</servlet-name>
+        <servlet-class>capstone.spike.authentication.StateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StateServlet</servlet-name>
+        <url-pattern>/state.json</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
 		<servlet-name>OpenIDAuthentication</servlet-name>
 		<url-pattern>/openid</url-pattern>
 	</servlet-mapping>

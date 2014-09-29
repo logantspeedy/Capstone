@@ -2,6 +2,8 @@
 <html>
 	<head>
 		<title>Winter is coming!</title>
+        <script src="https://apis.google.com/js/client:plusone.js"></script>
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<style>
 			@import url(http://fonts.googleapis.com/css?family=Shadows+Into+Light);
 
@@ -29,7 +31,7 @@
 				text-align: center;
 			}
 
-			section img {
+			#g-signin {
 				display: block;
 				margin-left: auto;
 				margin-right: auto;
@@ -42,12 +44,62 @@
 			<h1>Winter is coming!</h1>
 		</header>
 		<section>
-			<a href="game.html">
-				<img id="loginGoogle" src="img/sign_in_button_google.png" width="274" height="62" alt="Sign in with Google"></img>
-			</a>
+            <div id="gConnect">
+                <button class="g-signin"
+                        data-scope="https://www.googleapis.com/auth/plus.login"
+                        data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                        data-clientId="204514599274-335lh9jmkqufcj9uj94136pobff9brt1.apps.g$
+            data-accesstype="offline"
+                data-callback="onSignInCallback"
+                data-cookiepolicy="single_host_origin"
+                data-width="wide">
+                </button>
+            </div>
 		</section>
 		<footer>
 			<p>Copyright 2014</p>
 		</footer>
-	</body>
+        <script>
+
+            var requestToken = function() {
+                var state;
+                return function( callback ) {
+
+                    if ( state !== undefined ) {
+                        callback( state );
+                        return
+                    }
+
+                    $.ajax({
+                        dataType: 'json',
+                        url: 'state.json',
+                        success: function( data ) {
+                            state = data.state;
+                            callback( state );
+                        }
+                    });
+                };
+            }();
+
+            var onSignInCallback = function( authResult ) {
+
+                if ( authResult['code'] ) {
+
+                    $( '#gConnect' ).hide();
+                    requestToken( function( state ) {
+                        $.ajax({
+                            type: 'POST',
+                            url: 'connect?state=' + state,
+                            contentType: 'application/octet-stream; charset=utf-8',
+                            success: function( result ) {
+                                console.log( result );
+                            },
+                            processData: false,
+                            data: authResult['code']
+                        });
+                    });
+                };
+            };
+        </script>
+    </body>
 </html>

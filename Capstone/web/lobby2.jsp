@@ -16,7 +16,7 @@
         <!--load scripts-->
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/layouts.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/pagesizing.js"></script>
-        <!--<script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>-->
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>
         
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
         
@@ -135,7 +135,7 @@
 </body>
         
 <script>
-            
+            setCookie("username", session.getAttribute("username"),20);
             updatePlayerList();updateGameList();checkStartGame();applyToolTip();
             setInterval(function(){updatePlayerList();updateGameList();checkStartGame();}, 5000);
             function applyToolTip(){

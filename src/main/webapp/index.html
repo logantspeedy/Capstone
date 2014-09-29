@@ -48,11 +48,11 @@
                 <button class="g-signin"
                         data-scope="https://www.googleapis.com/auth/plus.login"
                         data-requestvisibleactions="http://schemas.google.com/AddActivity"
-                        data-clientId="204514599274-335lh9jmkqufcj9uj94136pobff9brt1.apps.g$
-            data-accesstype="offline"
-                data-callback="onSignInCallback"
-                data-cookiepolicy="single_host_origin"
-                data-width="wide">
+                        data-clientId="110076700425-pvvvqklvu9tdef18geepbn5vplv2tcpr.apps.googleusercontent.com"
+                        data-accesstype="offline"
+                        data-callback="onSignInCallback"
+                        data-cookiepolicy="single_host_origin"
+                        data-width="wide">
                 </button>
             </div>
 		</section>
@@ -92,7 +92,7 @@
                             url: 'connect?state=' + state,
                             contentType: 'application/octet-stream; charset=utf-8',
                             success: function( result ) {
-                                console.log( result );
+                                location.href = "game.html";
                             },
                             processData: false,
                             data: authResult['code']

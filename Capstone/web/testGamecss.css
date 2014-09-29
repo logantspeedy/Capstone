@@ -47,21 +47,25 @@ body {
   
 }
 .infoTable{
-    width: 30%;
-    height:28%;
+    width: 17%;
+    height:12%;
     z-index: 3;
     position:absolute;
-    margin-top: 4%;
-    margin-left: 40%;
+    margin-top: 6%;
+    margin-left: 53%;
     font-size: 1vw;
     /*background: blue;*/
     /*float: top;*/
     /*background-color: green;*/
   
 }
+.phase{
+    width:100%;
+    height: 100%;
+}
 
 table.infoCss, th.infoCss, td.infoCss {
-   /*border: 1px solid white;*/
+   border: 1px solid white;
    font-family:Cordia New;
    color: #d2caa0;
    vertical-align: top;
@@ -109,7 +113,7 @@ a:active {
 .mainContainer{
     margin-top: 1%;
     border-width: 4px;
-    border-color: white;
+    border-color: whitesmoke;
     border-style: solid;
     width:100%;
     height:88%;
@@ -202,4 +206,27 @@ path:hover, g:hover path{
     height:0.2%;
     float:left;
     /*background-color:green;*/ 
+}
+
+.chat{
+    width: 35%;
+    height:16%;
+    background: #d2caa0;
+    position: absolute;
+    margin-top: 41%;
+    margin-left: 11%;
+}
+.chatContent{
+    width: 100%;
+    height:80%;
+    background: #d2caa0;
+}
+.chatEnterText{
+    width: 100%;
+    height:20%;
+    background: #826c47;
+    text-align: left;
+    color:whitesmoke;
+    font-size: 1vw;
+    
 }

@@ -36,6 +36,7 @@ function testGame(){
 
             }
         };
+        location.reload();
 }
     function getSessionId(){
             
@@ -192,11 +193,8 @@ function mouseoutHandler(){
     }
     
     function insertInfoTable(){
-        
-        $('#playersBanner').attr("src","images/banners/"+house+"Banner.png");
-        $('#phase').empty().append("<h3>PHASE</h3>"+"<hr>"+currentPhase);
-        $('#currentPlayer').empty().append("<h3>CURRENT PLAYER</h3>"+"<hr>"+currentPlayer);
-        $('#bonuses').empty().append("<h3>Bonuses</h3>"+"<hr>"+currentPlayerHouse+"</br>"+" Free Troops:" +currentPlayerTroops);
+        $('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/claim.png'</img>");
+      
     }
     
     function setFlags(){

@@ -73,3 +73,6 @@ img{
     /*float:top;*/
     text-align:center;
 }
+#ingame{
+    display:none;
+}

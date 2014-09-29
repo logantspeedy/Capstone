@@ -8,14 +8,23 @@ function test(i){alert(i);}
 function playerBanners(){
     $("div.banners").attr("turn", "false");
     $("div.banners").attr("isAlive", "false");
-    var bannerId = "#"+currentPlayerHouse +"Banner";
+    if (currentPlayerHouse === ""){
+        currentPlayerHouse =  post({command:"getplayershouse", player:gameJSON.startingPlayer}).toLowerCase();
+        playerBanners();
+    }
+    else{
+    var bannerId = "#"+currentPlayerHouse.toLowerCase() +"Banner";
     $(bannerId).attr("turn", "true");
     var arrayLength = playerList.length;
     for (var i = 0; i < arrayLength; i++) {
         var ph = playerList[i].house;
-        var bannerId = "#"+ph +"Banner";
+//        var alive = playerList[i].isAlive;
+        var bannerId = "#"+ph.toLowerCase() +"Banner";
+//        $(bannerId).attr("isAlive", alive);
         $(bannerId).attr("isAlive", "true");
-    }
+    }}
+    
+    
     
     
 
@@ -23,11 +32,9 @@ function playerBanners(){
 
 function testGameSwitchPlayer(){
     var p = getCookie();
-    console.log(p);
     if (p==="player1"){setCookie("username", "player2",20);}
     if (p==="player2"){setCookie("username", "player1",20);}
         var p = getCookie();
-    console.log(p);
     location.reload();
 }
 function testGame(){
@@ -285,12 +292,15 @@ function mouseoutHandler(){
         
     }
     
-    function updateDisplay(){
-        getGameJSON();
-        setFlags();
-        insertInfoTable();
-        setTerTroop();
-        playerBanners();
+    function updateDisplay(call){
+        if (call===1){getGameJSON(); updateDisplay(call+1);}
+        if (call===2){setFlags(); updateDisplay(call+1);}
+        if (call===3){insertInfoTable(); updateDisplay(call+1);}
+        if (call===4){setTerTroop(); updateDisplay(call+1);}
+        if (call===5){playerBanners(); updateDisplay(call+1);}
+//        if (call===6){console.log("diplay updated");}
+
+        
     }
     var first = null;
     var second = null;

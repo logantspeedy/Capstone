@@ -211,15 +211,19 @@ path:hover, g:hover path{
 .chat{
     width: 35%;
     height:16%;
-    background: #d2caa0;
+    /*background: #d2caa0;*/
     position: absolute;
     margin-top: 41%;
     margin-left: 11%;
+    
 }
 .chatContent{
     width: 100%;
     height:80%;
     background: #d2caa0;
+    border: 0.1vw solid;
+    border-radius: 0.5vw;
+    
 }
 .chatEnterText{
     width: 100%;
@@ -227,8 +231,10 @@ path:hover, g:hover path{
     background: #826c47;
     text-align: left;
     color:whitesmoke;
+
     font-size: 1vw;
-    
+    border: 0.1vw solid;
+    border-radius: 0.5vw;    
 }
 
 .banners[turn = "true"] {     

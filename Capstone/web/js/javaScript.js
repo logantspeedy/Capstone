@@ -4,6 +4,23 @@
  * and open the template in the editor.
  */
 function test(i){alert(i);}
+
+function playerBanners(){
+    $("div.banners").attr("turn", "false");
+    $("div.banners").attr("isAlive", "false");
+    var bannerId = "#"+currentPlayerHouse +"Banner";
+    $(bannerId).attr("turn", "true");
+    var arrayLength = playerList.length;
+    for (var i = 0; i < arrayLength; i++) {
+        var ph = playerList[i].house;
+        var bannerId = "#"+ph +"Banner";
+        $(bannerId).attr("isAlive", "true");
+    }
+    
+    
+
+}
+
 function testGameSwitchPlayer(){
     var p = getCookie();
     console.log(p);
@@ -119,9 +136,11 @@ function mouseoutHandler(){
     var nodes = null;
     var player = getCookie();
     var house = null;   
+    var playerList = null;
     
     function getGameJSON(){
         gameJSON = post({command:"getgamedata"});
+        playerList = gameJSON.playerList;
         currentPhase = gameJSON.currentPhase.toString();
         currentPlayer = gameJSON.currentPlayer.name.toString();
         currentPlayerHouse = gameJSON.currentPlayer.house.toString();
@@ -271,6 +290,7 @@ function mouseoutHandler(){
         setFlags();
         insertInfoTable();
         setTerTroop();
+        playerBanners();
     }
     var first = null;
     var second = null;

@@ -230,3 +230,19 @@ path:hover, g:hover path{
     font-size: 1vw;
     
 }
+
+.banners[turn = "true"] {     
+    opacity: 1;
+}
+
+.banners[turn = "false"] {
+    opacity: 0.3;
+}
+
+.banners[isAlive = "true"] {     
+    background-color: transparent ;
+}
+
+.banners[isAlive = "false"] {
+    background-color: firebrick;
+}

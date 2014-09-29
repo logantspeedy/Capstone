@@ -41,42 +41,42 @@
             </div>
 
             <div class="playerBanners">
-                <div class="banners">
+                <div class="banners" turn="false" id="StarkBanner">
                 <img width='100%' height='auto' src='images/banners/starkBanner.png'/>
                 </div>
                 <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
                 
                 <div class="bannerSpacer"></div>
                 
-                <div class="banners">
+                <div class="banners" turn="false" id="LannisterBanner">
                 <img width='100%' height='auto' src='images/banners/lannisterBanner.png' />
                 </div>
                 <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
                 
                 <div class="bannerSpacer"></div>
                 
-                <div class="banners">
+                <div class="banners" turn="false" id="GreyjoyBanner">
                 <img width='100%' height='auto'  src='images/banners/greyjoyBanner.png' />
                 </div>
                 <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
                 
                 <div class="bannerSpacer"></div>
                 
-                <div class="banners">
+                <div class="banners" turn="false" id="BaratheonBanner">
                 <img width='100%' height='auto' src='images/banners/baratheonBanner.png' />
                 </div>
                 <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
                 
                 <div class="bannerSpacer"></div>
                 
-                <div class="banners">
+                <div class="banners" turn="false" id="DothrakiBanner">
                 <img width='100%' height='auto'  src='images/banners/dothrakiBanner.png' />
                 </div>
                 <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
                 
                 <div class="bannerSpacer"></div>
                 
-                <div class="banners">
+                <div class="banners" turn="false" id="TargaryenBanner">
                 <img width='100%' height='auto'  src='images/banners/targaryenBanner.png' />
                 </div>
                 <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->

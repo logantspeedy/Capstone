@@ -870,17 +870,20 @@ public class MainServlet extends HttpServlet {
     
     public String getSessionId(HttpServletRequest request,HttpSession session){
         
-        System.out.println("Session id is"+ session.getId());
+        System.out.println("Session id is: "+ session.getId());
         
-        Enumeration e = session.getAttributeNames();
-            while (e.hasMoreElements()) {
-            String name = (String)e.nextElement();
-    //        System.out.println(name);
-            String value = session.getAttribute(name).toString();
-    //        System.out.println(value);
-        }
-        return null;} 
+//        Enumeration e = session.getAttributeNames();
+//            while (e.hasMoreElements()) {
+//            String name = (String)e.nextElement();
+//    //        System.out.println(name);
+//            String value = session.getAttribute(name).toString();
+//    //        System.out.println(value);
+//        }
+        String id = session.getId();
+        System.out.println(id);
+        return id;} 
 }
+
 
 
 

@@ -135,7 +135,7 @@
 </body>
         
 <script>
-            setCookie("username", session.getAttribute("username"),20);
+            setCookie("username", $('#username').text(),20);
             updatePlayerList();updateGameList();checkStartGame();applyToolTip();
             setInterval(function(){updatePlayerList();updateGameList();checkStartGame();}, 5000);
             function applyToolTip(){

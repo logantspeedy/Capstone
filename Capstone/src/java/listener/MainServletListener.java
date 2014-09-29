@@ -42,6 +42,9 @@ public class MainServletListener implements HttpSessionListener, HttpSessionAttr
         }
         if (session.getAttribute("joinedgame") != null){
             HttpSession gameSession = findGame((String) session.getAttribute("joinedgame"));
+            if (gameSession.getAttribute("players") == null){
+                return;
+            }
             ArrayList<String> players = (ArrayList<String>) gameSession.getAttribute("players");
             players.remove((String) session.getAttribute("username")); 
             gameSession.setAttribute("players", players);
@@ -68,6 +71,20 @@ public class MainServletListener implements HttpSessionListener, HttpSessionAttr
         if (event.getName().equals("gamename")){
             gameSessions.remove(event.getSession().getId());         
         }
+        if (event.getName().equals("joinedgame")){
+            HttpSession gameSession = findGame((String) event.getValue());
+            if (gameSession.getAttribute("players") == null){
+                return;
+            }
+            ArrayList<String> players = (ArrayList<String>) gameSession.getAttribute("players");
+            String username = (String) event.getSession().getAttribute("username");
+            for (String player : players){
+                if (player.equals(username)){
+                    players.remove(player);
+                }
+            }
+        }
+        
         checkPlayers();
     }
 
@@ -95,6 +112,18 @@ public class MainServletListener implements HttpSessionListener, HttpSessionAttr
     
     public Set getPlayerSessions(){
         return playerSessions.keySet();
+    }
+    
+    public ArrayList<String> getPlayerNames(){
+        ArrayList<String> playerNames = new ArrayList<>();
+        for (String session : playerSessions.keySet()){
+            HttpSession playerSession = playerSessions.get(session);
+            if (playerSession.getAttribute("username") != null){
+                String username = (String) playerSession.getAttribute("username");
+                playerNames.add(username);
+            }    
+        }
+        return playerNames;
     }
     
     public HttpSession findGame(String sessionId) {

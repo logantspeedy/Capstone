@@ -4,6 +4,15 @@
  * and open the template in the editor.
  */
 function test(i){alert(i);}
+function testGameSwitchPlayer(){
+    var p = getCookie();
+    console.log(p);
+    if (p==="player1"){setCookie("username", "player2",20);}
+    if (p==="player2"){setCookie("username", "player1",20);}
+        var p = getCookie();
+    console.log(p);
+    location.reload();
+}
 function testGame(){
         setCookie("username", "player1",20);
   
@@ -229,26 +238,7 @@ function mouseoutHandler(){
         //    }, function () {
         //        this.src = '/images/signup_big.png';
         //    });
-        var html="<table>"+
-                    "<tr>"+
-                        "<td style='width: 33.3% ;'></td>"+
-                        "<td style='width: 33.3%; color: #573d1c;'><h3 >Please Choose a House</h3></td>"+
-                        "<td style='width: 33.3%'></td>"+
-                    "</tr>"+
-                    "<tr>"+
-                        "<td id='starkBanner' style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;   ' src='images/banners/starkBanner.png' ></td>"+
-                        "<td id='greyjoyBanner' style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/greyjoyBanner.png' ></td>"+
-                        "<td id='lannisterBanner'style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/lannisterBanner.png' ></td>"+
-                    "</tr>"+
-                    "<tr>"+
-                        "<td id='baratheonBanner' style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/baratheonBanner.png' ></td>"+
-                        "<td id='dothrakiBanner' style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/dothrakiBanner.png' ></td>"+
-                        "<td id='targaryenBanner' style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/targaryenBanner.png' ></td>"+
-                    "</tr>"+
-                "</table>";
-        document.getElementById('chooseHouse').innerHTML += html;
-//        element1 = document.getElementById("starkBanner");
-//        element1.addEventListener("click", post({command:"sethouse" ,house:"Stark"}), false);
+ 
         
         $("#starkBanner").click(function() {
         post({command:"sethouse" , player:getCookie(),house:"Stark"});
@@ -282,6 +272,7 @@ function mouseoutHandler(){
         getGameJSON();
         setFlags();
         insertInfoTable();
+        setTerTroop();
     }
     var first = null;
     var second = null;
@@ -495,3 +486,18 @@ function mouseoutHandler(){
     function endPhase(){
         post({command:"nextphase"});
     }
+    
+    function setTerTroop(){
+        for (i = 0; i < nodes.length; i++) {
+            var ter = nodes[i].territoy.toString();
+            var controller = nodes[i].controllingPlayer.toString();
+            var number = getTerritotyTroopCount(ter);
+            if (controller.replace(/ /g,'') === ""){
+            }
+            else{
+                if(number !== 0){
+                    $('#num'+ter.replace(/ /g,'')).empty().append("<strong>"+getTerritotyTroopCount(ter)+"</strong>");
+			}
+                    }
+    }
+}

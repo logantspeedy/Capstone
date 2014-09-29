@@ -1,3 +1,9 @@
+@font-face {
+    font-family: CharleMagne;
+    src: url(fonts/CharlemagneStd-Bold.otf);
+}
+
+
 html { 
     background: url("../images/background/blackpattern3.jpg") no-repeat center center fixed; 
     -webkit-background-size: cover;
@@ -8,6 +14,7 @@ html {
 }
 
 body {
+    
     overflow:scroll;
     overflow-x: auto; 
 }

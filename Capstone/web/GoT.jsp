@@ -335,10 +335,7 @@
         <div class="footer" ></div>
 
         <script>
-            $(document).mousemove(function(e) {
-                $("#follower").css({"left": e.offsetX + 50, "top": e.offsetY - 20});
-                //$("#follower").css({"left":e.pageX, "top":e.pageY});
-            });
+
             $(document).ready(function()
             {
                 checkGame = post({command:"getgamedata"});
@@ -355,6 +352,10 @@
  
                 }
 
+            });
+            $(document).mousemove(function(e) {
+                $("#follower").css({"left": e.offsetX + 50, "top": e.offsetY - 20});
+                //$("#follower").css({"left":e.pageX, "top":e.pageY});
             });
 
         </script>

@@ -4,13 +4,37 @@
  * and open the template in the editor.
  */
 function test(i){alert(i);}
+
+function playerBanners(){
+    $("div.banners").attr("turn", "false");
+    $("div.banners").attr("isAlive", "false");
+    if (currentPlayerHouse === ""){
+        currentPlayerHouse =  post({command:"getplayershouse", player:gameJSON.startingPlayer}).toLowerCase();
+        playerBanners();
+    }
+    else{
+    var bannerId = "#"+currentPlayerHouse.toLowerCase() +"Banner";
+    $(bannerId).attr("turn", "true");
+    var arrayLength = playerList.length;
+    for (var i = 0; i < arrayLength; i++) {
+        var ph = playerList[i].house;
+//        var alive = playerList[i].isAlive;
+        var bannerId = "#"+ph.toLowerCase() +"Banner";
+//        $(bannerId).attr("isAlive", alive);
+        $(bannerId).attr("isAlive", "true");
+    }}
+    
+    
+    
+    
+
+}
+
 function testGameSwitchPlayer(){
     var p = getCookie();
-    console.log(p);
     if (p==="player1"){setCookie("username", "player2",20);}
     if (p==="player2"){setCookie("username", "player1",20);}
         var p = getCookie();
-    console.log(p);
     location.reload();
 }
 function testGame(){
@@ -36,6 +60,7 @@ function testGame(){
 
             }
         };
+        location.reload();
 }
     function getSessionId(){
             
@@ -118,9 +143,11 @@ function mouseoutHandler(){
     var nodes = null;
     var player = getCookie();
     var house = null;   
+    var playerList = null;
     
     function getGameJSON(){
         gameJSON = post({command:"getgamedata"});
+        playerList = gameJSON.playerList;
         currentPhase = gameJSON.currentPhase.toString();
         currentPlayer = gameJSON.currentPlayer.name.toString();
         currentPlayerHouse = gameJSON.currentPlayer.house.toString();
@@ -192,18 +219,15 @@ function mouseoutHandler(){
     }
     
     function insertInfoTable(){
-        
-        $('#playersBanner').attr("src","images/banners/"+house+"Banner.png");
-        $('#phase').empty().append("<h3>PHASE</h3>"+"<hr>"+currentPhase);
-        $('#currentPlayer').empty().append("<h3>CURRENT PLAYER</h3>"+"<hr>"+currentPlayer);
-        $('#bonuses').empty().append("<h3>Bonuses</h3>"+"<hr>"+currentPlayerHouse+"</br>"+" Free Troops:" +currentPlayerTroops);
+        $('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/claim.png'</img>");
+      
     }
     
     function setFlags(){
         for (i = 0; i < nodes.length; i++) {
             var ter = nodes[i].territoy.toString();
             var controller = nodes[i].controllingPlayer.toString();
-            if ((controller.replace(/ /g,'') === "") || controller === "Nomad" ){
+            if (controller.replace(/ /g,'') === "" || controller === "Nomad"){
             }
             else{
             $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/"+(getPlayersHouse(controller)).replace(/ /g,'')+".png");}
@@ -268,11 +292,15 @@ function mouseoutHandler(){
         
     }
     
-    function updateDisplay(){
-        getGameJSON();
-        setFlags();
-        insertInfoTable();
-        setTerTroop();
+    function updateDisplay(call){
+        if (call===1){getGameJSON(); updateDisplay(call+1);}
+        if (call===2){setFlags(); updateDisplay(call+1);}
+        if (call===3){insertInfoTable(); updateDisplay(call+1);}
+        if (call===4){setTerTroop(); updateDisplay(call+1);}
+        if (call===5){playerBanners(); updateDisplay(call+1);}
+//        if (call===6){console.log("diplay updated");}
+
+        
     }
     var first = null;
     var second = null;

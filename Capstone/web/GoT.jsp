@@ -37,63 +37,57 @@
 
 
             <div class="infoTable" id="info" style="z-index: 1">
-                <img id ="playersBanner" style="height: 120%; float: left " src="" >
-                <table class="infoCss" >
-                    <tr class="infoCss">
-                        <th></th><th></th>
-                        <th class="infoCss" id="phase" style="padding-bottom: 10px"></th>
-                        <th></th><th></th>
-                        <th class="infoCss" id="currentPlayer" style="padding-bottom: 10px" ></th>
-                        <th></th><th></th>
-                        <th class="infoCss" id="bonuses" style="padding-bottom: 10px" ><h3>BONUSES</h3></th>
-                    <th></th><th></th>
-                    <th class="infoCss" id="history" style="padding-bottom: 10px" ><h3>History</h3></th>
-                    </tr>
-                </table>
+                <div class="phase"></div>
             </div>
 
             <div class="playerBanners">
-                <div class="banners">
+                <div class="banners" turn="false" id="starkBanner">
                 <img width='100%' height='auto' src='images/banners/starkBanner.png'/>
                 </div>
-                <div class="controls"><button onClick="endPhase()">End Phase</button></div>
+                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
                 
                 <div class="bannerSpacer"></div>
                 
-                <div class="banners">
+                <div class="banners" turn="false" id="lannisterBanner">
                 <img width='100%' height='auto' src='images/banners/lannisterBanner.png' />
                 </div>
-                <div class="controls"><button onClick="endPhase()">End Phase</button></div>
+                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
                 
                 <div class="bannerSpacer"></div>
                 
-                <div class="banners">
+                <div class="banners" turn="false" id="greyjoyBanner">
                 <img width='100%' height='auto'  src='images/banners/greyjoyBanner.png' />
                 </div>
-                <div class="controls"><button onClick="endPhase()">End Phase</button></div>
+                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
                 
                 <div class="bannerSpacer"></div>
                 
-                <div class="banners">
+                <div class="banners" turn="false" id="baratheonBanner">
                 <img width='100%' height='auto' src='images/banners/baratheonBanner.png' />
                 </div>
-                <div class="controls"><button onClick="endPhase()">End Phase</button></div>
+                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
                 
                 <div class="bannerSpacer"></div>
                 
-                <div class="banners">
+                <div class="banners" turn="false" id="dothrakiBanner">
                 <img width='100%' height='auto'  src='images/banners/dothrakiBanner.png' />
                 </div>
-                <div class="controls"><button onClick="endPhase()">End Phase</button></div>
+                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
                 
                 <div class="bannerSpacer"></div>
                 
-                <div class="banners">
+                <div class="banners" turn="false" id="targaryenBanner">
                 <img width='100%' height='auto'  src='images/banners/targaryenBanner.png' />
                 </div>
-                <div class="controls"><button onClick="endPhase()">End Phase</button></div>
+                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
             </div>
 
+            <div class="chat" style="z-index: 1">
+                <div class="chatContent"></div>
+                <div class="chatEnterText">Player Name: enter text</div>
+            </div>
+            
+            
             <div id="backGround" style='z-index: 1; height:100% '>
                 <img id="GoTimg" style="width: 100%; height:100%" src="images/gameboard/GoT.jpg" >
             </div> 
@@ -347,13 +341,14 @@
                     insertHeader();
                     insertFooter();
                     insertNav();
-                    window.setInterval(updateDisplay(), 2000);
+                    window.setInterval(updateDisplay(1), 2500);
     //                updateDisplay();
  
                 }
 
             });
             $(document).mousemove(function(e) {
+                window.setInterval(updateDisplay(1), 2500);
                 $("#follower").css({"left": e.offsetX + 50, "top": e.offsetY - 20});
                 //$("#follower").css({"left":e.pageX, "top":e.pageY});
             });

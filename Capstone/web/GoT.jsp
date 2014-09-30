@@ -47,42 +47,42 @@
                 <div class="banners" turn="false" id="starkBanner">
                 <img width='100%' height='auto' src='images/banners/starkBanner.png'/>
                 </div>
-                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
+                <div class="controls" id="starkControls"></button></div>
                 
                 <div class="bannerSpacer"></div>
                 
                 <div class="banners" turn="false" id="lannisterBanner">
                 <img width='100%' height='auto' src='images/banners/lannisterBanner.png' />
                 </div>
-                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
+                <div class="controls" id="lannisterControls"></button></div>
                 
                 <div class="bannerSpacer"></div>
                 
                 <div class="banners" turn="false" id="greyjoyBanner">
                 <img width='100%' height='auto'  src='images/banners/greyjoyBanner.png' />
                 </div>
-                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
+                <div class="controls" id="greyjoyControls"></div>
                 
                 <div class="bannerSpacer"></div>
                 
                 <div class="banners" turn="false" id="baratheonBanner">
                 <img width='100%' height='auto' src='images/banners/baratheonBanner.png' />
                 </div>
-                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
+                <div class="controls" id="baratheonControls"></div>
                 
                 <div class="bannerSpacer"></div>
                 
                 <div class="banners" turn="false" id="dothrakiBanner">
                 <img width='100%' height='auto'  src='images/banners/dothrakiBanner.png' />
                 </div>
-                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
+                <div class="controls" id="dothrakiControls"></div>
                 
                 <div class="bannerSpacer"></div>
                 
                 <div class="banners" turn="false" id="targaryenBanner">
                 <img width='100%' height='auto'  src='images/banners/targaryenBanner.png' />
                 </div>
-                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
+                <div class="controls" id="targaryenControls"></div>
             </div>
 
 <!--            <div class="chat" style="z-index: 1">

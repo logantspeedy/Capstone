@@ -22,13 +22,20 @@ function playerBanners(){
         var bannerId = "#"+ph.toLowerCase() +"Banner";
 //        $(bannerId).attr("isAlive", alive);
         $(bannerId).attr("isAlive", "true");
-    }}
+    }
+    
+        for (var i = 0; i < arrayLength; i++) {
+            var ph = playerList[i].house;
+            var bannerId = "#"+ph.toLowerCase() +"Controls";
+            $(bannerId).empty().append("<p>"+playerList[i].name+"<br>Free Troops:" +playerList[i].army+"</p>");}
+    }
+}
     
     
     
     
 
-}
+
 
 function testGameSwitchPlayer(){
     var p = getCookie();

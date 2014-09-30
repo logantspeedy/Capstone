@@ -47,12 +47,12 @@ body {
   
 }
 .infoTable{
-    width: 17%;
-    height:12%;
-    z-index: 3;
+    width: 28%;
+    height:40%;
+    z-index: 1;
     position:absolute;
-    margin-top: 6%;
-    margin-left: 53%;
+    /*margin-top: 1%;*/
+    margin-left: 48%;
     font-size: 1vw;
     /*background: blue;*/
     /*float: top;*/

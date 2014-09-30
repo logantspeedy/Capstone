@@ -22,13 +22,20 @@ function playerBanners(){
         var bannerId = "#"+ph.toLowerCase() +"Banner";
 //        $(bannerId).attr("isAlive", alive);
         $(bannerId).attr("isAlive", "true");
-    }}
+    }
+    
+        for (var i = 0; i < arrayLength; i++) {
+            var ph = playerList[i].house;
+            var bannerId = "#"+ph.toLowerCase() +"Controls";
+            $(bannerId).empty().append("<p>"+playerList[i].name+"<br>Free Troops:" +playerList[i].army+"</p>");}
+    }
+}
     
     
     
     
 
-}
+
 
 function testGameSwitchPlayer(){
     var p = getCookie();
@@ -219,7 +226,11 @@ function mouseoutHandler(){
     }
     
     function insertInfoTable(){
-        $('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/claim.png'</img>");
+        if (currentPhase ==="claim"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/claim.png'</img>");}
+        if (currentPhase ==="reinforce"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/reinforce.png'</img>");}
+        if (currentPhase ==="attack"){$('.phase').empty().append("<img style='width:100%; height:100%' onClick='endPhase()' src='images/banners/attack.png'</img>");}
+        if (currentPhase ==="fortify"){$('.phase').empty().append("<img style='width:100%; height:100%' onClick='endPhase()' src='images/banners/for.png'</img>");}
+        
       
     }
     
@@ -227,8 +238,13 @@ function mouseoutHandler(){
         for (i = 0; i < nodes.length; i++) {
             var ter = nodes[i].territoy.toString();
             var controller = nodes[i].controllingPlayer.toString();
-            if (controller.replace(/ /g,'') === "" || controller === "Nomad"){
+            if (controller.replace(/ /g,'') === ""){
+                $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/notClaimed.png");
             }
+            else if (controller==="Nomad"){
+                $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/freeFolk.png");
+            }
+            
             else{
             $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/"+(getPlayersHouse(controller)).replace(/ /g,'')+".png");}
     }
@@ -254,37 +270,6 @@ function mouseoutHandler(){
         return username[1];
     }
     
-    function displayPickHouse(){
-        //code for when mosue over make images bigger
-        //        /* Teaser image swap function */
-        //    $('img.swap').hover(function () {
-        //        this.src = '/images/signup_big_hover.png';
-        //    }, function () {
-        //        this.src = '/images/signup_big.png';
-        //    });
- 
-        
-        $("#starkBanner").click(function() {
-        post({command:"sethouse" , player:getCookie(),house:"Stark"});
-        window.location="GoT.jsp";});
-        $("#greyjoyBanner").click(function() {
-        post({command:"sethouse" ,player:getCookie(),house:"Greyjoy"});
-        window.location="GoT.jsp";});
-    
-        $("#lannisterBanner").click(function() {        
-        post({command:"sethouse" ,player:getCookie(),house:"Lannister"});
-        
-        window.location="GoT.jsp";});
-        $("#baratheonBanner").click(function() {
-        post({command:"sethouse" ,player:getCookie(),house:"Baratheon"});
-        window.location="GoT.jsp";});
-        $("#dothrakiBanner").click(function() {
-        post({command:"sethouse" ,player:getCookie(),house:"Dothraki"});
-        window.location="GoT.jsp";});
-        $("#targaryenBanner").click(function() {
-        post({command:"sethouse" ,player:getCookie(),house:"Targaryen"});
-        window.location="GoT.jsp";});
-    }
    
     function displayPlayersMoto(){
         //make so get playersHouse moto
@@ -306,15 +291,18 @@ function mouseoutHandler(){
     var second = null;
     function setSVGClickEvents(i){
         var input = i.id;
+        if (player === currentPlayer){
         switch(currentPhase){            
             case "claim":{
                     post({command:"claimterritory", playername:player, territory:input});                
                     break;
             }
                 
-            case "reinforce":{                                       
+            case "reinforce":{   
+                    
                     post({command:"reinforce", territory:input, troops:1});
                     break;
+                    
             }      
             case "attack":{
                     
@@ -335,7 +323,7 @@ function mouseoutHandler(){
             case "fortify":{
                 if(first == null){
                     first = input;
-                    console.log("fortify: " + first + second);
+                    console.log("fortify from: " + first + ", Choose target");
                 }
                 else{
                     second = input;                    
@@ -347,8 +335,12 @@ function mouseoutHandler(){
                     break;
                 }
             }
+            }
         }
-        updateDisplay();
+        else{
+            alert("It's not your turn");}
+        
+        
     }
     function openWindow() {
         newWindow = window.open("", null, "height=200,width=400,status=yes,toolbar=no,menubar=no,location=no");  

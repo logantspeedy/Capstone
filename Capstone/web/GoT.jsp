@@ -17,7 +17,10 @@
         <title>Game of Thrones</title>
 
         <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>-->
-        <script src='//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js' type='text/javascript'></script>
+        <!--<script src='//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js' type='text/javascript'></script>-->
+        <script src='js/jquery-1.9.1.js' type='text/javascript'></script>
+        
+        
         <script type="text/javascript" 
         src="${pageContext.request.contextPath}/js/javaScript.js"></script>
 
@@ -28,7 +31,7 @@
             <div id = "hoverTerritory"></div>
             <div id = "hoverUnits"></div>
         </div>
-        <div class="header" style="z-index: 1"></div>
+        <div class="header" style="z-index: 10"></div>
 
         <div class="navigation" id="nav" ></div>
 
@@ -44,48 +47,48 @@
                 <div class="banners" turn="false" id="starkBanner">
                 <img width='100%' height='auto' src='images/banners/starkBanner.png'/>
                 </div>
-                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
+                <div class="controls" id="starkControls"></button></div>
                 
                 <div class="bannerSpacer"></div>
                 
                 <div class="banners" turn="false" id="lannisterBanner">
                 <img width='100%' height='auto' src='images/banners/lannisterBanner.png' />
                 </div>
-                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
+                <div class="controls" id="lannisterControls"></button></div>
                 
                 <div class="bannerSpacer"></div>
                 
                 <div class="banners" turn="false" id="greyjoyBanner">
                 <img width='100%' height='auto'  src='images/banners/greyjoyBanner.png' />
                 </div>
-                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
+                <div class="controls" id="greyjoyControls"></div>
                 
                 <div class="bannerSpacer"></div>
                 
                 <div class="banners" turn="false" id="baratheonBanner">
                 <img width='100%' height='auto' src='images/banners/baratheonBanner.png' />
                 </div>
-                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
+                <div class="controls" id="baratheonControls"></div>
                 
                 <div class="bannerSpacer"></div>
                 
                 <div class="banners" turn="false" id="dothrakiBanner">
                 <img width='100%' height='auto'  src='images/banners/dothrakiBanner.png' />
                 </div>
-                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
+                <div class="controls" id="dothrakiControls"></div>
                 
                 <div class="bannerSpacer"></div>
                 
                 <div class="banners" turn="false" id="targaryenBanner">
                 <img width='100%' height='auto'  src='images/banners/targaryenBanner.png' />
                 </div>
-                <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
+                <div class="controls" id="targaryenControls"></div>
             </div>
 
-            <div class="chat" style="z-index: 1">
+<!--            <div class="chat" style="z-index: 1">
                 <div class="chatContent"></div>
                 <div class="chatEnterText">Player Name: enter text</div>
-            </div>
+            </div>-->
             
             
             <div id="backGround" style='z-index: 1; height:100% '>
@@ -344,15 +347,16 @@
                     window.setInterval(updateDisplay(1), 2500);
     //                updateDisplay();
  
+                
+
+            
+                $(document).mousemove(function(e) {
+                    window.setInterval(updateDisplay(1), 2500);
+                    $("#follower").css({"left": e.offsetX + 50, "top": e.offsetY - 20});
+                    //$("#follower").css({"left":e.pageX, "top":e.pageY});
+                });
                 }
-
             });
-            $(document).mousemove(function(e) {
-                window.setInterval(updateDisplay(1), 2500);
-                $("#follower").css({"left": e.offsetX + 50, "top": e.offsetY - 20});
-                //$("#follower").css({"left":e.pageX, "top":e.pageY});
-            });
-
         </script>
     </body>
 

@@ -26,7 +26,7 @@ public class Game {
         
         private int[][] lastRolls;
         
-	final int[] startingTroops = new int[]{8, 35, 30, 25, 20};		
+	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};		
 	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify"};
         
                 
@@ -39,8 +39,8 @@ public class Game {
 		claimCounter = 0;   
 		captureCounter = 1;
 		playerPos = 0;
-                //*********Change back to 42 for full game************
-		noOfTerritories =8;
+                //*********Change back to 42 - number of Nomad territories for full game************
+		noOfTerritories =36;
                 //****************************************************
 		playerList = new ArrayList<Player>();		
 		board = new Board();
@@ -391,10 +391,7 @@ public class Game {
 						else{
 							board.changeTroops(attackingTerritory, aArmy);
 							board.changeTroops(defendingTerritory, dArmy);
-						}
-                                                //******Remove to allow for more than 1 attack*****
-                                                nextPhase();
-                                                //*************************************************
+						}                                               
 					}
 				}							
 			}				

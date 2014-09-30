@@ -17,7 +17,10 @@
         <title>Game of Thrones</title>
 
         <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>-->
-        <script src='//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js' type='text/javascript'></script>
+        <!--<script src='//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js' type='text/javascript'></script>-->
+        <script src='js/jquery-1.9.1.js' type='text/javascript'></script>
+        
+        
         <script type="text/javascript" 
         src="${pageContext.request.contextPath}/js/javaScript.js"></script>
 
@@ -28,7 +31,7 @@
             <div id = "hoverTerritory"></div>
             <div id = "hoverUnits"></div>
         </div>
-        <div class="header" style="z-index: 1"></div>
+        <div class="header" style="z-index: 10"></div>
 
         <div class="navigation" id="nav" ></div>
 
@@ -82,10 +85,10 @@
                 <!--<div class="controls"><button onClick="endPhase()">End Phase</button></div>-->
             </div>
 
-            <div class="chat" style="z-index: 1">
+<!--            <div class="chat" style="z-index: 1">
                 <div class="chatContent"></div>
                 <div class="chatEnterText">Player Name: enter text</div>
-            </div>
+            </div>-->
             
             
             <div id="backGround" style='z-index: 1; height:100% '>
@@ -344,15 +347,16 @@
                     window.setInterval(updateDisplay(1), 2500);
     //                updateDisplay();
  
+                
+
+            
+                $(document).mousemove(function(e) {
+                    window.setInterval(updateDisplay(1), 2500);
+                    $("#follower").css({"left": e.offsetX + 50, "top": e.offsetY - 20});
+                    //$("#follower").css({"left":e.pageX, "top":e.pageY});
+                });
                 }
-
             });
-            $(document).mousemove(function(e) {
-                window.setInterval(updateDisplay(1), 2500);
-                $("#follower").css({"left": e.offsetX + 50, "top": e.offsetY - 20});
-                //$("#follower").css({"left":e.pageX, "top":e.pageY});
-            });
-
         </script>
     </body>
 

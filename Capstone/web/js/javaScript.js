@@ -219,7 +219,11 @@ function mouseoutHandler(){
     }
     
     function insertInfoTable(){
-        $('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/claim.png'</img>");
+        if (currentPhase ==="claim"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/claim.png'</img>");}
+        if (currentPhase ==="reinforce"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/reinforce.png'</img>");}
+        if (currentPhase ==="attack"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/attack.png'</img>");}
+        if (currentPhase ==="fortify"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/fortify.png'</img>");}
+        
       
     }
     
@@ -227,8 +231,13 @@ function mouseoutHandler(){
         for (i = 0; i < nodes.length; i++) {
             var ter = nodes[i].territoy.toString();
             var controller = nodes[i].controllingPlayer.toString();
-            if (controller.replace(/ /g,'') === "" || controller === "Nomad"){
+            if (controller.replace(/ /g,'') === ""){
+                $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/notClaimed.png");
             }
+            else if (controller==="Nomad"){
+                $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/freeFolk.png");
+            }
+            
             else{
             $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/"+(getPlayersHouse(controller)).replace(/ /g,'')+".png");}
     }
@@ -306,15 +315,18 @@ function mouseoutHandler(){
     var second = null;
     function setSVGClickEvents(i){
         var input = i.id;
+        if (player === currentPlayer){
         switch(currentPhase){            
             case "claim":{
                     post({command:"claimterritory", playername:player, territory:input});                
                     break;
             }
                 
-            case "reinforce":{                                       
+            case "reinforce":{   
+                    
                     post({command:"reinforce", territory:input, troops:1});
                     break;
+                    
             }      
             case "attack":{
                     
@@ -347,8 +359,12 @@ function mouseoutHandler(){
                     break;
                 }
             }
+            }
         }
-        updateDisplay();
+        else{
+            alert("It's not your turn");}
+        
+        
     }
     function openWindow() {
         newWindow = window.open("", null, "height=200,width=400,status=yes,toolbar=no,menubar=no,location=no");  

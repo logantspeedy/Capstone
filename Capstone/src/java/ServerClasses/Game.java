@@ -26,7 +26,7 @@ public class Game {
         
         private int[][] lastRolls;
         
-	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};		
+	final int[] startingTroops = new int[]{8, 35, 30, 25, 20};		
 	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify"};
         
                 
@@ -40,7 +40,7 @@ public class Game {
 		captureCounter = 1;
 		playerPos = 0;
                 //*********Change back to 42 for full game************
-		noOfTerritories =42;
+		noOfTerritories =8;
                 //****************************************************
 		playerList = new ArrayList<Player>();		
 		board = new Board();
@@ -295,8 +295,10 @@ public class Game {
                                             
 					board.fortify(startTerritory, targetTerritory, troops);
 					captureCounter--;
-                                        System.out.println("After: " + board.getTroops(startTerritory) + " " + board.getTroops(targetTerritory));
-                    nextPhase();
+                                        System.out.println("After: " + board.getTroops(startTerritory) + " " + board.getTroops(targetTerritory));   
+                                        if(captureCounter == 0){
+                                            nextPhase();
+                                        }
 				}
 			}
 		}
@@ -341,8 +343,8 @@ public class Game {
 						
                                                 //See if defender has defending bonus and change army size back.
                                                 if(getPlayer(defender).homeTerritory.equals((defendingTerritory))){
-                                            dArmy--;
-                                        }
+                                                    dArmy--;
+                                                }
                                                 
                                                 
 						//Change troops in each territory.

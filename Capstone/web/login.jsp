@@ -18,7 +18,7 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/pagesizing.js"></script>
         <!--<script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>-->
         
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script src='js/jquery-1.9.1.js' type='text/javascript'></script>
         
 
         <!--style sheet and meta data-->

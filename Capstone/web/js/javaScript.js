@@ -221,8 +221,8 @@ function mouseoutHandler(){
     function insertInfoTable(){
         if (currentPhase ==="claim"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/claim.png'</img>");}
         if (currentPhase ==="reinforce"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/reinforce.png'</img>");}
-        if (currentPhase ==="attack"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/attack.png'</img>");}
-        if (currentPhase ==="fortify"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/fortify.png'</img>");}
+        if (currentPhase ==="attack"){$('.phase').empty().append("<img style='width:100%; height:100%' onClick='endPhase()' src='images/banners/attack.png'</img>");}
+        if (currentPhase ==="fortify"){$('.phase').empty().append("<img style='width:100%; height:100%' onClick='endPhase()' src='images/banners/for.png'</img>");}
         
       
     }
@@ -263,37 +263,6 @@ function mouseoutHandler(){
         return username[1];
     }
     
-    function displayPickHouse(){
-        //code for when mosue over make images bigger
-        //        /* Teaser image swap function */
-        //    $('img.swap').hover(function () {
-        //        this.src = '/images/signup_big_hover.png';
-        //    }, function () {
-        //        this.src = '/images/signup_big.png';
-        //    });
- 
-        
-        $("#starkBanner").click(function() {
-        post({command:"sethouse" , player:getCookie(),house:"Stark"});
-        window.location="GoT.jsp";});
-        $("#greyjoyBanner").click(function() {
-        post({command:"sethouse" ,player:getCookie(),house:"Greyjoy"});
-        window.location="GoT.jsp";});
-    
-        $("#lannisterBanner").click(function() {        
-        post({command:"sethouse" ,player:getCookie(),house:"Lannister"});
-        
-        window.location="GoT.jsp";});
-        $("#baratheonBanner").click(function() {
-        post({command:"sethouse" ,player:getCookie(),house:"Baratheon"});
-        window.location="GoT.jsp";});
-        $("#dothrakiBanner").click(function() {
-        post({command:"sethouse" ,player:getCookie(),house:"Dothraki"});
-        window.location="GoT.jsp";});
-        $("#targaryenBanner").click(function() {
-        post({command:"sethouse" ,player:getCookie(),house:"Targaryen"});
-        window.location="GoT.jsp";});
-    }
    
     function displayPlayersMoto(){
         //make so get playersHouse moto
@@ -347,7 +316,7 @@ function mouseoutHandler(){
             case "fortify":{
                 if(first == null){
                     first = input;
-                    console.log("fortify: " + first + second);
+                    console.log("fortify from: " + first + ", Choose target");
                 }
                 else{
                     second = input;                    

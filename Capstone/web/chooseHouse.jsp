@@ -13,12 +13,17 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="testGamecss.css">
+        <link rel="stylesheet" type="text/css" href="css/chooseHouse.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Game of Thrones</title>
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script src='js/jquery-1.9.1.js' type='text/javascript'></script>
+        
         <script type="text/javascript" 
         src="${pageContext.request.contextPath}/js/javaScript.js"></script>
+        
+        <script type="text/javascript" 
+        src="${pageContext.request.contextPath}/js/chooseHouse.js"></script>
 
 
     </head>
@@ -32,26 +37,10 @@
         
         <div class ="mainContainer">
             
-<!--            <div class="infoTable" id="info">
-                <img style="height: 120%; float: left " src="images/banners/starkLeft.png" >
-                <table class="infoCss" >
-                    <tr class="infoCss">
-                      <th></th><th></th>
-                      <th class="infoCss" id="phase" style="padding-bottom: 10px"><h3>PHASE</h3></th>
-                      <th></th><th></th>
-                      <th class="infoCss" id="currentPlayer" style="padding-bottom: 10px" ><h3>CURRENT PLAYER</h3></th>
-                      <th></th><th></th>
-                      <th class="infoCss" id="bonuses" style="padding-bottom: 10px" ><h3>BONUSES</h3></th>
-                    </tr>
-                </table>
-            </div>-->
-            
+
                 <div id="backGround" style='z-index: 1; height:100% '>
                     <img id="GoTimg" style="width: 100%; height:100%" src="images/gameboard/GoT.jpg" >
                 </div> 
-            
-            <!--if player doesn't have a house -->
-            
                            
  
             <div class="lobby" id="chooseHouse"style="z-index: 11;width: 60%; height: 90%;  margin: auto;
@@ -82,17 +71,15 @@
 
             $(document).ready(function()
             {
-//                getGameJSON();
+                $("td").attr("isselected", "false")
 
                 insertHeader();
-                
                 insertNav();
-//                displayPlayersMoto();
                 insertFooter();
-                displayPickHouse();
                 
-                //        gameLogic();
-
+                displayPickHouse();
+                window.setInterval(checkHouseStatus, 1500);
+                
             });
 
         </script>

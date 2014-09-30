@@ -26,7 +26,8 @@ public class Game {
         
         private int[][] lastRolls;
         
-	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};		
+//	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
+        final int[] startingTroops = new int[]{12, 12, 12, 12, 12};
 	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify"};
         
                 
@@ -39,8 +40,8 @@ public class Game {
 		claimCounter = 0;   
 		captureCounter = 1;
 		playerPos = 0;
-                //*********Change back to 42 for full game************
-		noOfTerritories =42;
+                //*********Change back to 42-nomads for full game************
+		noOfTerritories =10;
                 //****************************************************
 		playerList = new ArrayList<Player>();		
 		board = new Board();

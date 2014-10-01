@@ -36,7 +36,7 @@ public class CreateGameBoard {
 		nodes = new ArrayList<Node>();
 		for(int i = 0; i < 42; i++){	
                     if(i < 5 || i == 6){
-                        nodes.add(new Node(territories[i], "Nomad", " ", 5, adjTerritories[i]));
+                        nodes.add(new Node(territories[i], "Nomad", " ", 1, adjTerritories[i]));
                     }
                     else{
                         nodes.add(new Node(territories[i], " ", " ", 0, adjTerritories[i]));

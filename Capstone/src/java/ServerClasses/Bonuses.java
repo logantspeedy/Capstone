@@ -19,4 +19,16 @@ public class Bonuses {
         }
         return false;
     }
+    
+    protected int[] addAttackBonus(int[] rolls, int bonus){
+        for(int i = 0; i < rolls.length; i++){
+            if(rolls[i] == -1){
+                
+            }
+            else{
+                rolls[i] += bonus;
+            }
+        }
+        return rolls;
+    }
 }

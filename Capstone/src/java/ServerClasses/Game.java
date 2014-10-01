@@ -335,6 +335,10 @@ public class Game {
 						//Roll dice.
 						int[] aRolls = rollDice(attackingTerritory, aArmy);
 						int[] dRolls =  rollDice(defendingTerritory, dArmy);
+                                                //Add bonus to rolls:
+                                                if(currentPlayer.attackBonus != 0){
+                                                    aRolls = bonuses.addAttackBonus(aRolls, currentPlayer.attackBonus);
+                                                }
                                                 //Set last rolls for client side to display;
                                                 for(int i = 0; i < 3;i++){
                                                     lastRolls[0][i] = aRolls[i];
@@ -391,9 +395,13 @@ public class Game {
                                                     //Check north bonus:
                                                     if(bonuses.checkBonusTerritory(defendingTerritory)){
                                                         currentPlayer.ATTACK_BONUS_NORTH.add(defendingTerritory);
+                                                        if(currentPlayer.ATTACK_BONUS_NORTH.size() == 6){
+                                                            currentPlayer.attackBonus = 1;                                                            
+                                                        }
                                                         //Check to see if defender isn't Nomad:
                                                         if(!defender.equals("Nomad")){
                                                             defendingPlayer.ATTACK_BONUS_NORTH.remove(defendingTerritory);
+                                                            defendingPlayer.attackBonus = 0;
                                                         }
                                                     }
                                                     if(currentPlayer.territoriesControlled == 42){

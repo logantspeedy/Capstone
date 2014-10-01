@@ -26,7 +26,7 @@ public class Game {
         
         private int[][] lastRolls;
         
-	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};		
+	final int[] startingTroops = new int[]{10, 35, 30, 25, 20};		
 	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify"};
         
                 
@@ -40,7 +40,7 @@ public class Game {
 		captureCounter = 1;
 		playerPos = 0;
                 //*********Change back to 42 - number of Nomad territories for full game************
-		noOfTerritories =36;
+		noOfTerritories =8;
                 //****************************************************
 		playerList = new ArrayList<Player>();		
 		board = new Board();
@@ -327,7 +327,7 @@ public class Game {
 				if(attacker.equals(currentPlayer.getName())
 						&& !defender.equals(currentPlayer.getName())){
 					if(board.getNode(attackingTerritory).canAttack()){
-						
+						currentPlayer = playerList.get(playerList.indexOf(currentPlayer));   
 						//Work out army sizes.
 						int aArmy = calcArmySize(attackingTerritory, true);
 						int dArmy = calcArmySize(defendingTerritory, false);
@@ -342,8 +342,10 @@ public class Game {
                                                 }
 						
                                                 //See if defender has defending bonus and change army size back.
-                                                if(getPlayer(defender).homeTerritory.equals((defendingTerritory))){
-                                                    dArmy--;
+                                                if(!defender.equals("Nomad")){
+                                                    if(getPlayer(defender).homeTerritory.equals((defendingTerritory))){
+                                                        dArmy--;
+                                                    }
                                                 }
                                                 
                                                 
@@ -373,10 +375,12 @@ public class Game {
 						}
 						//Check to see if player now controls territory and change accordingly.
 						if(dArmy == 0 && board.getTroops(defendingTerritory) == 0){
-                                                    Player defendingPlayer = getPlayer(defender);
-                                                    defendingPlayer.territoriesControlled--;
-                                                    if(defendingPlayer.territoriesControlled == 0){
-                                                        defendingPlayer.active = false;
+                                                    if(!defender.equals("Nomad")){
+                                                        Player defendingPlayer = getPlayer(defender);
+                                                        defendingPlayer.territoriesControlled--;
+                                                        if(defendingPlayer.territoriesControlled == 0){
+                                                            defendingPlayer.active = false;
+                                                        }
                                                     }
                                                     board.changeController(defendingTerritory, currentPlayer.getName());
                                                     board.changeTroops(defendingTerritory, aArmy);
@@ -429,7 +433,8 @@ public class Game {
 				controlledTerritories++;
 			}
 		}
-		return Math.round(controlledTerritories / 2);
+		//return Math.round(controlledTerritories / 2);
+                return 15;
 	}
 	/** 
 	 * @return true if all players armies == 0.
@@ -456,8 +461,11 @@ public class Game {
 		else{
 			army = (army > 2)?2:(army);
                         //Defense bonus: Defender gets another roll for home territory.
-                        if(getPlayer(board.getControllingPlayer(territory)).homeTerritory.equals(territory)){
-                            army++;
+                        String defender = board.getControllingPlayer(territory);
+                        if(!defender.equals("Nomad")){
+                            if(getPlayer(defender).homeTerritory.equals(territory)){
+                                army++;
+                            }
                         }
 		}
 		return army;

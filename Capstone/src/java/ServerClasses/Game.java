@@ -22,8 +22,7 @@ public class Game {
 	final int noOfTerritories;
 	private int claimCounter;
         private String startingPlayer;  
-        private int captureCounter;
-        
+        private int captureCounter;        
         private int[][] lastRolls;
         
 	final int[] startingTroops = new int[]{10, 35, 30, 25, 20};		
@@ -32,7 +31,7 @@ public class Game {
                 
         
 	
-	public Game(String[] players){		
+	public Game(String[] players){	            
 		currentPhase = "claim";
 		currentStage = "setup";
 		currentPlayer = null;		
@@ -312,9 +311,7 @@ public class Game {
 	 * attackingTerritory.getController = currentPlayer, currentPhase = attack.
 	 * 
 	 * @param attackingTerritory
-	 * @param defendingTerritory
-	 * @param aRolls
-	 * @param dRolls
+	 * @param defendingTerritory	 
 	 */
 	public Board attack(String attackingTerritory, String defendingTerritory){              
 		//Territories are adjacent check.
@@ -392,8 +389,9 @@ public class Game {
                                                     board.changeTroops(defendingTerritory, aArmy);
                                                     board.getNode(defendingTerritory).setAttack(false);
                                                     currentPlayer.territoriesControlled++;
+                                                    
                                                     //Check north bonus:
-                                                    if(bonuses.checkBonusTerritory(defendingTerritory)){
+                                                    if(bonuses.checkNorthBonus(defendingTerritory)){
                                                         currentPlayer.ATTACK_BONUS_NORTH.add(defendingTerritory);
                                                         if(currentPlayer.ATTACK_BONUS_NORTH.size() == 6){
                                                             currentPlayer.attackBonus = 1;                                                            
@@ -404,6 +402,21 @@ public class Game {
                                                             defendingPlayer.attackBonus = 0;
                                                         }
                                                     }
+                                                    
+                                                    //Check mid bonus:
+                                                    //Need to add the type of bonus.
+                                                    if(bonuses.checkMidBonus(defendingTerritory)){
+                                                        currentPlayer.ATTACK_BONUS_MID.add(defendingTerritory);
+                                                        if(currentPlayer.ATTACK_BONUS_MID.size() == 6){
+                                                                                                                       
+                                                        }
+                                                        //Check to see if defender isn't Nomad:
+                                                        if(!defender.equals("Nomad")){
+                                                            defendingPlayer.ATTACK_BONUS_MID.remove(defendingTerritory);
+                                                            
+                                                        }
+                                                    }
+                                                    
                                                     if(currentPlayer.territoriesControlled == 42){
                                                         currentStage = "Game Won";
                                                     }
@@ -498,11 +511,11 @@ public class Game {
         public void setStartingHouses(){
 		for(Player p : this.playerList){                    
 			switch (p.getHouse()){                            
-				case "Stark":{
+				case "Stark":{                                   
 					setControllingHouses(p, 0);
 					break;
 				}
-				case "Lannister":{
+				case "Lannister":{                                    
 					setControllingHouses(p, 1);
 					break;
 				}

@@ -10,10 +10,20 @@ public class Bonuses {
     
     private final String[] ATTACK_BONUS_NORTH = new String[]{"The Lands of Always Winter",
             "The Haunted Forest","Bay of Seals","Castle Black","Wolfswood","Karhold"};
-    private final int NORTH_LENGTH = ATTACK_BONUS_NORTH.length;
-    protected boolean checkBonusTerritory(String territory){
-        for(int i = 0; i < NORTH_LENGTH; i++){
+    private final String[] ATTACK_BONUS_MID = new String[]{"Braavos","Braavosian Coastlands",
+            "The Flatlands","The Golden Fields","The Disputed Lands","Hills of Norvos"};
+    private final int BONUS_LENGTH = 6;
+    protected boolean checkNorthBonus(String territory){
+        for(int i = 0; i < 6; i++){
             if(ATTACK_BONUS_NORTH[i].equals(territory)){
+                return true;
+            }
+        }
+        return false;
+    }
+    protected boolean checkMidBonus(String territory){
+        for(int i = 0; i < 6; i++){
+            if(ATTACK_BONUS_MID[i].equals(territory)){
                 return true;
             }
         }

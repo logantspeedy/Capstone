@@ -91,8 +91,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">Avaliable Games</div>
                         <div class="list-group" id="avaliable-games" style="text-align:left">
-                            <li id="test" class="list-group-item" style="padding:30px;">test game<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary start">Start</button>&nbsp;<button type="submit" class="btn btn-danger leave">Leave</button></div></li>
-                            <li id="test" class="list-group-item" style="padding:30px;">test game2<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary join">Join</button></div></li>
+
                         </div>
                     </div>
                             
@@ -108,8 +107,11 @@
                             <form id="create">
                             <div class="input-group">
                                 <input type="text" class="form-control" id="create-input" />
+                                
                                 <span class="input-group-btn">
+                                    <button type="button" class="btn btn-warning" data-toggle="button">Private</button>
                                     <button type="button" class="btn btn-success create" onclick="createGame()">Create</button>
+                                    
                                 </span>
                             </div>
                             </form>
@@ -231,7 +233,7 @@
                   }).done(function( data ) { 
                       var html = "";
                       for (var playerIndex in data){
-                          html = html.concat('<li id="' + data[playerIndex] +'" class="list-group-item">' + data[playerIndex] + '</li>');
+                          html = html.concat('<li id="' + data[playerIndex] +'" class="list-group-item">' + data[playerIndex] + '&nbsp;<button type="submit" class="btn btn-warning" onclick="logout()">Invite</button></li>');
                       }
                       if (html !== $("#online-users").html()){
                           $( "#online-users" ).html(html);

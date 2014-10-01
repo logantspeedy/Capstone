@@ -35,9 +35,11 @@
         <title>Game of Thrones - login</title>
         
     </head>
-    <body>
-    
-    <body onload="resize()" onresize="resize()" style="background:none;">
+ <body onload="resize()" onresize="resize()" style="background:none;">
+
+
+<div id="status">
+</div>
         <div id="view">
         <div id="btl"><img src="images/border/btl.png" alt=""></div>
         <div id="btr"><img src="images/border/btr.png" alt=""></div>

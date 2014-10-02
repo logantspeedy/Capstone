@@ -25,12 +25,9 @@ public class Game {
         private int captureCounter;        
         private int[][] lastRolls;
         
-	final int[] startingTroops = new int[]{10, 35, 30, 25, 20};		
-	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify"};
-        
-                
-        
-	
+	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};		
+	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify"};    
+         
 	public Game(String[] players){	            
 		currentPhase = "claim";
 		currentStage = "setup";
@@ -39,7 +36,7 @@ public class Game {
 		captureCounter = 1;
 		playerPos = 0;
                 //*********Change back to 42 - number of Nomad territories for full game************
-		noOfTerritories =8;
+		noOfTerritories =30;
                 //****************************************************
 		playerList = new ArrayList<Player>();		
 		board = new Board();
@@ -328,7 +325,6 @@ public class Game {
                                                 Bonuses bonuses = new Bonuses();
 						int aArmy = calcArmySize(attackingTerritory, true);
 						int dArmy = calcArmySize(defendingTerritory, false);
-						
 						//Roll dice.
 						int[] aRolls = rollDice(attackingTerritory, aArmy);
 						int[] dRolls =  rollDice(defendingTerritory, dArmy);
@@ -341,15 +337,12 @@ public class Game {
                                                     lastRolls[0][i] = aRolls[i];
                                                     lastRolls[1][i] = dRolls[i];
                                                 }
-						
                                                 //See if defender has defending bonus and change army size back.
                                                 if(!defender.equals("Nomad")){
                                                     if(getPlayer(defender).homeTerritory.equals((defendingTerritory))){
                                                         dArmy--;
                                                     }
-                                                }
-                                                
-                                                
+                                                }                                           
 						//Change troops in each territory.
 						board.changeTroops(attackingTerritory, -aArmy);
 						board.changeTroops(defendingTerritory, -dArmy);					
@@ -390,6 +383,7 @@ public class Game {
                                                     board.getNode(defendingTerritory).setAttack(false);
                                                     currentPlayer.territoriesControlled++;
                                                     
+                                                    //******************Bonuses************************
                                                     //Check north bonus:
                                                     if(bonuses.checkNorthBonus(defendingTerritory)){
                                                         currentPlayer.ATTACK_BONUS_NORTH.add(defendingTerritory);
@@ -401,21 +395,19 @@ public class Game {
                                                             defendingPlayer.ATTACK_BONUS_NORTH.remove(defendingTerritory);
                                                             defendingPlayer.attackBonus = 0;
                                                         }
-                                                    }
-                                                    
-                                                    //Check mid bonus:
-                                                    //Need to add the type of bonus.
+                                                    }                                                    
+                                                    //Check mid bonus:                                                    
                                                     if(bonuses.checkMidBonus(defendingTerritory)){
                                                         currentPlayer.ATTACK_BONUS_MID.add(defendingTerritory);
                                                         if(currentPlayer.ATTACK_BONUS_MID.size() == 6){
-                                                                                                                       
+                                                                  //Need to add the type of bonus.                                                     
                                                         }
                                                         //Check to see if defender isn't Nomad:
                                                         if(!defender.equals("Nomad")){
-                                                            defendingPlayer.ATTACK_BONUS_MID.remove(defendingTerritory);
-                                                            
+                                                            defendingPlayer.ATTACK_BONUS_MID.remove(defendingTerritory);                                                            
                                                         }
                                                     }
+                                                    //*******************End of bonus**************************
                                                     
                                                     if(currentPlayer.territoriesControlled == 42){
                                                         currentStage = "Game Won";
@@ -452,7 +444,6 @@ public class Game {
 		return rolls;
 	}
 	/** Calculates how many troops a player gets at the start of their turn.
-	 *	For MVP just returning how many territories they control.
 	 * @param player Current player who just started a new turn.
 	 * @return int to add to their army.
 	 */
@@ -465,8 +456,8 @@ public class Game {
 			}
 		}
                 //*********Change back for normal reinforce numbers********************
-		//return Math.round(controlledTerritories / 2);
-                return 15;
+		return Math.round(controlledTerritories / 2);
+                //return 15;
                 //********************************************************************
 	}
 	/** 

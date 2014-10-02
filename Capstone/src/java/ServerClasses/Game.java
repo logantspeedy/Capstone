@@ -25,7 +25,7 @@ public class Game {
         private int captureCounter;        
         private int[][] lastRolls;
         
-	final int[] startingTroops = new int[]{10, 35, 30, 25, 20};		
+	final int[] startingTroops = new int[]{20, 35, 30, 25, 20};		
 	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify"};    
          
 	public Game(String[] players){	            
@@ -35,8 +35,8 @@ public class Game {
 		claimCounter = 0;   
 		captureCounter = 1;
 		playerPos = 0;
-                //*********Change back to 42 - number of Nomad territories for full game************
-		noOfTerritories =10;
+                //*********Change back to 42 - number of Nomad territories (30) for full game************
+		noOfTerritories =30;
                 //****************************************************
 		playerList = new ArrayList<Player>();		
 		board = new Board();

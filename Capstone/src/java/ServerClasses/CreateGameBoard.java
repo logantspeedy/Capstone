@@ -27,10 +27,10 @@ public class CreateGameBoard {
 				{"Skyreach","The Disputed Lands"},{"The Flatlands","Hills of Norvos","Braavosian Coastlands"},{"Dragon Stone","The Flatlands","Braavos"},
 				{"Braavosian Coastlands","The Golden Fields","Hills of Norvos"},{"The Flatlands","Hills of Norvos","Volantis","The Disputed Lands"},
 				{"The Golden Fields","Volantis","Dorne"},{"Braavos","Forest of Lohor","Volantis","The Flatlands", "The Golden Fields"},
-				{"Hills of Norvos","Northen Dathraki Sea","Volantis"},{"The Golden Fields","The Disputed Lands","Bhonash","Forest of Lohor","Northen Dathraki Sea"},
-				{"Forest of Lohor","Volantis","Bhonash","Village of Lhazareen","Vaes Dorthrak"},{"Valyria","Volantis","Village of Lhazareen","Northen Dathraki Sea"},
-				{"Bhonash"},{"Eastern Dathraki Sea","Palt of Illen","Village of Lhazareen","Northen Dathraki Sea","Bayasabhad"},
-				{"Northen Dathraki Sea","Vaes Dorthrak","Bayasabhad","Bhonash","The Red Waste","Ghisear"},{"Village of Lhazareen","The Red Waste"},
+				{"Hills of Norvos","Northen Dathraki Sea","Volantis"},{"The Golden Fields","The Disputed Lands","Bhonash","Forest of Lohor","Northern Dathraki Sea"},
+				{"Forest of Lohor","Volantis","Bhonash","Village of Lhazareen","Vaes Dorthrak"},{"Valyria","Volantis","Village of Lhazareen","Northern Dathraki Sea"},
+				{"Bhonash"},{"Eastern Dathraki Sea","Palt of Illen","Village of Lhazareen","Northern Dathraki Sea","Bayasabhad"},
+				{"Northern Dathraki Sea","Vaes Dorthrak","Bayasabhad","Bhonash","The Red Waste","Ghisear"},{"Village of Lhazareen","The Red Waste"},
 				{"Vaes Dorthrak"}, {"Vaes Dorthrak"},{"Vaes Dorthrak","Village of Lhazareen","The Red Waste","Qarth Island"},
 				{"Ghisear","Village of Lhazareen","Bayasabhad","Qarth Island"},{"The Red Waste","Bayasabhad"}};
 		nodes = new ArrayList<Node>();

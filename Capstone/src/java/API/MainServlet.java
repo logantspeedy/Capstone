@@ -48,8 +48,7 @@ public class MainServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        MainServletListener listener = new MainServletListener(); 
-        
+
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
@@ -60,137 +59,7 @@ public class MainServlet extends HttpServlet {
             out.println("<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script>");
             out.println("</head>");
             out.println("<body>");
-            
 
-            
-            
-            if(request.getParameter("submitcreate") != null){
-                HttpSession session = request.getSession();
-                if(request.getParameter("gamename") != null){
-                    session.setAttribute("name", request.getParameter("gamename"));
-                }
-                if(request.getParameter("username") != null){
-                    session.setAttribute("username", request.getParameter("username"));
-                    ArrayList<String> players = new ArrayList<String>();
-                    players.add(request.getParameter("username"));
-                    session.setAttribute("players", players);
-                    session.setAttribute("lobby", true);
-                }
-                out.println("Session created");
-                out.println(listener.findPlayer(session.getId()).toString());
-            }
-            
-            if (request.getParameter("submitjoin") != null){
-                HttpSession session = listener.findPlayer(request.getParameter("join"));
-                ArrayList<String> players = (ArrayList<String>) session.getAttribute("players");
-                players.add(request.getParameter("username"));
-                session.setAttribute("players", players);
-            }
-            
-            
-            
-            //show current game (game name)
-            
-            out.println("<h1>Lobby</h1>");
-            
-             
-            
- 
- 
-            Set<String> listenerSessions = listener.getPlayerSessions();
-
-            if (listenerSessions.size() > 0 && listener.findPlayer(listenerSessions.iterator().next()).getAttribute("name") != null){
-                out.println("<h3>JOIN</h3>");
-                out.println("Current number of games in lobby: " + listenerSessions.size());    
-                out.println("<form action='MainServlet' method='POST'>");
-                out.println("username: <input type='text' name='username'/><br/>");    
-                for (String listenerSessionid : listenerSessions){
-                    HttpSession listenerSession = listener.findPlayer(listenerSessionid);
-                    String gameName = listenerSession.getId();
-                    if (listenerSession.getAttribute("name") != null){
-                        gameName = (String) listenerSession.getAttribute("name");
-                    }
-
-                    out.println("<div id='" + listenerSession.getId() + "' ><strong>" + gameName + "</strong>" + ": <input type='radio' name='join' value='" + listenerSession.getId() + "'/>");
-
-                    out.println("Current Players Joined: " + listenerSession.getAttribute("players").toString() );
-                    //out.println("<a href='javascript:void(0)' class='join-game'>Join</a></div>" );
-                    if (request.getSession(false) != null){
-                        if (listenerSessionid.equals(request.getSession(false).getId())){
-                            out.println(" <a href='javascript:void(0)'> Start Game </a>");
-                        }
-                    }
-                    
-                    out.println("</div>");
-                }
-                out.println("<input type='submit' name='submitjoin' value='Join'/>");
-                out.println("</form>");
-            }
-            
-            //create a new game
-            out.println("<h3>CREATE</h3>");
-            out.println("<form action='MainServlet' method='POST'>");
-            out.println("username: <input type='text' name='username'/><br/>");
-            out.println("game name: <input type='text' name='gamename'/><br/>");
-            out.println("<input type='submit' name='submitcreate' value='Create'/>");
-            out.println("</form>");
-            //HttpSession listenerSessionObject  = listener.find(listenerSession.toString());
-            //out.println(listenerSessionObject.getAttribute("game"));
-            out.println("</body>");
-            out.println("</html>");            
-            
-            
-            /*
-            MainServletListener listener = new MainServletListener();  
-            
-            if(request.getParameter("join") != null){
-                session.setAttribute("join", request.getParameter("join"));
-            }
-            
-            
-            if (session.getAttribute("join") != null){
-                out.println("from session");
-                String sessionId = (String) session.getAttribute("join");
-                out.println("You are in the session: " + sessionId + "<br/>");
-                session = listener.find(sessionId);
-                if(request.getParameter("game") != null ){
-                    session.setAttribute("game", request.getParameter("game"));
-                }
-                out.println("Currently stored in session: " + session.getAttribute("game") + "<br/>");
-                out.println("<form action='MainServlet' method='POST'>");
-                out.println("Tamper with data: <input type='text' name='game' value='" + session.getAttribute("game") + "'/><br/>");
-                out.println("<input type='submit' name='Submit' value='Submit'/>");
-                out.println("<a href='javascript:location.reload();'>Refresh</a>");
-                
-                return;
-            }
-            
-
-            
-            
-            out.println("Join one of the following open sessions:<br/>");
-            
-            out.println("<form action='MainServlet' method='POST'>");
-            
- 
-            Set listenerSessions = listener.getSessions();
-            
-            for (Object listenerSession : listenerSessions){
-                
-                out.println(listenerSession.toString() + ": <input type='radio' name='join' value='" + listenerSession.toString() + "'/>");
-                
-                if (listenerSession.toString().equals(session.getId())){
-                    out.println("(yours)");
-                }
-                
-                out.println("<br/>");
-            }
-            out.println("<input type='submit' name='Submit'/>");
-            //HttpSession listenerSessionObject  = listener.find(listenerSession.toString());
-            //out.println(listenerSessionObject.getAttribute("game"));
-            out.println("</body>");
-            out.println("</html>");
-            */
         }
             
     }
@@ -326,20 +195,21 @@ public class MainServlet extends HttpServlet {
             
             case "creategame":
                 {
-                    if (request.getParameter("username") == null || request.getParameter("gamename") == null || request.getParameter("username").equals("") || request.getParameter("gamename").equals("")){
+                    if (request.getParameter("private") == null || request.getParameter("username") == null || request.getParameter("gamename") == null || request.getParameter("username").equals("") || request.getParameter("gamename").equals("")){
                         break;
                     } 
                     
                     //set variables
                     String username = request.getParameter("username");
-                    String gameName = request.getParameter("gamename");                     
+                    String gameName = request.getParameter("gamename");  
+                    String privateGame = request.getParameter("private");
                     ArrayList<String> players = new ArrayList<>();
                     players.add(username);
                     
                     session.setAttribute("username", username);
                     session.setAttribute("gamename", gameName);                     
                     session.setAttribute("players", players); 
-                    
+                    session.setAttribute("private", privateGame);
                     out.println("done creating game");
                     break;
                     //given username, gamename
@@ -440,9 +310,9 @@ public class MainServlet extends HttpServlet {
             
             case "getusers":
                 {
-                    ArrayList<String> playerNames = listener.getPlayerNames();    
+                    ArrayList<ArrayList<String>> playerNames = listener.getPlayerNames();    
                     Gson gson = new Gson();
-     
+
                     //convert game to JSON
                     String playerNamesJSON = gson.toJson(playerNames);                   
 

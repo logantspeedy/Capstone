@@ -109,7 +109,11 @@
                                 <input type="text" class="form-control" id="create-input" />
                                 
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-warning" data-toggle="button">Private</button>
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-warning active">
+                                            <input type="checkbox" id ="private-game" name="private-game" checked> Private
+                                        </label>
+                                    </div>
                                     <button type="button" class="btn btn-success create" onclick="createGame()">Create</button>
                                     
                                 </span>
@@ -127,7 +131,7 @@
                
             </div>
             
-            <div id="ingame">false</div>
+            <div id="ingame">false</div><div id="ingame-private">false</div>
             <div class="footer" ><hr/><p>a Team4 Production 2014 Massey capstone@massey.ac.nz ©</div>
             
         </div>
@@ -137,9 +141,10 @@
 </body>
         
 <script>
-            
-            updatePlayerList();updateGameList();checkStartGame();applyToolTip();
-            setInterval(function(){updatePlayerList();updateGameList();checkStartGame();}, 5000);
+            $(".invite").hide();
+            $('.private-game').attr('checked', false);
+            updateGameList();updatePlayerList();checkStartGame();applyToolTip();
+            setInterval(function(){updateGameList();updatePlayerList();checkStartGame();}, 5000);
             function applyToolTip(){
             $('.list-group-item').qtip({
                 style: { classes: 'qtip-bootstrap' },
@@ -232,11 +237,18 @@
                   data: {command: "getusers"}
                   }).done(function( data ) { 
                       var html = "";
+                      console.log(data);
                       for (var playerIndex in data){
-                          html = html.concat('<li id="' + data[playerIndex] +'" class="list-group-item">' + data[playerIndex] + '&nbsp;<button type="submit" class="btn btn-warning" onclick="logout()">Invite</button></li>');
+                          html = html.concat('<li id="' + data[playerIndex][0] +'" class="list-group-item">' + data[playerIndex][0] + '&nbsp;<button type="submit" class="btn btn-warning invite" onclick="inviteUser(\'' + data[playerIndex][1] + '\')">Invite</button></li>');
                       }
                       if (html !== $("#online-users").html()){
                           $( "#online-users" ).html(html);
+                      }
+                      if ($("#ingame-private").html() === "true"){
+                          $(".invite").show();
+                      }
+                      else{
+                          $(".invite").hide();
                       }
                   }); 
               }  
@@ -252,8 +264,19 @@
             }              
               
             function printGameData(x,data,sessionId){
+                          var gameSessionId = data[x][0]; var gameName = data[x][1]; var createdBy = data[x][2]; var players = data[x][3]; var private = data[x][4];
                           
-                          var gameSessionId = data[x][0]; var gameName = data[x][1]; var createdBy = data[x][2]; var players = data[x][3];
+                          //if game is in progress
+                          if(data[x][5]){
+                              return;
+                          }
+                          var gameType;
+                          if (private === "true"){
+                              gameType = "Private";
+                          }
+                          else{
+                              gameType = "Public";
+                          }
                           
                           $.ajax({
                             type: "POST",
@@ -267,10 +290,13 @@
                             
                             if (inGame === true){
                             if (sessionId === gameSessionId){
-                                $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary start" onclick="startGame(\'' + gameSessionId + '\')">Start</button>&nbsp;<button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');
+                                $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary start" onclick="startGame(\'' + gameSessionId + '\')">Start</button>&nbsp;<button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');
+                                if(private === "true"){
+                                    $("#ingame-private").html("true");
+                                }
                             }
                             else{
-                                $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');                                
+                                    $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');
                             }
                             $(".join").hide();
                             $("#create-game").hide();
@@ -278,12 +304,14 @@
 
                             }
                             else{  
-                              $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary join" onclick="joinGame(\'' + gameSessionId + '\')">Join</button></div></li>');
-                              
+                                if (private === "false"){
+                                    $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary join" onclick="joinGame(\'' + gameSessionId + '\')">Join</button></div></li>');
+                                }    
                             if ($("#ingame").html() === "true"){
                                   $(".join").hide();
+
                               }
-                              
+                             
                               
                             }
                             applyToolTip();
@@ -309,7 +337,8 @@
               }
               
               
-          function createGame(){              
+          function createGame(){ 
+                console.log($('#private-game').is(':checked'));
                 var username = $('#username').text();
                 var gamename = $('#create-input').val();
                 if (gamename === "" || username === ""){
@@ -320,7 +349,7 @@
                   type: "POST",
                   url: "MainServlet",
                   dataType : 'json',
-                  data: {command: "creategame", username: username, gamename: gamename},
+                  data: {command: "creategame", username: username, gamename: gamename, private: $('#private-game').is(':checked')},
                   success: updateGameList()
                   });
           }
@@ -338,7 +367,9 @@
             }
         function leaveGameSuccess(){
             $(".join").show();
+            $(".invite").hide();
             $("#ingame").html("false");
+            $("#ingame-private").html("false");
             $("#create-game").show();
             updateGameList();
         }    
@@ -356,7 +387,7 @@
                   success: updateGameList()
                   });
           }           
-             
+            
 </script>
 
 

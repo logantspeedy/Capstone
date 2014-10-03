@@ -35,6 +35,15 @@
         
         <script type="text/javascript" src="js/hover/jquery.qtip.js"></script>
         
+                <!--Scripts-->
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/displayers.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/gameLogic.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/getters.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/layouts.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/sounds.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/setters.js"></script>
+        
         
         <title>Game of Thrones - login</title>
         

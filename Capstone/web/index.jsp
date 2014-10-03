@@ -49,7 +49,7 @@
                 <iframe href="http://fontmeme.com/game-of-thrones-font/" width="100%" height="100%" src="//www.youtube.com/embed/0cfRjmZX7_U?rel=0&autoplay=1&controls=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
             </div>
 
-            <h3>“When you play a game of thrones you win or you die.”― George R.R. Martin</h3> 
+            <h3>“When you play the game of thrones, you win or you die.”― Cersei Lanister</h3> 
 
             <div class="footer" ></div>
             

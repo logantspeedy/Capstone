@@ -40,7 +40,7 @@
         
     </head>
     <body>
-    
+
     <body onload="resize()" onresize="resize()" style="background:none;">
         <div id="view">
         <div id="btl"><img src="images/border/btl.png" alt=""></div>
@@ -70,6 +70,14 @@
             else{
                 
                 %>
+                
+
+    <div class="alert alert-warning">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>You have been invited to a game!</strong> <br/><br/> <button type="button" id="invite-alert" class="btn btn-primary join">Join</button>
+    </div>
+
+                
                 <div style="position:absolute;width:95%;left:2%;">
                 <div class="row">
                 <div class="col-md-6">
@@ -133,7 +141,7 @@
             
             <div id="ingame">false</div><div id="ingame-private">false</div>
             <div class="footer" ><hr/><p>a Team4 Production 2014 Massey capstone@massey.ac.nz ©</div>
-            
+
         </div>
         
         </div>
@@ -141,10 +149,17 @@
 </body>
         
 <script>
+            
+    
+    
+    
+    $(".alert-warning").hide();
+            $("#ingame").hide();
+            $("#ingame-private").hide();
             $(".invite").hide();
             $('.private-game').attr('checked', false);
-            updateGameList();updatePlayerList();checkStartGame();applyToolTip();
-            setInterval(function(){updateGameList();updatePlayerList();checkStartGame();}, 5000);
+            updateGameList();updatePlayerList();checkStartGame();applyToolTip();checkInGame();
+            setInterval(function(){updateGameList();updatePlayerList();checkStartGame();checkInvites();checkInGame();}, 5000);
             function applyToolTip(){
             $('.list-group-item').qtip({
                 style: { classes: 'qtip-bootstrap' },
@@ -165,6 +180,36 @@
                 
             });
             }
+            
+            
+            function inviteUser(sessionid){
+                $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "invite", sessionid: sessionid}
+                  }).done(function( data ) {
+                      console.log(data);
+                      
+
+                  });                   
+            }            
+
+            function checkInvites(){
+                $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "checkinvite"}
+                  }).done(function( data ) {
+                      if (data != "false"){
+                          $("#invite-alert").attr("onclick", "joinGame('" + data + "')");
+                          $(".alert-warning").show();
+                        console.log(data);
+                      }
+                  });                   
+            }    
+    
             function checkStartGame(){
                 $.ajax({
                   type: "POST",
@@ -177,8 +222,36 @@
                         }
 
                   });                   
+            }    
+            
+            function checkInGame(){
+                $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "checkingame"}
+                  }).done(function( data ) {
+                      if (data !== true){
+                        
+                        $(".join").show();
+                        $(".invite").hide();
+                        $("#ingame").html("false");
+                        $("#ingame-private").html("false");
+                        $("#create-game").show();
+
+                      }
+                      else{
+                        if ($("#ingame-private").html() === "true"){
+                            $(".invite").show();
+                        }
+                      }
+
+                  });                   
             }
-           
+
+    
+    
+    
           function getPlayerList(sessionId){
             
             var playerListReturn=null;
@@ -207,7 +280,6 @@
                 console.log("error, not enough players");
                 return;
             }
-            console.log(playerList);
             $.ajax({
                   type: "POST",
                   url: "MainServlet",
@@ -229,6 +301,29 @@
                   })
                 setTimeout(function () { window.location.href = 'login.jsp';}, 2000);
               }
+              
+            function printUser(playerIndex,data){
+                var sessionId = data[playerIndex][1];
+                $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "checkuseringame", sessionid: sessionId}
+                  }).done(function( ingame ) {
+                          if (ingame === true){
+                              $("#online-users").append('<li id="' + data[playerIndex][0] +'" class="list-group-item">' + data[playerIndex][0] + '&nbsp;</li>');
+                          }
+                          else{
+                              $("#online-users").append('<li id="' + data[playerIndex][0] +'" class="list-group-item">' + data[playerIndex][0] + '&nbsp;<button type="submit" class="btn btn-warning invite" onclick="inviteUser(\'' + data[playerIndex][1] + '\')">Invite</button></li>');
+                          }
+                          checkInGame();
+
+
+                  });                   
+            }              
+              
+              
+              
             function updatePlayerList(){
                 $.ajax({
                   type: "POST",
@@ -236,20 +331,13 @@
                   dataType : 'json',
                   data: {command: "getusers"}
                   }).done(function( data ) { 
-                      var html = "";
-                      console.log(data);
+                      $("#online-users").html("");
                       for (var playerIndex in data){
-                          html = html.concat('<li id="' + data[playerIndex][0] +'" class="list-group-item">' + data[playerIndex][0] + '&nbsp;<button type="submit" class="btn btn-warning invite" onclick="inviteUser(\'' + data[playerIndex][1] + '\')">Invite</button></li>');
+                          printUser(playerIndex,data);
+
                       }
-                      if (html !== $("#online-users").html()){
-                          $( "#online-users" ).html(html);
-                      }
-                      if ($("#ingame-private").html() === "true"){
-                          $(".invite").show();
-                      }
-                      else{
-                          $(".invite").hide();
-                      }
+
+
                   }); 
               }  
         function updateGameList(){
@@ -306,7 +394,9 @@
                             else{  
                                 if (private === "false"){
                                     $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary join" onclick="joinGame(\'' + gameSessionId + '\')">Join</button></div></li>');
-                                }    
+                                } 
+  
+                                
                             if ($("#ingame").html() === "true"){
                                   $(".join").hide();
 
@@ -338,7 +428,6 @@
               
               
           function createGame(){ 
-                console.log($('#private-game').is(':checked'));
                 var username = $('#username').text();
                 var gamename = $('#create-input').val();
                 if (gamename === "" || username === ""){
@@ -375,10 +464,9 @@
         }    
             
         function joinGame(sessionId){
+            $(".alert-warning").hide();
             console.log("joining game");
             var username = $('#username').text();
-            console.log(sessionId);
-            console.log(username);
             $.ajax({
                   type: "POST",
                   url: "MainServlet",

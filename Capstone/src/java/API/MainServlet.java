@@ -123,10 +123,96 @@ public class MainServlet extends HttpServlet {
 
         
         switch (request.getParameter("command")) {   
-            case "flagstagecomplete":
+            case "invite":
                 {
-                    //checking if all players have picked their flag
-                }               
+                    if (request.getParameter("sessionid") == null || request.getParameter("sessionid").equals("")){
+                        break;
+                    }
+                    
+                    String userSessionId = request.getParameter("sessionid");
+                    
+                    
+                    HttpSession userSession = listener.findPlayer(userSessionId);
+                    
+                    userSession.setAttribute("invited", session.getId());
+                    
+                    out.println("done inviting user");
+                    
+                    break;                    
+                    
+                    
+                    
+                }  
+            
+             case "checkinvite":
+                {                
+                    String result = "false";
+                    if (session.getAttribute("invited") != null){
+                        result  = session.getAttribute("invited").toString();
+                    }
+                    else{
+                        result = "false";
+                    }
+                    
+                    
+                    Gson gson = new Gson();     
+
+                    String resultJSON = gson.toJson(result);                   
+
+                    out.println(resultJSON);
+                    
+                    break;                    
+                    
+                    
+                    
+                }           
+             case "checkingame":
+                {                
+                    Boolean inGame = false;
+                    if (joined == true){
+                        inGame = true;
+                    }
+                    else if (session.getAttribute("gamename") != null){
+                        inGame = true;
+                    }
+                    
+                    Gson gson = new Gson();     
+
+                    String inGameJSON = gson.toJson(inGame);                   
+
+                    out.println(inGameJSON);
+                    
+                    break;                   
+                    
+                    
+                    
+                }
+             case "checkuseringame":
+                {
+                    if (request.getParameter("sessionid") == null || request.getParameter("sessionid").equals("")){
+                        break;
+                    }                    
+                    String userSessionId = (String) request.getParameter("sessionid");
+                    
+                    HttpSession userSession = listener.findPlayer(userSessionId);
+                    
+                    Boolean inGame = false;
+                    if (userSession.getAttribute("joinedgame") != null || userSession.getAttribute("gamename") != null){
+                        inGame = true;
+                    }
+
+                    
+                    Gson gson = new Gson();     
+
+                    String inGameJSON = gson.toJson(inGame);                   
+
+                    out.println(inGameJSON);
+                    
+                    break;                   
+                    
+                    
+                    
+                }             
             case "gamestart":
                 {
                     //checking if the game has been started by the game owner
@@ -186,6 +272,9 @@ public class MainServlet extends HttpServlet {
                     
                     session.setAttribute("username", username);
                     session.setAttribute("joinedgame", gameID);
+                    if (session.getAttribute("invited") != null){
+                        session.removeAttribute("invited");
+                    }
                     out.println("done joining game");
                     break;
                     //given username, game session id

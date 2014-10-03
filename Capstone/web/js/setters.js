@@ -52,3 +52,63 @@ function setTerTroop(){
                 }
 }
 }
+// ================================================================================
+// new stuff
+// ================================================================================
+var reinforceFirst = null;
+function setReinforce() {
+    if (currentPlayer === player) {
+        if (currentPhase === "reinforce") {
+            if (reinforceFirst === null) {
+                setTerrReinforce();
+                reinforceFirst = 1;
+            }
+        } 
+    }
+    if (currentPhase === "attack") {
+            if (reinforceFirst !== null) {
+                $('.fortClick').attr("class", 'default');
+                reinforceFirst = null;
+            }
+        }
+}
+function setTerrReinforce() {
+    var i;
+    if (nodes !== null) {
+        for (i = 0; i < nodes.length; i++) {
+            if (nodes[i].controllingPlayer === player) {
+                terr = nodes[i].territoy;
+                terr = terr.replace(/ /g, "_");
+                $('#' + terr).attr("class", 'fortClick');
+            }
+        }
+    }
+}
+function setOppositionClass(id, clazz) {
+    var i;
+    var adjNodes = getAdjacentNodes(id);
+    console.log(adjNodes, adjNodes);// get list of adjacents
+    for (i = 0; i < adjNodes.length; i++) {       // of each in list
+//        console.log(adjNodes[i]);
+        if (getTerrOwner(adjNodes[i]) !== player) {
+            if (getTerrOwner(adjNodes[i]) !== " ") {
+                var cN = adjNodes[i].replace(/ /g, "_");
+                console.log(cN);
+                $('#' + cN).attr("class", clazz);
+            }
+        }
+    }
+}
+function setOwnedClass(id, clazz) {
+    var i;
+    var cN = "";
+    var adjNodes = getAdjacentNodes(id); // get list of adjacents
+    for (i = 0; i < adjNodes.length; i++) {       // of each in list
+        cN = adjNodes[i];
+        if (getTerrOwner(cN) === player) {
+            cN = cN.replace(/ /g, "_");
+            $('#' + cN).attr("class", clazz);
+        }
+    }
+}
+

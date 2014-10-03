@@ -36,7 +36,7 @@ public class Game {
 		captureCounter = 1;
 		playerPos = 0;
                 //*********Change back to 42 - number of Nomad territories for full game************
-		noOfTerritories =8;
+		noOfTerritories =30;
                 //****************************************************
 		playerList = new ArrayList<Player>();		
 		board = new Board();

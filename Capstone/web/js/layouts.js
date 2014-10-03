@@ -13,8 +13,8 @@ function initGame(counter){
 }
 
 function insertHeader(){
-    sgameMusic.volume=0.3;
-    sgameMusic.play();
+//    sgameMusic.volume=0.3;
+//    sgameMusic.play();
     
     $('.header').empty().append("<img class='gameBanner' src='images/banners/gameBanner.png' alt='Game Of Thrones'>");
     initGame(3);

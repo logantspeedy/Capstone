@@ -101,3 +101,30 @@ function getAllPlayerTroopCount(p){
             }
     return unitCount;
 }
+// ==============================================================================
+// new 
+// ==============================================================================
+function getAdjacentNodes(id) {
+    var i;
+    var adjNodes = [];
+    if (nodes !== null) {
+        for (i = 0; i < nodes.length; i++) {
+            if (nodes[i].territoy === id) {
+                adjNodes = nodes[i].adjacentNodes;
+                return adjNodes;
+            }
+        }
+    }
+}
+function getTerrOwner(id) {
+    var i;
+    var terrOwner = "";
+    if (nodes !== null) {
+        for (i = 0; i < nodes.length; i++) {
+            if (nodes[i].territoy === id) {
+                terrOwner = nodes[i].controllingPlayer;
+                return terrOwner;
+            }
+        }
+    }
+}

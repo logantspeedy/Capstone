@@ -9,12 +9,15 @@ package ServerClasses;
 public class Bonuses {
     
     private final String[] ATTACK_BONUS_NORTH = new String[]{"The Lands of Always Winter",
-            "The Haunted Forest","Bay of Seals","Castle Black","Wolfswood","Karhold"};
-    private final String[] ATTACK_BONUS_MID = new String[]{"Braavos","Braavosian Coastlands",
-            "The Flatlands","The Golden Fields","The Disputed Lands","Hills of Norvos"};
-    private final int BONUS_LENGTH = 6;
+            "The Haunted Forest","Castle Black"};
+    private final String[] ATTACK_BONUS_MID = new String[]{"The Flatlands","The Golden Fields",
+            "The Disputed Lands"};
+    private final String[] ATTACK_BONUS_RIGHT = new String[]{"Vaes Dorthrak", "Eastern Dathraki Sea",
+            "Palt of Illen"};    
+    private final int BONUS_LENGTH = 3;
+    
     protected boolean checkNorthBonus(String territory){
-        for(int i = 0; i < 6; i++){
+        for(int i = 0; i < BONUS_LENGTH; i++){
             if(ATTACK_BONUS_NORTH[i].equals(territory)){
                 return true;
             }
@@ -22,8 +25,17 @@ public class Bonuses {
         return false;
     }
     protected boolean checkMidBonus(String territory){
-        for(int i = 0; i < 6; i++){
+        for(int i = 0; i < BONUS_LENGTH; i++){
             if(ATTACK_BONUS_MID[i].equals(territory)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    protected boolean checkRightBonus(String territory){
+        for(int i = 0; i < BONUS_LENGTH; i++){
+            if(ATTACK_BONUS_RIGHT[i].equals(territory)){
                 return true;
             }
         }

@@ -7,12 +7,73 @@ and open the template in the editor.
     Created on : 3/08/2014, 4:04:27 PM
     Author     : Zeb
 */
+.loader{
+    background: blue;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    position: absolute;
+    visibility:visible;
+}
 p{
-    text-align: center;
-    color: white;
-    font-size: 1em;
+   font-family:Cordia New;
+   color: #d2caa0;
+   text-align: left;
+   font-size: 1vw;
     
 }
+.gameBanner{
+    width: 60%;
+    height:90%
+}
+.popUp{
+    background-image: url("images/background/oldpaper.jpg");
+    background-size: 100%;
+    background-position: left top; 
+    width: 25%;
+    height: 30%;
+    position: absolute;
+    z-index: 20;
+    margin: auto;
+    top:0;bottom:0;  
+    left:0;right:0; /* horizontal center */
+    
+    overflow-y: hidden;
+    /*overflow-y: hidden;*/
+    border: 0.1vw solid;
+    border-radius: 0.5vw;
+}
+#pop1{visibility:hidden;}
+#pop2{visibility:hidden;}
+
+#btl{
+    width:25%;
+    height: 25%;
+    float:left;
+}
+#btr{
+    width:25%;
+    height: 25%;
+    float:right;   
+}
+.popUpMessage{
+    padding-top: -10px;
+    width: 100%;
+    height: 50%;
+    overflow-y: auto;
+}
+#bbl{
+    width:25%;
+    height: 25%;
+    float: left;
+}
+#bbr{
+    width:25%;
+    height: 25%;
+    float:right;
+}
+#popUpBoarder{}
+
 body {
     
     width: 100vw; 
@@ -113,7 +174,7 @@ a:active {
 .mainContainer{
     margin-top: 1%;
     border-width: 4px;
-    border-color: whitesmoke;
+    border-color: #d2caa0;
     border-style: solid;
     width:100%;
     height:88%;
@@ -141,12 +202,14 @@ a:active {
 .chatBox{
 
 }
-
+hr{
+    color: #d2caa0
+}
 .footer{
     color:#d2caa0;
     font-family:Cordia New;
     /*font-size: 150%;*/
-/*    text-align:center;*/
+    text-align:center;
     height: 1%;
     font-size: 0.8vw;
     padding: 4px;
@@ -159,7 +222,7 @@ a:active {
 path, g path {
     fill-opacity:0;
     stroke:#221a16;
-    stroke-width:2;
+    stroke-width:3;
 }
 path:hover, g:hover path{
     fill:orange;
@@ -180,7 +243,7 @@ path:hover, g:hover path{
 .playerBanners{
     padding-left:0.2%;
     padding-top: 0.1%;
-    width: 9%;
+    width: 12%;
     height: 100%;
     z-index: 3;
     position:absolute;
@@ -192,13 +255,13 @@ path:hover, g:hover path{
 .banners{
     float:left;
     /*background-color: blue;*/
-    width: 39%;
+    width: 29%;
 }
 
 .controls{
     float:left;
     height: 10%;
-    width:61%;
+    width:71%;
     /*background-color: yellow;*/
 }
 .bannerSpacer{
@@ -220,7 +283,8 @@ path:hover, g:hover path{
 .chatContent{
     width: 100%;
     height:80%;
-    background: #d2caa0;
+/*    background: #d2caa0;*/
+    background-image: url("images/background/oldpaper.jpg");
     border: 0.1vw solid;
     border-radius: 0.5vw;
     

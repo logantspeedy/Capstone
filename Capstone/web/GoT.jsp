@@ -20,13 +20,21 @@
         <!--<script src='//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js' type='text/javascript'></script>-->
         <script src='js/jquery-1.9.1.js' type='text/javascript'></script>
         
-        
-        <script type="text/javascript" 
-        src="${pageContext.request.contextPath}/js/javaScript.js"></script>
-
+        <!--Scripts-->
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/displayers.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/gameLogic.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/getters.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/layouts.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/sounds.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/setters.js"></script>
 
     </head>
     <body>
+        
+        <div class ="loader" id="loader"><img src="images/ajax-loader.gif" alt=""></div></div>
+        
+        
         <div id = "follower" style='z-index: 15; '>
             <div id = "hoverTerritory"></div>
             <div id = "hoverUnits"></div>
@@ -37,10 +45,38 @@
 
         <div class ="mainContainer">
 
+            <div class ="popUp" id="pop1" shown='false'>
 
+                <div id="btl"><img style="width:100%"src="images/border/btl.png" alt=""></div>
+                <div id="btr"><img style="width:100%"src="images/border/btr.png" alt=""></div>
+                
+                <div class='popUpMessage'>
+                <h1>It's your turn!</h1>
+                <button onclick="hidePopUp(1)">ok</button>
+                </div>
+                
+                <div id="bbl"><img style="width:100%"src="images/border/bbl.png" alt=""></div>
+                <div id="bbr"><img style="width:100%"src="images/border/bbr.png" alt=""></div>
+          
+            </div>
+            
+            <div class ="popUp" id ="pop2"shown='false'>
+
+                <div id="btl"><img style="width:100%"src="images/border/btl.png" alt=""></div>
+                <div id="btr"><img style="width:100%"src="images/border/btr.png" alt=""></div>
+                
+                <div class='popUpMessage'>
+                <h1>Sorry, It is not your turn</h1>
+                <button onclick="hidePopUp(2)">ok</button>
+                </div>
+                
+                <div id="bbl"><img style="width:100%"src="images/border/bbl.png" alt=""></div>
+                <div id="bbr"><img style="width:100%"src="images/border/bbr.png" alt=""></div>
+          
+            </div>
 
             <div class="infoTable" id="info" style="z-index: 1">
-                <div class="phase"></div>
+                <div class="phase" onClick='endPhase()'></div>
             </div>
 
             <div class="playerBanners">
@@ -85,10 +121,10 @@
                 <div class="controls" id="targaryenControls"></div>
             </div>
 
-<!--            <div class="chat" style="z-index: 1">
+            <div class="chat" style="z-index: 1">
                 <div class="chatContent"></div>
                 <div class="chatEnterText">Player Name: enter text</div>
-            </div>-->
+            </div>
             
             
             <div id="backGround" style='z-index: 1; height:100% '>
@@ -332,18 +368,17 @@
         <div class="footer" ></div>
 
         <script>
-
+            
             $(document).ready(function()
             {
                 checkGame = post({command:"getgamedata"});
                 console.log("checkGame: "+ checkGame);
                 if (checkGame !== null){
-                    console.log("In GoT.jsp Loop")
+                    initGame(1);
+                    console.log("In GoT.jsp Loop");
                     follow();
                     
-                    insertHeader();
-                    insertFooter();
-                    insertNav();
+                    
                     window.setInterval(updateDisplay(1), 2500);
     //                updateDisplay();
  

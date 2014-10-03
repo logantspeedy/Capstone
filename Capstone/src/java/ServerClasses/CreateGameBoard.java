@@ -20,8 +20,8 @@ public class CreateGameBoard {
 				{"The Lands of Always Winter","Castle Black","The Rills", "Winterfell"},{"Castle Black","Wolfswood","Karhold","Barrowlands","Widows Watch"},
 				{"Bay of Seals","Castle Black","Winterfell"},{"Wolfswood","Barrowlands"},{"Winterfell","The Rills","Widows Watch","The Twins"},
 				{"Winterfell","Barrowlands","The Eyrie"},{"Barrowlands","Pyke","The Eyrie"},{"Dragon Stone","Widows Watch","The Twins","Westerlands","Harrenhal"},
-				{"The Twins","Westerlands"},{"The Eyrie","Harrenhal","Kings Landing","Braavosian Coastlands"},{"Pyke","Harrenhal","The Eyrie","The Reach",},
-				{"The Eyrie","Dragon Stone","Westerlands","Kings Landing","The Reach"},{"Harrenhal","The Reach","Ashford","Stormlands", "Dragon Stone"},
+				{"The Twins","Westerlands"},{"The Eyrie","Kings Landing","Braavosian Coastlands"},{"Pyke","Harrenhal","The Eyrie","The Reach",},
+				{"The Eyrie","Westerlands","Kings Landing","The Reach"},{"Harrenhal","The Reach","Ashford","Stormlands", "Dragon Stone"},
 				{"Westerlands","Harrenhal","Kings Landing","Ashford","Brightwater Keep"},{"The Reach","Kings Landing","Stormlands","Brightwater keep","Skyreach"},
 				{"Ashford","The Reach","Skyreach"},{"Brightwater Keep","Ashford","Dorne"}, {"Ashford","Kings Landing"},
 				{"Skyreach","The Disputed Lands"},{"The Flatlands","Hills of Norvos","Braavosian Coastlands"},{"Dragon Stone","The Flatlands","Braavos"},
@@ -35,7 +35,7 @@ public class CreateGameBoard {
 				{"Ghisear","Village of Lhazareen","Bayasabhad","Qarth Island"},{"The Red Waste","Bayasabhad"}};
 		nodes = new ArrayList<Node>();
 		for(int i = 0; i < 42; i++){	
-                    if(i < 5 || i == 6 || (i > 22 && i < 29)){
+                    if(i < 2 || i == 3 || (i > 24 && i < 28) || (i > 36 && i < 39) || i == 34){
                         nodes.add(new Node(territories[i], "Nomad", " ", 1, adjTerritories[i]));
                     }
                     else{

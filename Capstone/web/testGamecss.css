@@ -219,14 +219,68 @@ hr{
     /*background-color: blueviolet;*/
 }
 
-path, g path {
+.default {
     fill-opacity:0;
     stroke:#221a16;
-    stroke-width:3;
+    stroke-width:2;
 }
-path:hover, g:hover path{
+.claim{
+    fill:orange;
+}
+.hover{
     fill:orange;
     fill-opacity:.4;
+}
+.avoid-clicks{
+    pointer-events: none;
+}
+.noPad{
+    text-shadow: 1px 1px #000000;
+    /*text-shadow: rgba(0, 0, 0, 0.0980392) 1px 1px 1px;*/
+    padding:0;
+    margin:0;
+    height:auto;
+    font-size:1vw;
+    text-align:center;
+}
+.fort{
+    fill:green;
+}
+.fortClick{
+    fill:green;
+    fill-opacity:.4;
+      stroke:green;
+    stroke-width:5;
+}
+.fortHover{
+    fill:green;
+    fill-opacity:.4;
+      stroke:green;
+    stroke-width:5;
+}
+.attackerHover{
+    fill:blue;
+    fill-opacity:.4;
+    stroke:blue;
+    stroke-width:5;
+}
+.attack{
+    fill:blue;
+}
+.defend{
+    fill:red;
+}
+.defenderClick{
+    fill:red;
+    fill-opacity:.4;
+      stroke:red;
+    stroke-width:5;
+}
+.defenderHover{
+    fill:red;
+    fill-opacity:.4;
+      stroke:red;
+    stroke-width:5;
 }
 
 #svg{

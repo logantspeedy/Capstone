@@ -14,6 +14,12 @@ function setSVGClickEvents(i) {
         switch (currentPhase) {
             case "claim":
                 {
+//                    if (nodes !== null){
+//                        
+//                            if (nodes[input].control === input){
+//                                unitCount=nodes[i].troops;
+//                                return unitCount;
+//                    }
                     playSound('claim');
                     $("#" + id).attr('class', 'claim'); // change class of clicked svg
                     post({command: "claimterritory", playername: player, territory: input});

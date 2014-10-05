@@ -19,7 +19,7 @@ public class Game {
 	private String currentPhase;        
 	private int playerPos;
 	private int phaseStage;
-	private final int noOfTerritories = 33;
+	private int noOfTerritories;
 	private int claimCounter;
         private String startingPlayer;  
         private int captureCounter;        
@@ -37,6 +37,7 @@ public class Game {
 		playerPos = 0;               
 		playerList = new ArrayList<Player>();		
 		board = new Board();
+                noOfTerritories = 33;
 		int troops = startingTroops[players.length - 2];		
 		CreateGameBoard gameBoard = new CreateGameBoard();			
 		board.setBoard(gameBoard.getNodes());	
@@ -375,6 +376,9 @@ public class Game {
                                                         }
                                                         
                                                     }
+                                                    else{
+                                                        noOfTerritories++;
+                                                    }
                                                     board.changeController(defendingTerritory, currentPlayer.getName());
                                                     board.changeTroops(defendingTerritory, aArmy);
                                                     board.getNode(defendingTerritory).setAttack(false);
@@ -428,7 +432,7 @@ public class Game {
                                                     }
                                                     //*******************End of bonus**************************
                                                     
-                                                    if(currentPlayer.territoriesControlled == 42){
+                                                    if(currentPlayer.territoriesControlled == noOfTerritories){
                                                         currentStage = "Game Won";
                                                     }
                                                     captureCounter++;
@@ -475,8 +479,8 @@ public class Game {
 			}
 		}
                 //*********Change back for normal reinforce numbers********************
-		//return Math.round(controlledTerritories / 2);
-                return 6;
+		return Math.round(controlledTerritories / 2);
+                //return 6;
                 //********************************************************************
 	}
 	/** 

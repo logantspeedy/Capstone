@@ -24,6 +24,7 @@
         <!--style sheet and meta data-->
         
         <link rel="stylesheet" type="text/css" href="css/htmlBody.css">
+        <link rel="stylesheet" type="text/css" href="css/fontsandColours.css">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
@@ -61,7 +62,7 @@
 
             <div class="login" style="padding:30px;height:10%;font-size: 2em;color:rgba(210, 202, 160, 1);font-family: CharleMagne;">
 
-                    Login
+                <h1>Login</h1>
 
             </div>
 

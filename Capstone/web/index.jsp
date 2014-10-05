@@ -19,6 +19,7 @@
         
         <!--style sheet and meta data-->
         <link rel="stylesheet" type="text/css" href="css/htmlBody.css">
+        <link rel="stylesheet" type="text/css" href="css/fontsandColours.css">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home</title>
@@ -40,7 +41,7 @@
 
             <div class="login">
                 <a href="login.jsp">
-                    <h1>Start Game</h1>
+                    <h1>Login</h1>
                 </a>
             </div>
 

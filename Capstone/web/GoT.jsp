@@ -78,7 +78,7 @@
             <div id="btr"><img style="width:100%"src="images/border/btr.png" alt=""></div>
 
             <div class='popUpMessage' >
-                <h1>It's your turn!</h1>
+                <h2><br>It's your turn!</h2>
   
             </div>
 
@@ -93,7 +93,7 @@
             <div id="btr"><img style="width:100%"src="images/border/btr.png" alt=""></div>
 
             <div class='popUpMessage' onclick="hidePopUp(2)">
-                <h1>Sorry,<br> It is not your turn</h1>
+                <h2>Sorry,<br> It is not your turn</h2>
             </div>
 
             <div id="bbl"><img style="width:100%"src="images/border/bbl.png" alt=""></div>

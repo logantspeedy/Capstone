@@ -264,6 +264,7 @@ public class MainServlet extends HttpServlet {
             case "joingame":
                 {
                     if (request.getParameter("username") == null || request.getParameter("gameid") == null){
+                        System.out.println("joingGame case failed");
                         break;
                     }  
                     //set variables

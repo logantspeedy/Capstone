@@ -14,17 +14,24 @@ function setSVGClickEvents(i) {
         switch (currentPhase) {
             case "claim":
                 {
-//                    if (nodes !== null){
-//                        
-//                            if (nodes[input].control === input){
-//                                unitCount=nodes[i].troops;
-//                                return unitCount;
-//                    }
-                    playSound('claim');
-                    $("#" + id).attr('class', 'claim'); // change class of clicked svg
-                    post({command: "claimterritory", playername: player, territory: input});
-                    $("#" + id).attr('class', 'default'); // reset class of clicked svg              
-                    break;
+                    if (nodes !== null){
+                        for ( var i = 0; i < nodes.length; i++){
+                            if (nodes[i].territoy === input){
+                                if (nodes[i].controllingPlayer ===" "){
+                                    playSound('claim');
+                                    $("#" + id).attr('class', 'claim'); // change class of clicked svg
+                                    post({command: "claimterritory", playername: player, territory: input});
+                                    $("#" + id).attr('class', 'default'); // reset class of clicked svg              
+                                    break;
+                                }
+                                else{
+                                    console.log("Territory Taken");
+                                    break;
+                                }
+                            }
+                        }
+                    
+                    }
                 }
 
             case "reinforce":

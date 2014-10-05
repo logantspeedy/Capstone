@@ -41,7 +41,7 @@
  function checkHouseStatus(){
     gameJSON = post({command:"getgamedata"});
     playerList = gameJSON.playerList;
-    for (i = 0; i < playerList.length; i++) {
+    for (var i = 0; i < playerList.length; i++) {
         var hosue = playerList[i].house.toLowerCase();
         if(hosue==="stark"){
             $("#starkBanner").attr("isselected", "true");

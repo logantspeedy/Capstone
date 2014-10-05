@@ -28,12 +28,19 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/layouts.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/sounds.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/setters.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/init.js"></script>
 
     </head>
     <body>
+        <div class ="loader" id="loader"><img src="images/ajax-loader.gif" alt=""></div>
         
-        <div class ="loader" id="loader"><img src="images/ajax-loader.gif" alt=""></div></div>
-        
+        <audio id='sfort' src="sounds/Teuton.mp3" preload="auto" controls hidden='true'></audio>
+        <audio id='syourturn' src="sounds/Saracen.mp3" preload="auto" controls hidden='true'></audio>
+        <audio id='sclaim' src="sounds/tf4.wav" preload="auto" controls hidden='true'></audio>
+        <audio id='sattack' src="sounds/swordtest.mp3" preload="auto" controls hidden='true'></audio>
+        <audio id='sgameMusic' src="sounds/ingame.mp3" preload="auto" controls hidden='true'></audio>
+        <audio id='snotTurn' src="sounds/deni.wav" preload="auto" controls hidden='true'></audio>
+        <audio id='sreinforce' src="sounds/AgeUp.mp3" preload="auto" controls hidden='true'></audio>
         
         <div id = "follower" style='z-index: 15; '>
             <div id = "hoverTerritory"></div>
@@ -133,7 +140,7 @@
 
 
             <div class= "flags" id="flags" style='z-index:9;'>
-<p width='5%'  style='position:absolute; z-index:2; display:inline; left: 20.2%;top: 64.9%;'    id='numAshford'      ></p> 
+                <p width='5%'  style='position:absolute; z-index:2; display:inline; left: 20.2%;top: 64.9%;'    id='numAshford'      ></p> 
                 <p width='5%'  style='position:absolute; z-index:2; display:inline; left: 15.2%; top: 58.6%;'   id='numTheReach'    ></p> 
                 <p width='5%'  style='position:absolute; z-index:2; display:inline; left: 15.8%;   top: 48.6%;'   id='numWesterlands'  ></p> 
                 <p width='5%'  style='position:absolute; z-index:2; display:inline; left: 21.3%;top: 51.0%;'   id='numHarrenhal'    ></p> 
@@ -374,17 +381,9 @@
                 checkGame = post({command:"getgamedata"});
                 console.log("checkGame: "+ checkGame);
                 if (checkGame !== null){
-                    initGame(1);
-                    console.log("In GoT.jsp Loop");
                     follow();
-                    
-                    
                     window.setInterval(updateDisplay(1), 2500);
-    //                updateDisplay();
- 
-                
 
-            
                 $(document).mousemove(function(e) {
                     window.setInterval(updateDisplay(1), 2500);
                     $("#follower").css({"left": e.offsetX + 50, "top": e.offsetY - 20});

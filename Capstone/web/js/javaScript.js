@@ -3,22 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var everythingLoaded = setInterval(function() {
-  if (/loaded|complete/.test(document.readyState)) {
-    clearInterval(everythingLoaded);
-    init(); // this is the function that gets called when everything is loaded
-  }
-}, 10);
 
-function init(){
-    $("#loader").css({"visibility":"hidden"});
-}
+
+
 
 function testGameSwitchPlayer(){
     var p = getCookie();
     if (p==="player1"){setCookie("username", "player2",20);}
     if (p==="player2"){setCookie("username", "player1",20);}
-        var p = getCookie();
+    var p = getCookie();
     location.reload();
 }
 function testGame(){
@@ -30,7 +23,7 @@ function testGame(){
         
         var gameId=getSessionId();
         
-        for (i = 0; i < 18; i++){
+        for (var i = 0; i < 18; i++){
             if (i<5){post({command: "joingame", username:"player2", gameid:gameId });
 
                 }

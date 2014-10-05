@@ -3,19 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-function initGame(counter){
-    if(counter === 1){loadSounds(1);};
-    if(counter === 2){insertHeader();};
-    if(counter ===3){insertFooter();};
-    if(counter ===4){insertNav();};              
-                    
-    
-}
 
 function insertHeader(){
-    sgameMusic.volume=0.3;
-    sgameMusic.play();
-    
     $('.header').empty().append("<img class='gameBanner' src='images/banners/gameBanner.png' alt='Game Of Thrones'>");
     initGame(3);
 }

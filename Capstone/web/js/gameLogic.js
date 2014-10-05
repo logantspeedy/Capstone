@@ -12,19 +12,25 @@ function setSVGClickEvents(i){
     if (player === currentPlayer){
     switch(currentPhase){            
         case "claim":{
+                if (sclaim !== null){
                 sclaim.play();
+                }
                 post({command:"claimterritory", playername:player, territory:input});                
                 break;
         }
 
         case "reinforce":{   
+                if (sreinforce !== null){
                 sreinforce.play();
+                }
                 post({command:"reinforce", territory:input, troops:1});
                 break;
 
         }      
         case "attack":{
+                if (sattack !== null){
                 sattack.play();
+                }
                 if (first === null){
                     first = input;
                 console.log("first attack" + first + second);
@@ -46,7 +52,10 @@ function setSVGClickEvents(i){
                 console.log("fortify from: " + first + ", Choose target");
             }
             else{
+                if (sfort !== null){
                 sfort.play();
+                }
+                
                 second = input;                    
                 var t = parseInt(prompt("How many troops to fortify", "0"));
                 console.log(first + " " + second + " " + t);

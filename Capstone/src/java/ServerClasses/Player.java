@@ -19,6 +19,7 @@ public class Player {
         protected int attackBonus;
         protected ArrayList<String> ATTACK_BONUS_NORTH;
         protected ArrayList<String> ATTACK_BONUS_MID;
+        protected ArrayList<String> ATTACK_BONUS_RIGHT;
 	
 	public Player(String name, int troops){
 		this.setName(name);
@@ -29,6 +30,7 @@ public class Player {
                 this.attackBonus = 0;
                 this.ATTACK_BONUS_NORTH = new ArrayList<String>();
                 this.ATTACK_BONUS_MID = new ArrayList<String>();
+                this.ATTACK_BONUS_RIGHT = new ArrayList<String>();
 	}
 
 	public int getArmy() {

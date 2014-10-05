@@ -3,15 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-
-
 function testGameSwitchPlayer(){
     var p = getCookie();
     if (p==="player1"){setCookie("username", "player2",20);}
     if (p==="player2"){setCookie("username", "player1",20);}
-    var p = getCookie();
+        var p = getCookie();
     location.reload();
 }
 function testGame(){
@@ -23,7 +19,7 @@ function testGame(){
         
         var gameId=getSessionId();
         
-        for (var i = 0; i < 18; i++){
+        for (i = 0; i < 18; i++){
             if (i<5){post({command: "joingame", username:"player2", gameid:gameId });
 
                 }

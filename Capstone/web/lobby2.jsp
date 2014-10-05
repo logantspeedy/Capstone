@@ -16,7 +16,7 @@
         <!--load scripts-->
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/layouts.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/pagesizing.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>
+        <!--<script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>-->
         
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
         
@@ -34,8 +34,6 @@
         <script src="//cdn.pubnub.com/pubnub.min.js"></script>  
         
         <script type="text/javascript" src="js/hover/jquery.qtip.js"></script>
-        
-                <!--Scripts-->
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/displayers.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/gameLogic.js"></script>
@@ -44,12 +42,11 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/sounds.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/setters.js"></script>
         
-        
         <title>Game of Thrones - login</title>
         
     </head>
     <body>
-    
+
     <body onload="resize()" onresize="resize()" style="background:none;">
         <div id="view">
         <div id="btl"><img src="images/border/btl.png" alt=""></div>
@@ -79,6 +76,14 @@
             else{
                 
                 %>
+                
+
+    <div class="alert alert-warning">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>You have been invited to a game!</strong> <br/><br/> <button type="button" id="invite-alert" class="btn btn-primary join">Join</button>
+    </div>
+
+                
                 <div style="position:absolute;width:95%;left:2%;">
                 <div class="row">
                 <div class="col-md-6">
@@ -100,8 +105,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">Avaliable Games</div>
                         <div class="list-group" id="avaliable-games" style="text-align:left">
-                            <li id="test" class="list-group-item" style="padding:30px;">test game<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary start">Start</button>&nbsp;<button type="submit" class="btn btn-danger leave">Leave</button></div></li>
-                            <li id="test" class="list-group-item" style="padding:30px;">test game2<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary join">Join</button></div></li>
+
                         </div>
                     </div>
                             
@@ -117,8 +121,15 @@
                             <form id="create">
                             <div class="input-group">
                                 <input type="text" class="form-control" id="create-input" />
+                                
                                 <span class="input-group-btn">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-warning active">
+                                            <input type="checkbox" id ="private-game" name="private-game" checked> Private
+                                        </label>
+                                    </div>
                                     <button type="button" class="btn btn-success create" onclick="createGame()">Create</button>
+                                    
                                 </span>
                             </div>
                             </form>
@@ -134,9 +145,9 @@
                
             </div>
             
-            <div id="ingame">false</div>
+            <div id="ingame">false</div><div id="ingame-private">false</div>
             <div class="footer" ><hr/><p>a Team4 Production 2014 Massey capstone@massey.ac.nz ©</div>
-            
+
         </div>
         
         </div>
@@ -144,9 +155,17 @@
 </body>
         
 <script>
-            setCookie("username", $('#username').text(),20);
-            updatePlayerList();updateGameList();checkStartGame();applyToolTip();
-            setInterval(function(){updatePlayerList();updateGameList();checkStartGame();}, 5000);
+            
+    
+    
+    
+    $(".alert-warning").hide();
+            $("#ingame").hide();
+            $("#ingame-private").hide();
+            $(".invite").hide();
+            $('.private-game').attr('checked', false);
+            updateGameList();updatePlayerList();checkStartGame();applyToolTip();checkInGame();
+            setInterval(function(){updateGameList();updatePlayerList();checkStartGame();checkInvites();checkInGame();}, 5000);
             function applyToolTip(){
             $('.list-group-item').qtip({
                 style: { classes: 'qtip-bootstrap' },
@@ -156,7 +175,7 @@
                         button: true
                         },
 
-                    attr: 'title' // Tell qTip2 to look inside this attr for its content
+                    attr: 'titlee' // Tell qTip2 to look inside this attr for its content
                     },
                 position: {
 
@@ -167,6 +186,36 @@
                 
             });
             }
+            
+            
+            function inviteUser(sessionid){
+                $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "invite", sessionid: sessionid}
+                  }).done(function( data ) {
+                      console.log(data);
+                      
+
+                  });                   
+            }            
+
+            function checkInvites(){
+                $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "checkinvite"}
+                  }).done(function( data ) {
+                      if (data != "false"){
+                          $("#invite-alert").attr("onclick", "joinGame('" + data + "')");
+                          $(".alert-warning").show();
+                        console.log(data);
+                      }
+                  });                   
+            }    
+    
             function checkStartGame(){
                 $.ajax({
                   type: "POST",
@@ -179,8 +228,36 @@
                         }
 
                   });                   
+            }    
+            
+            function checkInGame(){
+                $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "checkingame"}
+                  }).done(function( data ) {
+                      if (data !== true){
+                        
+                        $(".join").show();
+                        $(".invite").hide();
+                        $("#ingame").html("false");
+                        $("#ingame-private").html("false");
+                        $("#create-game").show();
+
+                      }
+                      else{
+                        if ($("#ingame-private").html() === "true"){
+                            $(".invite").show();
+                        }
+                      }
+
+                  });                   
             }
-           
+
+    
+    
+    
           function getPlayerList(sessionId){
             
             var playerListReturn=null;
@@ -209,7 +286,6 @@
                 console.log("error, not enough players");
                 return;
             }
-            console.log(playerList);
             $.ajax({
                   type: "POST",
                   url: "MainServlet",
@@ -231,6 +307,29 @@
                   })
                 setTimeout(function () { window.location.href = 'login.jsp';}, 2000);
               }
+              
+            function printUser(playerIndex,data){
+                var sessionId = data[playerIndex][1];
+                $.ajax({
+                  type: "POST",
+                  url: "MainServlet",
+                  dataType : 'json',
+                  data: {command: "checkuseringame", sessionid: sessionId}
+                  }).done(function( ingame ) {
+                          if (ingame === true){
+                              $("#online-users").append('<li id="' + data[playerIndex][0] +'" class="list-group-item">' + data[playerIndex][0] + '&nbsp;</li>');
+                          }
+                          else{
+                              $("#online-users").append('<li id="' + data[playerIndex][0] +'" class="list-group-item">' + data[playerIndex][0] + '&nbsp;<button type="submit" class="btn btn-warning invite" onclick="inviteUser(\'' + data[playerIndex][1] + '\')">Invite</button></li>');
+                          }
+                          checkInGame();
+
+
+                  });                   
+            }              
+              
+              
+              
             function updatePlayerList(){
                 $.ajax({
                   type: "POST",
@@ -238,13 +337,13 @@
                   dataType : 'json',
                   data: {command: "getusers"}
                   }).done(function( data ) { 
-                      var html = "";
+                      $("#online-users").html("");
                       for (var playerIndex in data){
-                          html = html.concat('<li id="' + data[playerIndex] +'" class="list-group-item">' + data[playerIndex] + '</li>');
+                          printUser(playerIndex,data);
+
                       }
-                      if (html !== $("#online-users").html()){
-                          $( "#online-users" ).html(html);
-                      }
+
+
                   }); 
               }  
         function updateGameList(){
@@ -259,8 +358,19 @@
             }              
               
             function printGameData(x,data,sessionId){
+                          var gameSessionId = data[x][0]; var gameName = data[x][1]; var createdBy = data[x][2]; var players = data[x][3]; var private = data[x][4];
                           
-                          var gameSessionId = data[x][0]; var gameName = data[x][1]; var createdBy = data[x][2]; var players = data[x][3];
+                          //if game is in progress
+                          if(data[x][5]){
+                              return;
+                          }
+                          var gameType;
+                          if (private === "true"){
+                              gameType = "Private";
+                          }
+                          else{
+                              gameType = "Public";
+                          }
                           
                           $.ajax({
                             type: "POST",
@@ -274,10 +384,13 @@
                             
                             if (inGame === true){
                             if (sessionId === gameSessionId){
-                                $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary start" onclick="startGame(\'' + gameSessionId + '\')">Start</button>&nbsp;<button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');
+                                $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary start" onclick="startGame(\'' + gameSessionId + '\')">Start</button>&nbsp;<button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');
+                                if(private === "true"){
+                                    $("#ingame-private").html("true");
+                                }
                             }
                             else{
-                                $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');                                
+                                    $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');
                             }
                             $(".join").hide();
                             $("#create-game").hide();
@@ -285,12 +398,16 @@
 
                             }
                             else{  
-                              $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary join" onclick="joinGame(\'' + gameSessionId + '\')">Join</button></div></li>');
-                              
+                                if (private === "false"){
+                                    $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary join" onclick="joinGame(\'' + gameSessionId + '\')">Join</button></div></li>');
+                                } 
+  
+                                
                             if ($("#ingame").html() === "true"){
                                   $(".join").hide();
+
                               }
-                              
+                             
                               
                             }
                             applyToolTip();
@@ -316,7 +433,7 @@
               }
               
               
-          function createGame(){              
+          function createGame(){ 
                 var username = $('#username').text();
                 var gamename = $('#create-input').val();
                 if (gamename === "" || username === ""){
@@ -327,7 +444,7 @@
                   type: "POST",
                   url: "MainServlet",
                   dataType : 'json',
-                  data: {command: "creategame", username: username, gamename: gamename},
+                  data: {command: "creategame", username: username, gamename: gamename, private: $('#private-game').is(':checked')},
                   success: updateGameList()
                   });
           }
@@ -345,16 +462,17 @@
             }
         function leaveGameSuccess(){
             $(".join").show();
+            $(".invite").hide();
             $("#ingame").html("false");
+            $("#ingame-private").html("false");
             $("#create-game").show();
             updateGameList();
         }    
             
         function joinGame(sessionId){
+            $(".alert-warning").hide();
             console.log("joining game");
             var username = $('#username').text();
-            console.log(sessionId);
-            console.log(username);
             $.ajax({
                   type: "POST",
                   url: "MainServlet",
@@ -363,7 +481,7 @@
                   success: updateGameList()
                   });
           }           
-             
+            
 </script>
 
 

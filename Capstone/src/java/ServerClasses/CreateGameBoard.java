@@ -17,25 +17,25 @@ public class CreateGameBoard {
 				"The Red Waste","Qarth Island"};
 		adjTerritories = new String[][]{{"The Haunted Forest","Wolfswood"},{"The Lands of Always Winter","Bay of Seals","Castle Black"},
 				{"The Haunted Forest","Karhold"},{"The Haunted Forest","Wolfswood","Winterfell","Karhold"},
-				{"The Lands of Always Winter","Castle Black","The Rills","Castle Black", "Winterfell"},{"Castle Black","Wolfswood","Karhold","Barrowlands","Widows Watch"},
+				{"The Lands of Always Winter","Castle Black","The Rills", "Winterfell"},{"Castle Black","Wolfswood","Karhold","Barrowlands","Widows Watch"},
 				{"Bay of Seals","Castle Black","Winterfell"},{"Wolfswood","Barrowlands"},{"Winterfell","The Rills","Widows Watch","The Twins"},
 				{"Winterfell","Barrowlands","The Eyrie"},{"Barrowlands","Pyke","The Eyrie"},{"Dragon Stone","Widows Watch","The Twins","Westerlands","Harrenhal"},
-				{"The Twins","Westerlands"},{"The Eyrie","Harrenhal","Kingslanding","Braavosian Coastlands"},{"Pyke","Harrenhal","Westerlands","The Reach",},
-				{"The Eyrie","Dragon Stone","Westerlands","Kingslanding","The Reach"},{"Harrenhal","The Reach","Ashford","Stormlands"},
-				{"Westerlands","Harrenhal","Kingslanding","Ashford","Brightwater Keep"},{"The Reach","Kingslanding","Stormlands","Brightwater keep","Skyreach"},
-				{"Ashford","The Reach","Skyreach"},	{"Brightwater Keep","Ashford","The Reach","Dorne"},	{"Ashford","Kingslanding"},
+				{"The Twins","Westerlands"},{"The Eyrie","Kings Landing","Braavosian Coastlands"},{"Pyke","Harrenhal","The Eyrie","The Reach",},
+				{"The Eyrie","Westerlands","Kings Landing","The Reach"},{"Harrenhal","The Reach","Ashford","Stormlands", "Dragon Stone"},
+				{"Westerlands","Harrenhal","Kings Landing","Ashford","Brightwater Keep"},{"The Reach","Kings Landing","Stormlands","Brightwater keep","Skyreach"},
+				{"Ashford","The Reach","Skyreach"},{"Brightwater Keep","Ashford","Dorne"}, {"Ashford","Kings Landing"},
 				{"Skyreach","The Disputed Lands"},{"The Flatlands","Hills of Norvos","Braavosian Coastlands"},{"Dragon Stone","The Flatlands","Braavos"},
-				{"Braavosian Coastlands","The Golden Fields","Hills of Norvos"},{"The Flatlands","Hills of Norvos","Volantis","The Disputed Lands"},
+				{"Braavosian Coastlands","The Golden Fields","Hills of Norvos", "Braavos"},{"The Flatlands","Hills of Norvos","Volantis","The Disputed Lands"},
 				{"The Golden Fields","Volantis","Dorne"},{"Braavos","Forest of Lohor","Volantis","The Flatlands", "The Golden Fields"},
-				{"Hills of Norvos","Northen Dathraki Sea","Volantis"},{"The Golden Fields","The Disputed Lands","Bhonash","Forest of Lohor","Northen Dathraki Sea"},
-				{"Forest of Lohor","Volantis","Bhonash","Village of Lhazareen","Vaes Dorthrak"},{"Valyria","Volantis","Village of Lhazareen","Northen Dathraki Sea"},
-				{"Bhonash"},{"Eastern Dathraki Sea","Palt of Illen","Village of Lhazareen","Northen Dathraki Sea","Bayasabhad"},
-				{"Northen Dathraki Sea","Vaes Dorthrak","Bayasabhad","Bhonash","The Red Waste","Ghisear"},{"Village of Lhazareen","The Red Waste"},
+				{"Hills of Norvos","Northern Dathraki Sea","Volantis"},{"The Golden Fields","The Disputed Lands","Bhonash","Forest of Lohor","Northern Dathraki Sea", "Hills of Norvos"},
+				{"Forest of Lohor","Volantis","Bhonash","Village of Lhazareen","Vaes Dorthrak"},{"Valyria","Volantis","Village of Lhazareen","Northern Dathraki Sea"},
+				{"Bhonash"},{"Eastern Dathraki Sea","Palt of Illen","Village of Lhazareen","Northern Dathraki Sea","Bayasabhad"},
+				{"Northern Dathraki Sea","Vaes Dorthrak","Bayasabhad","Bhonash","The Red Waste","Ghisear"},{"Village of Lhazareen","The Red Waste"},
 				{"Vaes Dorthrak"}, {"Vaes Dorthrak"},{"Vaes Dorthrak","Village of Lhazareen","The Red Waste","Qarth Island"},
 				{"Ghisear","Village of Lhazareen","Bayasabhad","Qarth Island"},{"The Red Waste","Bayasabhad"}};
 		nodes = new ArrayList<Node>();
 		for(int i = 0; i < 42; i++){	
-                    if(i < 5 || i == 6 || (i > 22 && i < 29)){
+                    if(i < 2 || i == 3 || (i > 24 && i < 28) || (i > 36 && i < 39) || i == 34){
                         nodes.add(new Node(territories[i], "Nomad", " ", 1, adjTerritories[i]));
                     }
                     else{

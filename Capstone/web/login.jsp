@@ -114,17 +114,21 @@
         
         <script>
             function login(){
-                if ($('#username').val() == ""){
+                if ($('#username').val() === ""){
+                    console.log("FAILED");
                     return;
                 }
+                console.log($('#username').val());
+                setCookie("username", $('#username').val(),20);
                 $.ajax({
                   type: "POST",
                   url: "MainServlet",
                   dataType : 'json',
                   data: {command: "login", username: $('#username').val()}
-                  }).done(function( data ) {
-                            alert("done");
+                  }).done(function(data) {
+                            console.log("In Loging Complete");
                             setCookie("username", $('#username').val(),20);
+                            window.location.href = 'lobby2.jsp';
 
                   }); 
                 setTimeout(function () { window.location.href = 'lobby2.jsp';}, 500);

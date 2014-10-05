@@ -4,21 +4,51 @@
  * and open the template in the editor.
  */
 
+var everythingLoaded = setInterval(function() {
+  if (/loaded|complete/.test(document.readyState)) {
+    clearInterval(everythingLoaded);
+    removeLoader(); // this is the function that gets called when everything is loaded
+  }
+}, 10);
+
+function removeLoader(){
+        $("#loader").css({"visibility":"hidden"});  
+}
+
 function updateDisplay(call){
-    if (call===1){getGameJSON(); updateDisplay(call+1);}
+    if (call===0){getGameJSON(); updateDisplay(call+1);}
+    if (call===1){
+        if(gameJSON === null){
+            console.log("Player List is Null in updateDisplay");
+            window.location="GameEnded.jsp";
+        }
+        else{updateDisplay(call+1);}
+        };
     if (call===2){setFlags(); updateDisplay(call+1);}
     if (call===3){displayPopUp(1);updateDisplay(call+1);}
     if (call===4){insertInfoTable(); updateDisplay(call+1);}
     if (call===5){setTerTroop(); updateDisplay(call+1);}
     if (call===6){playerBanners(); updateDisplay(call+1);}
-//        if (call===6){console.log("diplay updated");}
+    if (call===7){setReinforce(); updateDisplay(call+1);}
+    if (call===8){if(checkIfAllPlayersHouse() > 0){window.location="waiting.jsp";}}
+    
+//        if (call===8){console.log("diplay updated");}
 
+}
+
+function checkIfAllPlayersHouse(){
+    var c =0 ;
+    for(var i = 0; i < playerList.length; i++){
+        if(playerList[i].house===""){c=c+1;}
+    }
+    return c;
+    
 }
 
 function displayPopUp(poId){
     if (poId === 1){
         if ((currentPlayer===player) && ($("#pop1").attr("shown")=== "false")){
-            syourturn.play();
+//            syourturn.play();
             $("#pop1").css({"visibility":"visible"});
             $("#pop1").attr("shown", "true");
         }
@@ -26,7 +56,7 @@ function displayPopUp(poId){
         }
     }
     if (poId === 2){
-        snotTurn.play();
+//        snotTurn.play();
         $("#pop2").css({"visibility":"visible"});
     }
     
@@ -63,51 +93,6 @@ function playerBanners(){
             var bannerId = "#"+ph.toLowerCase() +"Controls";
             $(bannerId).empty().append("<p>"+playerList[i].name+"<br>Troops: "+getAllPlayerTroopCount(playerList[i].name)+"<br>Free Units:" +playerList[i].army+"<br>Attack Bonus:"+playerList[i].attackBonus +"</p>");}
     }
-}
-
-function follow(){
-    console.log("in follow");
-    $("#follower").hide();
-//    $("path").mouseover(mouseoverHandler);
-//    $("path").mouseout(mouseoutHandler);
-}
-
-function mouseoverHandler(i) {
-    var input = i.id;
-//    if (!$(e).attr('class')) {
-//        pathMouseover = e.id;
-//        console.log(e.id);
-//    }
-//    else {
-//        pathMouseover = e.className.baseVal;
-//        console.log(e.className.baseVal);
-//    }
-    $("#follower").css({"position":"absolute",
-                      
-		      "width":"100px",
-		      "height":"40px",
-		      "line-height":"10px",
-		      "padding":"10px",
-		      "font-size":"14px",
-		      "text-align":"center",
-		      "background":"#d2caa0",
-		      "border":"2px solid #424242",
-                      "font-family":"Cordia New",
-                      "color": "black",
-		      "border-radius":"5px",
-		      "text-shadow":"rgba(0, 0, 0, 0.0980392) 1px 1px 1px",
-		      "box-shadow":"rgba(0, 0, 0, 0.0980392) 1px 1px 2px 0px"});
-    $("#hoverTerritory").empty().append("<strong>"+input+"</strong></br>");
-
-    $("#hoverUnits").empty().append("Units : "+ getTerritotyTroopCount(input));
-//     + nodes[pathMouseover].troops
-    $("#follower").stop(true, true);
-
-    $("#follower").fadeIn("fast");
-}
-
-function mouseoutHandler(){
-    $("#follower").fadeOut("fast");
 }
 
 function insertFlag(idName) {

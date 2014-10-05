@@ -19,7 +19,7 @@ public class Game {
 	private String currentPhase;        
 	private int playerPos;
 	private int phaseStage;
-	final int noOfTerritories;
+	private final int noOfTerritories = 33;
 	private int claimCounter;
         private String startingPlayer;  
         private int captureCounter;        
@@ -34,10 +34,7 @@ public class Game {
 		currentPlayer = null;		
 		claimCounter = 0;   
 		captureCounter = 1;
-		playerPos = 0;
-                //*********Change back to 42 - number of Nomad territories for full game************
-		noOfTerritories =8;
-                //****************************************************
+		playerPos = 0;               
 		playerList = new ArrayList<Player>();		
 		board = new Board();
 		int troops = startingTroops[players.length - 2];		
@@ -387,24 +384,46 @@ public class Game {
                                                     //Check north bonus:
                                                     if(bonuses.checkNorthBonus(defendingTerritory)){
                                                         currentPlayer.ATTACK_BONUS_NORTH.add(defendingTerritory);
-                                                        if(currentPlayer.ATTACK_BONUS_NORTH.size() == 6){
-                                                            currentPlayer.attackBonus = 1;                                                            
+                                                        if(currentPlayer.ATTACK_BONUS_NORTH.size() == 3){
+                                                            currentPlayer.attackBonus += 1;                                                            
                                                         }
                                                         //Check to see if defender isn't Nomad:
                                                         if(!defender.equals("Nomad")){
+                                                            if(defendingPlayer.ATTACK_BONUS_NORTH.size() == 3){
+                                                                defendingPlayer.attackBonus -= 1;
+                                                            }
                                                             defendingPlayer.ATTACK_BONUS_NORTH.remove(defendingTerritory);
-                                                            defendingPlayer.attackBonus = 0;
+                                                            
                                                         }
                                                     }                                                    
                                                     //Check mid bonus:                                                    
                                                     if(bonuses.checkMidBonus(defendingTerritory)){
                                                         currentPlayer.ATTACK_BONUS_MID.add(defendingTerritory);
-                                                        if(currentPlayer.ATTACK_BONUS_MID.size() == 6){
-                                                                  //Need to add the type of bonus.                                                     
+                                                        if(currentPlayer.ATTACK_BONUS_MID.size() == 3){
+                                                            currentPlayer.attackBonus += 1;                                                      
                                                         }
                                                         //Check to see if defender isn't Nomad:
                                                         if(!defender.equals("Nomad")){
-                                                            defendingPlayer.ATTACK_BONUS_MID.remove(defendingTerritory);                                                            
+                                                            if(defendingPlayer.ATTACK_BONUS_MID.size() == 3){
+                                                                defendingPlayer.attackBonus -= 1;
+                                                            }
+                                                            defendingPlayer.ATTACK_BONUS_MID.remove(defendingTerritory);     
+                                                            
+                                                        }
+                                                    }
+                                                    //Check Right Bonus:
+                                                    if(bonuses.checkRightBonus(defendingTerritory)){
+                                                        currentPlayer.ATTACK_BONUS_RIGHT.add(defendingTerritory);
+                                                        if(currentPlayer.ATTACK_BONUS_RIGHT.size() == 3){
+                                                            currentPlayer.attackBonus += 1;                                                       
+                                                        }
+                                                        //Check to see if defender isn't Nomad:
+                                                        if(!defender.equals("Nomad")){
+                                                            if(defendingPlayer.ATTACK_BONUS_RIGHT.size() == 3){
+                                                                defendingPlayer.attackBonus -= 1;
+                                                            }
+                                                            defendingPlayer.ATTACK_BONUS_RIGHT.remove(defendingTerritory);     
+                                                            
                                                         }
                                                     }
                                                     //*******************End of bonus**************************
@@ -456,8 +475,8 @@ public class Game {
 			}
 		}
                 //*********Change back for normal reinforce numbers********************
-		return Math.round(controlledTerritories / 2);
-                //return 15;
+		//return Math.round(controlledTerritories / 2);
+                return 6;
                 //********************************************************************
 	}
 	/** 

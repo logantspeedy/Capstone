@@ -19,36 +19,31 @@
 
         <script src='js/jquery-1.9.1.js' type='text/javascript'></script>
         
-        <script type="text/javascript" 
-        src="${pageContext.request.contextPath}/js/javaScript.js"></script>
         
-        <script type="text/javascript" 
-        src="${pageContext.request.contextPath}/js/chooseHouse.js"></script>
-                <!--Scripts-->
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>
+        <!--Scripts-->
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/chooseHouse.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/displayers.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/gameLogic.js"></script>
+        <!--<script type="text/javascript" src="${pageContext.request.contextPath}/js/gameLogic.js"></script>-->
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/getters.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/images.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/layouts.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/sounds.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/setters.js"></script>
+        <!--<script type="text/javascript" src="${pageContext.request.contextPath}/js/sounds.js"></script>-->
 
 
     </head>
     <body>
-<!--        <button onclick='getGameJSON()'>getGameData</button>
-        <button onclick='nextPhase()'>nextphase</button>
-        <button onclick="sesId()">session Id</button>-->
         <div class="header" style="z-index: 12"></div>
-        
+
         <div class="navigation" id="nav" ></div>
-        
+        <div class ="loader" id="loader"><img src="images/ajax-loader.gif" alt=""></div>
         <div class ="mainContainer">
             
 
-                <div id="backGround" style='z-index: 1; height:100% '>
-                    <img id="GoTimg" style="width: 100%; height:100%" src="images/gameboard/GoT.jpg" >
-                </div> 
+            <div id="backGround" style='z-index: 1; height:100% '>
+                <img id="GoTimg" style="width: 100%; height:100%" src="images/gameboard/GoT.jpg" >
+            </div> 
                            
  
             <div class="lobby" id="chooseHouse"style="z-index: 11;width: 60%; height: 90%;  margin: auto;
@@ -79,14 +74,9 @@
 
             $(document).ready(function()
             {
-                $("td").attr("isselected", "false")
-
-                insertHeader();
-                insertNav();
-                insertFooter();
-                
+                $("td").attr("isselected", "false");
                 displayPickHouse();
-                window.setInterval(checkHouseStatus, 1500);
+                window.setInterval(checkHouseStatus, 1500); 
                 
             });
 

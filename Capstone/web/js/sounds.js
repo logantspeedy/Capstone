@@ -6,9 +6,11 @@
 
 var gameSoundsOn = true;
 
-function toggleSound(){
-    if (gameSoundsOn === true){gameSoundsOn = false;}
-    else{gameSoundsOn = true;}
+function toggleSound(id){
+    if (gameSoundsOn === true){gameSoundsOn = false;
+        document.getElementById(id).src="images/icons/mute.png";}
+    else{gameSoundsOn = true;
+        document.getElementById(id).src="images/icons/unmuted.png";}
 }
 
 function startBackgroundMusic(){

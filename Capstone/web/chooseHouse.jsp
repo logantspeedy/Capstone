@@ -12,7 +12,8 @@
 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="testGamecss.css">
+        <link rel="stylesheet" type="text/css" href="css/gamecss.css">
+        <link rel="stylesheet" type="text/css" href="css/fontsandColours.css">
         <link rel="stylesheet" type="text/css" href="css/chooseHouse.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Game of Thrones</title>
@@ -37,7 +38,7 @@
         <div class="header" style="z-index: 12"></div>
 
         <div class="navigation" id="nav" ></div>
-        <div class ="loader" id="loader"><img src="images/ajax-loader.gif" alt=""></div>
+        <!--<div class ="loader" id="loader"><img src="images/ajax-loader.gif" alt=""></div>-->
         <div class ="mainContainer">
             
 
@@ -48,13 +49,9 @@
  
             <div class="lobby" id="chooseHouse"style="z-index: 11;width: 60%; height: 90%;  margin: auto;
                 position: absolute;  top: 0; left: 0; bottom: 0; right: 0; ">
-                
+                <h3 >Please Choose a House</h3>
                                <table>
-                    <tr>
-                        <td style='width: 33.3% ;'></td>
-                        <td style='width: 33.3%; color: #573d1c;'><h3 >Please Choose a House</h3></td>
-                        <td style='width: 33.3%'></td>
-                    </tr>
+  
                     <tr>
                         <td id='starkBanner' style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;   ' src='images/banners/starkBanner.png' ></td>
                         <td id='greyjoyBanner' style='width: 33.3%; background: rgba(20, 20, 20, 0.7);'><img style='width: 45%;  ' src='images/banners/greyjoyBanner.png' ></td>
@@ -74,9 +71,12 @@
 
             $(document).ready(function()
             {
+                insertHeader();
+                insertFooter();
+                insertNav();
                 $("td").attr("isselected", "false");
                 displayPickHouse();
-                window.setInterval(checkHouseStatus, 1500); 
+                window.setInterval(checkHouseStatus, 1000); 
                 
             });
 

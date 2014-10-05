@@ -12,9 +12,19 @@
 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="testGamecss.css">
+        <link rel="stylesheet" type="text/css" href="css/gamecss.css">
+        <link rel="stylesheet" type="text/css" href="css/fontsandColours.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Game of Thrones</title>
+        <style>
+/*            p{font-family:Cordia New;
+            color: #d2caa0;
+            text-align: left;
+            font-size: 1vw;
+            margin-top: 0;
+            padding-top: 0;
+            }*/
+        </style>
         
         <script src='js/jquery-1.9.1.js' type='text/javascript'></script>
         <!--Scripts-->
@@ -41,7 +51,7 @@
         <audio id='snotTurn' src="sounds/deni.wav" preload="auto" controls hidden='true'></audio>
         <audio id='sreinforce' src="sounds/AgeUp.mp3" preload="auto" controls hidden='true'></audio>
         
-        <div class ="loader" id="loader"><img src="images/ajax-loader.gif" alt=""></div>
+        <!--<div class ="loader" id="loader"><img src="images/ajax-loader.gif" alt=""></div>-->
 
 
     <div id = "follower" style='z-index: 15; '>
@@ -51,19 +61,25 @@
     <div class="header" style="z-index: 10"></div>
 
     <div class="navigation" id="nav" >
-        <button onClick="toggleSound()">Mute</button>
+          
     </div>
+    
+  
 
     <div class ="mainContainer">
-
-        <div class ="popUp" id="pop1" shown='false'>
+        
+        <div class="soundControls">
+            <img id="soundIcon" style="width:100%" src="images/icons/unmuted.png" onClick="toggleSound(this.id)" alt=""> 
+        </div>
+        
+        <div class ="popUp" id="pop1" shown='false' onclick="hidePopUp(1)">
 
             <div id="btl"><img style="width:100%"src="images/border/btl.png" alt=""></div>
             <div id="btr"><img style="width:100%"src="images/border/btr.png" alt=""></div>
 
-            <div class='popUpMessage'>
+            <div class='popUpMessage' >
                 <h1>It's your turn!</h1>
-                <button onclick="hidePopUp(1)">ok</button>
+  
             </div>
 
             <div id="bbl"><img style="width:100%"src="images/border/bbl.png" alt=""></div>
@@ -76,9 +92,8 @@
             <div id="btl"><img style="width:100%"src="images/border/btl.png" alt=""></div>
             <div id="btr"><img style="width:100%"src="images/border/btr.png" alt=""></div>
 
-            <div class='popUpMessage'>
-                <h1>Sorry, It is not your turn</h1>
-                <button onclick="hidePopUp(2)">ok</button>
+            <div class='popUpMessage' onclick="hidePopUp(2)">
+                <h1>Sorry,<br> It is not your turn</h1>
             </div>
 
             <div id="bbl"><img style="width:100%"src="images/border/bbl.png" alt=""></div>
@@ -130,11 +145,6 @@
                 <img width='100%' height='auto'  src='images/banners/targaryenBanner.png' />
             </div>
             <div class="controls" id="targaryenControls"></div>
-        </div>
-
-        <div class="chat" style="z-index: 1">
-            <div class="chatContent"></div>
-            <div class="chatEnterText">Player Name: enter text</div>
         </div>
 
 
@@ -312,6 +322,7 @@
                 <img width='100%' height='auto' id='imgBayofSeals'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numBayofSeals' ></p> 
             </div>
+            </div>
 
             <div id="svgImg" style='z-index: 10; '>
                 <svg id="svg" z-index="10" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"  version="1.1" inkscape:version="0.48.5 r10040" preserveAspectRatio="none" viewBox="0 0 2048 1334">
@@ -457,13 +468,17 @@
 
                 </svg>
             </div>
-
+            
         </div>
         <div class="footer" ></div>
 
         <script>
             $(document).ready(function()
             {
+                
+                insertHeader();
+                insertFooter();
+                insertNav();
                 getGameJSON();
                 console.log("getGameJSON "+ gameJSON);
                 if (gameJSON !== null){

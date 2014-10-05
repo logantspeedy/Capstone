@@ -17,17 +17,17 @@ function insertNav(){
     $('#nav').append(   
         '<table >'+
            ' <tr>'+
-              '<th style="padding-top: 6%" ><a href="home">home</a></th>'+
+              '<th style="padding-top: 6%" ><a href="home">Home</a></th>'+
               '<th></th><th></th>'+
-              '<th style="padding-top: 6%"  ><a href="about">about</a></th>'+
+              '<th style="padding-top: 6%"  ><a href="about">About</a></th>'+
               '<th></th><th></th>'+
-              '<th style="padding-top: 6%" ><a href="contact">contact</a></th>'+
+              '<th style="padding-top: 6%" ><a href="contact">Contact</a></th>'+
               '<th></th><th></th>'+
-              '<th style="padding-top: 6%" >House Moto Here</th>'+
+              '<th style="padding-top: 6%" >Lobby</th>'+
               '<th></th><th></th>'+
-              '<th style="padding-top: 6%" ><a href="">leave game</a></th>'+
+              '<th style="padding-top: 6%" ><a href="">Leave Game</a></th>'+
               '<th></th><th></th>'+
-              '<th style="padding-top: 6%" ><a href="test">signout</a></th>'+
+              '<th style="padding-top: 6%" ><a href="test">Signout</a></th>'+
             '</tr>'+
           '</table>');
 }

@@ -4,16 +4,16 @@
  * and open the template in the editor.
  */
 
-var everythingLoaded = setInterval(function() {
-  if (/loaded|complete/.test(document.readyState)) {
-    clearInterval(everythingLoaded);
-    removeLoader(); // this is the function that gets called when everything is loaded
-  }
-}, 10);
-
-function removeLoader(){
-        $("#loader").css({"visibility":"hidden"});  
-}
+//var everythingLoaded = setInterval(function() {
+//  if (/loaded|complete/.test(document.readyState)) {
+//    clearInterval(everythingLoaded);
+//    removeLoader(); // this is the function that gets called when everything is loaded
+//  }
+//}, 10);
+//
+//function removeLoader(){
+//        $("#loader").css({"visibility":"hidden"});  
+//}
 
 function updateDisplay(call){
     if (call===0){getGameJSON(); updateDisplay(call+1);}
@@ -48,7 +48,7 @@ function checkIfAllPlayersHouse(){
 function displayPopUp(poId){
     if (poId === 1){
         if ((currentPlayer===player) && ($("#pop1").attr("shown")=== "false")){
-//            syourturn.play();
+            playSound('yourturn');
             $("#pop1").css({"visibility":"visible"});
             $("#pop1").attr("shown", "true");
         }

@@ -17,13 +17,13 @@
 
 function updateDisplay(call){
     if (call===0){getGameJSON(); updateDisplay(call+1);}
-    if (call===1){
-        if(gameJSON === null){
-            console.log("Player List is Null in updateDisplay");
-            window.location="GameEnded.jsp";
+    if (call===1){updateDisplay(call+1);
+//        if(playerList === null){
+//            console.log("Player List is Null in updateDisplay");
+//        }
+//        else{updateDisplay(call+1);
         }
-        else{updateDisplay(call+1);}
-        };
+//        };
     if (call===2){setFlags(); updateDisplay(call+1);}
     if (call===3){displayPopUp(1);updateDisplay(call+1);}
     if (call===4){insertInfoTable(); updateDisplay(call+1);}

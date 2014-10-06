@@ -8,6 +8,16 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src='js/jquery-1.9.1.js' type='text/javascript'></script>
+        <!--Scripts-->
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/displayers.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/gameLogic.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/getters.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/images.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/layouts.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/setters.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/sounds.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>

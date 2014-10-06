@@ -54,7 +54,8 @@ public class Player {
 	}
 
 	public void setHouse(String house) {
-                System.out.println("In Player:" +this.name+" set House, Target house to set:"+house);
+                System.out.println("In Player:" +this.name+" set House, Target house to set: "+house);
+                if (house == null){house ="";}
 		this.house = house;
 	}
 

@@ -80,8 +80,19 @@ function getTerritotyTroopCount(id){
 }
 
 function getPlayersHouse(play){
-    var response = post({command:"getplayershouse", player:play});
-    return response;
+    if (playerList !== null){
+        for (var i = 0; i < playerList.length; i++){
+            if (playerList[i].name === play){
+                return playerList[i].house;
+            }
+        }
+    }
+    else{
+        consol.log("player list is null in getPlayerHouse");
+        return null;}
+        
+//    var response = post({command:"getplayershouse", player:play});
+   
 }
 
 function getCookie() {

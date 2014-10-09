@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
   function displayPickHouse(){
+        getGameJSON();
+        if (gameJSON === null){window.location.href='chooseHouse.jsp';}
         //code for when mosue over make images bigger
         //        /* Teaser image swap function */
         //    $('img.swap').hover(function () {
@@ -11,35 +13,37 @@
         //    }, function () {
         //        this.src = '/images/signup_big.png';
         //    });
-        $("#starkBanner").click(function() {
-        post({command:"sethouse" , player:getCookie(),house:"Stark"});
-        window.location="GoT.jsp";
-        });
-        $("#greyjoyBanner").click(function() {
-        post({command:"sethouse" ,player:getCookie(),house:"Greyjoy"});
-        window.location="GoT.jsp";});
-    
-        $("#lannisterBanner").click(function() {        
-        post({command:"sethouse" ,player:getCookie(),house:"Lannister"});
-        window.location="GoT.jsp";});
-    
-        $("#baratheonBanner").click(function() {
-        post({command:"sethouse" ,player:getCookie(),house:"Baratheon"});
-        window.location="GoT.jsp";});
-    
-        $("#dothrakiBanner").click(function() {
-        post({command:"sethouse" ,player:getCookie(),house:"Dothraki"});
-        window.location="GoT.jsp";});
-    
-        $("#targaryenBanner").click(function() {
-        post({command:"sethouse" ,player:getCookie(),house:"Targaryen"});
-        window.location="GoT.jsp";});
+        else{
+            $("#starkBanner").click(function() {
+            post({command:"sethouse" , player:getCookie(),house:"Stark"});
+            window.location="GoT.jsp";
+            });
+            $("#greyjoyBanner").click(function() {
+            post({command:"sethouse" ,player:getCookie(),house:"Greyjoy"});
+            window.location="GoT.jsp";});
+
+            $("#lannisterBanner").click(function() {        
+            post({command:"sethouse" ,player:getCookie(),house:"Lannister"});
+            window.location="GoT.jsp";});
+
+            $("#baratheonBanner").click(function() {
+            post({command:"sethouse" ,player:getCookie(),house:"Baratheon"});
+            window.location="GoT.jsp";});
+
+            $("#dothrakiBanner").click(function() {
+            post({command:"sethouse" ,player:getCookie(),house:"Dothraki"});
+            window.location="GoT.jsp";});
+
+            $("#targaryenBanner").click(function() {
+            post({command:"sethouse" ,player:getCookie(),house:"Targaryen"});
+            window.location="GoT.jsp";});
+        }
     }
  
  function checkHouseStatus(){
-    gameJSON = post({command:"getgamedata"});
+    getGameJSON();
     playerList = gameJSON.playerList;
-    if (playerList === null){window.location.href='GameEnded.jsp';}
+    if (playerList === null){window.location.href='chooseHouse.jsp';}
     for (var i = 0; i < playerList.length; i++) {
         var hosue = playerList[i].house.toLowerCase();
         if(hosue==="stark"){

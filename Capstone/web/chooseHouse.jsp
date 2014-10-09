@@ -43,7 +43,7 @@
             
 
             <div id="backGround" style='z-index: 1; height:100% '>
-                <img id="GoTimg" style="width: 100%; height:100%" src="images/gameboard/GoT.jpg" >
+                <!--<img id="GoTimg" style="width: 100%; height:100%" src="images/gameboard/GoT.jpg" >-->
             </div> 
                            
  

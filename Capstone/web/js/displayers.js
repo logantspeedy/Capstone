@@ -17,7 +17,9 @@
 
 function updateDisplay(call){
     if (call===0){getGameJSON(); updateDisplay(call+1);}
-    if (call===1){updateDisplay(call+1);
+    if (call===1){
+        if(checkIfAllPlayersHouse() > 0){window.location="waiting.jsp";}
+        else {updateDisplay(call+1);}
 //        if(playerList === null){
 //            console.log("Player List is Null in updateDisplay");
 //        }
@@ -30,7 +32,7 @@ function updateDisplay(call){
     if (call===5){setTerTroop(); updateDisplay(call+1);}
     if (call===6){playerBanners(); updateDisplay(call+1);}
     if (call===7){setReinforce(); updateDisplay(call+1);}
-    if (call===8){if(checkIfAllPlayersHouse() > 0){window.location="waiting.jsp";}}
+    if (call===8){}
     
 //        if (call===8){console.log("diplay updated");}
 

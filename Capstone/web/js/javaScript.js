@@ -10,28 +10,30 @@ function testGameSwitchPlayer(){
         var p = getCookie();
     location.reload();
 }
-function testGame(){
+function testGame(pha){
+    var gameId=getSessionId();
+    if (pha === 1){
         setCookie("username", "player1",20);
-  
-        var playerList=["player2","player3","player4","player5","player6"];
-
         post({command:"creategame", username: 'player1', gamename:'testGame'});
-        
-        var gameId=getSessionId();
-        
-        for (var i = 0; i < 4; i++){
-            if (i===1){post({command: "joingame", username:"player2", gameid:gameId });
+    }
 
-                }
+    if(pha === 2){post({command: "joingame", username:"player2", gameid:gameId });}
+    if(pha === 3){post({command: "joingame", username:"player3", gameid:gameId });}
+    if(pha === 4){post({command: "joingame", username:"player4", gameid:gameId });}
+    if(pha === 5){post({command: "joingame", username:"player5", gameid:gameId });}
+    if(pha === 6){post({command: "joingame", username:"player6", gameid:gameId });}
+  
+    if(pha===7){post({command:"startgame", playername1: '', playername2:""});}
+    if(pha===8){
+        post({command:"sethouse" ,player:'player1',house:"Stark"});
+        post({command:"sethouse" ,player:'player2',house:"Greyjoy"});
+        post({command:"sethouse" ,player:'player3',house:"Lannister"});
+        post({command:"sethouse" ,player:'player4',house:"Dothraki"});
+        post({command:"sethouse" ,player:'player5',house:"Baratheon"});
+        post({command:"sethouse" ,player:'player6',house:"Targaryen"});
 
-            if(i===3){post({command:"startgame", playername1: '', playername2:""});
-                }
-            
-            if(i===3){
-                post({command:"sethouse" ,player:'player1',house:"Stark"});
-                post({command:"sethouse" ,player:'player2',house:"Greyjoy"});
-
-            }
-        };
-        location.reload();
+    }
+    if(pha===9){
+    window.location="GoT.jsp";
+    }
 }

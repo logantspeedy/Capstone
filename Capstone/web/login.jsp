@@ -43,12 +43,19 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/sounds.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/setters.js"></script>
         
+        
+        <script src="https://apis.google.com/js/client:platform.js" async defer></script>
+        
         <title>Game of Thrones - login</title>
         
     </head>
-    <body>
-    
+
     <body onload="resize()" onresize="resize()" style="background:none;">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/fb.js"></script>  
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/gplus.js"></script>  
+
+  
+        
         <div id="view">
         <div id="btl"><img src="images/border/btl.png" alt=""></div>
         <div id="btr"><img src="images/border/btr.png" alt=""></div>
@@ -77,11 +84,19 @@
             else{
             %> 
             <div class="login-container" style="vertical-align:middle;display:table-cell;">
-            <div class="row"><a href="javascript:void(0)"><img style="width:234px;height:50px;" src="images/btnLoginFacebook.png"/></a></div><br/>
+                <div class="row"><fb:login-button size="xlarge" scope="public_profile,email" onlogin="checkLoginState();">   Sign in    </fb:login-button>  </div><br/>
             <div class="row">OR</div><br/>
             
             
-            <div class="row"><a href="javascript:void(0)"><img style="width:234px;height:44px;" src="images/sign-in-with-google.png"/></a></div><br/>
+            <div class="row">    <span id="signinButton">
+  <span
+    class="g-signin"
+    data-callback="signinCallback"
+    data-clientid="948811159249-l26tlsg96j2ocjmssi981mihlckbu88p.apps.googleusercontent.com"
+    data-cookiepolicy="single_host_origin"
+    data-scope="https://www.googleapis.com/auth/userinfo.profile">
+  </span>
+</span>  </div><br/>
             <div class="row">OR enter username:</div><br/>
             <div class="row">
                 <div class="col-md-2 col-md-offset-5">
@@ -89,7 +104,7 @@
                 <div class="input-group" style="width:100%;margin-left: auto ; margin-right: auto ;">
                     <input type="text" class="form-control" id='username' name='username'/>
                     <span class="input-group-btn">
-                        <button type="submit" class="btn btn-success" onclick="login()">Login</button>
+                        <button type="submit" class="btn btn-success" onclick="login(null)">Login</button>
                     </span>
                 </div>
             
@@ -110,32 +125,11 @@
         </div>
         
         </div>
-        
+       
 </body>
         
-        <script>
-            function login(){
-                if ($('#username').val() === ""){
-                    console.log("FAILED");
-                    return;
-                }
-                console.log($('#username').val());
-                setCookie("username", $('#username').val(),20);
-                $.ajax({
-                  type: "POST",
-                  url: "MainServlet",
-                  dataType : 'json',
-                  data: {command: "login", username: $('#username').val()}
-                  }).done(function(data) {
-                            console.log("In Loging Complete");
-                            setCookie("username", $('#username').val(),20);
-                            window.location.href = 'lobby2.jsp';
 
-                  }); 
-                setTimeout(function () { window.location.href = 'lobby2.jsp';}, 500);
-              }
-        </script>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/login.js"></script>  
 
 
 

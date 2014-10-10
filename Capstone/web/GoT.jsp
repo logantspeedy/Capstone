@@ -106,53 +106,67 @@
         </div>
 
         <div class="playerBanners">
-            <div class="banners" turn="false" id="starkBanner">
+            
+            <div class="banners" turn="false" id="starkBanner"
+                onmouseover="teston('starkControls')"  onmouseout="testout('starkControls')">
                 <img width='100%' height='auto' src='images/banners/starkBanner.png'/>
             </div>
-            <div class="controls" id="starkControls"></button></div>
-
+            
+            
             <div class="bannerSpacer"></div>
-
-            <div class="banners" turn="false" id="lannisterBanner">
+            
+            <div class="banners" turn="false" id="lannisterBanner"
+                onmouseover="teston('lannisterControls')"  onmouseout="testout('lannisterControls')">
                 <img width='100%' height='auto' src='images/banners/lannisterBanner.png' />
             </div>
-            <div class="controls" id="lannisterControls"></button></div>
-
+          
             <div class="bannerSpacer"></div>
 
-            <div class="banners" turn="false" id="greyjoyBanner">
+            <div class="banners" turn="false" id="greyjoyBanner"
+                 onmouseover="teston('greyjoyControls')"  onmouseout="testout('greyjoyControls')">
                 <img width='100%' height='auto'  src='images/banners/greyjoyBanner.png' />
             </div>
-            <div class="controls" id="greyjoyControls"></div>
+
 
             <div class="bannerSpacer"></div>
 
-            <div class="banners" turn="false" id="baratheonBanner">
+            <div class="banners" turn="false" id="baratheonBanner"
+                 onmouseover="teston('baratheonControls')"  onmouseout="testout('baratheonControls')">
                 <img width='100%' height='auto' src='images/banners/baratheonBanner.png' />
             </div>
-            <div class="controls" id="baratheonControls"></div>
+            
 
             <div class="bannerSpacer"></div>
 
-            <div class="banners" turn="false" id="dothrakiBanner">
+            <div class="banners" turn="false" id="dothrakiBanner"
+                 onmouseover="teston('dothrakiControls')"  onmouseout="testout('dothrakiControls')">
                 <img width='100%' height='auto'  src='images/banners/dothrakiBanner.png' />
             </div>
-            <div class="controls" id="dothrakiControls"></div>
-
+            
             <div class="bannerSpacer"></div>
 
-            <div class="banners" turn="false" id="targaryenBanner">
+            <div class="banners" turn="false" id="targaryenBanner"
+                 onmouseover="teston('targaryenControls')"  onmouseout="testout('targaryenControls')">
                 <img width='100%' height='auto'  src='images/banners/targaryenBanner.png' />
             </div>
-            <div class="controls" id="targaryenControls"></div>
+            
         </div>
+        
+        <div class="controls" id="starkControls"></div>
+        
+        <div class="controls" id="lannisterControls"></div>
 
+        <div class="controls" id="greyjoyControls"></div>
+       
+        <div class="controls" id="dothrakiControls"></div>
+        
+        <div class="controls" id="baratheonControls"></div>
+        
+        <div class="controls" id="targaryenControls"></div>
 
-        <div id="backGround" style='z-index: 1; height:100% '>
+        <div id="backGround" style='z-index: 1; height:100% '> 
             <img id="GoTimg" style="width: 100%; height:100%" src="images/gameboard/GoT.jpg" >
         </div> 
-
-
         <div class= "flags" id="flags" style='z-index:11;'>
             <div id='_Ashford' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left: 19.4%;top: 62.9%;height:auto; width:2%;'>
                 <img width='100%' height='auto' id='imgAshford'  src='images/houseFlags/blank.png' /> 

@@ -19,6 +19,7 @@ function setSVGClickEvents(i) {
                             if (nodes[i].territoy === input){
                                 if (nodes[i].controllingPlayer ===" "){
                                     playSound('claim');
+                                    console.log(input)
                                     $("#" + id).attr('class', 'claim'); // change class of clicked svg
                                     post({command: "claimterritory", playername: player, territory: input});
                                     $("#" + id).attr('class', 'default'); // reset class of clicked svg              
@@ -166,27 +167,7 @@ function setSVGClickEvents(i) {
             }
             
         }
-        switch (gameJSON.currentPhase.toString()) {
-            case "Game Won":
-            {
-                if (player===currentplayer){
-                   $(".mainContainer").empty.append(
-                        '<h1>YOU WIN</h1>'+
-                        '<div class="video" >'+
-                        '<iframe href="http://fontmeme.com/game-of-thrones-font/" width="100%" height="100%" src="//www.youtube.com/watch?v=jPmb0F00YPE?rel=0&autoplay=1&controls=0&showinfo=0" frameborder="0" allowfullscreen></iframe>'+
-                        '</div>)');
-                }
-                
-                else{
-                    $(".mainContainer").empty.append( 
-                        '<h1>...</h1>'+
-                        '<div class="video" >'+
-                        '<iframe href="http://fontmeme.com/game-of-thrones-font/" width="100%" height="100%" src="//www.youtube.com/watch?v=15_Y3_eRfOU?rel=0&autoplay=1&controls=0&showinfo=0" frameborder="0" allowfullscreen></iframe>'+
-                        '</div>)');
-                }
-                                        
-            }
-        }
+
     }
     else {
         displayPopUp(2);

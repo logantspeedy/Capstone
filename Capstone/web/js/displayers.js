@@ -16,6 +16,27 @@
 //}
 
 function updateDisplay(call){
+        switch (gameJSON.currentStage.toString()) {
+            case "Game Won":
+            {
+                if (player===currentPlayer){
+                   $(".mainContainer").empty().append('<br/><h1>YOU WIN</h1><hr>'+
+                        '<div class="video" >'+
+                        '<iframe href="http://fontmeme.com/game-of-thrones-font/" width="100%" height="100%" src="//www.youtube.com/embed/jPmb0F00YPE?rel=0&autoplay=1&controls=0&showinfo=0" frameborder="0" allowfullscreen></iframe>'+
+                        '</div>)');
+                break;
+                }
+                
+                else{
+                    $(".mainContainer").empty().append('<br/><h1>...</h1><hr>'+
+                        '<div class="video" >'+
+                        '<iframe href="http://fontmeme.com/game-of-thrones-font/" width="100%" height="100%" src="//www.youtube.com/embed/eRfOU?rel=0&autoplay=1&controls=0&showinfo=0" frameborder="0" allowfullscreen></iframe>'+
+                        '</div>)');
+                break;
+                }
+                                        
+            }
+        }
     if (call===0){getGameJSON(); updateDisplay(call+1);}
     if (call===1){
         if(checkIfAllPlayersHouse() > 0){window.location="waiting.jsp";}
@@ -51,15 +72,17 @@ function displayPopUp(poId){
     if (poId === 1){
         if ((currentPlayer===player) && ($("#pop1").attr("shown")=== "false")){
             playSound('yourturn');
-            $("#pop1").css({"visibility":"visible"});
             $("#pop1").attr("shown", "true");
+            $("#pop1").fadeIn("slow");
+            setTimeout(function(){$("#pop1").fadeOut("slow");}, 3000);
         }
         if (currentPlayer!==player){$("#pop1").attr("shown", "false");
         }
     }
     if (poId === 2){
 //        snotTurn.play();
-        $("#pop2").css({"visibility":"visible"});
+        $("#pop2").fadeIn("slow");
+            setTimeout(function(){$("#pop2").fadeOut("slow");}, 3000);
     }
     
 }
@@ -93,7 +116,7 @@ function playerBanners(){
         for (var i = 0; i < arrayLength; i++) {
             var ph = playerList[i].house;
             var bannerId = "#"+ph.toLowerCase() +"Controls";
-            $(bannerId).empty().append("<p>"+playerList[i].name+"<br>Troops: "+getAllPlayerTroopCount(playerList[i].name)+"<br>Free Units:" +playerList[i].army+"<br>Attack Bonus:"+playerList[i].attackBonus +"</p>");}
+            $(bannerId).empty().append("<h1>"+playerList[i].name+"</h1><hr/><img width='80%' height='auto' src='images/banners/"+ph.toLowerCase()+"Banner.png' /><br><h3>Troops: "+getAllPlayerTroopCount(playerList[i].name)+"<br>Free Units:" +playerList[i].army+"<br>Attack Bonus:"+playerList[i].attackBonus +"</h3>");}
     }
 }
 
@@ -139,6 +162,16 @@ function insertInfoTable(){
     if (currentPhase ==="fortify"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/for.png'</img>");}
 
 
+}
+
+function teston(id){
+    var bannerId = "#"+id+"";
+    console.log(bannerId);
+    $(bannerId).fadeIn("slow");
+}
+function testout(id){
+    var bannerId = "#"+id+"";
+    setTimeout(function(){$(bannerId).fadeOut("slow");}, 2000);
 }
 
 

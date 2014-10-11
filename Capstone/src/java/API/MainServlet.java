@@ -237,8 +237,22 @@ public class MainServlet extends HttpServlet {
                         break;
                     }  
                     //set variables
+ 
+                    
                     String username = request.getParameter("username");
                     
+                    
+                    ArrayList<ArrayList<String>> playerNames = listener.getPlayerNames();  
+                    System.out.println("in login");
+                     for (ArrayList<String> player : playerNames){
+                         String playerName = player.get(0);
+                        if (playerName.equals(username)){
+                            session.invalidate();
+                            out.println("username exists");
+                            break;
+                        }
+                    }     
+                     
                     session.setAttribute("username", username);
 
                     out.println("done logging in");

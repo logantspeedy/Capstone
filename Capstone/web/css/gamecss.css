@@ -223,6 +223,7 @@ a:active {
 }
 .claim{
     fill:orange;
+    fill-opacity:.4;
 }
 .hover{
     fill:orange;

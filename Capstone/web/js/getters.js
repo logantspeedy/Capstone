@@ -23,7 +23,7 @@ function getGameJSON(){
         currentPlayerHouse = gameJSON.currentPlayer.house.toString();
         currentPlayerTroops = gameJSON.currentPlayer.army.toString();
         nodes = gameJSON.board.nodes;
-        house = post({command:"getplayershouse", player:player}).toLowerCase();
+//        house = post({command:"getplayershouse", player:player}).toLowerCase();
     }
     else{console.log("getting gameJSON of null in getGameJSON");
         window.location="GameEnded.jsp";}

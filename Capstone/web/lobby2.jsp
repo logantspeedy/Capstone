@@ -144,7 +144,8 @@
             %>
                
             </div>
-            
+            <div id="buildplayers"></div>
+            <div id="buildgames"></div>
             <div id="ingame">false</div><div id="ingame-private">false</div>
             <div class="footer" ><hr/><p>a Team4 Production 2014 Massey capstone@massey.ac.nz ©</div>
 
@@ -158,14 +159,24 @@
             
     
     
-    
+    $("#buildplayers").hide();
+    $("#buildgames").hide();
     $(".alert-warning").hide();
             $("#ingame").hide();
             $("#ingame-private").hide();
             $(".invite").hide();
             $('.private-game').attr('checked', false);
-            updateGameList();updatePlayerList();checkStartGame();applyToolTip();checkInGame();
-            setInterval(function(){updateGameList();updatePlayerList();checkStartGame();checkInvites();checkInGame();}, 5000);
+
+            setTimeout(updateAll(),500);
+            setInterval(function(){updateGameList();updatePlayerList();checkStartGame();checkInvites();checkInGame();updateFromBuildPlayers();updateFromBuildGames();}, 1000);
+            
+            function updateAll(){
+                updateGameList();updatePlayerList();checkStartGame();checkInvites();checkInGame();updateFromBuildPlayers();updateFromBuildGames();
+            }    
+    
+    
+    
+    
             function applyToolTip(){
             $('.list-group-item').qtip({
                 style: { classes: 'qtip-bootstrap' },
@@ -187,6 +198,23 @@
             });
             }
             
+            function updateFromBuildPlayers(){
+                if ($("#buildplayers").html() === $("#online-users").html()){
+                    return;
+                }
+                else{
+                    $("#online-users").html($("#buildplayers").html());
+                }
+            }
+   
+             function updateFromBuildGames(){
+                if ($("#buildgames").html() === $("#avaliable-games").html()){
+                    return;
+                }
+                else{
+                    $("#avaliable-games").html($("#buildgames").html());
+                }
+            }
             
             function inviteUser(sessionid){
                 $.ajax({
@@ -317,10 +345,10 @@
                   data: {command: "checkuseringame", sessionid: sessionId}
                   }).done(function( ingame ) {
                           if (ingame === true){
-                              $("#online-users").append('<li id="' + data[playerIndex][0] +'" class="list-group-item">' + data[playerIndex][0] + '&nbsp;</li>');
+                              $("#buildplayers").append('<li id="' + data[playerIndex][0] +'" class="list-group-item">' + data[playerIndex][0] + '&nbsp;</li>');
                           }
                           else{
-                              $("#online-users").append('<li id="' + data[playerIndex][0] +'" class="list-group-item">' + data[playerIndex][0] + '&nbsp;<button type="submit" class="btn btn-warning invite" onclick="inviteUser(\'' + data[playerIndex][1] + '\')">Invite</button></li>');
+                              $("#buildplayers").append('<li id="' + data[playerIndex][0] +'" class="list-group-item">' + data[playerIndex][0] + '&nbsp;<button type="submit" class="btn btn-warning invite" onclick="inviteUser(\'' + data[playerIndex][1] + '\')">Invite</button></li>');
                           }
                           checkInGame();
 
@@ -337,7 +365,7 @@
                   dataType : 'json',
                   data: {command: "getusers"}
                   }).done(function( data ) { 
-                      $("#online-users").html("");
+                      $("#buildplayers").html("");
                       for (var playerIndex in data){
                           printUser(playerIndex,data);
 
@@ -384,13 +412,13 @@
                             
                             if (inGame === true){
                             if (sessionId === gameSessionId){
-                                $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary start" onclick="startGame(\'' + gameSessionId + '\')">Start</button>&nbsp;<button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');
+                                $( "#buildgames" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary start" onclick="startGame(\'' + gameSessionId + '\')">Start</button>&nbsp;<button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');
                                 if(private === "true"){
                                     $("#ingame-private").html("true");
                                 }
                             }
                             else{
-                                    $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');
+                                    $( "#buildgames" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');
                             }
                             $(".join").hide();
                             $("#create-game").hide();
@@ -399,7 +427,7 @@
                             }
                             else{  
                                 if (private === "false"){
-                                    $( "#avaliable-games" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary join" onclick="joinGame(\'' + gameSessionId + '\')">Join</button></div></li>');
+                                    $( "#buildgames" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary join" onclick="joinGame(\'' + gameSessionId + '\')">Join</button></div></li>');
                                 } 
   
                                 
@@ -425,7 +453,7 @@
                   data: {command: "getgames"},
                   }).done(function( data ) { 
                       //console.log(data);
-                      $("#avaliable-games").html("");
+                      $("#buildgames").html("");
                       for(var x in data){
                           printGameData(x,data,sessionId);
                     }

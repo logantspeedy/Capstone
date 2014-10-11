@@ -23,7 +23,7 @@ function getGameJSON(){
         currentPlayerHouse = gameJSON.currentPlayer.house.toString();
         currentPlayerTroops = gameJSON.currentPlayer.army.toString();
         nodes = gameJSON.board.nodes;
-        house = post({command:"getplayershouse", player:player}).toLowerCase();
+
     }
     else{console.log("getting gameJSON of null in getGameJSON");
         window.location="GameEnded.jsp";}
@@ -97,10 +97,18 @@ function getPlayersHouse(play){
 
 function getCookie() {
         var ca = document.cookie.split(';');
-
-        var username = ca[0].split("=");
-
-        return username[1];
+        
+        var notfound = true;
+        var x = 0;
+        while (notfound === true){
+            var element = ca[x].split("=");
+            
+            if (element[0].indexOf("username") > -1){
+                notfound = false;
+                return element[1];
+            }
+            x++;
+        }
     }
     
 function getAllPlayerTroopCount(p){

@@ -55,6 +55,9 @@
         <div id="bbl"><img src="images/border/bbl.png" alt=""></div>
         <div id="bbr"><img src="images/border/bbr.png" alt=""></div>
         
+        <div class ="loader" id="loader"><br/><br/><br/><br/><br/><br/><img src="images/ajax-loader.gif" alt=""></div>
+        
+        
         <div class="mainContainer">
         
             <div class="header"><img class="gameBanner" src="images/banners/gameBanner.png" alt="Game Of Thrones" style="width:80%;height:180%;"></div>

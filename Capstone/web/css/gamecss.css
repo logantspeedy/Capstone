@@ -15,10 +15,11 @@ and open the template in the editor.
     position: absolute;
 }
 .loader{
-    background: white;
-    width: 100%;
+    background: #720000;
+    width: 101%;
     height: 100%;
     z-index: 100;
+    
     position: absolute;
     visibility:visible;
 }

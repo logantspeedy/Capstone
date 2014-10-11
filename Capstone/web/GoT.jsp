@@ -51,7 +51,7 @@
         <audio id='snotTurn' src="sounds/deni.wav" preload="auto" controls hidden='true'></audio>
         <audio id='sreinforce' src="sounds/AgeUp.mp3" preload="auto" controls hidden='true'></audio>
         
-        <!--<div class ="loader" id="loader"><img src="images/ajax-loader.gif" alt=""></div>-->
+        <div class ="loader" id="loader"><br/><br/><br/><br/><br/><br/><img src="images/ajax-loader.gif" alt=""></div>
 
 
     <div id = "follower" style='z-index: 15; '>
@@ -122,7 +122,7 @@
         <div class="playerBanners">
             
             <div class="banners" isAlive="true" turn="false" id="starkBanner"
-                onmouseover="teston('starkControls')"  onmouseout="testout('starkControls')">
+                onmouseover="teston('starkControls')"  onClick="testout('starkControls')">
                 <img width='100%' height='auto' src='images/banners/starkBanner2.png'/>
             </div>
             
@@ -130,14 +130,14 @@
             <div class="bannerSpacer"></div>
             
             <div class="banners"  isAlive="true" turn="false" id="lannisterBanner"
-                onmouseover="teston('lannisterControls')"  onmouseout="testout('lannisterControls')">
+                onmouseover="teston('lannisterControls')"  onClick="testout('lannisterControls')">
                 <img width='100%' height='auto' src='images/banners/lannisterBanner2.png' />
             </div>
           
             <div class="bannerSpacer"></div>
 
             <div class="banners" isAlive="true" turn="false" id="greyjoyBanner"
-                 onmouseover="teston('greyjoyControls')"  onmouseout="testout('greyjoyControls')">
+                 onmouseover="teston('greyjoyControls')"  onClick="testout('greyjoyControls')">
                 <img width='100%' height='auto'  src='images/banners/greyjoyBanner2.png' />
             </div>
 
@@ -145,7 +145,7 @@
             <div class="bannerSpacer"></div>
 
             <div class="banners"  isAlive="true" turn="false" id="baratheonBanner"
-                 onmouseover="teston('baratheonControls')"  onmouseout="testout('baratheonControls')">
+                 onmouseover="teston('baratheonControls')"  onClick="testout('baratheonControls')">
                 <img width='100%' height='auto' src='images/banners/baratheonBanner2.png' />
             </div>
             
@@ -153,14 +153,14 @@
             <div class="bannerSpacer"></div>
 
             <div class="banners"  isAlive="true" turn="false" id="dothrakiBanner"
-                 onmouseover="teston('dothrakiControls')"  onmouseout="testout('dothrakiControls')">
+                 onmouseover="teston('dothrakiControls')"  onClick="testout('dothrakiControls')">
                 <img width='100%' height='auto'  src='images/banners/dothrakiBanner2.png' />
             </div>
             
             <div class="bannerSpacer"></div>
 
             <div class="banners" isAlive="true" turn="false" id="targaryenBanner"
-                 onmouseover="teston('targaryenControls')"  onmouseout="testout('targaryenControls')">
+                 onmouseover="teston('targaryenControls')"  onClick="testout('targaryenControls')">
                 <img width='100%' height='auto'  src='images/banners/targaryenBanner2.png' />
             </div>
             

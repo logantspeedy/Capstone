@@ -2,7 +2,15 @@
     font-family: CharleMagne;
     src: url(fonts/CharlemagneStd-Bold.otf);
 }
-
+.loader{
+    background: #720000;
+    width: 101%;
+    height: 100%;
+    z-index: 100;
+    
+    position: absolute;
+    visibility:visible;
+}
 
 html { 
 /*    background: url("../images/background/blackpattern3.jpg") no-repeat center center fixed; */

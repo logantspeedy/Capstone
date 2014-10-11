@@ -4,16 +4,16 @@
  * and open the template in the editor.
  */
 
-//var everythingLoaded = setInterval(function() {
-//  if (/loaded|complete/.test(document.readyState)) {
-//    clearInterval(everythingLoaded);
-//    removeLoader(); // this is the function that gets called when everything is loaded
-//  }
-//}, 10);
-//
-//function removeLoader(){
-//        $("#loader").css({"visibility":"hidden"});  
-//}
+var everythingLoaded = setInterval(function() {
+  if (/loaded|complete/.test(document.readyState)) {
+    clearInterval(everythingLoaded);
+    removeLoader(); // this is the function that gets called when everything is loaded
+  }
+}, 10);
+
+function removeLoader(){
+        $("#loader").css({"visibility":"hidden"});  
+}
 
 function updateDisplay(call){
         switch (gameJSON.currentStage.toString()) {
@@ -179,12 +179,15 @@ function insertInfoTable(){
 
 function teston(id){
     var bannerId = "#"+id+"";
-    console.log(bannerId);
-    $(bannerId).fadeIn("slow");
+    console.log(bannerId+"in");
+    $(bannerId).fadeIn("fast");
+    setTimeout(function(){$(bannerId).fadeOut("fast");},2500);
 }
 function testout(id){
     var bannerId = "#"+id+"";
-    setTimeout(function(){$(bannerId).fadeOut("slow");}, 2000);
+    console.log(bannerId+"out");
+//    setTimeout(function(){$(bannerId).fadeOut("fast");},1500);
+    $(bannerId).toggle();
 }
 
 

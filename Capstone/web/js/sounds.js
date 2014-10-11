@@ -3,28 +3,49 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var sgameMusic= new Audio('sounds/ingame.mp3');
-var syourturn = new Audio('sounds/Saracen.mp3');
-var sclaim = new Audio('sounds/tf4.wav');
-var sattack = new Audio('sounds/sword.mp3');
-var snotTurn = new Audio('sounds/deni.wav');
-var sreinforce = new Audio('sounds/AgeUp.mp3');
-function loadSounds(counter){
-    if (counter === 1){var sfort = new Audio('sounds/Teuton.mp3');loadSounds(counter+1);}
+
+var gameSoundsOn = true;
+
+function toggleSound(id){
+    if (gameSoundsOn === true){gameSoundsOn = false;
+        document.getElementById(id).src="images/icons/mute.png";}
+    else{gameSoundsOn = true;
+        document.getElementById(id).src="images/icons/unmuted.png";}
+}
+
+function startBackgroundMusic(){
+    if (gameSoundsOn === true){
+        document.getElementById('sgameMusic').play();}
+    else {console.log("Sound is Muted");}
+}
+
+function playSound(sound){
+    if (gameSoundsOn === true){
+        if (sound === 'attack'){
+            document.getElementById('sattack').play();
+        }
+
+            if (sound === 'fortify'){
+            document.getElementById('sfort').play();
+        }
+
+            if (sound === 'yourturn'){
+            document.getElementById('syourturn').play();
+        }
+
+            if (sound === 'claim'){
+            document.getElementById('sclaim').play();
+        }
+
+            if (sound === 'notyourturn'){
+            document.getElementById('snotTurn').play();
+        }
+
+            if (sound === 'reinforce'){
+            document.getElementById('sreinforce').play();
+        }
+    }
+    else {console.log("Sound is Muted");}
     
-    if (counter === 2){ var syourturn = new Audio('sounds/Saracen.mp3');loadSounds(counter+1);}
-
-    if (counter === 3){var sclaim = new Audio('sounds/tf4.wav');loadSounds(counter+1);}
-
-    //http://www.freesfx.co.uk from
-    if (counter === 4){var sattack = new Audio('sounds/sword.mp3');loadSounds(counter+1);}
-
-    //https://www.youtube.com/watch?v=v8aokfpvS7M&list=UUtHhtnum-35K2iUdaYFlk0Q&src_vid=7cUELYuzRGc&feature=iv&annotation_id=annotation_1059356347
-    if (counter === 5){var sgameMusic= new Audio('sounds/ingame.mp3');loadSounds(counter+1);}
-
-    //origin
-    if (counter === 6){ var snotTurn = new Audio('sounds/deni.wav');loadSounds(counter+1);}
     
-    if (counter === 7){var sreinforce = new Audio('sounds/AgeUp.mp3');loadSounds(counter+1);}
-    else {initGame(2);}
 }

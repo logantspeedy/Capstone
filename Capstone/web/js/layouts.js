@@ -3,45 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-function initGame(counter){
-    if(counter === 1){loadSounds(1);};
-    if(counter === 2){insertHeader();};
-    if(counter ===3){insertFooter();};
-    if(counter ===4){insertNav();};              
-                    
-    
-}
-
 function insertHeader(){
-//    sgameMusic.volume=0.3;
-//    sgameMusic.play();
-    
     $('.header').empty().append("<img class='gameBanner' src='images/banners/gameBanner.png' alt='Game Of Thrones'>");
-    initGame(3);
 }
   
     
 function insertFooter(){
     $('.footer').empty().append('<hr>');
     $('.footer').append('<p>a Team4 Production 2014 Massey capstone@massey.ac.nz©</p>');
-    initGame(4);
 }
 
 function insertNav(){
     $('#nav').append(   
         '<table >'+
            ' <tr>'+
-              '<th style="padding-top: 6%" ><a href="home">home</a></th>'+
+              '<th style="padding-top: 6%" ><a href="home">Home</a></th>'+
               '<th></th><th></th>'+
-              '<th style="padding-top: 6%"  ><a href="about">about</a></th>'+
+              '<th style="padding-top: 6%"  ><a href="about">About</a></th>'+
               '<th></th><th></th>'+
-              '<th style="padding-top: 6%" ><a href="contact">contact</a></th>'+
+              '<th style="padding-top: 6%" ><a href="contact">Contact</a></th>'+
               '<th></th><th></th>'+
-              '<th style="padding-top: 6%" >House Moto Here</th>'+
+              '<th style="padding-top: 6%" >Lobby</th>'+
               '<th></th><th></th>'+
-              '<th style="padding-top: 6%" ><a href="">leave game</a></th>'+
+              '<th style="padding-top: 6%" ><a href="">Leave Game</a></th>'+
               '<th></th><th></th>'+
-              '<th style="padding-top: 6%" ><a href="test">signout</a></th>'+
+              '<th style="padding-top: 6%" ><a href="test">Signout</a></th>'+
             '</tr>'+
           '</table>');
 }

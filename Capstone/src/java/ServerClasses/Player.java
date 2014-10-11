@@ -23,14 +23,14 @@ public class Player {
 	
 	public Player(String name, int troops){
 		this.setName(name);
-		this.setArmy(troops);
-                this.setHouse("");
+		this.setArmy(troops);                
                 this.territoriesControlled = 0;
                 this.active = true;
                 this.attackBonus = 0;
                 this.ATTACK_BONUS_NORTH = new ArrayList<String>();
                 this.ATTACK_BONUS_MID = new ArrayList<String>();
                 this.ATTACK_BONUS_RIGHT = new ArrayList<String>();
+                this.house = "";
 	}
 
 	public int getArmy() {

@@ -58,6 +58,9 @@ public class MainServletListener implements HttpSessionListener, HttpSessionAttr
         if (event.getName().equals("gamename")){
             gameSessions.put(session.getId(), session);          
         }
+       
+        
+        
         if (event.getName().equals("joinedgame")){
             HttpSession gameSession = findGame((String) event.getValue());
             ArrayList<String> players = (ArrayList<String>) gameSession.getAttribute("players");
@@ -114,16 +117,20 @@ public class MainServletListener implements HttpSessionListener, HttpSessionAttr
         return playerSessions.keySet();
     }
     
-    public ArrayList<String> getPlayerNames(){
-        ArrayList<String> playerNames = new ArrayList<>();
+    public ArrayList<ArrayList<String>> getPlayerNames(){
+        ArrayList<ArrayList<String>> players = new ArrayList<>();
+        
         for (String session : playerSessions.keySet()){
             HttpSession playerSession = playerSessions.get(session);
             if (playerSession.getAttribute("username") != null){
+                ArrayList<String> playerNameSession = new ArrayList<>();
                 String username = (String) playerSession.getAttribute("username");
-                playerNames.add(username);
+                playerNameSession.add(username);
+                playerNameSession.add(session);
+                players.add(playerNameSession);
             }    
         }
-        return playerNames;
+        return players;
     }
     
     public HttpSession findGame(String sessionId) {
@@ -152,6 +159,10 @@ public class MainServletListener implements HttpSessionListener, HttpSessionAttr
             }   
                              
             singleSessionData.add(playersString);
+            singleSessionData.add((String) gameSession.getAttribute("private"));
+            if (gameSession.getAttribute("game") != null){
+                singleSessionData.add((String) "inprogress");
+            }
             gamesSessionData.add(singleSessionData);
         }
 

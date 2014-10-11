@@ -15,8 +15,8 @@ public class Game {
 	private Board board;	
 	public Player currentPlayer;		
 	private ArrayList<Player> playerList;
-        private String currentStage;
-	private String currentPhase;        
+        protected String currentStage;
+	protected String currentPhase;        
 	private int playerPos;
 	private int phaseStage;
 	private int noOfTerritories;
@@ -28,27 +28,28 @@ public class Game {
 	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};		
 	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify"};    
          
-	public Game(String[] players){	            
+	public Game(String[] players){	  
+                System.out.println("Creating a game:" + System.currentTimeMillis());
 		currentPhase = "claim";
 		currentStage = "setup";
 		currentPlayer = null;		
 		claimCounter = 0;   
 		captureCounter = 1;
 		playerPos = 0;               
-		playerList = new ArrayList<Player>();		
-		board = new Board();
+		playerList = new ArrayList<Player>();			
                 noOfTerritories = 33;
-		int troops = startingTroops[players.length - 2];		
+                int noOfPlayers = players.length;
+		int troops = startingTroops[noOfPlayers - 2];		
 		CreateGameBoard gameBoard = new CreateGameBoard();			
-		board.setBoard(gameBoard.getNodes());	
-				
-		for(int i = 0;i < players.length; i++){
+		board = new Board(gameBoard.getNodes());				
+		for(int i = 0;i < noOfPlayers; i++){
 			Player player = new Player(players[i], troops);
 			playerList.add(player);
 		}	
-                startingPlayer = randomPlayer(players.length).getName();
+                startingPlayer = randomPlayer(noOfPlayers).getName();
 		setCurrentPlayer(startingPlayer);
                 lastRolls = new int[2][3];
+                System.out.println("Game Created:" + System.currentTimeMillis());
 	}	
 	
 	//*****************************************************************

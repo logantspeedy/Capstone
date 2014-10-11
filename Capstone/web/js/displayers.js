@@ -4,22 +4,51 @@
  * and open the template in the editor.
  */
 
+//var everythingLoaded = setInterval(function() {
+//  if (/loaded|complete/.test(document.readyState)) {
+//    clearInterval(everythingLoaded);
+//    removeLoader(); // this is the function that gets called when everything is loaded
+//  }
+//}, 10);
+//
+//function removeLoader(){
+//        $("#loader").css({"visibility":"hidden"});  
+//}
+
 function updateDisplay(call){
-    if (call===1){getGameJSON(); updateDisplay(call+1);}
+    if (call===0){getGameJSON(); updateDisplay(call+1);}
+    if (call===1){updateDisplay(call+1);
+//        if(playerList === null){
+//            console.log("Player List is Null in updateDisplay");
+//        }
+//        else{updateDisplay(call+1);
+        }
+//        };
     if (call===2){setFlags(); updateDisplay(call+1);}
     if (call===3){displayPopUp(1);updateDisplay(call+1);}
     if (call===4){insertInfoTable(); updateDisplay(call+1);}
     if (call===5){setTerTroop(); updateDisplay(call+1);}
     if (call===6){playerBanners(); updateDisplay(call+1);}
     if (call===7){setReinforce(); updateDisplay(call+1);}
-//        if (call===6){console.log("diplay updated");}
+    if (call===8){if(checkIfAllPlayersHouse() > 0){window.location="waiting.jsp";}}
+    
+//        if (call===8){console.log("diplay updated");}
 
+}
+
+function checkIfAllPlayersHouse(){
+    var c =0 ;
+    for(var i = 0; i < playerList.length; i++){
+        if(playerList[i].house===""){c=c+1;}
+    }
+    return c;
+    
 }
 
 function displayPopUp(poId){
     if (poId === 1){
         if ((currentPlayer===player) && ($("#pop1").attr("shown")=== "false")){
-//            syourturn.play();
+            playSound('yourturn');
             $("#pop1").css({"visibility":"visible"});
             $("#pop1").attr("shown", "true");
         }

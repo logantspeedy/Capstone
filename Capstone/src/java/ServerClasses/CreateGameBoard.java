@@ -42,8 +42,7 @@ public class CreateGameBoard {
                         nodes.add(new Node(territories[i], " ", " ", 0, adjTerritories[i]));
                     }
 		}
-	}
-	
+	}	
 	public ArrayList<Node> getNodes() {
 		return nodes;
 	}

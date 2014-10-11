@@ -1,0 +1,73 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 5/10/2014, 11:53:25 PM
+    Author     : Zeb
+*/
+
+hr{
+    border-color:#720000 ;
+    background-color:#720000;
+    color: #720000;
+}
+.footer p{
+
+   font-family:Cordia New;
+   color: #720000;
+   text-align: center;
+   font-size: 1.2vw;
+    
+}
+.controls p{
+
+    font-family:Cordia New;
+    color: #d2caa0;
+    text-align: left;
+    font-size: 1vw;
+    margin-top: 0;
+    padding-top: 0;
+        
+    
+}
+
+p{
+    
+   
+    
+    font-family:Cordia New;
+    color: whitesmoke;
+    text-align: left;
+    font-size: 1.5vw;
+    margin: 0;
+    padding: 0;
+}
+h1{
+    font-family: CharleMagne;
+    color: #720000;
+    text-align: left;
+    font-size: 2.5vw;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+h2{
+    font-family: CharleMagne;
+    color: #720000;
+    text-align: left;
+    font-size: 2vw;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+h3{
+    font-family: CharleMagne;
+    color: #720000;
+    text-align: left;
+    font-size: 1.5vw;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}

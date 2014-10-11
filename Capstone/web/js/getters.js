@@ -16,13 +16,17 @@ var playerList = null;
 
 function getGameJSON(){
     gameJSON = post({command:"getgamedata"});
-    playerList = gameJSON.playerList;
-    currentPhase = gameJSON.currentPhase.toString();
-    currentPlayer = gameJSON.currentPlayer.name.toString();
-    currentPlayerHouse = gameJSON.currentPlayer.house.toString();
-    currentPlayerTroops = gameJSON.currentPlayer.army.toString();
-    nodes = gameJSON.board.nodes;
-    house = post({command:"getplayershouse", player:player}).toLowerCase();
+    if (gameJSON !== null){
+        playerList = gameJSON.playerList;
+        currentPhase = gameJSON.currentPhase.toString();
+        currentPlayer = gameJSON.currentPlayer.name.toString();
+        currentPlayerHouse = gameJSON.currentPlayer.house.toString();
+        currentPlayerTroops = gameJSON.currentPlayer.army.toString();
+        nodes = gameJSON.board.nodes;
+        house = post({command:"getplayershouse", player:player}).toLowerCase();
+    }
+    else{console.log("getting gameJSON of null in getGameJSON");
+        window.location="GameEnded.jsp";}
 //        console.log(nodes);
 //      currentPlayerTroops = gameJSON.currentPlayer.troops.toString();
 }
@@ -65,7 +69,7 @@ function getSessionId(){
 function getTerritotyTroopCount(id){
         var unitCount = null;
         if (nodes !== null){
-            for (i = 0; i < nodes.length; i++){
+            for ( var i = 0; i < nodes.length; i++){
                 if (nodes[i].territoy === id){
                     unitCount=nodes[i].troops;
                     return unitCount;
@@ -80,7 +84,7 @@ function getPlayersHouse(play){
     return response;
 }
 
-function getCookie(cname) {
+function getCookie() {
         var ca = document.cookie.split(';');
 
         var username = ca[0].split("=");

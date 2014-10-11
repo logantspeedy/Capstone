@@ -11,8 +11,6 @@
         //    }, function () {
         //        this.src = '/images/signup_big.png';
         //    });
- 
-        
         $("#starkBanner").click(function() {
         post({command:"sethouse" , player:getCookie(),house:"Stark"});
         window.location="GoT.jsp";
@@ -41,7 +39,8 @@
  function checkHouseStatus(){
     gameJSON = post({command:"getgamedata"});
     playerList = gameJSON.playerList;
-    for (i = 0; i < playerList.length; i++) {
+    if (playerList === null){window.location.href='GameEnded.jsp';}
+    for (var i = 0; i < playerList.length; i++) {
         var hosue = playerList[i].house.toLowerCase();
         if(hosue==="stark"){
             $("#starkBanner").attr("isselected", "true");

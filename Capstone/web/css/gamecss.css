@@ -1,0 +1,369 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 3/08/2014, 4:04:27 PM
+    Author     : Zeb
+*/
+
+.soundControls{
+    width: 2%;
+    z-index: 50;
+    margin-left: 98%;
+    position: absolute;
+}
+.loader{
+    background: white;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    position: absolute;
+    visibility:visible;
+}
+
+.gameBanner{
+    width: 60%;
+    height:90%
+}
+.popUp{
+    background-color: #d2caa0;
+    background-size: 100%;
+    background-position: left top; 
+    width: 25%;
+    height: 25%;
+    position: absolute;
+    z-index: 20;
+    margin: auto;
+    top:0;bottom:0;  
+    left:0;right:0; /* horizontal center */
+    
+    overflow-y: hidden;
+    /*overflow-y: hidden;*/
+    border: 0.1vw solid;
+    border-radius: 0.5vw;
+}
+#pop1{visibility:hidden;}
+#pop2{visibility:hidden;}
+
+#btl{
+    width:25%;
+    height: 25%;
+    float:left;
+}
+#btr{
+    width:25%;
+    height: 25%;
+    float:right;   
+}
+.popUpMessage{
+    padding-top: -10px;
+    width: 100%;
+    height: 50%;
+    overflow-y: auto;
+}
+#bbl{
+    width:25%;
+    height: 25%;
+    float: left;
+}
+#bbr{
+    width:25%;
+    height: 25%;
+    float:right;
+}
+#popUpBoarder{}
+
+body {
+    
+    width: 100vw; 
+    height: 56.25vw; /* 100/56.25 = 1.778 */
+   
+    max-height: 100vh;
+    max-width: 176.78vh; /* 16/9 = 1.778 */
+    min-height: 460px;
+    min-width: 820px ;
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top:0;bottom:0; /* vertical center */
+    left:0;right:0; /* horizontal center */
+
+    text-align: center;
+    
+    /*background-image: url("images/background/blackpattern3.jpg");*/
+    /*background-size: 100%;*/
+    background-color: black;
+    background-position: left top;   
+    position:absolute 
+}
+.header{
+    width: 75%;
+    height:12%;
+    z-index: 10;
+    position:absolute;
+    margin-left: 25%;
+    
+    /*float: top;*/
+    /*background-color: green;*/
+  
+}
+.infoTable{
+    width: 15%;
+    height:20%;
+    z-index: 1;
+    position:absolute;
+    margin-top: 5%;
+    margin-left: 54%;
+    font-size: 1vw;
+    /*background: blue;*/
+    /*float: top;*/
+    /*background-color: green;*/
+  
+}
+.phase{
+    width:100%;
+    height: 100%;
+}
+
+table.infoCss, th.infoCss, td.infoCss {
+   border: 1px solid white;
+   font-family:Cordia New;
+   color: #d2caa0;
+   vertical-align: top;
+   font-size: 1vw;
+
+}
+.banner{
+    padding-bottom:100px; 
+    /*height: 100%;*/
+    width:100%;
+    
+}
+.navigation{
+    color:#d2caa0;
+    font-family:Cordia New;
+    /*font-size: 150%;*/
+    text-align:left;
+    height: 3%;
+    font-size: 1vw;
+    padding: 4px;
+    width:100%;
+    /*float:top;*/
+    /*background-color: blueviolet;*/   
+}
+
+
+a:link {
+    color: #d2caa0;
+    text-decoration: none;
+    /*font-size: 0.8vw;*/
+}
+
+a:visited {
+    color: #d2caa0;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+.mainContainer{
+    margin-top: 1%;
+    border-width: 4px;
+    border-color: #720000;
+    border-style: solid;
+    width:100%;
+    height:88%;
+    float: top;
+    position: relative;
+
+}
+
+.commentWindow {
+    float: left;
+    width:15%;
+    height:100%;
+    overflow:auto;
+    /*background-color: blue;*/
+}
+
+.gameWindow {
+    float: left;
+    width:100%;
+    height:100%;
+    overflow:auto;
+    /*background-color: red;*/
+}
+
+
+.footer{
+    color:#d2caa0;
+    font-family:Cordia New;
+    /*font-size: 150%;*/
+    text-align:center;
+    height: 1%;
+    font-size: 0.8vw;
+    padding: 4px;
+    
+    width:100%;
+    /*float:top;*/
+    /*background-color: blueviolet;*/
+}
+
+.default {
+    fill-opacity:0;
+    stroke:#221a16;
+    stroke-width:2;
+}
+.claim{
+    fill:orange;
+}
+.hover{
+    fill:orange;
+    fill-opacity:.4;
+}
+.avoid-clicks{
+    pointer-events: none;
+}
+.noPad{
+    text-shadow: 1px 1px #000000;
+    /*text-shadow: rgba(0, 0, 0, 0.0980392) 1px 1px 1px;*/
+    padding:0;
+    margin:0;
+    height:auto;
+    font-size:1vw;
+    text-align:center;
+}
+.fort{
+    fill:green;
+}
+.fortClick{
+    fill:green;
+    fill-opacity:.4;
+      stroke:green;
+    stroke-width:5;
+}
+.fortHover{
+    fill:green;
+    fill-opacity:.4;
+      stroke:green;
+    stroke-width:5;
+}
+.attackerHover{
+    fill:blue;
+    fill-opacity:.4;
+    stroke:blue;
+    stroke-width:5;
+}
+.attack{
+    fill:blue;
+}
+.defend{
+    fill:red;
+}
+.defenderClick{
+    fill:red;
+    fill-opacity:.4;
+      stroke:red;
+    stroke-width:5;
+}
+.defenderHover{
+    fill:red;
+    fill-opacity:.4;
+      stroke:red;
+    stroke-width:5;
+}
+
+#svg{
+    width:100%;
+    height:100%;
+/*    width:1100px;
+    height:716.6px;*/
+    position:absolute;
+    top:0px;
+    left:0px;
+/*position:relative;*/
+    /*z-index: ;*/
+}
+.playerBanners{
+    padding-left:0.2%;
+    padding-top: 0.1%;
+    width: 12%;
+    height: 100%;
+    z-index: 3;
+    position:absolute;
+    /*padding-top: 2%;*/
+    /*background-color: red;*/
+    font-size: 1vw;
+    
+}
+.banners{
+    float:left;
+    /*background-color: blue;*/
+    width: 29%;
+}
+
+.controls{
+    float:left;
+    height: 10%;
+    width:71%;
+    /*background-color: yellow;*/
+}
+.bannerSpacer{
+    width:100%;
+    height:0.2%;
+    float:left;
+    /*background-color:green;*/ 
+}
+
+.chat{
+    width: 35%;
+    height:16%;
+    /*background: #d2caa0;*/
+    position: absolute;
+    margin-top: 41%;
+    margin-left: 11%;
+    
+}
+.chatContent{
+    width: 100%;
+    height:80%;
+/*    background: #d2caa0;*/
+    background-image: url("images/background/oldpaper.jpg");
+    border: 0.1vw solid;
+    border-radius: 0.5vw;
+    
+}
+.chatEnterText{
+    width: 100%;
+    height:20%;
+    background: #826c47;
+    text-align: left;
+    color:whitesmoke;
+
+    font-size: 1vw;
+    border: 0.1vw solid;
+    border-radius: 0.5vw;    
+}
+
+.banners[turn = "true"] {     
+    opacity: 1;
+}
+
+.banners[turn = "false"] {
+    opacity: 0.3;
+}
+
+.banners[isAlive = "true"] {     
+    background-color: transparent ;
+}
+
+.banners[isAlive = "false"] {
+    background-color: firebrick;
+}

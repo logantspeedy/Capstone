@@ -73,16 +73,22 @@ function displayPopUp(poId){
         if ((currentPlayer===player) && ($("#pop1").attr("shown")=== "false")){
             playSound('yourturn');
             $("#pop1").attr("shown", "true");
-            $("#pop1").fadeIn("slow");
-            setTimeout(function(){$("#pop1").fadeOut("slow");}, 3000);
+            $("#pop1").fadeIn("fast");
+            setTimeout(function(){$("#pop1").fadeOut("fast");}, 1500);
         }
-        if (currentPlayer!==player){$("#pop1").attr("shown", "false");
+        else if (currentPlayer!==player){$("#pop1").attr("shown", "false");
         }
     }
     if (poId === 2){
 //        snotTurn.play();
-        $("#pop2").fadeIn("slow");
-            setTimeout(function(){$("#pop2").fadeOut("slow");}, 3000);
+        $("#pop2").fadeIn("fast");
+            setTimeout(function(){$("#pop2").fadeOut("fast");}, 1500);
+    }
+    
+    if (poId === 3){
+//        snotTurn.play();
+        $("#pop3").fadeIn("fast");
+            setTimeout(function(){$("#pop3").fadeOut("fast");}, 1500);
     }
     
 }
@@ -90,13 +96,14 @@ function displayPopUp(poId){
 function hidePopUp(popId){
     var id = '#pop'+popId;
    
-    $(id).css({"visibility":"hidden"});
+    $(id).fadeOut("fast");
     
 }
 
 function playerBanners(){
     $("div.banners").attr("turn", "false");
-    $("div.banners").attr("isAlive", "false");
+    
+    
     if (currentPlayerHouse === ""){
         currentPlayerHouse =  post({command:"getplayershouse", player:gameJSON.startingPlayer}).toLowerCase();
         playerBanners();
@@ -110,13 +117,19 @@ function playerBanners(){
 //        var alive = playerList[i].isAlive;
         var bannerId = "#"+ph.toLowerCase() +"Banner";
 //        $(bannerId).attr("isAlive", alive);
-        $(bannerId).attr("isAlive", "true");
+        
+        if (getAllPlayerTroopCount(playerList[i].name) !== 0){
+            $(bannerId).empty().append("<img width='80%' height='auto' src='images/banners/"+ph.toLowerCase()+"Banner.png' />");
+        }
+        else{
+            $(bannerId).empty().append("<img width='80%' height='auto' src='images/banners/"+ph.toLowerCase()+"Banner2.png' />");
+        }
     }
     
         for (var i = 0; i < arrayLength; i++) {
             var ph = playerList[i].house;
-            var bannerId = "#"+ph.toLowerCase() +"Controls";
-            $(bannerId).empty().append("<h1>"+playerList[i].name+"</h1><hr/><img width='80%' height='auto' src='images/banners/"+ph.toLowerCase()+"Banner.png' /><br><h3>Troops: "+getAllPlayerTroopCount(playerList[i].name)+"<br>Free Units:" +playerList[i].army+"<br>Attack Bonus:"+playerList[i].attackBonus +"</h3>");}
+            var controlsId = "#"+ph.toLowerCase() +"Controls";
+            $(controlsId).empty().append("<h1>"+playerList[i].name+"</h1><hr/><img width='80%' height='auto' src='images/banners/"+ph.toLowerCase()+"Banner.png' /><br><h3>Troops: "+getAllPlayerTroopCount(playerList[i].name)+"<br>Free Units:" +playerList[i].army+"<br>Attack Bonus:"+playerList[i].attackBonus +"</h3>");}
     }
 }
 

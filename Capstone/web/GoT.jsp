@@ -87,13 +87,27 @@
 
         </div>
 
-        <div class ="popUp" id ="pop2"shown='false'>
+        <div class ="popUp" id ="pop2" shown='false' onclick="hidePopUp(2)">
 
             <div id="btl"><img style="width:100%"src="images/border/btl.png" alt=""></div>
             <div id="btr"><img style="width:100%"src="images/border/btr.png" alt=""></div>
 
-            <div class='popUpMessage' onclick="hidePopUp(2)">
-                <h2>Sorry,<br> It is not your turn</h2>
+            <div class='popUpMessage' >
+                <h2>Sorry,<br> It is not your turn.</h2>
+            </div>
+
+            <div id="bbl"><img style="width:100%"src="images/border/bbl.png" alt=""></div>
+            <div id="bbr"><img style="width:100%"src="images/border/bbr.png" alt=""></div>
+
+        </div>
+        
+        <div class ="popUp" id ="pop3" shown='false' onclick="hidePopUp(3)">
+
+            <div id="btl"><img style="width:100%"src="images/border/btl.png" alt=""></div>
+            <div id="btr"><img style="width:100%"src="images/border/btr.png" alt=""></div>
+
+            <div class='popUpMessage' >
+                <h2>Sorry,<br> You can't attack with a territory claimed this turn.</h2>
             </div>
 
             <div id="bbl"><img style="width:100%"src="images/border/bbl.png" alt=""></div>
@@ -107,47 +121,47 @@
 
         <div class="playerBanners">
             
-            <div class="banners" turn="false" id="starkBanner"
+            <div class="banners" isAlive="true" turn="false" id="starkBanner"
                 onmouseover="teston('starkControls')"  onmouseout="testout('starkControls')">
-                <img width='100%' height='auto' src='images/banners/starkBanner.png'/>
+                <img width='100%' height='auto' src='images/banners/starkBanner2.png'/>
             </div>
             
             
             <div class="bannerSpacer"></div>
             
-            <div class="banners" turn="false" id="lannisterBanner"
+            <div class="banners"  isAlive="true" turn="false" id="lannisterBanner"
                 onmouseover="teston('lannisterControls')"  onmouseout="testout('lannisterControls')">
-                <img width='100%' height='auto' src='images/banners/lannisterBanner.png' />
+                <img width='100%' height='auto' src='images/banners/lannisterBanner2.png' />
             </div>
           
             <div class="bannerSpacer"></div>
 
-            <div class="banners" turn="false" id="greyjoyBanner"
+            <div class="banners" isAlive="true" turn="false" id="greyjoyBanner"
                  onmouseover="teston('greyjoyControls')"  onmouseout="testout('greyjoyControls')">
-                <img width='100%' height='auto'  src='images/banners/greyjoyBanner.png' />
+                <img width='100%' height='auto'  src='images/banners/greyjoyBanner2.png' />
             </div>
 
 
             <div class="bannerSpacer"></div>
 
-            <div class="banners" turn="false" id="baratheonBanner"
+            <div class="banners"  isAlive="true" turn="false" id="baratheonBanner"
                  onmouseover="teston('baratheonControls')"  onmouseout="testout('baratheonControls')">
-                <img width='100%' height='auto' src='images/banners/baratheonBanner.png' />
+                <img width='100%' height='auto' src='images/banners/baratheonBanner2.png' />
             </div>
             
 
             <div class="bannerSpacer"></div>
 
-            <div class="banners" turn="false" id="dothrakiBanner"
+            <div class="banners"  isAlive="true" turn="false" id="dothrakiBanner"
                  onmouseover="teston('dothrakiControls')"  onmouseout="testout('dothrakiControls')">
-                <img width='100%' height='auto'  src='images/banners/dothrakiBanner.png' />
+                <img width='100%' height='auto'  src='images/banners/dothrakiBanner2.png' />
             </div>
             
             <div class="bannerSpacer"></div>
 
-            <div class="banners" turn="false" id="targaryenBanner"
+            <div class="banners" isAlive="true" turn="false" id="targaryenBanner"
                  onmouseover="teston('targaryenControls')"  onmouseout="testout('targaryenControls')">
-                <img width='100%' height='auto'  src='images/banners/targaryenBanner.png' />
+                <img width='100%' height='auto'  src='images/banners/targaryenBanner2.png' />
             </div>
             
         </div>

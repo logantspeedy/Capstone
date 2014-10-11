@@ -71,7 +71,7 @@ function setSVGClickEvents(i) {
                                         }
                                         else{
                                             console.log("can't attack with this ter");
-                                            alert("territory jsut claimed cannot attack");
+                                            displayPopUp(3);
                                             break;
                                         }
                                         

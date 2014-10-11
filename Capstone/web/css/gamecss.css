@@ -46,6 +46,7 @@ and open the template in the editor.
 }
 #pop1{display:none;}
 #pop2{display:none;}
+#pop3{display:none;}
 
 #btl{
     width:25%;
@@ -220,17 +221,22 @@ a:active {
     fill-opacity:0;
     stroke:#221a16;
     stroke-width:2;
+    cursor: pointer;
+    
 }
 .claim{
     fill:orange;
     fill-opacity:.4;
+    cursor: pointer;
 }
 .hover{
     fill:orange;
     fill-opacity:.4;
+    cursor: pointer;
 }
 .avoid-clicks{
     pointer-events: none;
+    cursor: pointer;
 }
 .noPad{
     text-shadow: 1px 1px #000000;
@@ -240,45 +246,54 @@ a:active {
     height:auto;
     font-size:1vw;
     text-align:center;
+    
 }
 .fort{
-    fill:green;
+    fill:#CC9C0A;
+    cursor: pointer;
 }
 .fortClick{
-    fill:green;
+    fill:#1C6E31;
     fill-opacity:.4;
-      stroke:green;
-    stroke-width:5;
+    stroke:#1C6E31;
+    stroke-width:2;
+    cursor: pointer;
 }
 .fortHover{
-    fill:green;
+    fill:#CC9C0A;
     fill-opacity:.4;
-      stroke:green;
-    stroke-width:5;
+    stroke:#CC9C0A;
+    stroke-width:2;
+    cursor: pointer;
 }
 .attackerHover{
-    fill:blue;
+    fill:#1C1C51;
     fill-opacity:.4;
-    stroke:blue;
-    stroke-width:5;
+    stroke:#1C1C51;
+    stroke-width:2;
+    cursor: pointer;
 }
 .attack{
-    fill:blue;
+    fill:#1C1C51;
+    cursor: pointer;
 }
 .defend{
-    fill:red;
+    fill:#720000;
+    cursor: pointer;
 }
 .defenderClick{
-    fill:red;
+    fill:#720000;
     fill-opacity:.4;
-      stroke:red;
-    stroke-width:5;
+      stroke:#720000;
+    stroke-width:2;
+    cursor: pointer;
 }
 .defenderHover{
-    fill:red;
+    fill:#720000;
     fill-opacity:.4;
-      stroke:red;
-    stroke-width:5;
+      stroke:#720000;
+    stroke-width:2;
+    cursor: pointer;
 }
 
 #svg{
@@ -289,6 +304,7 @@ a:active {
     position:absolute;
     top:0px;
     left:0px;
+    
 /*position:relative;*/
     /*z-index: ;*/
 }
@@ -399,5 +415,5 @@ a:active {
 }
 
 .banners[isAlive = "false"] {
-    background-color: firebrick;
+    /*background-color: firebrick;*/
 }

@@ -19,15 +19,15 @@ public class Game {
 	private String currentPhase;        
 	private int playerPos;
 	private int phaseStage;
-	private final int noOfTerritories = 33;
-//        private final int noOfTerritories = 8;
+//	private final int noOfTerritories = 33;
+        private final int noOfTerritories = 8;
 	private int claimCounter;
         private String startingPlayer;  
         private int captureCounter;        
         private int[][] lastRolls;
         
-	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
-//        final int[] startingTroops = new int[]{15, 15, 15, 15, 10};	
+//	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
+        final int[] startingTroops = new int[]{15, 15, 15, 15, 10};	
 	final String[] possiblePhase = new String[]{"reinforce", "attack", "fortify"};    
          
 	public Game(String[] players){	            

@@ -206,13 +206,15 @@ function mouseoverHandler(i) {
 //    $("#hoverUnits").empty().append("Units : " + getTerritotyTroopCount(input));
     $("#follower").stop(true, true);
     $("#follower").fadeIn("fast");
-    if (getTerrOwner(input) === player) {
+    
         if (player === currentPlayer) {
             if (first === null) {
                 switch (currentPhase) {
                     case "claim":
                         {
-                            $("#" + id).attr('class', 'hover');
+							if (getTerrOwner(input) === " ") {
+								$("#" + id).attr('class', 'hover');
+							}
                             break;
                         }
 
@@ -240,7 +242,7 @@ function mouseoverHandler(i) {
                 }
             }
         }
-    }
+    
 }
 
 

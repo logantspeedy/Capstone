@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Board {
 	
-	private ArrayList<Node> nodes;
+	protected ArrayList<Node> nodes;
 	
 	public Board(ArrayList<Node> nodes){
 		this.nodes = nodes;		

@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
+import javax.enterprise.concurrent.ManagedExecutorService;
+import javax.servlet.AsyncContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,9 +36,10 @@ import org.json.JSONObject;
  *
  * @author Taylor
  */
-@WebServlet(name = "MainServlet", urlPatterns = {"/MainServlet"})
+@WebServlet(name = "MainServlet", urlPatterns = {"/MainServlet"}, asyncSupported=true)
 public class MainServlet extends HttpServlet {
-
+    @Resource
+    private ManagedExecutorService managedExecutorService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -76,7 +80,8 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            processRequest(request,response);
+        
  
     }
 
@@ -145,7 +150,8 @@ public class MainServlet extends HttpServlet {
                 }  
             
              case "checkinvite":
-                {                
+                {   
+                    try{
                     String result = "false";
                     if (session.getAttribute("invited") != null){
                         result  = session.getAttribute("invited").toString();
@@ -162,12 +168,16 @@ public class MainServlet extends HttpServlet {
                     out.println(resultJSON);
                     
                     break;                    
-                    
+                    }
+                    catch (NullPointerException ex){
+                        break;
+                    }
                     
                     
                 }           
              case "checkingame":
-                {                
+                {   
+                    try{
                     Boolean inGame = false;
                     if (joined == true){
                         inGame = true;
@@ -182,7 +192,11 @@ public class MainServlet extends HttpServlet {
 
                     out.println(inGameJSON);
                     
-                    break;                   
+                    break;
+                    }
+                    catch (NullPointerException ex){
+                        break;
+                    }                    
                     
                     
                     
@@ -215,6 +229,7 @@ public class MainServlet extends HttpServlet {
                 }             
             case "gamestart":
                 {
+                    try{
                     //checking if the game has been started by the game owner
                     Boolean gameStart = false;
                     if (session.getAttribute("game") != null){
@@ -225,7 +240,11 @@ public class MainServlet extends HttpServlet {
                     String gameStartJSON = gson.toJson(gameStart);                   
 
                     out.println(gameStartJSON);
-                    break;                    
+                    break;   
+                    }
+                    catch(NullPointerException ex){
+                        break;
+                    }
                     
                     
                     
@@ -381,7 +400,7 @@ public class MainServlet extends HttpServlet {
             case "usercheck":
                 {
                     
-                    
+                    try{
                     if (request.getParameter("gamesessionid") == null || request.getParameter("gamesessionid").equals("")){
                         break;
                     }   
@@ -410,6 +429,10 @@ public class MainServlet extends HttpServlet {
                     out.println(inGameJSON);
                     break;
                     //return a set list
+                    }
+                    catch(NullPointerException ex){
+                        break;
+                    }
                 }            
             
             case "getusers":

@@ -8,6 +8,27 @@ and open the template in the editor.
     Author     : Zeb
 */
 
+#sliderTroops{
+    top:0;bottom:0; /* vertical center */
+    left:0;right:0; /* horizontal center */
+    width:150px;
+    margin: auto;
+    /*position: absolute;*/
+}
+.fortifypopup{
+    z-index: 50;
+    width: 270px;
+    height: 100px;
+    background-color: #d2caa0;
+    margin: auto;
+    position: absolute;
+    top:0;bottom:0; /* vertical center */
+    left:0;right:0; /* horizontal center */
+    border: 0.2vw solid;
+    border-radius: 0.5vw;
+    border-color: #720000;
+    text-align: center;
+}
 .soundControls{
     width: 2%;
     z-index: 50;
@@ -177,7 +198,7 @@ a:active {
 
 .mainContainer{
     margin-top: 1%;
-    border-width: 4px;
+    border-width: 0.2vw;
     border-color: #720000;
     border-style: solid;
     width:100%;

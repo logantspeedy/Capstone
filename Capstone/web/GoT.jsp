@@ -13,6 +13,10 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="css/gamecss.css">
+        
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui-slider-pips.css">
+        
         <link rel="stylesheet" type="text/css" href="css/fontsandColours.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Game of Thrones</title>
@@ -26,7 +30,7 @@
             }*/
         </style>
         
-        <script src='js/jquery-1.9.1.js' type='text/javascript'></script>
+        <script src='${pageContext.request.contextPath}/js/jquery-1.9.1.js' type='text/javascript'></script>
         <!--Scripts-->
         
         <!--<script type="text/javascript" src="${pageContext.request.contextPath}/js/chooseHouse.js"></script>-->
@@ -38,7 +42,9 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/layouts.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/setters.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/sounds.js"></script>
-
+        
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-ui-slider-pips.min.js"></script>
         
         
     </head>
@@ -64,9 +70,17 @@
           
     </div>
     
+    
   
 
     <div class ="mainContainer">
+        
+        <div class="fortifypopup">
+            <h3>Troop Count</h3>
+
+            <div id="sliderTroops"></div>
+            <button onClick="">OK</button>
+        </div>
         
         <div class="soundControls">
             <img id="soundIcon" style="width:100%" src="images/icons/unmuted.png" onClick="toggleSound(this.id)" alt=""> 
@@ -501,6 +515,15 @@
         <div class="footer" ></div>
 
         <script>
+
+                
+                
+            // first we need a slider to work with
+            var $sliderTroops = $("#sliderTroops").slider({ max: 20 , value: 0 });
+
+            // and then we can apply a float to it!
+            $sliderTroops.slider("float");    
+                
             $(document).ready(function()
             {
                 

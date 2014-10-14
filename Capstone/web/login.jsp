@@ -87,7 +87,7 @@
             %> 
             <div class="login-container" style="vertical-align:middle;display:table-cell;">
                 <div class="row"><fb:login-button size="xlarge" scope="public_profile,email" onlogin="checkLoginState();">   Sign in    </fb:login-button>  </div><br/>
-            <div class="row">OR</div><br/>
+            
             
             
             <div class="row">    <span id="signinButton">
@@ -101,17 +101,19 @@
 </span>  </div><br/>
             <div class="row">OR enter username:</div><br/>
             <div class="row">
-                <div class="col-md-2 col-md-offset-5">
+                <center>
+                <div style="display:table-cell;">
 
-                <div class="input-group" style="width:100%;margin-left: auto ; margin-right: auto ;">
-                    <input type="text" class="form-control" id='username' name='username'/>
+                <div class="input-group" style="">
+                    <input type="text" class="form-control" id='username' name='username' style="width:200px;"/>
                     <span class="input-group-btn">
-                        <button type="submit" class="btn btn-success" onclick="login(null)">Login</button>
+                        <button type="submit" class="btn btn-success" onclick="login(null)">Sign in</button>
                     </span>
                 </div>
             
    
                 </div>
+                    </center>
             </div>
             </div> 
                         <%            

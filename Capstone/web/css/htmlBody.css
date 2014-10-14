@@ -2,6 +2,19 @@
     font-family: CharleMagne;
     src: url(fonts/CharlemagneStd-Bold.otf);
 }
+.fb_iframe_widget iframe {
+    opacity: 0;
+}
+
+.fb_iframe_widget {
+  background-image: url(../images/fbico.png);
+  background-repeat: no-repeat; 
+  background-position: center;
+}
+.fb_iframe_widget:hover { 
+  background-image: url(../images/fbicohover.png);
+}
+
 .loader{
     background: #720000;
     width: 101%;

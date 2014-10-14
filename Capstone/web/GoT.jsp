@@ -56,7 +56,7 @@
 
     <div id = "follower" style='z-index: 15; '>
         <div id = "hoverTerritory"></div>
-        <div id = "hoverUnits"></div>
+    <!--   <div id = "hoverUnits"></div> -->
     </div>
     <div class="header" style="z-index: 10"></div>
 
@@ -519,6 +519,7 @@
                     //$("#follower").css({"left":e.pageX, "top":e.pageY});
                 });
                 }
+				setAdjacentNodes();
             });
         </script>
 </body>

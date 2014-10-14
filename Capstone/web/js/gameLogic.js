@@ -203,7 +203,7 @@ function mouseoverHandler(i) {
         "text-shadow": "rgba(0, 0, 0, 0.0980392) 1px 1px 1px",
         "box-shadow": "rgba(0, 0, 0, 0.0980392) 1px 1px 2px 0px"});
     $("#hoverTerritory").empty().append("<strong>" + input + "</strong></br>");
-    $("#hoverUnits").empty().append("Units : " + getTerritotyTroopCount(input));
+//    $("#hoverUnits").empty().append("Units : " + getTerritotyTroopCount(input));
     $("#follower").stop(true, true);
     $("#follower").fadeIn("fast");
     if (getTerrOwner(input) === player) {
@@ -260,3 +260,16 @@ function mouseoutHandler(i) {
 //    console.log("testing remove none existing class");
     }
 }
+
+var adjacentNodesDictionary = {};
+
+function setAdjacentNodes() {
+    var i;
+    if (nodes !== null) {
+        for (i = 0; i < nodes.length; i++) {
+            var terr = nodes[i].territoy;
+            var adj = nodes[i].adjacentNodes;
+            adjacentNodesDictionary[terr] = adj;
+            }
+        }
+    }

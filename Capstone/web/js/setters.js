@@ -86,12 +86,12 @@ function setTerrReinforce() {
 }
 function setOppositionClass(id, clazz) {
     var i;
-    var adjNodes = getAdjacentNodes(id);
-    console.log(adjNodes, adjNodes);// get list of adjacents
+    var adjNodes = adjacentNodesDictionary[id];
+//    console.log(adjNodes, adjNodes);// get list of adjacents
     for (i = 0; i < adjNodes.length; i++) {       // of each in list
-//        console.log(adjNodes[i]);
-        if (getTerrOwner(adjNodes[i]) !== player) {
-            if (getTerrOwner(adjNodes[i]) !== " ") {
+        var gto = getTerrOwner(adjNodes[i]);
+        if (gto !== player) {
+            if (gto !== " ") {
                 var cN = adjNodes[i].replace(/ /g, "_");
                 console.log(cN);
                 $('#' + cN).attr("class", clazz);
@@ -102,11 +102,11 @@ function setOppositionClass(id, clazz) {
 function setOwnedClass(id, clazz) {
     var i;
     var cN = "";
-    var adjNodes = getAdjacentNodes(id); // get list of adjacents
+    var adjNodes =adjacentNodesDictionary[id]; // get list of adjacents
     for (i = 0; i < adjNodes.length; i++) {       // of each in list
-        cN = adjNodes[i];
-        if (getTerrOwner(cN) === player) {
-            cN = cN.replace(/ /g, "_");
+        var gto = getTerrOwner(adjNodes[i]);
+        if (gto === player) {
+            cN = adjNodes[i].replace(/ /g, "_");
             $('#' + cN).attr("class", clazz);
         }
     }

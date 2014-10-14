@@ -1,1 +1,9 @@
 language: java
+deploy:
+	provider: heroku
+	api_key:
+		secure: KOj66YoFnYx+ThQk2kLHjWINHizoXVwN8Mt7vknZnWmYFk4sfPGPPowaV4ssaF69IEYGZovjt3m64ruTjrnNm86pMzPEwFrs3/MLcll2hXbVXpcRCkk3IiOcRCGK6xMVPc0tP1YQCUqXv9septYGE0fmfX1vLuCqbL/n6nPtv0Q=
+	app: capstone-2014
+	on:
+		repo: logantspeedy/Capstone
+		branch: www

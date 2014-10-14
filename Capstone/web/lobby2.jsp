@@ -14,11 +14,12 @@
     <head>
                 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
         <!--load scripts-->
+        <script src='js/jquery-1.9.1.js' type='text/javascript'></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/layouts.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/pagesizing.js"></script>
         <!--<script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>-->
         
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
         
 
         <!--style sheet and meta data-->
@@ -28,8 +29,7 @@
         <link rel="stylesheet" type="text/css" href="css/fontsandColours.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
-        
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+
          
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
         <script src="//cdn.pubnub.com/pubnub.min.js"></script>  

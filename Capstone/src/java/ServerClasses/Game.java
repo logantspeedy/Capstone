@@ -15,16 +15,16 @@ public class Game {
 	private Board board;	
 	public Player currentPlayer;		
 	private ArrayList<Player> playerList;
-        private String currentStage;
-	private String currentPhase;        
+        protected String currentStage;
+	protected String currentPhase;        
 	private int playerPos;
 	private int phaseStage;
 //	private final int noOfTerritories = 33;
         private final int noOfTerritories = 8;
 	private int claimCounter;
         private String startingPlayer;  
-        private int captureCounter;        
-        private int[][] lastRolls;
+        private int captureCounter;       
+        private ArrayList<String> gameHistory;
         
 //	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
         final int[] startingTroops = new int[]{15, 15, 15, 15, 10};	
@@ -36,7 +36,8 @@ public class Game {
 		currentPlayer = null;		
 		claimCounter = 0;   
 		captureCounter = 1;
-		playerPos = 0;               
+		playerPos = 0; 
+                gameHistory = new ArrayList<String>();
 		playerList = new ArrayList<Player>();		
 		board = new Board();
 		int troops = startingTroops[players.length - 2];		
@@ -48,8 +49,7 @@ public class Game {
 			playerList.add(player);
 		}	
                 startingPlayer = randomPlayer(players.length).getName();
-		setCurrentPlayer(startingPlayer);
-                lastRolls = new int[2][3];
+		setCurrentPlayer(startingPlayer);                
 	}	
 	
 	//*****************************************************************
@@ -222,7 +222,8 @@ public class Game {
 					board.changeTroops(territory, 1);						
 					currentPlayer.setArmy(currentPlayer.getArmy() - 1);   
                                         currentPlayer.territoriesControlled++;
-					claimCounter++;
+                                        addGameHistory(player, "", territory, "", 0, "");
+					claimCounter++;                                        
 					//Automatically go to next players turn.
 					nextPhase();
 				}
@@ -251,7 +252,8 @@ public class Game {
 				if(!(currentPlayer.getArmy() < troops)){
                                     currentPlayer = playerList.get(playerList.indexOf(currentPlayer));                                   
                                     board.changeTroops(territory, troops);
-                                    currentPlayer.setArmy(currentPlayer.getArmy() - troops);                                  
+                                    currentPlayer.setArmy(currentPlayer.getArmy() - troops);
+                                    addGameHistory(currentPlayer.getName(), "", territory, "", 1, "");
                                     //Check to see if the player can't place any more troops, then move to next phase.
                                     //Or still in setup phase then need to switch to next player.
                                     if((currentStage.equals("game") && currentPlayer.getArmy() == 0) || currentStage.equals("setup")){
@@ -289,6 +291,7 @@ public class Game {
                                             
 					board.fortify(startTerritory, targetTerritory, troops);
 					captureCounter--;
+                                        addGameHistory(currentPlayer.getName(), "", startTerritory, targetTerritory, troops, "");
                                         System.out.println("After: " + board.getTroops(startTerritory) + " " + board.getTroops(targetTerritory));   
                                         if(captureCounter == 0){
                                             nextPhase();
@@ -331,17 +334,36 @@ public class Game {
                                                 if(currentPlayer.attackBonus != 0){
                                                     aRolls = bonuses.addAttackBonus(aRolls, currentPlayer.attackBonus);
                                                 }
+                                                String rolls = "";
                                                 //Set last rolls for client side to display;
-                                                for(int i = 0; i < 3;i++){
-                                                    lastRolls[0][i] = aRolls[i];
-                                                    lastRolls[1][i] = dRolls[i];
+                                                for(int i = 2; i > -1;i--){                                                   
+                                                    if(aRolls[i] == -1){
+                                                        
+                                                    }
+                                                    else{
+                                                        rolls += "\n\t" + aRolls[i];
+                                                    }
+                                                    if(dRolls[i] == -1){
+                                                        
+                                                    }
+                                                    else{
+                                                        if(aRolls[i] == -1){
+                                                           rolls += "\n\t" + dRolls[i]; 
+                                                        }
+                                                        else{
+                                                            rolls += "\t " + dRolls[i];
+                                                        }
+                                                    }
                                                 }
+                                                addGameHistory(attacker, defender, attackingTerritory, defendingTerritory, 0, rolls);
                                                 //See if defender has defending bonus and change army size back.
                                                 if(!defender.equals("Nomad")){
                                                     if(getPlayer(defender).homeTerritory.equals((defendingTerritory))){
                                                         dArmy--;
                                                     }
-                                                }                                           
+                                                }
+                                                
+                                                
 						//Change troops in each territory.
 						board.changeTroops(attackingTerritory, -aArmy);
 						board.changeTroops(defendingTerritory, -dArmy);					
@@ -477,8 +499,8 @@ public class Game {
 			}
 		}
                 //*********Change back for normal reinforce numbers********************
-		//return Math.round(controlledTerritories / 2);
-                return 6;
+		return Math.round(controlledTerritories / 2);
+                //return 6;
                 //********************************************************************
 	}
 	/** 
@@ -550,6 +572,7 @@ public class Game {
 			}		
 		}
                 setCurrentPlayer(startingPlayer);
+                gameHistory = new ArrayList<String>();
 	}
         
         private void setControllingHouses(Player p, int housePos){
@@ -576,5 +599,26 @@ public class Game {
                     nextPhase();
                 }
             }          
-        }       
+        } 
+        
+        private void addGameHistory(String player1, String player2, String territory1, String territory2, int troops, String rolls){           
+            switch(currentPhase){                
+                case "claim":
+                    gameHistory.add(player1 + " claimed " + territory1);
+                    break;
+                case "attack":
+                    gameHistory.add(player1 + " attacked " + player2 +"'s territory " + territory2 + " with " + territory1 + ". \nRolls:" + rolls);
+                    break;
+                case "reinforce":
+                    gameHistory.add(player1 + " reinforced " + territory1);
+                    break;
+                case "fortify":
+                    gameHistory.add(player1 + " moved " + troops + " from " + territory1 + " to " + territory2);
+                    break;
+            }
+            if(gameHistory.size() > 10){
+                gameHistory.remove(0);
+            }
+        }
+        
 }

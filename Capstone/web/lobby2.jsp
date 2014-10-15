@@ -14,21 +14,22 @@
     <head>
                 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
         <!--load scripts-->
+        <script src='js/jquery-1.9.1.js' type='text/javascript'></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/layouts.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/pagesizing.js"></script>
         <!--<script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>-->
         
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
         
 
         <!--style sheet and meta data-->
         <link type="text/css" rel="stylesheet" href="js/hover/jquery.qtip.css" />
         <link rel="stylesheet" type="text/css" href="css/htmlBody.css">
         <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="css/fontsandColours.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
-        
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+
          
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
         <script src="//cdn.pubnub.com/pubnub.min.js"></script>  
@@ -62,9 +63,9 @@
         
             <div class="header"><img class="gameBanner" src="images/banners/gameBanner.png" alt="Game Of Thrones" style="width:80%;height:180%;"></div>
 
-            <div class="login" style="padding:30px;height:10%;font-size: 2em;color:rgba(210, 202, 160, 1);font-family: CharleMagne;">
+            <div class="login" style="padding:30px;height:10%;font-size: 2.5vw;color:#720000;;font-family: CharleMagne;">
 
-                    Lobby
+                <h1>Lobby</h1>
             </div>
 
             <hr/><br/>
@@ -162,48 +163,28 @@
             
     
     
-    $("#buildplayers").hide();
-    $("#buildgames").hide();
-    $(".alert-warning").hide();
+            $("#buildplayers").hide();
+            $("#buildgames").hide();
+            $(".alert-warning").hide();
             $("#ingame").hide();
             $("#ingame-private").hide();
             $(".invite").hide();
             $('.private-game').attr('checked', false);
-
-            setTimeout(updateAll(),500);
-            setInterval(function(){updateGameList();updatePlayerList();checkStartGame();checkInvites();checkInGame();updateFromBuildPlayers();updateFromBuildGames();}, 1000);
+            updateGameList();updatePlayerList();
+            setTimeout(function(){updateAll();}, 500);
+            var autoUpdate = setInterval(function(){updateGameList(updateAll());updatePlayerList();updateAll();}, 3000);
             
             function updateAll(){
-                updateGameList();updatePlayerList();checkStartGame();checkInvites();checkInGame();updateFromBuildPlayers();updateFromBuildGames();
+                    updateFromBuildGames();
+                    checkStartGame();
+                    updateFromBuildPlayers();
+                    checkInvites();
+                    checkInGame();
+
             }    
-    
-    
-    
-    
-            function applyToolTip(){
-            $('.list-group-item').qtip({
-                style: { classes: 'qtip-bootstrap' },
-                content: {
-                    title: {
-                        text: 'Game Information',
-                        button: true
-                        },
-
-                    attr: 'titlee' // Tell qTip2 to look inside this attr for its content
-                    },
-                position: {
-
-                    at: 'left bottom', // at the bottom right of...
-
-
-                }    
-                
-            });
-            }
             
             function updateFromBuildPlayers(){
                 if ($("#buildplayers").html() === $("#online-users").html()){
-                    return;
                 }
                 else{
                     $("#online-users").html($("#buildplayers").html());
@@ -290,7 +271,7 @@
     
     
           function getPlayerList(sessionId){
-            
+                       console.log('dsfgsdfgsfd');           
             var playerListReturn=null;
             $.ajax({
                   type: "POST",
@@ -298,6 +279,7 @@
                   dataType : 'json',
                   data: {command: "getgames"},async: false
                   }).done(function( data ) {
+
                         var x;
                         for(x in data){ 	 
                             if (data[x][0] === sessionId){                              
@@ -373,9 +355,8 @@
                           printUser(playerIndex,data);
 
                       }
-
-
                   }); 
+                  return;
               }  
         function updateGameList(){
                 $.ajax({
@@ -386,6 +367,7 @@
                   }).done(function( data ) { 
                       doUpdateGameList(data);
                   });
+                  return;
             }              
               
             function printGameData(x,data,sessionId){
@@ -440,8 +422,7 @@
                               }
                              
                               
-                            }
-                            applyToolTip();
+                            }                           
                           
                             }
                       });                
@@ -476,12 +457,12 @@
                   url: "MainServlet",
                   dataType : 'json',
                   data: {command: "creategame", username: username, gamename: gamename, private: $('#private-game').is(':checked')},
-                  success: updateGameList()
+                  success: function(){updateGameList(); setTimeout(function(){updateAll();}, 500);},
+                  error: function(){updateGameList(); setTimeout(function(){updateAll();}, 500);}
                   });
           }
           
         function leaveGame(){
-            console.log('leave game');
             $.ajax({
                   type: "POST",
                   url: "MainServlet",
@@ -498,18 +479,19 @@
             $("#ingame-private").html("false");
             $("#create-game").show();
             updateGameList();
+            setTimeout(function(){updateAll();}, 500);
         }    
             
         function joinGame(sessionId){
             $(".alert-warning").hide();
-            console.log("joining game");
             var username = $('#username').text();
             $.ajax({
                   type: "POST",
                   url: "MainServlet",
                   dataType : 'json',
                   data: {command: "joingame", username: username, gameid: sessionId},
-                  success: updateGameList()
+                  success: function(){updateGameList(); setTimeout(function(){updateAll();}, 500);},
+                  error: function(){updateGameList(); setTimeout(function(){updateAll();}, 500);}
                   });
           }           
             

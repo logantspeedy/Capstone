@@ -12,12 +12,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,9 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import listener.MainServletListener;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 
 /**
  *
@@ -76,7 +69,8 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            processRequest(request,response);
+        
  
     }
 
@@ -145,7 +139,8 @@ public class MainServlet extends HttpServlet {
                 }  
             
              case "checkinvite":
-                {                
+                {   
+                    try{
                     String result = "false";
                     if (session.getAttribute("invited") != null){
                         result  = session.getAttribute("invited").toString();
@@ -162,12 +157,16 @@ public class MainServlet extends HttpServlet {
                     out.println(resultJSON);
                     
                     break;                    
-                    
+                    }
+                    catch (NullPointerException ex){
+                        break;
+                    }
                     
                     
                 }           
              case "checkingame":
-                {                
+                {   
+                    try{
                     Boolean inGame = false;
                     if (joined == true){
                         inGame = true;
@@ -182,7 +181,11 @@ public class MainServlet extends HttpServlet {
 
                     out.println(inGameJSON);
                     
-                    break;                   
+                    break;
+                    }
+                    catch (NullPointerException ex){
+                        break;
+                    }                    
                     
                     
                     
@@ -215,6 +218,7 @@ public class MainServlet extends HttpServlet {
                 }             
             case "gamestart":
                 {
+                    try{
                     //checking if the game has been started by the game owner
                     Boolean gameStart = false;
                     if (session.getAttribute("game") != null){
@@ -225,7 +229,11 @@ public class MainServlet extends HttpServlet {
                     String gameStartJSON = gson.toJson(gameStart);                   
 
                     out.println(gameStartJSON);
-                    break;                    
+                    break;   
+                    }
+                    catch(NullPointerException ex){
+                        break;
+                    }
                     
                     
                     
@@ -381,7 +389,7 @@ public class MainServlet extends HttpServlet {
             case "usercheck":
                 {
                     
-                    
+                    try{
                     if (request.getParameter("gamesessionid") == null || request.getParameter("gamesessionid").equals("")){
                         break;
                     }   
@@ -410,6 +418,10 @@ public class MainServlet extends HttpServlet {
                     out.println(inGameJSON);
                     break;
                     //return a set list
+                    }
+                    catch(NullPointerException ex){
+                        break;
+                    }
                 }            
             
             case "getusers":

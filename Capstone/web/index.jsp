@@ -9,12 +9,13 @@
 <!DOCTYPE html>
 <html> 
     <head>
+        <script src='js/jquery-1.9.1.js' type='text/javascript'></script>
         <!--load scripts-->
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/layouts.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/pagesizing.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/images.js"></script>
         
-        <script src='js/jquery-1.9.1.js' type='text/javascript'></script>
+        
         
         
         <!--style sheet and meta data-->
@@ -34,7 +35,7 @@
         <div id="bbl"><img src="images/border/bbl.png" alt=""></div>
         <div id="bbr"><img src="images/border/bbr.png" alt=""></div>
         
-        <div class ="loader" id="loader"><br/><br/><br/><br/><br/><br/><img src="images/ajax-loader.gif" alt=""></div>
+        <!--<div class ="loader" id="loader"><br/><br/><br/><br/><br/><br/><img src="images/ajax-loader.gif" alt=""></div>-->
         
         <div class="mainContainer">
             <span id='test'></span>

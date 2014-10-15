@@ -25,6 +25,7 @@ public class Game {
         private String startingPlayer;  
         private int captureCounter;       
         private ArrayList<String> gameHistory;
+        private int gameVersion;
         
 //	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
         final int[] startingTroops = new int[]{15, 15, 15, 15, 10};	
@@ -36,7 +37,8 @@ public class Game {
 		currentPlayer = null;		
 		claimCounter = 0;   
 		captureCounter = 1;
-		playerPos = 0; 
+		playerPos = 0;
+		gameVersion = 1;
                 gameHistory = new ArrayList<String>();
 		playerList = new ArrayList<Player>();		
 		board = new Board();
@@ -571,6 +573,7 @@ public class Game {
 				}
 			}		
 		}
+		gameVersion++;
                 setCurrentPlayer(startingPlayer);
                 gameHistory = new ArrayList<String>();
 	}
@@ -601,7 +604,8 @@ public class Game {
             }          
         } 
         
-        private void addGameHistory(String player1, String player2, String territory1, String territory2, int troops, String rolls){           
+        private void addGameHistory(String player1, String player2, String territory1, String territory2, int troops, String rolls){ 
+        gameVersion++;
             switch(currentPhase){                
                 case "claim":
                     gameHistory.add(player1 + " claimed " + territory1);

@@ -21,8 +21,8 @@ function setFlags(){
             console.log(terunitcount);
             if (terunitcount < 5){flagType ="";}
             else if (terunitcount < 10){flagType ="5";}
-            else if (terunitcount < 15){flagType ="10";}
-            else if (terunitcount < 20){flagType ="15";}
+            else if (terunitcount < 20){flagType ="10";}
+
             else if (terunitcount < 25){flagType ="20";}
             else{flagType ="25";}
         $('#img'+ter.replace(/ /g,'')).attr("src","images/houseFlags/"+(getPlayersHouse(controller)).replace(/ /g,'')+flagType+".png");}

@@ -12,7 +12,9 @@
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 14px;    
 }
-
+.ui-state-default .ui-icon {
+        background-image: url("../img/ui-icons_888888_256x240.png");
+}
 .loader{
     background: #982424;
     width: 101%;

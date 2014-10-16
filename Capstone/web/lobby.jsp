@@ -31,10 +31,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
 
-         
-        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-       
-        <script src='${pageContext.request.contextPath}/js/jquery-ui.js' type='text/javascript'></script>
+
+       <script src='${pageContext.request.contextPath}/js/jquery-ui.js' type='text/javascript'></script> 
+       <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
 
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/displayers.js"></script>

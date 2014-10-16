@@ -59,6 +59,7 @@ public class MainServletListener implements HttpSessionListener, HttpSessionAttr
             ArrayList<String> players = (ArrayList<String>) gameSession.getAttribute("players");
             players.remove((String) session.getAttribute("username")); 
             gameSession.setAttribute("players", players);            
+            
         }
         checkPlayers();
     }

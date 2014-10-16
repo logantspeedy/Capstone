@@ -15,156 +15,164 @@ function setSVGClickEvents(i) {
         switch (currentPhase) {
             case "claim":
                 {
-                    if (nodes !== null){
-                        for ( var i = 0; i < nodes.length; i++){
-                            if (nodes[i].territoy === input){
-                                if (nodes[i].controllingPlayer ===" "){
+                    if (nodes !== null) {
+                        for (var i = 0; i < nodes.length; i++) {
+                            if (nodes[i].territoy === input) {
+                                if (nodes[i].controllingPlayer === " ") {
                                     playSound('claim');
-                                    console.log(input)
+                                    console.log(input);
                                     $("#" + id).attr('class', 'claim'); // change class of clicked svg
                                     post({command: "claimterritory", playername: player, territory: input});
                                     $("#" + id).attr('class', 'default'); // reset class of clicked svg              
                                     break;
                                 }
-                                else{
+                                else {
                                     console.log("Territory Taken");
                                     break;
                                 }
                             }
                         }
-                    
+
                     }
-                break;
+                    break;
                 }
 
             case "reinforce":
-                {   
-                    if (nodes !== null){
-                        for ( var i = 0; i < nodes.length; i++){
-                            if (nodes[i].territoy === input){
-                                if (nodes[i].controllingPlayer === player){
-                                playSound('reinforce');
-                                post({command: "reinforce", territory: input, troops: 1});
-                                break;
+                {
+                    if (nodes !== null) {
+                        for (var i = 0; i < nodes.length; i++) {
+                            if (nodes[i].territoy === input) {
+                                if (nodes[i].controllingPlayer === player) {
+                                    playSound('reinforce');
+                                    post({command: "reinforce", territory: input, troops: 1});
+                                    break;
                                 }
-                                else{
+                                else {
                                     console.log("Not Players Territory");
                                     break;
                                 }
                             }
                         }
                     }
-                break;
+                    break;
                 }
             case "attack":
                 {
                     if (first === null) {
-                        if (nodes !== null){
-                            for ( var i = 0; i < nodes.length; i++){
-                                if (nodes[i].territoy === input){
-                                    if (nodes[i].controllingPlayer === player){
-                                        if (nodes[i].canAttack === true){
+                        if (nodes !== null) {
+                            for (var i = 0; i < nodes.length; i++) {
+                                if (nodes[i].territoy === input) {
+                                    if (nodes[i].controllingPlayer === player) {
+                                        if (nodes[i].canAttack === true) {
                                             first = input;
                                             $("#" + id).attr('class', 'attack'); // change class of clicked svg
                                             setOppositionClass(input, "defenderClick"); // change class of adjacent areas, owned by other players
                                             console.log("first attack" + first + second);
                                             break;
                                         }
-                                        else{
+                                        else {
                                             console.log("can't attack with this ter");
                                             displayPopUp(3);
                                             break;
                                         }
-                                        
+
                                     }
-                                    else{
+                                    else {
                                         console.log("Not players ter to attack with");
                                         break;
                                     }
                                 }
                             }
                         }
-                    break;
+                        break;
                     }
                     else {
-                        if (nodes !== null){
-                            for ( var i = 0; i < nodes.length; i++){
-                                if (nodes[i].territoy === input){
-                                    if (nodes[i].controllingPlayer !== player){
-                                        playSound('attack');
-                                        second = input;
-                                        console.log(first + second);
-                                        $("#" + id).attr('class', 'defend');// change class of clicked svg
-                                        $(".defenderClick").attr('class', "default"); // reset class of adjacent areas, owned by other players
-                                        post({command: "attack", attackingterritory: first, defendingterritory: second});
-                                        first = null;
-                                        second = null;
-                                        $("#" + id).attr('class', 'default'); // reset class of clicked svg 
-                                        $(".attack").attr('class', "default"); // reset class of first clicked svg 
-                                        break;
-                                    }
-                                    else{
-                                        console.log("can't attack yourself");
-                                        break;
+                        if (nodes !== null) {
+                            // unselect selected area
+                            if (first === input) {
+                                $(".attack").attr('class', "default"); // reset class of first clicked svg 
+                                $(".defenderClick").attr('class', "default"); // reset class of adjacent areas, owned by other players
+                                first = null;
+                            }
+                            else {
+                                for (var i = 0; i < nodes.length; i++) {
+                                    if (nodes[i].territoy === input) {
+                                        if (nodes[i].controllingPlayer !== player) {
+                                            playSound('attack');
+                                            second = input;
+                                            console.log(first + second);
+                                            $("#" + id).attr('class', 'defend');// change class of clicked svg
+                                            $(".defenderClick").attr('class', "default"); // reset class of adjacent areas, owned by other players
+                                            post({command: "attack", attackingterritory: first, defendingterritory: second});
+                                            first = null;
+                                            second = null;
+                                            $("#" + id).attr('class', 'default'); // reset class of clicked svg 
+                                            $(".attack").attr('class', "default"); // reset class of first clicked svg 
+                                            break;
+                                        }
+                                        else {
+                                            console.log("can't attack yourself");
+                                            break;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                break;  
+                    break;
                 }
             case "fortify":
                 {
-                    if (nodes !== null){
+                    if (nodes !== null) {
                         if (first === null) {
-                            for ( var i = 0; i < nodes.length; i++){
-                                if (nodes[i].territoy === input){
-                                    if (nodes[i].controllingPlayer === player){
-                                        
+                            for (var i = 0; i < nodes.length; i++) {
+                                if (nodes[i].territoy === input) {
+                                    if (nodes[i].controllingPlayer === player) {
+
                                         first = input;
                                         $("#" + id).attr('class', 'attack'); // change class of clicked svg
                                         setOwnedClass(input, "fortClick"); // change class of adjacent areas, owned by player
                                         console.log("fortify from: " + first + ", Choose target");
                                         break;
-                                        
-                                         }
-                                    else{
+
+                                    }
+                                    else {
                                         console.log("not your territory");
                                         break;
                                     }
                                 }
                             }
-                        break;
+                            break;
                         }
-                        
-                    else {
-                        for ( var i = 0; i < nodes.length; i++){
-                            if (nodes[i].territoy === input){
-                                if (nodes[i].controllingPlayer === player){
-                                    
-                                    playSound('fortify');
-                                    second = input;
-                                    $("#" + id).attr('class', 'fort'); // change class of clicked svg
-                                    $(".fortClick").attr('class', "default"); // reset class of adjacent areas, owned by player
-                                    $(".fortifypopup").show();
 
-                                    
-                                    break;
-                                    
+                        else {
+                            for (var i = 0; i < nodes.length; i++) {
+                                if (nodes[i].territoy === input) {
+                                    if (nodes[i].controllingPlayer === player) {
 
-                                }
-                                else{
-                                console.log("Not players ter");
-                                break;
+                                        playSound('fortify');
+                                        second = input;
+                                        $("#" + id).attr('class', 'fort'); // change class of clicked svg
+                                        $(".fortClick").attr('class', "default"); // reset class of adjacent areas, owned by player
+                                        $(".fortifypopup").show();
+
+
+                                        break;
+
+
+                                    }
+                                    else {
+                                        console.log("Not players ter");
+                                        break;
+                                    }
                                 }
                             }
+
                         }
-                                
                     }
+                    break;
                 }
-            break;
-            }
-            
+
         }
 
     }
@@ -205,43 +213,49 @@ function mouseoverHandler(i) {
 //    $("#hoverUnits").empty().append("Units : " + getTerritotyTroopCount(input));
     $("#follower").stop(true, true);
     $("#follower").fadeIn("fast");
-    
-        if (player === currentPlayer) {
-            if (first === null) {
-                switch (currentPhase) {
-                    case "claim":
-                        {
-							if (getTerrOwner(input) === " ") {
-								$("#" + id).attr('class', 'hover');
-							}
-                            break;
+    var gto = getTerrOwner(input);
+    var gca = getCanAttack(input);
+    var gttc = getTerritotyTroopCount(input);
+    if (player === currentPlayer) {
+        if (first === null) {
+            switch (currentPhase) {
+                case "claim":
+                    {
+                        if (gto === " ") {
+                            $("#" + id).attr('class', 'hover');
                         }
+                        break;
+                    }
 
-                    case "reinforce":
-                        {
+                case "reinforce":
+                    {
 //                        $("#" + id).attr('class', 'hover');
-                            break;
-                        }
-                    case "attack":
-                        {
-                            if (getTerrOwner(input) === player) {
+                        break;
+                    }
+                case "attack":
+                    {
+                        if (gto === player) {
+                            if (gca === true){
+                                if (gttc > 1){
                                 $("#" + id).attr('class', 'attackerHover');
                                 setOppositionClass(input, "defenderHover");
                             }
-                            break;
                         }
-                    case "fortify":
-                        {
-                            if (getTerrOwner(input) === player) {
-                                $("#" + id).attr('class', 'attackerHover');
-                                setOwnedClass(input, "fortHover");
-                            }
-                            break;
                         }
-                }
+                        break;
+                    }
+                case "fortify":
+                    {
+                        if (gto === player) {
+                            $("#" + id).attr('class', 'attackerHover');
+                            setOwnedClass(input, "fortHover");
+                        }
+                        break;
+                    }
             }
         }
-    
+    }
+
 }
 
 
@@ -271,6 +285,6 @@ function setAdjacentNodes() {
             var terr = nodes[i].territoy;
             var adj = nodes[i].adjacentNodes;
             adjacentNodesDictionary[terr] = adj;
-            }
         }
     }
+}

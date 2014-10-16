@@ -142,3 +142,13 @@ function getTerrOwner(id) {
         }
     }
 }
+function getCanAttack(id) {
+    var i;
+    if (nodes !== null) {
+        for (i = 0; i < nodes.length; i++) {
+            if (nodes[i].territoy === id) {
+                return nodes[i].canAttack;
+            }
+        }
+    }
+}

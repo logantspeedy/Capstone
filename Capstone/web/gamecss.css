@@ -7,6 +7,9 @@ and open the template in the editor.
     Created on : 3/08/2014, 4:04:27 PM
     Author     : Zeb
 */
+.fortifypopup{
+    display: hidden;
+}
 body {
     width: 100vw; 
     height: 56.25vw; /* 100/56.25 = 1.778 */

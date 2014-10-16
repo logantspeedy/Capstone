@@ -17,17 +17,7 @@ function insertNav(){
     $('#nav').append(   
         '<table >'+
            ' <tr>'+
-              '<th style="padding-top: 6%" ><a href="home">Home</a></th>'+
-              '<th></th><th></th>'+
-              '<th style="padding-top: 6%"  ><a href="about">About</a></th>'+
-              '<th></th><th></th>'+
-              '<th style="padding-top: 6%" ><a href="contact">Contact</a></th>'+
-              '<th></th><th></th>'+
-              '<th style="padding-top: 6%" >Lobby</th>'+
-              '<th></th><th></th>'+
-              '<th style="padding-top: 6%" ><a href="">Leave Game</a></th>'+
-              '<th></th><th></th>'+
-              '<th style="padding-top: 6%" ><a href="test">Signout</a></th>'+
+              '<th onClick="logout()" style="padding-top: 6%" >Signout</th>'+
             '</tr>'+
           '</table>');
 }
@@ -44,3 +34,12 @@ function openWindow() {
         });
         });
 }
+function logout(){
+    $.ajax({
+      type: "POST",
+      url: "MainServlet",
+      dataType : 'json',
+      data: {command: "logout"}
+      });
+    setTimeout(function () { window.location.href = 'login.jsp';}, 2000);
+} 

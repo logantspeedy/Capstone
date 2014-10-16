@@ -53,12 +53,20 @@ function updateDisplay(call){
     if (call===5){setTerTroop(); updateDisplay(call+1);}
     if (call===6){playerBanners(); updateDisplay(call+1);}
     if (call===7){setReinforce(); updateDisplay(call+1);}
-    if (call===8){}
+    if (call===8){updateGameHistory();}
     
 //        if (call===8){console.log("diplay updated");}
 
 }
-
+function updateGameHistory(){
+    $(".infoTable2").empty();
+    console.log(gameHistory.length);
+    for(var i = 0; i < gameHistory.length; i++){
+        $(".infoTable2").append(gameHistory[i]+"<br/>");
+    }
+    var objDiv = document.getElementById("inf2");
+    objDiv.scrollTop = objDiv.scrollHeight;
+}
 function checkIfAllPlayersHouse(){
     var c =0 ;
     for(var i = 0; i < playerList.length; i++){
@@ -169,11 +177,15 @@ function insertFlag(idName) {
 }
 
 function insertInfoTable(){
-    if (currentPhase ==="claim"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/claim.png'</img>");}
-    if (currentPhase ==="reinforce"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/reinforce.png'</img>");}
-    if (currentPhase ==="attack"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/attack.png'</img>");}
-    if (currentPhase ==="fortify"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/for.png'</img>");}
-
+    if (currentPlayer === player){
+        if (currentPhase ==="claim"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/claim.png'</img><p>click to end phase</p>");}
+        if (currentPhase ==="reinforce"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/reinforce.png'</img><p>click to end phase</p>");}
+        if (currentPhase ==="attack"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/attack.png'</img><p>click to end phase</p>");}
+        if (currentPhase ==="fortify"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/for.png'</img><p>click to end phase</p>");}
+    }
+    else{ $('.phase').empty().append("<h3>Current Player</h3><img width='80%' height='auto' src='images/banners/"+currentPlayerHouse.toLowerCase()+"Banner.png' />");
+        
+    }
 
 }
 

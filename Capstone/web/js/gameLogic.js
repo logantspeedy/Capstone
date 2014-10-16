@@ -7,8 +7,9 @@
 
 var first = null;
 var second = null;
+var id = null; // for svg reference
 function setSVGClickEvents(i) {
-    var id = i.id; // for svg reference
+    id = i.id;
     var input = i.id.replace(/_/g, " "); // for server stuff
     if (player === currentPlayer) {
         switch (currentPhase) {
@@ -140,19 +141,17 @@ function setSVGClickEvents(i) {
                         for ( var i = 0; i < nodes.length; i++){
                             if (nodes[i].territoy === input){
                                 if (nodes[i].controllingPlayer === player){
-
+                                    
                                     playSound('fortify');
                                     second = input;
                                     $("#" + id).attr('class', 'fort'); // change class of clicked svg
                                     $(".fortClick").attr('class', "default"); // reset class of adjacent areas, owned by player
-                                    var t = parseInt(prompt("How many troops to fortify", "0"));
-                                    console.log(first + " " + second + " " + t);
-                                    post({command: "fortify", startterritory: first, targetterritory: second, troops: t});
-                                    first = null;
-                                    second = null;
-                                    $("#" + id).attr('class', 'default'); // reset class of clicked svg 
-                                    $(".attack").attr('class', "default"); // reset class of first clicked svg 
+                                    $(".fortifypopup").show();
+
+                                    
                                     break;
+                                    
+
                                 }
                                 else{
                                 console.log("Not players ter");

@@ -20,16 +20,8 @@
         <link rel="stylesheet" type="text/css" href="css/fontsandColours.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Game of Thrones</title>
-        <style>
-/*            p{font-family:Cordia New;
-            color: #d2caa0;
-            text-align: left;
-            font-size: 1vw;
-            margin-top: 0;
-            padding-top: 0;
-            }*/
-        </style>
-        
+
+       
         <script src='${pageContext.request.contextPath}/js/jquery-1.9.1.js' type='text/javascript'></script>
         <!--Scripts-->
         
@@ -42,6 +34,7 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/layouts.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/setters.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/sounds.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/fortslider.js"></script>
         
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-ui-slider-pips.min.js"></script>
@@ -62,7 +55,7 @@
 
     <div id = "follower" style='z-index: 15; '>
         <div id = "hoverTerritory"></div>
-    <!--   <div id = "hoverUnits"></div> -->
+
     </div>
     <div class="header" style="z-index: 10"></div>
 
@@ -75,11 +68,11 @@
 
     <div class ="mainContainer">
         
-        <div class="fortifypopup">
+        <div class="fortifypopup" id="fortifypopup">
             <h3>Troop Count</h3>
 
             <div id="sliderTroops"></div>
-            <button onClick="">OK</button>
+            <button onClick='onfortclick()'>OK</button>
         </div>
         
         <div class="soundControls">
@@ -129,9 +122,13 @@
 
         </div>
 
-        <div class="infoTable" id="info" style="z-index: 1">
+        <div class="infoTable" id="info" style="z-index: 100">
             <div class="phase" onClick='endPhase()'></div>
         </div>
+        <div class="infoTable2" id="inf2" style="z-index: 100">
+            
+        </div>
+        
 
         <div class="playerBanners">
             
@@ -526,7 +523,7 @@
                 
             $(document).ready(function()
             {
-                
+                $('.fortifypopup').hide();
                 insertHeader();
                 insertFooter();
                 insertNav();

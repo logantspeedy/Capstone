@@ -28,6 +28,7 @@ and open the template in the editor.
     border-radius: 0.5vw;
     border-color: #720000;
     text-align: center;
+    
 }
 .soundControls{
     width: 2%;
@@ -138,11 +139,31 @@ body {
     z-index: 1;
     position:absolute;
     margin-top: 5%;
-    margin-left: 54%;
+    margin-left: 35%;
     font-size: 1vw;
     /*background: blue;*/
     /*float: top;*/
     /*background-color: green;*/
+  
+}
+.infoTable2{
+    width: 30%;
+    height:20%;
+    z-index: 1;
+    position:absolute;
+    margin-top: 5%;
+    margin-left: 50%;
+    font-size: 1vw;
+    /*background: green;*/
+    overflow-y: auto;
+    /*float: top;*/
+    background-color: rgba(180, 79, 79, 0.68);
+    font-family:Cordia New;
+    color: #d2caa0;
+    font-weight: bold;
+    vertical-align: top;
+    font-size: 1.5vw;
+    text-align:left;
   
 }
 .phase{

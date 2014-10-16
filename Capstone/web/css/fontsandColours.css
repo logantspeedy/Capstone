@@ -52,6 +52,24 @@ p{
     margin: 0;
     padding: 0;
 }
+.infoTable2 p{
+    font-family:Cordia New;
+    color: whitesmoke;
+    font-weight: bold;
+    vertical-align: top;
+    font-size: 1.2vw;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.infoTable2 h3{
+    font-family:CharleMagne;
+    color: whitesmoke;
+    text-align: center;
+    font-size: 0.5vw;
+    margin: 0;
+    padding: 0;
+}
 h1{
     font-family: CharleMagne;
     color: #720000;

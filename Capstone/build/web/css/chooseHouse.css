@@ -1,0 +1,28 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 30/09/2014, 9:51:17 PM
+    Author     : Zeb
+*/
+td[isselected = "false"] {
+    opacity: 1
+}
+td[isselected = "true"] {
+    opacity: 0.5
+}
+td{
+    width: 33.3%; 
+    background: rgba(20, 20, 20, 0.7);}
+td[isselected = "false"]:hover{
+    background-color:#720000;
+    cursor: pointer;
+}
+.default {
+    fill:#720000;
+    fill-opacity:0.5;
+    /*stroke:#720000;*/
+    stroke-width:4;
+} 

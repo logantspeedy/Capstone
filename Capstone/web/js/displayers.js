@@ -198,8 +198,8 @@ function teston(id){
 function testout(id){
     var bannerId = "#"+id+"";
 //    console.log(bannerId+"out");
-//    setTimeout(function(){$(bannerId).fadeOut("fast");},1500);
     $(bannerId).toggle();
+    setTimeout(function(){$(bannerId).fadeOut("fast");},1500);
 }
 
 

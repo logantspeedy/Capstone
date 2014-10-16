@@ -70,7 +70,7 @@
             
             <h1>Your game has ended.</h1>
         
-            <h1><a href="lobby2.jsp">Return to Lobby</a><h1>
+            <h1><a href="lobby.jsp">Return to Lobby</a><h1>
             
   
 </span>  </div><br/>           

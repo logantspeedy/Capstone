@@ -53,8 +53,8 @@
         <div class ="loader" id="loader"><br/><br/><br/><br/><br/><br/><img src="images/ajax-loader.gif" alt=""></div>
 
 
-    <div id = "follower" style='z-index: 15; '>
-        <div id = "hoverTerritory"></div>
+    <div class="avoid-clicks" id = "follower" style='z-index: 15; '>
+        <div  id = "hoverTerritory"></div>
 
     </div>
     <div class="header" style="z-index: 10"></div>
@@ -511,7 +511,7 @@
         </div>
         <div class="footer" ></div>
 
-        <script>
+        <script language="javascript">
 
                 
                 
@@ -535,8 +535,11 @@
 
                 $(document).mousemove(function(e) {
                     window.setInterval(updateDisplay(0), 2500);
-                    $("#follower").css({"left": e.offsetX + 50, "top": e.offsetY - 20});
-                    //$("#follower").css({"left":e.pageX, "top":e.pageY});
+                    if (!e) e = window.event;
+                    var x = e.offsetX===undefined?e.pageX-20:e.offsetX+50;
+                    var y = e.offsetY===undefined?e.pageY-60:e.offsetY-20;
+//                    $("#follower").css({"left": e.offsetX + 50, "top": e.offsetY - 20});
+                    $("#follower").css({"left":x, "top":y});
                 });
                 }
 				setAdjacentNodes();

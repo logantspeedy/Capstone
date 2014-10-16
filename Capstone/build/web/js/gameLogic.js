@@ -22,8 +22,12 @@ function setSVGClickEvents(i) {
                                     playSound('claim');
                                     console.log(input);
                                     $("#" + id).attr('class', 'claim'); // change class of clicked svg
+                                    setTimeout(function(){
+                                        $("#" + id).attr('class', 'default'); // reset class of clicked svg 
+                                    },1000);
                                     post({command: "claimterritory", playername: player, territory: input});
-                                    $("#" + id).attr('class', 'default'); // reset class of clicked svg              
+                                    
+//                                    $("#" + id).attr('class', 'default'); // reset class of clicked svg              
                                     break;
                                 }
                                 else {
@@ -291,4 +295,13 @@ function setAdjacentNodes() {
             adjacentNodesDictionary[terr] = adj;
         }
     }
+}
+
+function resetEndPhase(){
+    $(".attack").attr('class', "default");  
+    $(".defenderClick").attr('class', "default");
+    $(".defend").attr('class', 'default');
+    $(".fort").attr('class', 'defend');
+    $(".fortClick").attr('class', "default");
+    first = null;
 }

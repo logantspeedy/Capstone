@@ -34,6 +34,7 @@ function setValue(value) {
 function endPhase(){
     if (currentPlayer === player){
     post({command:"nextphase"});
+    resetEndPhase(); // resets highlight/click events
     }
     else {displayPopUp(2);}
 }

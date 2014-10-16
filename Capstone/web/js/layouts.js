@@ -17,7 +17,7 @@ function insertNav(){
     $('#nav').append(   
         '<table >'+
            ' <tr>'+
-              '<th onClick="logout()" style="padding-top: 6%" >Signout</th>'+
+              '<th onClick="logout()" style="padding-top: 6%" >Logout</th>'+
             '</tr>'+
           '</table>');
 }

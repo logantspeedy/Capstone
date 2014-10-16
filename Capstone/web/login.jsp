@@ -83,7 +83,7 @@
 <%
             if ((session.getAttribute("username") != null)){
                 out.write("<br/><div class='row'>You are already logged in as <strong>" + (String) session.getAttribute("username") + "</strong>!</div>");
-                out.write("<script>setTimeout(function () { window.location.href = 'lobby2.jsp';}, 1000);</script>");
+                out.write("<script>setTimeout(function () { window.location.href = 'lobby.jsp';}, 1000);</script>");
             }
             else{
             %> 

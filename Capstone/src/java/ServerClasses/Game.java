@@ -37,14 +37,14 @@ public class Game {
 		currentPlayer = null;		
 		claimCounter = 0;   
 		captureCounter = 1;
-		playerPos = 0;
-		gameVersion = 1;
+		playerPos = 0; 
                 gameHistory = new ArrayList<String>();
 		playerList = new ArrayList<Player>();		
 		board = new Board();
 		int troops = startingTroops[players.length - 2];		
 		CreateGameBoard gameBoard = new CreateGameBoard();			
-		board.setBoard(gameBoard.getNodes());	
+		board.setBoard(gameBoard.getNodes());
+                gameVersion = 1;
 				
 		for(int i = 0;i < players.length; i++){
 			Player player = new Player(players[i], troops);
@@ -329,35 +329,19 @@ public class Game {
                                                 Bonuses bonuses = new Bonuses();
 						int aArmy = calcArmySize(attackingTerritory, true);
 						int dArmy = calcArmySize(defendingTerritory, false);
+                                                int initialAttArmy = aArmy;
+                                                int initialDefArmy = dArmy;
+                                                int result[] = new String[2];
 						//Roll dice.
 						int[] aRolls = rollDice(attackingTerritory, aArmy);
 						int[] dRolls =  rollDice(defendingTerritory, dArmy);
                                                 //Add bonus to rolls:
                                                 if(currentPlayer.attackBonus != 0){
                                                     aRolls = bonuses.addAttackBonus(aRolls, currentPlayer.attackBonus);
-                                                }
-                                                String rolls = "";
+                                                }                                                
                                                 //Set last rolls for client side to display;
-                                                for(int i = 2; i > -1;i--){                                                   
-                                                    if(aRolls[i] == -1){
-                                                        
-                                                    }
-                                                    else{
-                                                        rolls += "\n\t" + aRolls[i];
-                                                    }
-                                                    if(dRolls[i] == -1){
-                                                        
-                                                    }
-                                                    else{
-                                                        if(aRolls[i] == -1){
-                                                           rolls += "\n\t" + dRolls[i]; 
-                                                        }
-                                                        else{
-                                                            rolls += "\t " + dRolls[i];
-                                                        }
-                                                    }
-                                                }
-                                                addGameHistory(attacker, defender, attackingTerritory, defendingTerritory, 0, rolls);
+                                                
+                                                
                                                 //See if defender has defending bonus and change army size back.
                                                 if(!defender.equals("Nomad")){
                                                     if(getPlayer(defender).homeTerritory.equals((defendingTerritory))){
@@ -390,6 +374,9 @@ public class Game {
 								dArmy--;
 							}
 						}
+                                                result[0] = initialAttArmy - aArmy;
+                                                result[1] = initialDefArmy - dArmy;
+                                                addGameHistory(attacker, defender, attackingTerritory, defendingTerritory, 0, result);
 						//Check to see if player now controls territory and change accordingly.
 						if(dArmy == 0 && board.getTroops(defendingTerritory) == 0){
                                                     Player defendingPlayer = null;
@@ -405,6 +392,7 @@ public class Game {
                                                     board.changeTroops(defendingTerritory, aArmy);
                                                     board.getNode(defendingTerritory).setAttack(false);
                                                     currentPlayer.territoriesControlled++;
+                                                    addGameHistory(attacker, defender, attackingTerritory, defendingTerritory, -1, result);
                                                     
                                                     //******************Bonuses************************
                                                     //Check north bonus:
@@ -462,7 +450,7 @@ public class Game {
 						//Update territories troops.
 						else{
 							board.changeTroops(attackingTerritory, aArmy);
-							board.changeTroops(defendingTerritory, dArmy);
+							board.changeTroops(defendingTerritory, dArmy);                                                        
 						}                                               
 					}
 				}							
@@ -573,8 +561,8 @@ public class Game {
 				}
 			}		
 		}
-		gameVersion++;
                 setCurrentPlayer(startingPlayer);
+                gameVersion++;
                 gameHistory = new ArrayList<String>();
 	}
         
@@ -604,20 +592,25 @@ public class Game {
             }          
         } 
         
-        private void addGameHistory(String player1, String player2, String territory1, String territory2, int troops, String rolls){ 
-        gameVersion++;
+        private void addGameHistory(String player1, String player2, String territory1, String territory2, int troops, int[] results){
+            gameVersion++;
             switch(currentPhase){                
                 case "claim":
-                    gameHistory.add(player1 + " claimed " + territory1);
+                    gameHistory.add(player1 + " claimed " + territory1 + ".");
                     break;
                 case "attack":
-                    gameHistory.add(player1 + " attacked " + player2 +"'s territory " + territory2 + " with " + territory1 + ". \nRolls:" + rolls);
-                    break;
+                    gameHistory.add(player1 + " attacked " + player2 +"'s territory " + territory2 + " with " + territory1 + ". " + territory1 + " lost " + results[0] + " troops,"
+                            + " and " + territory2 + " lost " + results[1] + "troops.");
+                    if(troops == -1){
+                        gameHistory.add(player1 + " took control of " + territory2 + ".");
+                        break;
+                    }
+                    else break;
                 case "reinforce":
-                    gameHistory.add(player1 + " reinforced " + territory1);
+                    gameHistory.add(player1 + " reinforced " + territory1 +".");
                     break;
                 case "fortify":
-                    gameHistory.add(player1 + " moved " + troops + " from " + territory1 + " to " + territory2);
+                    gameHistory.add(player1 + " moved " + troops + " from " + territory1 + " to " + territory2+ ".");
                     break;
             }
             if(gameHistory.size() > 10){

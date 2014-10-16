@@ -51,6 +51,15 @@ public class MainServletListener implements HttpSessionListener, HttpSessionAttr
             players.remove((String) session.getAttribute("username")); 
             gameSession.setAttribute("players", players);
         }
+        else if (session.getAttribute("joinedgame") == null && session.getAttribute("game") != null){
+            HttpSession gameSession = findGame(session.getId());
+            if (gameSession.getAttribute("players") == null){
+                return;
+            }
+            ArrayList<String> players = (ArrayList<String>) gameSession.getAttribute("players");
+            players.remove((String) session.getAttribute("username")); 
+            gameSession.setAttribute("players", players);            
+        }
         checkPlayers();
     }
 

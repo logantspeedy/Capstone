@@ -224,7 +224,7 @@ public class Game {
 					board.changeTroops(territory, 1);						
 					currentPlayer.setArmy(currentPlayer.getArmy() - 1);   
                                         currentPlayer.territoriesControlled++;
-                                        addGameHistory(player, "", territory, "", 0, "");
+                                        addGameHistory(player, "", territory, "", 0, new int[0]);
 					claimCounter++;                                        
 					//Automatically go to next players turn.
 					nextPhase();
@@ -255,7 +255,7 @@ public class Game {
                                     currentPlayer = playerList.get(playerList.indexOf(currentPlayer));                                   
                                     board.changeTroops(territory, troops);
                                     currentPlayer.setArmy(currentPlayer.getArmy() - troops);
-                                    addGameHistory(currentPlayer.getName(), "", territory, "", 1, "");
+                                    addGameHistory(currentPlayer.getName(), "", territory, "", 1, new int[0]);
                                     //Check to see if the player can't place any more troops, then move to next phase.
                                     //Or still in setup phase then need to switch to next player.
                                     if((currentStage.equals("game") && currentPlayer.getArmy() == 0) || currentStage.equals("setup")){
@@ -293,7 +293,7 @@ public class Game {
                                             
 					board.fortify(startTerritory, targetTerritory, troops);
 					captureCounter--;
-                                        addGameHistory(currentPlayer.getName(), "", startTerritory, targetTerritory, troops, "");
+                                        addGameHistory(currentPlayer.getName(), "", startTerritory, targetTerritory, troops, new int[0]);
                                         System.out.println("After: " + board.getTroops(startTerritory) + " " + board.getTroops(targetTerritory));   
                                         if(captureCounter == 0){
                                             nextPhase();
@@ -331,7 +331,7 @@ public class Game {
 						int dArmy = calcArmySize(defendingTerritory, false);
                                                 int initialAttArmy = aArmy;
                                                 int initialDefArmy = dArmy;
-                                                int result[] = new String[2];
+                                                int result[] = new int[2];
 						//Roll dice.
 						int[] aRolls = rollDice(attackingTerritory, aArmy);
 						int[] dRolls =  rollDice(defendingTerritory, dArmy);

@@ -14,13 +14,20 @@ public class PresentationCases {
     }
     
     public Game autoClaim(){
+        Player currentPlayer;
         Node currentNode;
         for(int i = 0; i < 42; i++){
             currentNode = game.getBoard().nodes.get(i);
-            if(currentNode.getControllingPlayer().equals(" ")){
-                game.claimTerritory(currentNode.getTerritoy(), game.getCurrentPlayer());
+            currentPlayer = game.currentPlayer;
+            if(currentNode.getControllingPlayer().equals(" ")){                
+                game.claimTerritory(currentNode.getTerritoy(), currentPlayer.getName());
+                game.currentPlayer = currentPlayer;
+                game.currentPhase = "reinforce";
+                game.reinforce(currentNode.getTerritoy(), 2);
+                game.currentPhase = "claim";
             }
         }
+        game.gameHistory = new ArrayList<String>();
         return game;
     }
     

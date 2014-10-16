@@ -272,6 +272,14 @@ public class MainServlet extends HttpServlet {
             case "logout":
                 {
                     if (joined == true){
+                        if (oldSession.getAttribute("game") != null){
+                            String playerName = (String) oldSession.getAttribute("userername");
+                            String gameJSON  = (String) session.getAttribute("game");
+        
+                            Gson gson = new Gson();
+                            Game game = gson.fromJson(gameJSON, Game.class);     
+                            game.removePlayer(playerName);   
+                        }
                         oldSession.invalidate();
                     }
                     else{

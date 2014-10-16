@@ -302,11 +302,18 @@ a:active {
     text-shadow: 1px 1px #000000;
     /*text-shadow: rgba(0, 0, 0, 0.0980392) 1px 1px 1px;*/
     padding:0;
+    
+    margin-top:-50%;
     margin:0;
+    margin-top:-30%;
     height:auto;
     font-size:1vw;
     text-align:center;
     
+}
+.avoid-clicks img{
+    margin-left: -50%;
+    margin-top: -50%;
 }
 .fort{
     fill:#CC9C0A;

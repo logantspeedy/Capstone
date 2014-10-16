@@ -194,171 +194,171 @@
         </div> 
         <div class= "flags" id="flags" style='z-index:11;'>
             <div id='_Ashford' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left: 19.4%;top: 62.9%;height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgAshford'  src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgAshford'  src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numAshford'  ></p> 
             </div>
             <div id='_TheReach' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left: 14.4%; top: 56.6%;height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgTheReach'  src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgTheReach'  src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numTheReach'  ></p> 
             </div>
             <div id='_Westerlands' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left: 15%;   top: 46.6%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgWesterlands'  src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgWesterlands'  src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numWesterlands'  ></p> 
             </div>
             <div id='_Harrenhal' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left: 20.5%;top: 49.0%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgHarrenhal'  src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgHarrenhal'  src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numHarrenhal'  ></p> 
             </div>
             <div id='_TheEyrie' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left: 24.6%;top: 41.6%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgTheEyrie'  src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgTheEyrie'  src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numTheEyrie'  ></p> 
             </div>
             <div id='_KingsLanding' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left: 24.2%; top: 52.9%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgKingsLanding'  src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgKingsLanding'  src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numKingsLanding'  ></p> 
             </div>
             <div id='_Stormlands' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left: 25.9%; top: 61.8%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgStormlands'  src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgStormlands'  src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numStormlands'  ></p> 
             </div>
             <div id='_Dorne' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left: 26.2%;top: 73.9%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgDorne'  src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgDorne'  src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numDorne'  ></p> 
             </div>
             <div id='_TheTwins' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left: 17.9%; top: 33.0%;height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgTheTwins'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgTheTwins'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numTheTwins' ></p> 
             </div>
             <div id='_Barrowlands' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:17.9%;  top:25.4%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgBarrowlands'  src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgBarrowlands'  src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numBarrowlands'  ></p> 
             </div>
             <div id='_Winterfell' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left: 21.46%;top: 16.0%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgWinterfell'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgWinterfell'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numWinterfell' ></p> 
             </div>
             <div id='_WidowsWatch' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left: 25.0%; top: 22.7%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgWidowsWatch'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgWidowsWatch'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numWidowsWatch' ></p> 
             </div>
             <div id='_Karhold' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left: 28.6%; top:13%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgKarhold'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgKarhold'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numKarhold' ></p> 
             </div>
             <div id='_CastleBlack' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:22.4%;  top:7%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgCastleBlack'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgCastleBlack'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numCastleBlack' ></p> 
             </div>
             <div id='_TheHauntedForest' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:21%;    top:1.1%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgTheHauntedForest'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgTheHauntedForest'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numTheHauntedForest' ></p> 
             </div>
             <div id='_TheRills' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:12.7%;  top:24%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgTheRills'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgTheRills'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numTheRills' ></p> 
             </div>
             <div id='_Wolfswood' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:14.8%;  top:17.3%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgWolfswood'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgWolfswood'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numWolfswood' ></p> 
             </div>
             <div id='_BrightwaterKeep' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:13.5%;  top:68.9%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgBrightwaterKeep'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgBrightwaterKeep'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numBrightwaterKeep' ></p> 
             </div>
             <div id='_TheLandsofAlwaysWinter' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:13.2%; top:1.1%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgTheLandsofAlwaysWinter'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgTheLandsofAlwaysWinter'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numTheLandsofAlwaysWinter' ></p> 
             </div>
             <div id='_Skyreach' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:19.2%; top:72.2%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgSkyreach'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgSkyreach'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numSkyreach' ></p> 
             </div>
             <div id='_TheDisputedLands' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:42%; top:71%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgTheDisputedLands'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgTheDisputedLands'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numTheDisputedLands' ></p> 
             </div>
             <div id='_TheGoldenFields' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:43.8%; top:63%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgTheGoldenFields'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgTheGoldenFields'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numTheGoldenFields' ></p> 
             </div>
             <div id='_TheFlatlands' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:40.5%; top:55.5%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgTheFlatlands'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgTheFlatlands'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numTheFlatlands' ></p> 
             </div>
             <div id='_BraavosianCoastlands' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:38.3%; top:46.5%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgBraavosianCoastlands'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgBraavosianCoastlands'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numBraavosianCoastlands' ></p> 
             </div>
             <div id='_Braavos' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:42.4%; top:46.1%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgBraavos'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgBraavos'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numBraavos' ></p> 
             </div>
             <div id='_HillsofNorvos' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:47.4%; top:47.3%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgHillsofNorvos'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgHillsofNorvos'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numHillsofNorvos' ></p> 
             </div>
             <div id='_ForestofLohor' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:55%; top:46%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgForestofLohor'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgForestofLohor'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numForestofLohor' ></p> 
             </div>
             <div id='_Volantis' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:53.3%; top:62.8%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgVolantis'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgVolantis'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numVolantis' ></p> 
             </div>
             <div id='_Bhonash' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:63.8%; top:62%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgBhonash'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgBhonash'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numBhonash' ></p> 
             </div>
             <div id='_Ghisear' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:73.4%; top:79%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgGhisear'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgGhisear'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numGhisear' ></p> 
             </div>
             <div id='_TheRedWaste' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:82%; top:77.5%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgTheRedWaste'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgTheRedWaste'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numTheRedWaste' ></p> 
             </div>
             <div id='_Bayasabhad' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:87.8%; top:66.7%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgBayasabhad'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgBayasabhad'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numBayasabhad' ></p> 
             </div>
             <div id='_QarthIsland' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:94.4%; top:91%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgQarthIsland'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgQarthIsland'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numQarthIsland' ></p> 
             </div>
             <div id='_EasternDathrakiSea' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:96.1%; top:40.3%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgEasternDathrakiSea'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgEasternDathrakiSea'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numEasternDathrakiSea' ></p> 
             </div>
             <div id='_VaesDorthrak' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:84.1%; top:40.2%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgVaesDorthrak'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgVaesDorthrak'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numVaesDorthrak' ></p> 
             </div>
             <div id='_NorthernDathrakiSea' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:67%; top:46%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgNorthernDathrakiSea'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgNorthernDathrakiSea'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numNorthernDathrakiSea' ></p> 
             </div>
             <div id='_PaltofIllen' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:84.6%; top:18.7%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgPaltofIllen'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgPaltofIllen'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numPaltofIllen' ></p> 
             </div>
             <div id='_VillageofLhazareen' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:77.6%; top:55.9%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgVillageofLhazareen'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgVillageofLhazareen'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numVillageofLhazareen' ></p> 
             </div>
             <div id='_Valyria' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:57.7%; top:90.6%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgValyria'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgValyria'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numValyria' ></p> 
             </div>
             <div id='_Pyke' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:8.7%; top:40.8%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgPyke'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgPyke'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numPyke' ></p> 
             </div>
             <div id='_DragonStone' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:32.4%; top:49.8%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgDragonStone'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgDragonStone'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numDragonStone' ></p> 
             </div>
             <div id='_BayofSeals' class="avoid-clicks"  style='position:absolute; z-index:2; display:inline; left:33.3%; top:4.7%; height:auto; width:2%;'>
-                <img width='100%' height='auto' id='imgBayofSeals'   src='images/houseFlags/blank.png' /> 
+                <img width='200%' height='auto' id='imgBayofSeals'   src='images/houseFlags/blank.png' /> 
                 <p class="noPad" id='numBayofSeals' ></p> 
             </div>
             </div>

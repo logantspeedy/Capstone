@@ -180,10 +180,10 @@ function insertFlag(idName) {
 
 function insertInfoTable(){
     if (currentPlayer === player){
-        if (currentPhase ==="claim"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/claim.png'</img><p>click to end phase</p>");}
-        if (currentPhase ==="reinforce"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/reinforce.png'</img><p>click to end phase</p>");}
-        if (currentPhase ==="attack"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/attack.png'</img><p>click to end phase</p>");}
-        if (currentPhase ==="fortify"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/for.png'</img><p>click to end phase</p>");}
+        if (currentPhase ==="claim"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/claim.png'</img>");}
+        if (currentPhase ==="reinforce"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/reinforce.png'</img>");}
+        if (currentPhase ==="attack"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/attack.png'</img>");}
+        if (currentPhase ==="fortify"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/for.png'</img>");}
     }
     else{ $('.phase').empty().append("<h3>Current Player</h3><img width='40%' height='auto' src='images/banners/"+currentPlayerHouse.toLowerCase()+"Banner.png' />");
         

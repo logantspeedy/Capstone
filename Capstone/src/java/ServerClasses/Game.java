@@ -19,8 +19,8 @@ public class Game {
 	protected String currentPhase;        
 	private int playerPos;
 	private int phaseStage;
-//	private final int noOfTerritories = 33;
-        private final int noOfTerritories = 8;
+	private final int noOfTerritories = 33;
+//        private final int noOfTerritories = 8;
 	private int claimCounter;
         private String startingPlayer;  
         private int captureCounter;       
@@ -610,7 +610,7 @@ public class Game {
                     gameHistory.add(player1 + " reinforced " + territory1 +".");
                     break;
                 case "fortify":
-                    gameHistory.add(player1 + " moved " + troops + " from " + territory1 + " to " + territory2+ ".");
+                    gameHistory.add(player1 + " moved " + troops + " units from " + territory1 + " to " + territory2+ ".");
                     break;
             }
             if(gameHistory.size() > 10){

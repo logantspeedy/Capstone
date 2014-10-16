@@ -599,8 +599,8 @@ public class Game {
                     gameHistory.add(player1 + " claimed " + territory1 + ".");
                     break;
                 case "attack":
-                    gameHistory.add(player1 + " attacked " + player2 +"'s territory " + territory2 + " with " + territory1 + ". " + territory1 + " lost " + results[0] + " troops,"
-                            + " and " + territory2 + " lost " + results[1] + "troops.");
+                    gameHistory.add(player1 + " attacked " +  territory2 + " with " + territory1 + ". " + territory1 + " lost " + results[0] + " units,"
+                            + " and " + territory2 + " lost " + results[1] + "units.");
                     if(troops == -1){
                         gameHistory.add(player1 + " took control of " + territory2 + ".");
                         break;

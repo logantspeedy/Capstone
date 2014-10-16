@@ -8,25 +8,49 @@ and open the template in the editor.
     Author     : Zeb
 */
 
-#btl{
+/*#btl{
     float:left;
 }
 #btr{
     float:right;   
-}
+}*/
 #filler{
     float:left;
     /*background-color: red;*/
 }
-#bbl{
+/*#bbl{
     float: left;
-    /*background-color: blue;*/
+    background-color: blue;
 }
 #bbr{
     float:right;
-    /*background-color: green;*/
+    background-color: green;
+}*/
+#btl{
+    width:25%;
+    height: 25%;
+    float:left;
+    opacity: 0.7;
+}
+#btr{
+    width:22%;
+    height: 22%;
+    float:right;   
+    opacity: 0.7;
 }
 
+#bbl{
+    width:22%;
+    height: 22%;
+    float: left;
+    opacity: 0.7;
+}
+#bbr{
+    width:22%;
+    height: 22%;
+    float:right;
+    opacity: 0.7;
+}
 img{
     width:100%;
     height:100%

@@ -122,10 +122,10 @@
 
         </div>
 
-        <div class="infoTable" id="info" style="z-index: 100">
+        <div class="infoTable" id="info" style="z-index: 10">
             <div class="phase" onClick='endPhase()'></div>
         </div>
-        <div class="infoTable2" id="inf2" style="z-index: 100">
+        <div class="infoTable2" id="inf2" style="z-index: 10">
             
         </div>
         

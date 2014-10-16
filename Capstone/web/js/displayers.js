@@ -62,8 +62,10 @@ function updateGameHistory(){
     $(".infoTable2").empty();
     console.log(gameHistory.length);
     for(var i = 0; i < gameHistory.length; i++){
-        $(".infoTable2").append(gameHistory[i]+"<br/>");
+        $(".infoTable2").append("<p>"+gameHistory[i]+"</p>");
     }
+    $(".infoTable2").append("<hr/> <h3>Current Player - "+currentPlayer+"</h3><h3>Free Units: "+currentPlayerTroops+". - "+
+            "Available Fortifies: "+currentPlayerFreeForts+".</h3>");
     var objDiv = document.getElementById("inf2");
     objDiv.scrollTop = objDiv.scrollHeight;
 }

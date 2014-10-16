@@ -88,11 +88,13 @@ and open the template in the editor.
     width:25%;
     height: 25%;
     float:left;
+    opacity: 0.8;
 }
 #btr{
-    width:25%;
-    height: 25%;
+    width:22%;
+    height: 22%;
     float:right;   
+    opacity: 0.8;
 }
 .popUpMessage{
     padding-top: -10px;
@@ -101,14 +103,16 @@ and open the template in the editor.
     overflow-y: auto;
 }
 #bbl{
-    width:25%;
-    height: 25%;
+    width:22%;
+    height: 22%;
     float: left;
+    opacity: 0.8;
 }
 #bbr{
-    width:25%;
-    height: 25%;
+    width:22%;
+    height: 22%;
     float:right;
+    opacity: 0.8;
 }
 #popUpBoarder{}
 
@@ -171,14 +175,8 @@ body {
     /*background: green;*/
     overflow-y: auto;
     /*float: top;*/
-    background-color: rgba(180, 79, 79, 0.68);
-    font-family:Cordia New;
-    color: #d2caa0;
-    font-weight: bold;
-    vertical-align: top;
-    font-size: 1.5vw;
-    text-align:left;
     
+    background-color: rgba(180, 79, 79, 0.68);
     padding:1%;
     /*overflow-y: hidden;*/
     border: 0.1vw solid;

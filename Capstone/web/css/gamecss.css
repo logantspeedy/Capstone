@@ -49,15 +49,7 @@ and open the template in the editor.
     margin-left: 98%;
     position: absolute;
 }
-.loader{
-    background: #720000;
-    width: 101%;
-    height: 100%;
-    z-index: 100;
-    
-    position: absolute;
-    visibility:visible;
-}
+
 
 .gameBanner{
     width: 60%;

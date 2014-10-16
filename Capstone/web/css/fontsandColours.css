@@ -11,7 +11,30 @@ and open the template in the editor.
     font-family: CharleMagne;
     src: url(fonts/CharlemagneStd-Bold.otf);
 }
-
+.loader{
+    background: #720000;
+    width: 101%;
+    height: 100%;
+    z-index: 100;
+    
+    position: absolute;
+    visibility:visible;
+    
+}
+.loader img{
+    width: 5%;
+    height: 10%;
+    margin-left: 47.5%
+}
+.loader h1{
+    font-family:CharleMagne;
+    color: whitesmoke;
+    text-align: center;
+    font-size: 3.5vw;
+    margin: 0;
+    padding: 0;
+    
+}
 hr{
     border-color:#720000 ;
     background-color:#720000;

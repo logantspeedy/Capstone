@@ -11,7 +11,7 @@ var currentPlayerHouse = null;
 var currentPlayerTroops = null;
 var nodes = null;
 var player = getCookie();
-var house = null;   
+//var house = null;   
 var playerList = null;
 var gameHistory=null;
 var currentPlayerFreeForts=null;
@@ -25,7 +25,7 @@ function getGameJSON(){
         currentPlayerTroops = gameJSON.currentPlayer.army.toString();
         currentPlayerFreeForts = gameJSON.captureCounter.toString();
         nodes = gameJSON.board.nodes;
-        house = post({command:"getplayershouse", player:player}).toLowerCase();    
+//        house = post({command:"getplayershouse", player:player}).toLowerCase();    
         gameHistory = gameJSON.gameHistory;
     }
     else{console.log("getting gameJSON of null in getGameJSON");

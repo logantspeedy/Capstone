@@ -520,13 +520,21 @@ public class MainServlet extends HttpServlet {
                 }
             
             case "nextphase":
+            {
                 String JSON = nextPhase(request, session); 
                 if (JSON == null){return;}
                 out.println(JSON);
                 break;
+            }
                 
-                
-                
+            case "PresentationCases":
+                {
+                String JSON = PresentationCases(request, session);
+                if (JSON == null){return;}
+                    out.println(JSON);
+                break;
+                }
+            
         }       
 
 
@@ -872,8 +880,51 @@ public class MainServlet extends HttpServlet {
         String returnValue = session.getId();
         System.out.println("GetSessionID: Session id is"+ returnValue);
         return returnValue;} 
+    
+    public String PresentationCases(HttpServletRequest request,HttpSession session){
+        
+        System.out.println("In Post PresentationCases");
+        
+        String gameJSON  = (String) session.getAttribute("game");
+        String apply = request.getParameter("apply");
+            
+
+        
+        Gson gson = new Gson();
+        Game game = gson.fromJson(gameJSON, Game.class); 
+
+        PresentationCases pg = new PresentationCases(game);
+        
+        
+        Board board = null;
+        if (apply.equals("autoClaim")){
+            Game autoClaim = pg.autoClaim();
+            board = autoClaim.getBoard();
+            gameJSON = gson.toJson(autoClaim);
+        }
+        if (apply.equals("playerAboutToDie")){
+            Game playerAboutToDie = pg.playerAboutToDie();
+            board = playerAboutToDie.getBoard();
+            gameJSON = gson.toJson(playerAboutToDie);
+        }
+        
+        //convert game to JSON
+        
+        
+
+        
+        //get the board and convert it to JSON
+        
+        String boardJSON = gson.toJson(board);
+
+        //store session data
+        session.setAttribute("game", gameJSON);
+        return boardJSON;
+    } 
         
 }
+
+
 
 
 

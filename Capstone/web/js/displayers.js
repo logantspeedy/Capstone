@@ -20,18 +20,13 @@ function updateDisplay(call){
             case "Game Won":
             {
                 if (player===currentPlayer){
-                   $(".mainContainer").empty().append('<br/><h1>YOU WIN</h1><hr>'+
-                        '<div class="video" >'+
-                        '<iframe href="http://fontmeme.com/game-of-thrones-font/" width="100%" height="100%" src="//www.youtube.com/embed/jPmb0F00YPE?rel=0&autoplay=1&controls=0&showinfo=0" frameborder="0" allowfullscreen></iframe>'+
-                        '</div>)');
+                   $(".mainContainer").empty().append('<br/><h1>YOU WIN</h1><hr><img src="images/win/win"'+currentPlayerHouse.toLowerCase()+'.jpg"/>');
+                        
                 break;
                 }
                 
                 else{
-                    $(".mainContainer").empty().append('<br/><h1>...</h1><hr>'+
-                        '<div class="video" >'+
-                        '<iframe href="http://fontmeme.com/game-of-thrones-font/" width="100%" height="100%" src="//www.youtube.com/embed/eRfOU?rel=0&autoplay=1&controls=0&showinfo=0" frameborder="0" allowfullscreen></iframe>'+
-                        '</div>)');
+                    window.location="https://www.youtube.com/watch?v=dQw4w9WgXcQ";
                 break;
                 }
                                         

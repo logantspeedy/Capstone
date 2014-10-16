@@ -50,7 +50,7 @@
         <audio id='snotTurn' src="sounds/deni.wav" preload="auto" controls hidden='true'></audio>
         <audio id='sreinforce' src="sounds/AgeUp.mp3" preload="auto" controls hidden='true'></audio>
         
-        <div class ="loader" id="loader"><br/><br/><br/><br/><br/><br/><img src="images/ajax-loader.gif" alt=""></div>
+        <div class ="loader" id="loader"><br/><h1>Page Loading</h1><hr><br/><br/><br/><br/><br/><img src="images/ajax-loader.gif" alt=""></div>
 
 
     <div class="avoid-clicks" id = "follower" style='z-index: 15; '>

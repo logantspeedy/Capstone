@@ -54,3 +54,10 @@
 //}
 
 
+function autoClaim(){
+    post({command:"PresentationCases" ,apply:"autoClaim"});
+}
+
+function playerAboutToDie(){
+    post({command:"PresentationCases" ,apply:"playerAboutToDie"});
+}

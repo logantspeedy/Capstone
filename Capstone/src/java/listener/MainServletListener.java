@@ -7,6 +7,8 @@
 package listener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.ListIterator;
 import java.util.Map;
@@ -48,6 +50,16 @@ public class MainServletListener implements HttpSessionListener, HttpSessionAttr
             ArrayList<String> players = (ArrayList<String>) gameSession.getAttribute("players");
             players.remove((String) session.getAttribute("username")); 
             gameSession.setAttribute("players", players);
+        }
+        else if (session.getAttribute("joinedgame") == null && session.getAttribute("game") != null){
+            HttpSession gameSession = findGame(session.getId());
+            if (gameSession.getAttribute("players") == null){
+                return;
+            }
+            ArrayList<String> players = (ArrayList<String>) gameSession.getAttribute("players");
+            players.remove((String) session.getAttribute("username")); 
+            gameSession.setAttribute("players", players);            
+            
         }
         checkPlayers();
     }
@@ -130,6 +142,15 @@ public class MainServletListener implements HttpSessionListener, HttpSessionAttr
                 players.add(playerNameSession);
             }    
         }
+        Collections.sort(players,new Comparator<ArrayList<String>>() {
+            @Override
+            public int compare(ArrayList<String> o1, ArrayList<String> o2) {
+                return o1.get(0).compareToIgnoreCase(o2.get(0));
+            }
+        });        
+        
+        
+        
         return players;
     }
     
@@ -165,7 +186,12 @@ public class MainServletListener implements HttpSessionListener, HttpSessionAttr
             }
             gamesSessionData.add(singleSessionData);
         }
-
+        Collections.sort(gamesSessionData,new Comparator<ArrayList<String>>() {
+            @Override
+            public int compare(ArrayList<String> o1, ArrayList<String> o2) {
+                return o1.get(1).compareToIgnoreCase(o2.get(1));
+            }
+        });
         return gamesSessionData;
     }
     

@@ -2,10 +2,32 @@
     font-family: CharleMagne;
     src: url(fonts/CharlemagneStd-Bold.otf);
 }
+.fb_iframe_widget iframe {
+    opacity: 0;
+}
 
+.fb_iframe_widget {
+  background-image: url(../images/fbico.png);
+  background-repeat: no-repeat; 
+  background-position: center;
+}
+.fb_iframe_widget:hover { 
+  background-image: url(../images/fbicohover.png);
+}
+
+.loader{
+    background: #720000;
+    width: 101%;
+    height: 100%;
+    z-index: 100;
+    
+    position: absolute;
+    visibility:visible;
+}
 
 html { 
-    background: url("../images/background/blackpattern3.jpg") no-repeat center center fixed; 
+/*    background: url("../images/background/blackpattern3.jpg") no-repeat center center fixed; */
+    background-color: black;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

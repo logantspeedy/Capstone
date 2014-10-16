@@ -1,5 +1,6 @@
 package ServerClasses;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /** 
@@ -12,11 +13,24 @@ public class Player {
 	private String name;
 	private String house;
 	private int army;
+        protected int territoriesControlled;
+        protected boolean active;
+        protected String homeTerritory;
+        protected int attackBonus;
+        protected ArrayList<String> ATTACK_BONUS_NORTH;
+        protected ArrayList<String> ATTACK_BONUS_MID;
+        protected ArrayList<String> ATTACK_BONUS_RIGHT;
 	
 	public Player(String name, int troops){
 		this.setName(name);
 		this.setArmy(troops);
                 this.setHouse("");
+                this.territoriesControlled = 0;
+                this.active = true;
+                this.attackBonus = 0;
+                this.ATTACK_BONUS_NORTH = new ArrayList<String>();
+                this.ATTACK_BONUS_MID = new ArrayList<String>();
+                this.ATTACK_BONUS_RIGHT = new ArrayList<String>();
 	}
 
 	public int getArmy() {
@@ -40,7 +54,8 @@ public class Player {
 	}
 
 	public void setHouse(String house) {
-                System.out.println("In Player:" +this.name+" set House, Target house to set:"+house);
+                System.out.println("In Player:" +this.name+" set House, Target house to set: "+house);
+                if (house == null){house ="";}
 		this.house = house;
 	}
 

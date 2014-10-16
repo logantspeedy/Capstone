@@ -103,11 +103,15 @@ function setSVGClickEvents(i) {
                                             console.log(first + second);
                                             $("#" + id).attr('class', 'defend');// change class of clicked svg
                                             $(".defenderClick").attr('class', "default"); // reset class of adjacent areas, owned by other players
+                                            setTimeout(function(){
+                                                $("#" + id).attr('class', 'default'); // reset class of clicked svg 
+                                                $(".attack").attr('class', "default"); // reset class of first clicked svg 
+                                            },1000);
                                             post({command: "attack", attackingterritory: first, defendingterritory: second});
                                             first = null;
                                             second = null;
-                                            $("#" + id).attr('class', 'default'); // reset class of clicked svg 
-                                            $(".attack").attr('class', "default"); // reset class of first clicked svg 
+//                                            $("#" + id).attr('class', 'default'); // reset class of clicked svg 
+//                                            $(".attack").attr('class', "default"); // reset class of first clicked svg 
                                             break;
                                         }
                                         else {
@@ -235,12 +239,12 @@ function mouseoverHandler(i) {
                 case "attack":
                     {
                         if (gto === player) {
-                            if (gca === true){
-                                if (gttc > 1){
-                                $("#" + id).attr('class', 'attackerHover');
-                                setOppositionClass(input, "defenderHover");
+                            if (gca === true) {
+                                if (gttc > 1) {
+                                    $("#" + id).attr('class', 'attackerHover');
+                                    setOppositionClass(input, "defenderHover");
+                                }
                             }
-                        }
                         }
                         break;
                     }

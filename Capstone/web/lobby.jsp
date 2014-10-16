@@ -12,9 +12,11 @@
 
 <html>
     <head>
-                <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+                <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+                <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui-smooth.css">
         <!--load scripts-->
-        <script src='js/jquery-1.9.1.js' type='text/javascript'></script>
+        <script src='${pageContext.request.contextPath}/js/jquery-1.9.1.js' type='text/javascript'></script>
+        
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/layouts.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/pagesizing.js"></script>
         <!--<script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>-->
@@ -23,7 +25,6 @@
         
 
         <!--style sheet and meta data-->
-        <link type="text/css" rel="stylesheet" href="js/hover/jquery.qtip.css" />
         <link rel="stylesheet" type="text/css" href="css/htmlBody.css">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" type="text/css" href="css/fontsandColours.css">
@@ -31,10 +32,10 @@
         
 
          
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <script src="//cdn.pubnub.com/pubnub.min.js"></script>  
-        
-        <script type="text/javascript" src="js/hover/jquery.qtip.js"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+       
+        <script src='${pageContext.request.contextPath}/js/jquery-ui.js' type='text/javascript'></script>
+
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/javaScript.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/displayers.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/gameLogic.js"></script>
@@ -44,7 +45,6 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/setters.js"></script>
         
         <title>Game of Thrones - login</title>
-        
     </head>
     <body>
 
@@ -60,7 +60,7 @@
         
         
         <div class="mainContainer">
-        
+
             <div class="header"><img class="gameBanner" src="images/banners/gameBanner.png" alt="Game Of Thrones" style="width:80%;height:180%;"></div>
 
             <div class="login" style="padding:30px;height:10%;font-size: 2.5vw;color:#720000;;font-family: CharleMagne;">
@@ -150,7 +150,7 @@
             </div>
             <div id="buildplayers"></div>
             <div id="buildgames"></div>
-            <div id="ingame">false</div><div id="ingame-private">false</div>
+            <div id="ingame">false</div><div id="ingame-private">false</div><div id="game-owner"></div>
             <div class="footer" ><hr/><p>a Team4 Production 2014 Massey capstone@massey.ac.nz ©</div>
 
         </div>
@@ -159,10 +159,8 @@
         
 </body>
         
-<script>
-            
-    
-    
+<script>        
+            $("#game-owner").hide()
             $("#buildplayers").hide();
             $("#buildgames").hide();
             $(".alert-warning").hide();
@@ -178,7 +176,10 @@
                     updateFromBuildGames();
                     checkStartGame();
                     updateFromBuildPlayers();
+                    //$(".invite").hide();
+
                     checkInvites();
+                                        
                     checkInGame();
 
             }    
@@ -329,12 +330,27 @@
                   dataType : 'json',
                   data: {command: "checkuseringame", sessionid: sessionId}
                   }).done(function( ingame ) {
+                      var colorTag = "";
+                      var youText = "";
+                      if ($("#username").text() === data[playerIndex][0]){
+                         colorTag = 'style="background-color:#d9edf7;"';
+                         youText = " <strong>(you)</strong>&nbsp;";
+    
+                        }
+                        
                           if (ingame === true){
-                              $("#buildplayers").append('<li id="' + data[playerIndex][0] +'" class="list-group-item">' + data[playerIndex][0] + '&nbsp;</li>');
+                              
+                              $("#buildplayers").append('<li ' + colorTag + ' id="' + data[playerIndex][0] +'" class="list-group-item">' + data[playerIndex][0] + '&nbsp;' + youText + '</li>');
                           }
                           else{
-                              $("#buildplayers").append('<li id="' + data[playerIndex][0] +'" class="list-group-item">' + data[playerIndex][0] + '&nbsp;<button type="submit" class="btn btn-warning invite" onclick="inviteUser(\'' + data[playerIndex][1] + '\')">Invite</button></li>');
+                              if ($("#game-owner").html() === "true"){
+                                $("#buildplayers").append('<li ' + colorTag + ' id="' + data[playerIndex][0] +'" class="list-group-item">' + data[playerIndex][0] + '&nbsp;' + youText + '<button type="submit" class="btn btn-warning invite" onclick="inviteUser(\'' + data[playerIndex][1] + '\')">Invite</button></li>');
+                            }
+                            else{
+                               $("#buildplayers").append('<li ' + colorTag + ' id="' + data[playerIndex][0] +'" class="list-group-item">' + data[playerIndex][0] + '&nbsp;' + youText + '</li>'); 
+                            }
                           }
+                          $("invite").hide();
                           checkInGame();
 
 
@@ -394,16 +410,20 @@
                             success: function(inGame) {
                                 //console.log(data[x]);
                             //console.log("for game " + gameName + " the answer is " + inGame);
-                            
+                            var numberPlayers = players.split(",").length;
                             if (inGame === true){
                             if (sessionId === gameSessionId){
-                                $( "#buildgames" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary start" onclick="startGame(\'' + gameSessionId + '\')">Start</button>&nbsp;<button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');
+                                $("#game-owner").html("true");
+                                
+                                $( "#buildgames" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;background-color:#d9edf7;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '"><button type="submit" class="btn btn-default more-info" onclick="$(\'#show-more-'+gameSessionId+'\').dialog({resizable: false, dialogClass: \'dialog-style\'});">▼</button> &nbsp;&nbsp;' + gameName + ' &nbsp;<strong>(owner)</strong> &nbsp;&nbsp;&nbsp;Players: ' + numberPlayers + '/6 <strong style="color:red;"> &nbsp;&nbsp;&nbsp;' +    gameType + '</strong><div style="display:inline;float:right;"><button type="submit" class="btn btn-primary start" onclick="startGame(\'' + gameSessionId + '\')">Start</button>&nbsp;<button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div>\n\</li>'); 
+                                $( "#buildgames" ).append('<div id="show-more-'+gameSessionId+'" style="display:none;" title="Game Details">Created by: '+ createdBy + ' </br> Players: ' + players + ' </br> Game Type: ' + gameType + '</div>');                          
                                 if(private === "true"){
                                     $("#ingame-private").html("true");
                                 }
                             }
                             else{
-                                    $( "#buildgames" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');
+                                    $( "#buildgames" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;background-color:#d9edf7;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '"><button type="submit" class="btn btn-default more-info" onclick="$(\'#show-more-'+gameSessionId+'\').dialog({resizable: false, dialogClass: \'dialog-style\'});">▼</button> &nbsp;&nbsp;' + gameName + ' &nbsp;<strong>(joined)</strong> &nbsp;&nbsp;&nbsp;Players: ' + numberPlayers + '/6<strong style="color:red;"> &nbsp;&nbsp;&nbsp;' +    gameType + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-danger leave" onclick="leaveGame()">Leave</button></div></li>');
+                                    $( "#buildgames" ).append('<div id="show-more-'+gameSessionId+'" style="display:none;" title="Game Details">Created by: '+ createdBy + ' </br> Players: ' + players + ' </br> Game Type: ' + gameType + '</div>'); 
                             }
                             $(".join").hide();
                             $("#create-game").hide();
@@ -412,7 +432,8 @@
                             }
                             else{  
                                 if (private === "false"){
-                                    $( "#buildgames" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '">' + gameName + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary join" onclick="joinGame(\'' + gameSessionId + '\')">Join</button></div></li>');
+                                    $( "#buildgames" ).append('<li id="' + gameSessionId + '" class="list-group-item" style="padding:30px;" title="Created by: '+ createdBy + ' \n Players: ' + players + ' \n Game Type: ' + gameType + '"><button type="submit" class="btn btn-default more-info" onclick="$(\'#show-more-'+gameSessionId+'\').dialog({resizable: false, dialogClass: \'dialog-style\'});">▼</button> &nbsp;&nbsp;' + gameName + ' &nbsp;&nbsp;&nbsp;Players: ' + numberPlayers + '/6<strong style="color:red;"> &nbsp;&nbsp;&nbsp;' +    gameType + '<div style="display:inline;float:right;"><button type="submit" class="btn btn-primary join" onclick="joinGame(\'' + gameSessionId + '\')">Join</button></div></li>');
+                                    $( "#buildgames" ).append('<div id="show-more-'+gameSessionId+'" style="display:none;" title="Game Details">Created by: '+ createdBy + ' </br> Players: ' + players + ' </br> Game Type: ' + gameType + '</div>'); 
                                 } 
   
                                 
@@ -446,12 +467,15 @@
               
               
           function createGame(){ 
+                $("#game-owner").html("true");
+                $(".invite").hide();
                 var username = $('#username').text();
                 var gamename = $('#create-input').val();
                 if (gamename === "" || username === ""){
                     console.log("Error creating game");
                     return;
                 }
+                
                 $.ajax({
                   type: "POST",
                   url: "MainServlet",
@@ -463,6 +487,7 @@
           }
           
         function leaveGame(){
+            
             $.ajax({
                   type: "POST",
                   url: "MainServlet",
@@ -476,6 +501,7 @@
             $(".join").show();
             $(".invite").hide();
             $("#ingame").html("false");
+            $("#game-owner").html("false");
             $("#ingame-private").html("false");
             $("#create-game").show();
             updateGameList();
@@ -483,6 +509,7 @@
         }    
             
         function joinGame(sessionId){
+            $("#game-owner").html("false");
             $(".alert-warning").hide();
             var username = $('#username').text();
             $.ajax({

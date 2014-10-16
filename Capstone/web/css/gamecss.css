@@ -141,6 +141,7 @@ body {
     margin-top: 5%;
     margin-left: 35%;
     font-size: 1vw;
+    cursor: pointer;
     /*background: blue;*/
     /*float: top;*/
     /*background-color: green;*/
@@ -362,6 +363,7 @@ a:active {
     /*background-color: red;*/
     font-size: 1vw;
     overflow: hidden;
+    cursor: pointer;
     
 }
 .banners{

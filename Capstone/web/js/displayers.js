@@ -183,21 +183,21 @@ function insertInfoTable(){
         if (currentPhase ==="attack"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/attack.png'</img><p>click to end phase</p>");}
         if (currentPhase ==="fortify"){$('.phase').empty().append("<img style='width:100%; height:100%' src='images/banners/for.png'</img><p>click to end phase</p>");}
     }
-    else{ $('.phase').empty().append("<h3>Current Player</h3><img width='80%' height='auto' src='images/banners/"+currentPlayerHouse.toLowerCase()+"Banner.png' />");
+    else{ $('.phase').empty().append("<h3>Current Player</h3><img width='40%' height='auto' src='images/banners/"+currentPlayerHouse.toLowerCase()+"Banner.png' />");
         
     }
 
 }
 
 function teston(id){
-    var bannerId = "#"+id+"";
-    console.log(bannerId+"in");
-    $(bannerId).fadeIn("fast");
-    setTimeout(function(){$(bannerId).fadeOut("fast");},2500);
+//    var bannerId = "#"+id+"";
+//    console.log(bannerId+"in");
+//    $(bannerId).fadeIn("fast");
+//    setTimeout(function(){$(bannerId).fadeOut("fast");},2500);
 }
 function testout(id){
     var bannerId = "#"+id+"";
-    console.log(bannerId+"out");
+//    console.log(bannerId+"out");
 //    setTimeout(function(){$(bannerId).fadeOut("fast");},1500);
     $(bannerId).toggle();
 }

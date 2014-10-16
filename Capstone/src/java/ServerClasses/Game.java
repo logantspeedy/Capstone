@@ -25,6 +25,7 @@ public class Game {
         private String startingPlayer;  
         private int captureCounter;       
         private ArrayList<String> gameHistory;
+        private int gameVersion;
         
 //	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
         final int[] startingTroops = new int[]{15, 15, 15, 15, 10};	
@@ -42,7 +43,8 @@ public class Game {
 		board = new Board();
 		int troops = startingTroops[players.length - 2];		
 		CreateGameBoard gameBoard = new CreateGameBoard();			
-		board.setBoard(gameBoard.getNodes());	
+		board.setBoard(gameBoard.getNodes());
+                gameVersion = 1;
 				
 		for(int i = 0;i < players.length; i++){
 			Player player = new Player(players[i], troops);
@@ -222,7 +224,7 @@ public class Game {
 					board.changeTroops(territory, 1);						
 					currentPlayer.setArmy(currentPlayer.getArmy() - 1);   
                                         currentPlayer.territoriesControlled++;
-                                        addGameHistory(player, "", territory, "", 0, "");
+                                        addGameHistory(player, "", territory, "", 0, new int[0]);
 					claimCounter++;                                        
 					//Automatically go to next players turn.
 					nextPhase();
@@ -253,7 +255,7 @@ public class Game {
                                     currentPlayer = playerList.get(playerList.indexOf(currentPlayer));                                   
                                     board.changeTroops(territory, troops);
                                     currentPlayer.setArmy(currentPlayer.getArmy() - troops);
-                                    addGameHistory(currentPlayer.getName(), "", territory, "", 1, "");
+                                    addGameHistory(currentPlayer.getName(), "", territory, "", 1, new int[0]);
                                     //Check to see if the player can't place any more troops, then move to next phase.
                                     //Or still in setup phase then need to switch to next player.
                                     if((currentStage.equals("game") && currentPlayer.getArmy() == 0) || currentStage.equals("setup")){
@@ -291,7 +293,7 @@ public class Game {
                                             
 					board.fortify(startTerritory, targetTerritory, troops);
 					captureCounter--;
-                                        addGameHistory(currentPlayer.getName(), "", startTerritory, targetTerritory, troops, "");
+                                        addGameHistory(currentPlayer.getName(), "", startTerritory, targetTerritory, troops, new int[0]);
                                         System.out.println("After: " + board.getTroops(startTerritory) + " " + board.getTroops(targetTerritory));   
                                         if(captureCounter == 0){
                                             nextPhase();
@@ -327,35 +329,19 @@ public class Game {
                                                 Bonuses bonuses = new Bonuses();
 						int aArmy = calcArmySize(attackingTerritory, true);
 						int dArmy = calcArmySize(defendingTerritory, false);
+                                                int initialAttArmy = aArmy;
+                                                int initialDefArmy = dArmy;
+                                                int result[] = new int[2];
 						//Roll dice.
 						int[] aRolls = rollDice(attackingTerritory, aArmy);
 						int[] dRolls =  rollDice(defendingTerritory, dArmy);
                                                 //Add bonus to rolls:
                                                 if(currentPlayer.attackBonus != 0){
                                                     aRolls = bonuses.addAttackBonus(aRolls, currentPlayer.attackBonus);
-                                                }
-                                                String rolls = "";
+                                                }                                                
                                                 //Set last rolls for client side to display;
-                                                for(int i = 2; i > -1;i--){                                                   
-                                                    if(aRolls[i] == -1){
-                                                        
-                                                    }
-                                                    else{
-                                                        rolls += "\n\t" + aRolls[i];
-                                                    }
-                                                    if(dRolls[i] == -1){
-                                                        
-                                                    }
-                                                    else{
-                                                        if(aRolls[i] == -1){
-                                                           rolls += "\n\t" + dRolls[i]; 
-                                                        }
-                                                        else{
-                                                            rolls += "\t " + dRolls[i];
-                                                        }
-                                                    }
-                                                }
-                                                addGameHistory(attacker, defender, attackingTerritory, defendingTerritory, 0, rolls);
+                                                
+                                                
                                                 //See if defender has defending bonus and change army size back.
                                                 if(!defender.equals("Nomad")){
                                                     if(getPlayer(defender).homeTerritory.equals((defendingTerritory))){
@@ -388,6 +374,9 @@ public class Game {
 								dArmy--;
 							}
 						}
+                                                result[0] = initialAttArmy - aArmy;
+                                                result[1] = initialDefArmy - dArmy;
+                                                addGameHistory(attacker, defender, attackingTerritory, defendingTerritory, 0, result);
 						//Check to see if player now controls territory and change accordingly.
 						if(dArmy == 0 && board.getTroops(defendingTerritory) == 0){
                                                     Player defendingPlayer = null;
@@ -403,6 +392,7 @@ public class Game {
                                                     board.changeTroops(defendingTerritory, aArmy);
                                                     board.getNode(defendingTerritory).setAttack(false);
                                                     currentPlayer.territoriesControlled++;
+                                                    addGameHistory(attacker, defender, attackingTerritory, defendingTerritory, -1, result);
                                                     
                                                     //******************Bonuses************************
                                                     //Check north bonus:
@@ -460,7 +450,7 @@ public class Game {
 						//Update territories troops.
 						else{
 							board.changeTroops(attackingTerritory, aArmy);
-							board.changeTroops(defendingTerritory, dArmy);
+							board.changeTroops(defendingTerritory, dArmy);                                                        
 						}                                               
 					}
 				}							
@@ -572,6 +562,7 @@ public class Game {
 			}		
 		}
                 setCurrentPlayer(startingPlayer);
+                gameVersion++;
                 gameHistory = new ArrayList<String>();
 	}
         
@@ -601,19 +592,25 @@ public class Game {
             }          
         } 
         
-        private void addGameHistory(String player1, String player2, String territory1, String territory2, int troops, String rolls){           
+        private void addGameHistory(String player1, String player2, String territory1, String territory2, int troops, int[] results){
+            gameVersion++;
             switch(currentPhase){                
                 case "claim":
-                    gameHistory.add(player1 + " claimed " + territory1);
+                    gameHistory.add(player1 + " claimed " + territory1 + ".");
                     break;
                 case "attack":
-                    gameHistory.add(player1 + " attacked " + player2 +"'s territory " + territory2 + " with " + territory1 + ". \nRolls:" + rolls);
-                    break;
+                    gameHistory.add(player1 + " attacked " + player2 +"'s territory " + territory2 + " with " + territory1 + ". " + territory1 + " lost " + results[0] + " troops,"
+                            + " and " + territory2 + " lost " + results[1] + "troops.");
+                    if(troops == -1){
+                        gameHistory.add(player1 + " took control of " + territory2 + ".");
+                        break;
+                    }
+                    else break;
                 case "reinforce":
-                    gameHistory.add(player1 + " reinforced " + territory1);
+                    gameHistory.add(player1 + " reinforced " + territory1 +".");
                     break;
                 case "fortify":
-                    gameHistory.add(player1 + " moved " + troops + " from " + territory1 + " to " + territory2);
+                    gameHistory.add(player1 + " moved " + troops + " from " + territory1 + " to " + territory2+ ".");
                     break;
             }
             if(gameHistory.size() > 10){

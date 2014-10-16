@@ -19,8 +19,8 @@
                   }).done(function(data) {
                             console.log("In Logging Complete");
                             setCookie("username", username,20);
-                            //window.location.href = 'lobby2.jsp';
+                            //window.location.href = 'lobby.jsp';
 
                   }); 
-                setTimeout(function () { window.location.href = 'lobby2.jsp';}, 500);
+                setTimeout(function () { window.location.href = 'lobby.jsp';}, 500);
               }

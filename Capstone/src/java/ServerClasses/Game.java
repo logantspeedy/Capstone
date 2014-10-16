@@ -19,12 +19,12 @@ public class Game {
 	protected String currentPhase;        
 	private int playerPos;
 	private int phaseStage;
-	private final int noOfTerritories = 33;
+	private int noOfTerritories;
 //        private final int noOfTerritories = 8;
 	private int claimCounter;
         private String startingPlayer;  
         private int captureCounter;       
-        private ArrayList<String> gameHistory;
+        protected ArrayList<String> gameHistory;
         private int gameVersion;
         
 	final int[] startingTroops = new int[]{40, 35, 30, 25, 20};	
@@ -37,7 +37,8 @@ public class Game {
 		currentPlayer = null;		
 		claimCounter = 0;   
 		captureCounter = 1;
-		playerPos = 0; 
+		playerPos = 0;
+                noOfTerritories = 33;
                 gameHistory = new ArrayList<String>();
 		playerList = new ArrayList<Player>();		
 		board = new Board();
@@ -388,6 +389,9 @@ public class Game {
                                                         }
                                                         
                                                     }
+                                                    else{
+                                                        noOfTerritories++;
+                                                    }
                                                     board.changeController(defendingTerritory, currentPlayer.getName());
                                                     board.changeTroops(defendingTerritory, aArmy);
                                                     board.getNode(defendingTerritory).setAttack(false);
@@ -442,7 +446,7 @@ public class Game {
                                                     }
                                                     //*******************End of bonus**************************
                                                     
-                                                    if(currentPlayer.territoriesControlled == 42){
+                                                    if(currentPlayer.territoriesControlled == noOfTerritories){
                                                         currentStage = "Game Won";
                                                     }
                                                     captureCounter++;
